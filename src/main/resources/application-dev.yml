@@ -1,0 +1,80 @@
+server:
+    externalUrl: http://randy1.free.ngrok.cc
+    port: 8081
+
+spring:
+    resources: # 指定静态资源的路径
+        #static-locations: file:./static/,file:./views/
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        druid:
+            first:  #数据源1
+                url: jdbc:mysql://gz-cdb-45farkqt.sql.tencentcdb.com:61818/md_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+                username: dev
+                password: dev@grx888#
+            second:  #数据源2
+                url: jdbc:mysql://localhost:3306/cxb_dev1?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+                username: renren
+                password: 123456
+            initial-size: 10
+            max-active: 100
+            min-idle: 10
+            max-wait: 60000
+            pool-prepared-statements: true
+            max-pool-prepared-statement-per-connection-size: 20
+            time-between-eviction-runs-millis: 60000
+            min-evictable-idle-time-millis: 300000
+            validation-query: SELECT 1 FROM DUAL
+            test-while-idle: true
+            test-on-borrow: false
+            test-on-return: false
+            stat-view-servlet:
+                enabled: true
+                url-pattern: /druid/*
+                #login-username: admin
+                #login-password: admin
+            filter:
+                stat:
+                    log-slow-sql: true
+                    slow-sql-millis: 1000
+                    merge-sql: true
+                wall:
+                    config:
+                        multi-statement-allow: true
+    thymeleaf:
+      cache: false
+    redis:
+        open: false  # 是否开启redis缓存  true开启   false关闭
+
+wechat:
+    appId:
+    appSecret: bbf797b658fdab27faa2543aaf536df0
+    cancelMessageTemplateId: 0-Wnpe8OBxpturYjfS7Ncqiy5CoRa7BYVMl-1WZRsfo
+    confirmOrderTemplateId: P34jB45H0024_dw79ZQt9pQlgsA_4BWJrRp74hG8qJ4
+    createExtensionTemplateId: P34jB45H0024_dw79ZQt9pQlgsA_4BWJrRp74hG8qJ4
+    confirmExtensionTemplateId: P34jB45H0024_dw79ZQt9pQlgsA_4BWJrRp74hG8qJ4
+    rejectExtensionTemplateId: 0-Wnpe8OBxpturYjfS7Ncqiy5CoRa7BYVMl-1WZRsfo
+    repayTemplateId: wx7C4mriscmsTUpmvi6vlPKsIFToef9WW_HV0mdoKOA
+    rejectRepayTemplateId: WdveHSxo3UPNV7a2pXV505kTqWYb5gMf00tZxW73vUc
+    confirmRepayTemplateId: SngQS-8_86WrUDsp5E4XI2u0txY4oc5Ssmk246LWitU
+
+sms:
+  enabled: true
+  allowFakeCode: true
+  fakeCode: 123456
+
+bank:
+  enabled: true
+
+phoneCheck:
+  enabled: false
+
+upload:
+  path: /home/md/upload
+
+tianji:
+  userPrefix: "MT01"
+
+yixiang:
+  userPrefix: "MT01"

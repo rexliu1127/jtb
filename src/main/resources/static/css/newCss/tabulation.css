@@ -1,0 +1,108 @@
+@charset "utf-8";
+/* CSS 列表 */
+.input-Box, .textarea-Box, .select-Box {
+	height: 30px;
+	padding: 0 10px;
+}
+.tabulation {
+	margin: 0 10px 88px;
+}
+.tabulation .headline {
+	background-color: #fff;
+}
+.tabulation .seek {
+	padding: 10px;
+	background-color: #fff;
+}
+.tabulation .seek ul li {
+	margin: 0 0 10px;
+}
+.tabulation .seek ul li .daterange {
+	position: relative;
+}
+.tabulation .seek ul li .daterange i {
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	top: 5px;
+	left: 50%;
+	margin: 0 0 0 -10px;
+	font-size: 12px;
+	text-align: center;
+	color: #fff;
+	background-color: #bfbfbf;
+	display: inline-block;
+	position: absolute;
+}
+.tabulation .seek ul li .daterange input:nth-child(1) {
+	padding: 0 20px 0 10px;
+	border-width: 1px 0 1px 1px;
+}
+.tabulation .seek ul li .daterange input:nth-child(2) {
+	padding: 0 10px 0 20px;
+	border-width: 1px 1px 1px 0;
+}
+.tabulation .seek ul li .btn {
+	height: 30px;
+	line-height: 30px;
+	margin: 26px 10px 0;
+	padding: 0 50px;
+}
+.tabulation .manage {
+	padding: 10px 20px;
+	background-color: #fff;
+}
+.tabulation .manage .btn {
+	height: 30px;
+	line-height: 30px;
+	padding: 0 50px;
+}
+.tabulation .btn:hover {
+	opacity: 0.7;
+}
+.tabulation .overview {
+	padding: 20px 0;
+	background-color: #fff;
+}
+.tabulation .overview ul li {
+	padding: 0 20px;
+}
+.tabulation .overview ul li.overdue strong {
+	color: #fb182e;
+}
+.tabulation .overview ul li.overdue span {
+	color: #ff6473;
+}
+.tabulation .overview strong {
+	line-height: 28px;
+	font-size: 22px;
+	font-weight: 500;
+	color: #666;
+	display: block;
+}
+.tabulation .overview span {
+	font-size: 14px;
+	color: #999;
+}
+.tabulation .formList {
+	padding: 20px;
+	background-color: #fff;
+}
+.tabulation .formList table input {
+	vertical-align: middle;
+}
+.tabulation .formList thead {
+	background-color: #0475ff
+}
+.tabulation .formList thead tr th {
+	color: #fff;
+}
+.tabulation .formList tbody tr td a {
+	color: #4676ff;
+}
+.tabulation .formList .checkbox label::before {
+	top: 3px;
+}
+.tabulation .formList .checkbox label::after {
+	top: 2px;
+}

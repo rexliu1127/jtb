@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../../../css/weui.css"/>
+    <link rel="stylesheet" href="../../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../../css/wx_main.css"/>
+    <link rel="stylesheet" href="../../../css/wx/passwordbox.css"/>
+    <link href="../../../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        #maskContent p {
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+    <script src="../../../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../../../js/wx_common.js"></script>
+    <script src="../../../js/wx/repayment_repay_view.js"></script>
+    <script th:inline="text">
+        var userMobile = '[[${TX_USER.mobile}]]';
+    </script>
+</head><body ontouchstart="" class="body_bg">
+
+<div class="body_contant">
+    <h1><span class="bo_ico1"></span>借款内容</h1>
+    <div class="borrow_content">
+        <ul>
+            <li>
+                <span>借款人</span><font th:text="${tx.borrowerName}">RINA</font>
+            </li>
+            <li>
+                <span>出借人</span><font th:text="${tx.lenderName}">LIN</font>
+            </li>
+            <li>
+                <span>借款金额</span><font th:inline="text">¥[[${tx.amount}]]元</font>
+            </li>
+            <li>
+                <span>借款日期</span><font th:text="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}">2017-09-18</font>
+            </li>
+            <li>
+                <span>还款日期</span><font th:text="${#dates.format(tx.endDate, 'yyyy-MM-dd')}">2017-10-18</font>
+            </li>
+            <li>
+                <span>借款利率</span><font th:text="${tx.rate + '%'}">8％</font>
+            </li>
+            <li>
+                <span>借款用途</span><font th:text="${tx.usageType.displayName}">其他</font>
+            </li>
+            <li>
+                <span>补充说明</span><font th:text="${tx.remark}">无</font>
+            </li>
+            <li>
+                <span>借款协议</span><font><a class="yellow" th:href="${'../../transaction/agreement?txId=' + tx.txId}">点击查看</a></font>
+            </li>
+        </ul>
+    </div>
+    <div class="borrow_content">
+        <ul>
+            <li>
+                <span>展期历史</span><font><a class="yellow" th:href="${'../extension/' + txId}">查看展期历史</a></font>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="borrow_bottom">
+    <div class="borrow_but"
+         th:if="${tx.lenderUserId == TX_USER.userId and tx.repayDate == null and txRepayment != null AND (txRepayment.status == T(io.grx.modules.tx.enums.RepaymentStatus).NEW)}">
+        <input id="repaymentId" type="hidden" th:value="${txRepayment.repaymentId}" />
+        <a class="but_color_b" id="canncel">未收到还款</a>
+        <a class="but_color_y" id="confirm">已收到还款</a>
+    </div>
+</div>
+
+
+<div id="keyboardDIV">
+    <p id="set_text"></p>
+    <form id="password" >
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+    </form>
+    <p id="forget"><a href="javascript:goForgetPasswordPage();">忘记密码?</a></p>
+</div>
+<div id="password_mask"></div>
+<script src="../../../js/wx/passwordbox.js"></script>
+</body>
+</html>

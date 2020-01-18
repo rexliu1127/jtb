@@ -1,0 +1,11 @@
+.bigGray{width: 120px;height: 120px;margin: auto;margin-top: 40px;background: url(../img/shpro/pay-1.png);background-size: contain;}
+.remind-payment
+{
+	line-height:0.8rem;
+	text-align: center;
+	letter-spacing: 2px;
+	font-size: 0.3rem;
+	font-weight: bold;
+	color: #151515;
+	margin-top: 0.2rem;
+}

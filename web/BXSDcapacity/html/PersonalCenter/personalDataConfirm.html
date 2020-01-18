@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../../css/glabal.css">
+    <link rel="stylesheet" href="../../css/Title.css">
+    <link rel="stylesheet" href="../../css/PersonalCenter.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css">
+    <script src="../../plug/layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/my.js"></script>
+    <script>
+        layui.use('upload', function () {
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#test1' //绑定元素
+                , url: '/upload/' //上传接口
+                , done: function (res) {
+                    //上传完毕回调
+                }
+                , error: function () {
+                    //请求异常回调
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="wrapper" style="margin: auto;">
+        <div class="head-title"><a href="AuthenticationCenter.html"><span></span>个人信息认证</div>
+        <div class="Authen-input">
+            <div class="all-inp">
+                <ul>
+                    <li>个人照片</li>
+                    <li style="width: auto">
+                        <button type="button" class="layui-btn" id="test1">
+                            <i class="layui-icon">&#xe67c;</i>上传图片
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="all-inp">
+                <ul>
+                    <li>紧急联络人</li>
+                    <li><input type="text" placeholder="请输入紧急联络人" /></li>
+                </ul>
+            </div>
+            <div class="all-inp">
+                <ul>
+                    <li>学历</li>
+                    <li><input type="text" placeholder="请输入学历资讯" /></li>
+                </ul>
+            </div>
+            <div class="all-inp">
+                <ul>
+                    <li>居住地</li>
+                    <li><input type="text" placeholder="请输入居住地资讯" /></li>
+                </ul>
+            </div>
+            <div class="all-inp">
+                <ul>
+                    <li>公司名称</li>
+                    <li><input type="text" placeholder="请输入公司名称" /></li>
+                </ul>
+            </div>
+            <div class="all-inp">
+                <ul>
+                    <li>公司联系方式</li>
+                    <li style="text-indent: 0.2em;"><input type="text" placeholder="请输入公司联系方式" /></li>
+                </ul>
+            </div>
+            <div class="all-inp">
+                <ul>
+                    <li>薪资</li>
+                    <li><input type="text" placeholder="请输入薪资" /></li>
+                </ul>
+            </div>
+            <div class="all-inp">
+                <ul>
+                    <li>公司职位</li>
+                    <li><input type="text" placeholder="请输入公司职位" /></li>
+                </ul>
+            </div>
+            <div class="all-inp">
+                <ul>
+                    <li>公司地址</li>
+                    <li><input type="text" placeholder="请输入公司地址" /></li>
+                </ul>
+            </div>
+        </div>
+        <a href="AuthenticationCenter.html">
+        <div class="nextBtn">
+            <button>提交</button>
+        </div>
+        </a>
+    </div>
+    </div>
+</body>
+
+</html>

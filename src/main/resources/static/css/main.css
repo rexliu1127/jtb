@@ -1,0 +1,185 @@
+html {
+	overflow-x: hidden;
+}
+.content-header {
+	position: relative;
+	padding: 0 0 3px 8px
+}
+.content-header>.breadcrumb {
+	position: relative;
+	top: 0;
+	right: 0;
+	float: none;
+	margin-top: 0px;
+	padding-left: 10px;
+	background: #ecf0f5;
+}
+.main-footer {
+	padding: 7px;
+	color: #444;
+	border-top: 1px solid #eee;
+}
+ [v-cloak] {
+ display: none;
+}
+.grid-btn {
+	margin: 20px 0;
+}
+.grid-btn .btn {
+	margin-right: 10px;
+}
+.pointer {
+	cursor: pointer;
+}
+.ml-10 {
+	margin-left: 0 !important;
+}
+@media (min-width: 768px) {
+.ml-10 {
+	margin-left: 10px !important;
+}
+.col-sm-10 {
+	width: 70%;
+	padding-left: 0px;
+}
+.col-sm-2 {
+	width: 24%;
+}
+}
+tbody > tr > th {
+	font-weight: normal;
+}
+.panel .table {
+	margin: 0 0;
+}
+.panel .pagination {
+	margin: 0;
+}
+.row {
+	border-top: 1px solid rgba(0,0,0,.2);
+	margin: 0;
+	padding: 20px 2px 0px 2px;
+}
+.col-xs-6 {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.btn-save{
+	margin-top: 100px;
+	position: relative;
+	left: 300px;
+	top: 0px;
+}
+.span-txt{
+	color: #ccc;
+	font-weight: normal;
+	font-size: 14px;
+	padding-left: 10px;
+}
+.cpa-style{
+	width: 200px;
+	line-height: 45px;
+	font-size: 20px;
+	background: #0475ff;
+	color: #fff;
+	text-align: center;
+	margin-top: 10px;
+}
+.form-horizontal .form-group {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.from-ask{
+	float: left;
+	padding-right: 0px;
+	width: 432px
+}
+.form-range{
+	float: left;
+	width: 450px;
+	padding-right: 0px
+}
+.form-number{
+	float: left;
+	width: auto!important;
+	padding-left: 75px!important;
+}
+.padding-left{
+	padding-left: 0px
+}
+.layui-layer-content {
+	height: auto !important;
+}
+.form-horizontal {
+	width: 450px;
+	padding: 20px;
+}
+.lableSlect{
+	width: 100%;
+	height: 70px;
+	font-size:18px
+}
+.AdvanceAuthen{
+	width: 100px;
+}
+.lableSlect >select{width: 168px;height: 30px}
+#jqGrid {
+	min-height: 50px;
+}
+table#jqGrid tr:nth-child(odd) {
+	background-color: #eef6ff;
+}
+.ml15 {
+	margin-left: 15px;
+}
+.skin-blue-light .treeview-menu>li.active>a, .skin-blue-light .treeview-menu>li>a:hover {
+	background-color: #80b9ff;
+    color: #fff;
+}
+#searchTable {
+	width: auto;
+	line-height: 40px;
+	border: none;
+}
+#searchTable td {
+	padding-right: 10px;
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+::-webkit-scrollbar {
+ width: 8px;
+ height: 8px;
+}
+/*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track {
+ -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+ border-radius: 0px;
+ background-color: #F5F5F5;
+}
+/*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb {
+ border-radius: 0px;
+ -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+ background-color: #555;
+}
+::-webkit-scrollbar-track-piece {
+ background-color: #fff;
+ -webkit-border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+ height: 2px;
+ background-color: rgba(125, 125, 125, 0.7);
+ -webkit-border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+ width: 8px;
+ background-color: rgba(125, 125, 125, 0.7);
+ -webkit-border-radius: 0px;
+}
+.clear:after {
+	clear: both;
+	display: table;
+	content: ''
+}

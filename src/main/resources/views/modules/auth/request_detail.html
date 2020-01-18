@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>申请单</title>
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+<link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+<link rel="stylesheet" href="../../css/font-awesome.min.css"/>
+<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css"/>
+<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css"/>
+<link rel="stylesheet" href="../../css/viewer.min.css"/>
+<link rel="stylesheet" href="../../css/main.css"/>
+<link rel="stylesheet" href="../../css/backEnd.css"/>
+<link rel="stylesheet" href="../../css/newRequestDetails.css"/>
+<link rel="stylesheet" href="../../css/myPagination.css">
+
+<style>
+.head-row {
+	height: 80px;
+	margin-bottom: 20px;
+}
+.head-img {
+	width: 50px;
+}
+.head-name {
+	font-size: 24px;
+}
+.tab-pane {
+	margin-left: 30px;
+	margin-right: 30px;
+}
+.row {
+	border-top: 0;
+}
+.title-row {
+	
+}
+.pictures {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.pictures > li {
+	float: left;
+    margin: 0 40px 0 0;
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+    background-color: #efefef;
+}
+.pictures > li p {
+	margin: 0;
+	padding: 10px 0 0;
+	font-size: 14px;
+	color: #999;
+}
+.pictures > li > img {
+	max-width: 100%;
+	height: 200px;
+	cursor: -webkit-zoom-in;
+	cursor: zoom-in;
+}
+#timeline {
+	margin: 50px 50px 50px 80px;
+}
+#timeline .datetime {
+	font-size: 18px;
+	color: #1AAD19;
+	margin-left: 20px;
+}
+#timeline .content {
+	font-size: 16px;
+	margin-left: 40px;
+	margin-bottom: 50px;
+	margin-top: 10px;
+}
+</style>
+  <script>
+      document.querySelector("html").style.fontSize = window.screen.width*100/1280 + "px";
+      console.log(document.documentElement.clientWidth)
+
+      if (window.screen.width >= 500) {
+          document.querySelector("html").style.fontSize = window.screen.width*100/1280 + "px";
+      }
+
+  </script>
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../plugins/layer/layer.js"></script>
+<script src="../../libs/bootstrap.min.js"></script>
+<script src="../../libs/vue.min.js"></script>
+<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+<script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" class="applyForm" v-cloak>
+  <div class="applyHead">
+  
+    <div class="row head-row">
+    <img class="head-img ml15" v-if="authUser.headImageUrl != null" src="{{authUser.headImageUrl}}"/>
+    <img class="head-img ml15" v-if="authUser.headImageUrl == null" src="../../images/icon_guest.png"/>
+    <span class="ml15 head-name">{{request.name}}</span>
+    <span v-if="request.status.value == 0" class="ml15 label label-info">{{request.status.displayName}}</span>
+    <span v-if="request.status.value == 1" class="ml15 label label-warning">{{request.status.displayName}}</span>
+    <span v-if="request.status.value == 2 || request.status.value == 4" class="ml15 label label-success">{{request.status.displayName}}</span>
+    <span v-if="request.status.value == 3 || request.status.value == 5 || request.status.value == 6 || request.status.value == 7" class="ml15 label label-danger">{{request.status.displayName}}</span>
+    <span v-if="count <= 1" class="ml15 label label-success">首次申请</span> <span v-if="count > 1" class="ml15 label label-warning">第{{count}}次申请</span> 
+    <a v-if="hasPermission('auth:request:process')" class="ml15 btn btn-primary" @click="allocate">处理申请单</a>
+
+     <a v-if="hasPermission('auth:request:process')" class="ml15 btn btn-primary" @click="transactionRun">打借条</a>
+
+    </div>
+      <ul id="myTab" class="nav nav-tabs">
+          <li class="active"> <a href="#basic" data-toggle="tab"> 申请单详情 </a> </li>
+          <li><a href="#comprehensiveReport" data-toggle="tab" onclick="loadComprehensiveReport();" >综合报告</a></li>
+          <li><a href="#mobileReport" data-toggle="tab" onclick="loadMobileReport();">运营商报告</a></li>
+          <li><a href="#callLogReport" data-toggle="tab" onclick="loadMobileCallLogs()">通话详情</a></li>
+          <li><a href="#personReport" data-toggle="tab" onclick="loadPersonReport();">多头报告</a></li>
+          <li><a href="#otherReport" data-toggle="tab" onclick="loadOtherReport()">借条报告</a></li>
+          <li><a href="#report" data-toggle="tab" onclick="loadReport();">电商报告</a></li>
+          <li><a href="#otherInfo" data-toggle="tab">通讯录</a></li>
+          <!--li><a href="#other2Report" data-toggle="tab" onclick="loadOther2Report()">其他报告</a></li-->
+          <li><a href="#history" data-toggle="tab">跟踪信息</a></li>
+      </ul>
+  </div>
+
+
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="basic">
+
+      <div class="myTabContent01" id="myTabContent01">
+        <div class="newContent">
+          <div class="basic">
+            <div class="news">
+              <div class="newHead">
+                <img src="../../images/basic.png"/>
+                <span class="newHeadHtml">基本信息</span>
+              </div>
+              <div class="nweBody">
+                <div class="nweBody1">
+                  <div class="nweBody_content">
+                    <div>姓名</div>
+                    <span>{{authUser.name}}</span>
+                    <!--<div>已认证</div>-->
+                  </div>
+                  <div class="nweBody_content">
+                    <div>手机号码</div>
+                    <span>{{authUser.mobile}}</span>
+                    <!--<div>已认证</div>-->
+                  </div>
+                  <div class="nweBody_content">
+                    <div>身份证号</div>
+                    <span>{{authUser.idNo}}</span>
+                  </div>
+                </div>
+                <div class="nweBody1">
+                  <div class="nweBody_content">
+                    <div>QQ号码</div>
+                    <span>{{authUser.qqNo}}</span>
+                  </div>
+                  <div class="nweBody_content">
+                    <div>微信号码</div>
+                    <span>{{authUser.wechatNo}}</span>
+                  </div>
+                  <div class="nweBody_content">
+                    <div>公司名称</div>
+                    <span>{{authUser.companyName}}</span>
+                  </div>
+                </div>
+                <div class="nweBody1">
+                  <div class="nweBody_content">
+                    <div>公司地址</div>
+                    <span>{{authUser.companyAddr}}</span>
+                  </div>
+                  <div class="nweBody_content">
+                    <div>公司联系方式</div>
+                    <span>{{authUser.companyTel}}</span>
+                  </div>
+                  <div class="nweBody_content">
+                    <div>公司职位</div>
+                    <span>{{authUser.companyJob}}</span>
+                  </div>
+                </div>
+                <div class="nweBody1">
+                  <div class="nweBody_content">
+                    <div>薪资</div>
+                    <span>{{authUser.salary}}</span>
+                  </div>
+                  <div class="nweBody_content">
+                    <div>GPS信息</div>
+                    <span>{{request.gpsAddr}}</span>
+                  </div>
+                  <div class="nweBody_content">
+                    <div>芝麻信用分数</div>
+                    <span>{{authUser.sesamePoints}}</span>
+                  </div>
+                </div>
+                  <!-- 要求去掉<div class="nweBody1">
+                      <div class="nweBody_content">
+                          <div>淘宝芝麻信用分数</div>
+                          <span>{{authUser.taobaoSesamePoints}}</span>
+                      </div>
+                  </div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row title-row" style="padding-left: 0.3rem;padding-top: 10px;">
+        <div class="col-xs-12">
+          <h4 class="box-title">身份证信息</h4>
+          <em>(点击查看大图)</em>
+        </div>
+      </div>
+      <div class="row" id="idImages" style="margin-bottom: 100px;padding-left: 0.3rem;">
+        <ul class="pictures">
+          <li> <img class="id-pic" v-if="authUser.idUrl1 != null" v-bind:src="authUser.idUrl1"/>
+            <p>身份证正面</p>
+          </li>
+          <li> <img class="id-pic" v-if="authUser.idUrl1 != null" v-bind:src="authUser.idUrl2"/>
+            <p>身份证反面</p>
+          </li>
+          <li> <img class="id-pic" v-if="authUser.idUrl1 != null" v-bind:src="authUser.idUrl3"/>
+            <p>手持身份证</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="mobileReport">
+      <iframe src="" name="mobileFrame" id="mobileFrame" style="width: 100%; height: 788px; position:absolute;" frameborder="0" webkitAllowFullScreen mozallowfullscreen  allowFullScreen></iframe>
+    </div>
+    <div class="tab-pane fade" id="comprehensiveReport">
+      <iframe src="" name="comprehensiveFrame" id="comprehensiveFrame" style="width: 100%; height: 788px; position:absolute;" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+    <div class="tab-pane fade" id="callLogReport">
+      <iframe src="" name="callLogFrame" id="callLogFrame" style="width: 100%; height: 788px; position:absolute;" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+    <div class="tab-pane fade" id="personReport">
+      <iframe src="" name="personReportFrame" id="personReportFrame" style="width: 100%; height: 788px; position:absolute;" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+    <div class="tab-pane fade" id="report">
+      <iframe src="" name="reportFrame" id="reportFrame" style="width: 100%; height: 788px; position:absolute;" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+    <div class="tab-pane fade" id="otherReport">
+      <iframe src="" name="otherFrame" id="otherFrame" style="width: 100%; height: 788px; position:absolute;" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+    <!--div class="tab-pane fade" id="other2Report">
+      <iframe src="" name="other2Frame" id="other2Frame" style="width: 100%; height: 788px; position:absolute;" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div-->
+    <div class="tab-pane fade addressList" id="otherInfo" style="padding: 0 0.3rem 0 0.3rem;">
+      <div class="basic">
+        <div class="emergencyContact">
+          <div class="newHead">
+            <img src="../../images/basic.png"/>
+            <span class="newHeadHtml">紧急联系人电话</span>
+          </div>
+          <div class="nweBody" style="text-align:center;">
+            <div class="nweBody1">
+              <div class="nweBody_content">
+                <div>紧急联系人1</div>
+                <span>{{authUser.contact1Name}}</span>
+              </div>
+              <div class="nweBody_content">
+                <div>关系</div>
+                <span>{{authUser.contact1Type.displayName}}</span>
+              </div>
+              <div class="nweBody_content">
+                <div>手机号码</div>
+                <span>{{authUser.contact1Mobile}}</span>
+              </div>
+            </div>
+            <div class="nweBody1">
+              <div class="nweBody_content">
+                <div>紧急联系人2</div>
+                <span>{{authUser.contact2Name}}</span>
+              </div>
+              <div class="nweBody_content">
+                <div>关系</div>
+                <span>{{authUser.contact2Type.displayName}}</span>
+              </div>
+              <div class="nweBody_content">
+                <div>手机号码</div>
+                <span>{{authUser.contact2Mobile}}</span>
+              </div>
+            </div>
+            <!--<div class="nweBody1">
+              <div class="nweBody_content">
+                <div style="color:#333333;font-weight: 600;">紧急联系人3</div>
+                <span>{{authUser.contact3Name}}</span>
+              </div>
+              <div class="nweBody_content">
+                <div style="color:#333333;font-weight: 600;"><span>关系</span></div>
+                <span>{{authUser.contact3Type.displayName}}</span>
+              </div>
+              <div class="nweBody_content">
+                <div style="color:#333333;font-weight: 600;"><span>手机号码</span></div>
+                <span>{{authUser.contact3Mobile}}</span>
+              </div>
+            </div>-->
+          </div>
+        </div>
+      </div>
+      <div v-if="contacts != null" class="search">
+        <input type="text" id="serch" placeholder="搜索">
+        <input type="button" value="搜索" @click="serch">
+        <img src="../../images/newImages/sousuo2x.png"/>
+      </div>
+      <div v-if="contacts != null" class="address">
+        <div class="addressBody">
+          <div class="addressHead">
+            <div>通讯录1</div>
+            <span></span>
+            <div>通讯录2</div>
+            <span></span>
+            <div>通讯录3</div>
+          </div>
+          <div class="addressItems">
+            <div class="addressItem" v-for="c in contacts">{{c.name}}:&nbsp{{c.mobile}}</div>
+          </div>
+        </div>
+        <div id="pagination" class="pagination"></div>
+      </div>
+      <div v-if="contacts == null" style="padding-bottom: 100px; color: red;">
+        该用户还没有通讯录
+      </div>
+    </div>
+
+
+    <div class="tab-pane fade" id="history">
+      <div id="timeline">
+        <div v-for="history in histories">
+          <div class="datetime">{{history.createTime}}</div>
+          <div class="content">
+            <label>订单状态:</label>
+            &nbsp; <span v-if="history.status != null && history.status.value == 0" class="ml15 label label-info">{{history.status.displayName}}</span> <span v-if="history.status != null && history.status.value == 1" class="ml15 label label-warning">{{history.status.displayName}}</span> <span v-if="history.status != null && (history.status.value == 2 || history.status.value == 4)"
+                              class="ml15 label label-success">{{history.status.displayName}}</span> <span v-if="history.status != null && (history.status.value == 3 || history.status.value == 5 || history.status.value == 6 || history.status.value == 7)"
+                              class="ml15 label label-danger">{{history.status.displayName}}</span><br/>
+            <label>审核备注:</label>
+            &nbsp;<span>{{history.userRemark}}</span><br/>
+            <label>跟踪备注:</label>
+            &nbsp;<span>{{history.adminRemark}}</span><br/>
+            <label>指派信息:</label>
+            &nbsp;<span>{{history.actionRemark}}</span><br/>
+            <label>操作人:</label>
+            &nbsp;<span>{{history.createUserName}}</span><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 修改密码 -->
+  <div id="auditLayer" style="display: none;">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="form-group">
+          <div class="col-sm-2 control-label">状态</div>
+          <span class="label label-success" style="vertical-align: bottom;">{{authUser.username}}</span>
+          <div class="col-sm-10">
+            <select v-model="audit.status" class="form-control dropdown">
+              <option value="1">审核中</option>
+              <option value="2">已放款</option>
+              <option value="3">拒绝受理</option>
+              <option value="4">已结清</option>
+              <option value="5">逾期</option>
+              <option value="6">失联</option>
+              <option value="7">已取消</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-2 control-label" title="该备注会给用户看到">审核备注(用户)</div>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" v-model="audit.userRemark" placeholder="审核备注"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-2 control-label" title="该备注为内部参考, 用户看不到">审核备注(内部)</div>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" v-model="audit.adminRemark" placeholder="审核备注"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="../../libs/viewer.min.js"></script> 
+<script src="../../js/modules/auth/request_detail.js?v=20190220"></script>
+<script src="../../js/modules/auth/myPagination.js"></script>
+</body>
+</html>

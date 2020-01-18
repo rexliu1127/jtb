@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthUserTianJiDao">
+	<cache />
+	<insert id="save" parameterType="io.grx.modules.auth.entity.AuthUserTianJi" useGeneratedKeys="true" keyProperty="userId">
+		insert into auth_user_tj
+		(
+			userId,
+			outUniqueId,
+			searchId,
+			dataStr,
+			dataStatus,
+			detailHtml,
+			detailJson,
+			detailStatus,
+			createTime
+		)
+		values
+		(
+			#{userId},
+			#{outUniqueId},
+			#{searchId},
+			#{dataStr},
+			#{dataStatus},
+			#{detailHtml},
+			#{detailJson},
+			#{detailStatus},
+			#{createTime}
+		)
+	</insert>
+
+	<update id="update" parameterType="io.grx.modules.auth.entity.AuthUserTianJi">
+	update auth_user_tj
+		<set>
+			<if test="searchId != null">searchId = #{searchId}, </if>
+			<if test="dataStr != null">dataStr = #{dataStr}, </if>
+			<if test="dataStatus != null">dataStatus = #{dataStatus}, </if>
+			<if test="detailHtml != null">detailHtml = #{detailHtml}, </if>
+			<if test="detailJson != null">detailJson = #{detailJson}, </if>
+			<if test="detailStatus != null">detailStatus = #{detailStatus}, </if>
+            <if test="outUniqueId != null">outUniqueId = #{outUniqueId}, </if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+			<if test="createTime != null">createTime = #{createTime}</if>
+
+		</set>
+
+		where userId = #{userId}
+	</update>
+
+	<select id="queryByUserId" resultType="io.grx.modules.auth.entity.AuthUserTianJi">
+		select * from auth_user_tj where userId = #{userId}
+	</select>
+</mapper>

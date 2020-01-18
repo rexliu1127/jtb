@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <link rel="stylesheet" href="../css/auth/v2/SHglabal.css"/>
+    <link rel="stylesheet" href="../css/auth/v2/SHmy.css"/>
+    <link rel="stylesheet" href="../css/auth/v2/SHcomponent.css"/>
+    <script type="text/javascript" src="../js/auth/v2/SHmy.js"></script>
+    <script type="text/javascript" src="../js/auth/v2/jquery-3.3.1.min.js" ></script>
+    <script type="text/javascript" src="../js/auth/v2/ajax.js" ></script>
+    <script type="text/javascript" src="../js/auth/v2/url.js" ></script>
+    <script type="text/javascript" src="../js/auth/v2/common.js" ></script>
+
+
+    <title th:if="${CHANNEL != null and not #strings.isEmpty(CHANNEL.productName)}" th:text="${CHANNEL.productName}"></title>
+    <title th:if="${CHANNEL != null and #strings.isEmpty(CHANNEL.productName)}" th:text="${CHANNEL.name}"></title>
+
+    <script type="text/javascript">
+        function register() {
+
+            if (clkSQ()) {
+
+                var params = "{\"mobile\":\""+$("#txt-tel").val()+"\",\"verifyCode\":\""+$("#txt-yzm").val()+"\"}";
+                POST(URL_REGISTER,params,function(result){
+                    if(result.code == 0){
+                        location.href =  result.url;
+                    }else if (result.code == 333){
+                        location.href =  result.url;
+                    }
+                    else{
+                        alert(result.msg);
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+<body >
+<div class="wrapper">
+    <div class="downLoad-regit">
+        <img src="../img/auth/v2/rg-1.png" />
+        <div class="load-div" style="top: 49%;">
+            <div class="regit-input">
+                <ul>
+                    <li style="width: 100%;">
+                        <input type="text" placeholder="输入手机号" id="txt-tel"/>
+                    </li>
+                </ul>
+                <ul>
+                    <li style="width: 57%;">
+                        <input type="text" placeholder="输入验证码" id="txt-yzm"/>
+                    </li>
+                    <li style="float: right;padding: 0 5px;background: none;width: 36%;">
+                        <button class="btn-before" onclick="clksend(this,'register')">获取验证码</button>
+                    </li>
+                </ul>
+                <p class="p-agree"><input type="checkbox" checked="checked" id="tx-check"/>注册即同意<span>《宝信速贷用户协议》</span></p>
+                <div class="regist-btn">
+                    <button onclick="register()">立即申请</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input th:if="${CHANNEL != null}" type="hidden" id="channelId" th:value="${CHANNEL.channelId}"/>
+<input type="hidden" id="machineId" th:value="${machineId}"/>
+</body>
+</html>

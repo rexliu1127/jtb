@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>充值表</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/font-awesome.min.css">
+<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../plugins/layer/layer.js"></script>
+<script src="../../libs/bootstrap.min.js"></script>
+<script src="../../libs/vue.min.js"></script>
+<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+<script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+
+		<!--<div class="grid-btn">
+			<div class="form-group col-sm-2">
+				<input type="text" class="form-control" v-model="q.merchantname" @keyup.enter="query" placeholder="商户名称">
+			</div>
+			<div class="form-group col-sm-2">
+				<input type="text" class="form-control" v-model="q.merchantNo" @keyup.enter="query" placeholder="商户编号">
+			</div>
+			<a class="btn btn-default" @click="query">查询</a>
+			<a v-if="hasPermission('sys:sysfun:update')" class="btn btn-primary" @click="updateRist"><i class="fa fa-pencil-square-o"></i>&nbsp;设置风险</a>
+
+		</div>-->
+		<table id="searchTable">
+			<tr>
+				<td style="width: 80px;"><label>商户名称:</label></td>
+				<td style="width: 150px;"><input type="text" class="form-control" v-model="q.merchantname" @keyup.enter="query" placeholder="商户名称"></td>
+				<td style="width: 80px;"><label>商户编号:</label></td>
+				<td style="width: 150px;"><input type="text" class="form-control" v-model="q.merchantNo" @keyup.enter="query" placeholder="商户编号"></td>
+
+				<td><a class="btn btn-default" @click="query">查询</a>
+					<a v-if="hasPermission('sys:sysfun:update')" class="btn btn-primary" @click="updateRist"><i class="fa fa-pencil-square-o"></i>&nbsp;设置风险</a></td>
+			</tr>
+		</table>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+											<div class="form-group">
+			   	<div class="col-sm-2 control-label">商家编号</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFun.merchantNo" placeholder="商家编号"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">总额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFun.totalAmount" placeholder="总额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">可用余额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFun.remainingSum" placeholder="可用余额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">创建时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFun.createTime" placeholder="创建时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">是否有风险</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFun.isrist" placeholder="是否有风险"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">商户名称</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFun.merchantName" placeholder="商户名称"/>
+			    </div>
+			</div>
+							<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="../../js/modules/sys/sysfun.js"></script>
+</body>
+</html>

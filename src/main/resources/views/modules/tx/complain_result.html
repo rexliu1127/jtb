@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>处理结果</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css"/>
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css"/>
+    <link rel="stylesheet" href="../../css/main.css"/>
+    <style>
+        #timeline {
+            margin: 50px 50px 50px 80px;
+            border-left: solid 1px #00a7d0;
+        }
+
+        #timeline .datetime {
+            font-size: 18px;
+            color: #1AAD19;
+            margin-left: 20px;
+        }
+
+        #timeline .content {
+            font-size: 16px;
+            margin-left: 40px;
+            margin-bottom: 50px;
+            margin-top: 10px;
+        }
+    </style>
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp">
+    <div id="timeline">
+        <div v-for="history in histories">
+            <div class="datetime">{{history.createTime}}</div>
+            <div class="content">
+                <label>申诉状态:</label>&nbsp;
+                <span v-if="history.status != null && history.status.value == 0" class="ml15 label label-info">{{history.status.displayName}}</span>
+                <span v-if="history.status != null && history.status.value == 1" class="ml15 label label-warning">{{history.status.displayName}}</span>
+                <span v-if="history.status != null && history.status.value == 2"
+                      class="ml15 label label-success">{{history.status.displayName}}</span><br/>
+                <label>处理结果:</label>&nbsp;<span v-if="history.processorComment != null">{{history.processorComment}}</span><br/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/modules/tx/complain_result.js"></script>
+</body>
+</html>

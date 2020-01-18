@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>用户报告-米 兜</title>
+<meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- for ios 7 style, multi-resolution icon of 152x152 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+<link rel="apple-touch-icon" href="../images/logo.png">
+<meta name="apple-mobile-web-app-title" content="Flatkit">
+<!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+<meta name="mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" sizes="196x196" href="../../img/newImage/logo.png">
+  <link rel="stylesheet" type="text/css" href="../../css/newCss/base.css">
+  <link rel="stylesheet" type="text/css" href="../../css/newCss/forms.css">
+  <link rel="stylesheet" type="text/css" href="../../css/newCss/font.css">
+  <link rel="stylesheet" type="text/css" href="../../css/newCss/layout.css">
+  <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="../../css/newCss/report.css">
+<!-- jQuery -->
+  <script type="text/javascript" src="../../js/newJs/jquery-2.1.1.js"></script>
+  <script src="../../plugins/layer/layer.js"></script>
+  <script src="../../libs/bootstrap.min.js"></script>
+  <script src="../../libs/vue.min.js"></script>
+  <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+  <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+  <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+  <script src="../../js/common.js"></script>
+</head>
+
+<body>
+<div id="rrapp" class="container" v-cloak>
+  <div id="loadBOX">
+  <div class="otherWay dialog">
+    <div class="dialog-box">
+      <div class="dialog-cont">
+        <div class="control">
+          <h3 class="title">处理申请表单</h3>
+          <form id="fromID">
+            <ul class="clear">
+              <li>
+                <label>状 态</label>
+                <div class="select">
+                  <select id="statusSelect" v-model="audit.status" class="select-Box">
+                    <option value="1">审核中</option>
+                    <option value="2">已放款</option>
+                    <option value="3">拒绝受理</option>
+                    <option value="4">已结清</option>
+                    <option value="5">逾期</option>
+                    <option value="6">失联</option>
+                    <option value="7">已取消</option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <label>审核备注(用户)</label>
+                <textarea class="commentUser" v-model="audit.userRemark" maxlength="200" required></textarea>
+              </li>
+              <li>
+                <label>审核备注(内部)</label>
+                <textarea class="commentWorker" v-model="audit.adminRemark" maxlength="200" required></textarea>
+              </li>
+              <li class="clear"> <a class="cancel btn gray fl" onclick="hid()">取 消</a> <a class="confirm btn info fl" onclick="commitBtn()">确 定</a> </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--打借条 -->
+  <div class="iou dialog">
+    <div class="dialog-box">
+      <div class="dialog-cont">
+        <div class="control">
+          <h3 class="title">打借条</h3>
+          <form id="" action="">
+            <ul class="clear">
+              <li>
+                <label>出借人</label>
+                <div class="select">
+                  <select v-model="transactionEvt.txlenderID" class="select-Box">
+                    <option :value="null" disabled hidden>无指定出借人</option>
+                    <option v-for="option in txlenderList" v-bind:value="option.id">
+                      {{ option.name }}({{ option.mobile }})
+                    </option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <label>借款日期</label>
+                <input type="text" class="borrowingDate input-Box" id="beginDateRange" placeholder="借款日期">
+              </li>
+              <li>
+                <label>还款日期</label>
+                <input type="text" class="repayDate input-Box" id="repayDateRange" placeholder="还款日期">
+              </li>
+              <li>
+                <label>借款金额</label>
+                <input type="text" class="repayDate input-Box" v-model="transactionEvt.amount"   placeholder="借款金额">
+              </li>
+              <li>
+                <label>年利化率</label>
+                <div class="select">
+                  <select  v-model="transactionEvt.rate" class="select-Box">
+                    <option value="24">24%</option>
+                    <option value="23">23%</option>
+                    <option value="22">22%</option>
+                    <option value="21">21%</option>
+                    <option value="20">20%</option>
+                    <option value="19">19%</option>
+                    <option value="18">18%</option>
+                    <option value="17">17%</option>
+                    <option value="16">16%</option>
+                    <option value="15">15%</option>
+                    <option value="14">14%</option>
+                    <option value="13">13%</option>
+                    <option value="12">12%</option>
+                    <option value="11">11%</option>
+                    <option value="10">10%</option>
+                    <option value="9">9%</option>
+                    <option value="8">8%</option>
+                    <option value="7">7%</option>
+                    <option value="6">6%</option>
+                    <option value="5">5%</option>
+                    <option value="4">4%</option>
+                    <option value="3">3%</option>
+                    <option value="2">2%</option>
+                    <option value="1">1%</option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <label>用 途</label>
+                <div class="select">
+                  <select  v-model="transactionEvt.usageType" class="select-Box">
+                    <option value="1">个体经营</option>
+                    <option value="2">消费</option>
+                    <option value="3">助学</option>
+                    <option value="4">创业</option>
+                    <option value="5">租房</option>
+                    <option value="6">旅游</option>
+                    <option value="7">装修</option>
+                    <option value="8">医疗</option>
+                    <option value="0">其它</option>
+                  </select>
+                </div>
+              </li>
+              <li class="clear"> <a class="cancel btn gray fl" onclick="hid()">取 消</a> <a class="confirm btn info fl" onclick="savetransaction()">确 定</a> </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="report">
+    <div class="main" id=" ">
+
+      <div class="menu">
+        <div class="reportheader clear">
+          <div class="name fl">
+            <h3>{{request.name}}</h3>
+          </div>
+          <div class="state fl">
+            <i v-if="request.status.value == 0" class="label info">{{request.status.displayName}}</i>
+            <i v-if="request.status.value == 1" class="label warning">{{request.status.displayName}}</i>
+            <i v-if="request.status.value == 2 || request.status.value == 4" class="label success">{{request.status.displayName}}</i>
+            <i v-if="request.status.value == 3 || request.status.value == 5 || request.status.value == 6 || request.status.value == 7" class="label danger">{{request.status.displayName}}</i>
+
+            <i v-if="count <= 1" class="label success">首次申请</i> <i v-if="count > 1" class="label warning">第{{count}}次申请</i>
+          </div>
+
+          <div class="control fr"> <a v-if="hasPermission('auth:request:process')" class="reject danger btn" onclick="refuseBtn();">拒 绝</a> <a v-if="hasPermission('auth:request:process')" class="iouBTN blue btn" onclick="iouBTNClick();">借 条</a> <a v-if="hasPermission('auth:request:process')" class="otherBTN gray btn" onclick="otherBtnClick();">其 它</a></div>
+        </div>
+        <div class="optionMenu">
+          <ul class="d-flex clear">
+            <li class="flex-1 "><a onclick="loadRequestDetails();">申请详情</a></li>
+            <li class="flex-1 "><a onclick="loadComprehensiveDetails();">综合报告</a></li>
+            <li class="flex-1 active"><a onclick="loadBqsMnoReport();">运营商报告</a></li>
+            <li class="flex-1 "><a onclick="loadMobileDetails();">通话详情</a></li>
+            <li class="flex-1 "><a  onclick="loadYouDunDetails();" >多头报告</a></li>
+            <li class="flex-1 "><a onclick="loadJietiaoDetails();">借条报告</a></li>
+            <li class="flex-1 "><a onclick="loadMidouDetails();">米兜报告</a></li>
+            <li class="flex-1 "><a onclick="loadTaobaoAlipayDetails();">电商报告</a></li>
+            <li class="flex-1 "><a  onclick="loadContactInfoDetails();">通讯录</a></li>
+            <li class="flex-1 "><a onclick="loadHistoryDetails();">跟踪信息</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cont">
+        <div class="opt03" id="nullHtml" style="display: none">
+          {{errorMsg}}
+        </div>
+        <div class="opt03" id="bodyHtml">
+            <iframe style="width: 100%; height: 100%;min-height: 800px;" allowfullscreen="allowfullscreen" id="bodyIframe"></iframe>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="anchorNav">
+
+    </div>
+  </div>
+</div>
+</body>
+<script src="../../js/newJs/common.js"></script>
+<!-- 进度 -->
+<script type="text/javascript" src="../../js/newJs/pace.min.js"></script>
+<script src="../../libs/viewer.min.js"></script>
+<script type="text/javascript" src="../../js/newJs/echarts.min.js"></script>
+<script src="../../js/modules/auth/mno_report.js"></script>
+<script src="../../js/modules/auth/report_common.js"></script>
+<script src="../../libs/moment.min.js"></script>
+<script src="../../libs/daterangepicker.js"></script>
+<!--<script type="text/javascript" src="../../js/newJs/operator.js"></script>-->
+</html>

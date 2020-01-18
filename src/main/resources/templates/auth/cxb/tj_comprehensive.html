@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>综合报告</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" href="../../../../css/comprehensiveReport.css"/>
+    <link rel="shortcut icon" href="//" />
+    <script>
+        document.querySelector("html").style.fontSize = window.screen.width*100/1280 + "px";
+        console.log(document.documentElement.clientWidth)
+
+        if (window.screen.width >= 500) {
+            document.querySelector("html").style.fontSize = window.screen.width*100/1280 + "px";
+        }
+    </script>
+</head>
+<body>
+<div class="ComprehensiveReport" id="ComprehensiveReport">
+    <div class="identityInformation">
+        <div class="newHead">
+            <img src="../../../../images/newImages/basic.png"/>
+            <span class="newHeadHtml">身份信息核验</span>
+        </div>
+        <div class="nweBody">
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <div>姓名</div>
+                    <span th:if="${authUserVO.name!=null and authUserVO.name!=''}" th:text="${authUserVO.name}"></span>
+                    <span th:if="${authUserVO.name==null or authUserVO.name==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>手机号码</div>
+                    <span th:if="${authUserVO.mobile!=null and authUserVO.mobile!=''}" th:text="${authUserVO.mobile}"></span>
+                    <span th:if="${authUserVO.mobile==null or authUserVO.mobile==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>性别</div>
+                    <span th:if="${youduInfoVO.gender!=null and youduInfoVO.gender!=''}" th:text="${youduInfoVO.gender}"></span>
+                    <span th:if="${youduInfoVO.gender==null or youduInfoVO.gender==''}">未知</span>
+                </div>
+            </div>
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <div>民族</div>
+                    <span th:if="${youduInfoVO.nation!=null and youduInfoVO.nation!=''}" th:text="${youduInfoVO.nation}"></span>
+                    <span th:if="${youduInfoVO.nation==null or youduInfoVO.nation==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>身份证号</div>
+                    <span th:if="${authUserVO.idNo!=null and authUserVO.idNo!=''}" th:text="${authUserVO.idNo}"></span>
+                    <span th:if="${authUserVO.idNo==null or authUserVO.idNo==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>申请时间</div>
+                    <span th:if="${authRequestVO.createTime!=null and authRequestVO.createTime!=''}" th:text="${#dates.format(authRequestVO.createTime, 'yyyy-MM-dd')}"></span>
+                    <span th:if="${authRequestVO.createTime==null or authRequestVO.createTime==''}">未知</span>
+                </div>
+            </div>
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <div>单位名称</div>
+                    <span th:if="${authUserVO.companyName!=null and authUserVO.companyName!=''}" th:text="${authUserVO.companyName}"></span>
+                    <span th:if="${authUserVO.companyName==null or authUserVO.companyName==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>所在地区</div>
+                    <span th:if="${youduInfoVO.address!=null and youduInfoVO.address!=''}" th:text="${youduInfoVO.address}"></span>
+                    <span th:if="${youduInfoVO.address==null or youduInfoVO.address==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>GPS地址</div>
+                    <span th:if="${authRequestVO.gpsAddr!=null and authRequestVO.gpsAddr!=''}" th:text="${authRequestVO.gpsAddr}"></span>
+                    <span th:if="${authRequestVO.gpsAddr==null or authRequestVO.gpsAddr==''}">未知</span>
+                </div>
+            </div>
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <!--<div th:if="${authUserVO.sesamePoints==null or authUserVO.sesamePoints lt '600'}" style="background-color: #f2af0e;color:white;">芝麻信用分数</div>
+                    <div th:if="${authUserVO.sesamePoints!=null and authUserVO.sesamePoints ge '600'}">芝麻信用分数</div>-->
+                    <div id="sesamePointsDiv">芝麻信用分数</div>
+                    <span id="sesamePoints" th:if="${authUserVO.sesamePoints!=null and authUserVO.sesamePoints!=''}" th:text="${authUserVO.sesamePoints}"></span>
+                    <span th:if="${authUserVO.sesamePoints==null or authUserVO.sesamePoints==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="taobaoSesamePointsDiv">淘宝芝麻信用分数</div>
+                    <span id="taobaoSesamePoints" th:if="${authUserVO.taobaoSesamePoints!=null and authUserVO.taobaoSesamePoints!=''}" th:text="${authUserVO.taobaoSesamePoints}"></span>
+                    <span th:if="${authUserVO.taobaoSesamePoints==null or authUserVO.taobaoSesamePoints==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="operatorRisk">
+        <div class="newHead">
+            <img src="../../../../images/newImages/operator_risk.png"/>
+            <span class="newHeadHtml">运营商风险</span>
+        </div>
+        <div class="nweBody">
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <!--<div th:if="${mobileVo.nameCheck==null or mobileVo.nameCheck=='不一致'}" style="background-color: #fe4f5b;color:white;">姓名是否一致</div>
+                    <div th:if="${ mobileVo.nameCheck=='完全一致' or mobileVo.nameCheck=='基本一致' or mobileVo.nameCheck=='无法验证'}">姓名是否一致</div>-->
+                    <div id="nameCheckDiv">姓名是否一致</div>
+                    <span id="nameCheck" th:if="${mobileVo.nameCheck!=null and mobileVo.nameCheck!=''}" th:text="${mobileVo.nameCheck}"></span>
+                    <span th:if="${mobileVo.nameCheck==null or mobileVo.nameCheck==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <!--<div th:if="${mobileVo.idCardCheck ==null or  mobileVo.idCardCheck =='不一致'}" style="background-color: #fe4f5b;color:white;">身份证是否一致</div>
+                    <div th:if="${mobileVo.idCardCheck =='完全一致' or  mobileVo.idCardCheck =='基本一致' or mobileVo.idCardCheck=='无法验证'}">身份证是否一致</div>-->
+                    <div id="idCardCheckDiv">身份证是否一致</div>
+                    <span id="idCardCheck" th:if="${mobileVo.idCardCheck !=null and  mobileVo.idCardCheck !=''}" th:text="${mobileVo.idCardCheck}"></span>
+                    <span th:if="${mobileVo.idCardCheck ==null or  mobileVo.idCardCheck ==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="regTimeDiv">注册时间</div>
+                    <span id="regTime" th:if="${mobileVo.regTime!=null and mobileVo.regTime!=''}" th:text="${mobileVo.regTime}"></span>
+                    <span th:if="${mobileVo.regTime==null or mobileVo.regTime==''}">未知</span>
+                </div>
+            </div>
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <!--<div th:if="${mobileVo.curBalance==null or mobileVo.curBalance=='' or (mobileVo.curBalance gt '-150' and  mobileVo.curBalance lt '0')}" style="background-color:#fe4f5b;color:white;">账户余额</div>
+                    <div th:if="${mobileVo.curBalance le '-150' and mobileVo.curBalance lt '0'}" style="background-color:#f2af0e;color:white;">账户余额</div>
+                    <div th:if="${mobileVo.curBalance ge '0'}">账户余额</div>-->
+                    <div id="divOne" >账户余额</div>
+                    <span id="curBalance" th:if="${mobileVo.curBalance!=null and mobileVo.curBalance!=''}" th:text="${mobileVo.curBalance}+'元'"></span>
+                    <span th:if="${mobileVo.curBalance==null or mobileVo.curBalance==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="cardhitCountDiv">身份证命中黑名单数</div>
+                    <span id="cardhitCount" th:if="${mobileVo.cardhitCount!=null and mobileVo.cardhitCount!=''}" th:text="${mobileVo.cardhitCount}+'次'"></span>
+                    <span th:if="${mobileVo.cardhitCount==null or mobileVo.cardhitCount==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="emergencyCallCountDiv">紧急联系人通话记录</div>
+                    <span id="emergencyCallCount" th:if="${mobileVo.emergencyCallCount!=null and mobileVo.emergencyCallCount!=''}" th:text="${mobileVo.emergencyCallCount}+'次'"></span>
+                    <span th:if="${mobileVo.emergencyCallCount==null or mobileVo.emergencyCallCount==''}">未知</span>
+                </div>
+            </div>
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <div id="searchedCntDiv">机构Tj查询次数</div>
+                    <span id="searchedCnt" th:if="${mobileVo.searchedCnt!=null and mobileVo.searchedCnt!=''}" th:text="${mobileVo.searchedCnt}+'次'"></span>
+                    <span th:if="${mobileVo.searchedCnt==null or mobileVo.searchedCnt==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="maxIntervalDiv">号码静默情况</div>
+                    <span id="maxInterval" th:if="${mobileVo.maxInterval!=null and mobileVo.maxInterval!=''}" th:text="${mobileVo.maxInterval}+'天'"></span>
+                    <span th:if="${mobileVo.maxInterval==null or mobileVo.maxInterval==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="blacklistCntDiv">本人逾期数</div>
+                    <span id="blacklistCnt" th:if="${mobileVo.blacklistCnt!=null and mobileVo.blacklistCnt!=''}" th:text="${mobileVo.blacklistCnt}+'次'"></span>
+                    <span th:if="${mobileVo.blacklistCnt==null or mobileVo.blacklistCnt==''}">未知</span>
+                </div>
+            </div>
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <div id="monthlyAvgSecondsRatioDiv">夜间通话占比</div>
+                    <span id="monthlyAvgSecondsRatio" th:if="${mobileVo.monthlyAvgSecondsRatio!=null and mobileVo.monthlyAvgSecondsRatio!=''}" th:text="${mobileVo.monthlyAvgSecondsRatio}"></span>
+                    <span th:if="${mobileVo.monthlyAvgSecondsRatio==null or mobileVo.monthlyAvgSecondsRatio==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="contactsBlacklistRatioDiv">用户黑名单比例</div>
+                    <span id="contactsBlacklistRatio" th:if="${mobileVo.contactsBlacklistRatio!=null and mobileVo.contactsBlacklistRatio!=''}" th:text="${mobileVo.contactsBlacklistRatio}"></span>
+                    <span th:if="${mobileVo.contactsBlacklistRatio==null or mobileVo.contactsBlacklistRatio==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="bothCallCntDiv">互通电话数量</div>
+                    <span id="bothCallCnt" th:if="${mobileVo.bothCallCnt!=null and mobileVo.bothCallCnt!=''}" th:text="${mobileVo.bothCallCnt}+'次'"></span>
+                    <span th:if="${mobileVo.bothCallCnt==null or mobileVo.bothCallCnt==''}">未知</span>
+                </div>
+            </div>
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <div id="callCount110Div">110号码通话次数</div>
+                    <span id="callCount110" th:if="${mobileVo.callCount110!=null and mobileVo.callCount110!=''}" th:text="${mobileVo.callCount110}+'次'"></span>
+                    <span th:if="${mobileVo.callCount110==null or mobileVo.callCount110==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="callCount005Div">贷款公司通话数</div>
+                    <span id="callCount005" th:if="${mobileVo.callCount005!=null and mobileVo.callCount005!=''}" th:text="${mobileVo.callCount005}+'次'"></span>
+                    <span th:if="${mobileVo.callCount005==null or mobileVo.callCount005==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="callCount008Div">互金公司通话数</div>
+                    <span id="callCount008" th:if="${mobileVo.callCount008!=null and mobileVo.callCount008!=''}" th:text="${mobileVo.callCount008}+'次'"></span>
+                    <span th:if="${mobileVo.callCount008==null or mobileVo.callCount008==''}">未知</span>
+                </div>
+            </div>
+            <div class="nweBody1">
+                <div class="nweBody_content" th:each="singleOverdues,singleOverduesStat : ${mobileVo.singleOverdue}">
+                    <div th:if="${singleOverdues.hitCnt ge '1'}" style="background-color: #f2af0e;color:white;" th:text="'紧急联系人'+${singleOverduesStat.index+1}+'逾期数'"></div>
+                    <div th:if="${singleOverdues.hitCnt lt '1'}" th:text="'紧急联系人'+${singleOverduesStat.index+1}+'逾期数'"></div>
+                    <span th:text="${singleOverdues.hitCnt}+'次'"></span>
+                </div>
+                <div class="nweBody_content" th:if="${!#lists.isEmpty(mobileVo.singleOverdue) and #lists.size(mobileVo.singleOverdue) eq 2}">
+                </div>
+                <div class="nweBody_content" th:if="${!#lists.isEmpty(mobileVo.singleOverdue) and #lists.size(mobileVo.singleOverdue) eq 1}">
+                </div>
+                <div class="nweBody_content" th:if="${!#lists.isEmpty(mobileVo.singleOverdue) and #lists.size(mobileVo.singleOverdue) eq 1}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="theAddressBookRisk">
+        <div class="newHead">
+            <img src="../../../../images/newImages/address_book_risk.png"/>
+            <span class="newHeadHtml">通讯录风险</span>
+        </div>
+        <div class="nweBody">
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <div id="MaillistDiv">通讯录有无</div>
+                    <span id="Maillist" th:if="${mobileVo.Maillist!=null and mobileVo.Maillist!=''}" th:text="${mobileVo.Maillist}"></span>
+                    <span th:if="${mobileVo.Maillist==null or mobileVo.Maillist==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>有效联系人数</div>
+                    <span th:if="${mobileVo.contactsClass1Cnt!=null and mobileVo.contactsClass1Cnt!=''}" th:text="${mobileVo.contactsClass1Cnt}+'个'"></span>
+                    <span th:if="${mobileVo.contactsClass1Cnt==null or mobileVo.contactsClass1Cnt==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>通讯录借贷标签</div>
+                    <span th:if="${mobileVo.cateCnt!=null and mobileVo.cateCnt!=''}" th:text="${mobileVo.cateCnt}+'个'"></span>
+                    <span th:if="${mobileVo.cateCnt==null or mobileVo.cateCnt==''}">未知</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="huntingLoanRisk">
+        <div class="newHead">
+            <img src="../../../../images/newImages/long_lending_risk.png"/>
+            <span class="newHeadHtml">多头借贷风险</span>
+        </div>
+        <div class="nweBody">
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <div>有盾贷前模型</div>
+                    <span th:if="${youduInfoVO.riskEvaluation!=null and youduInfoVO.riskEvaluation!=''}" th:text="${youduInfoVO.riskEvaluation}"></span>
+                    <span th:if="${youduInfoVO.riskEvaluation==null or youduInfoVO.riskEvaluation==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>关联用户数</div>
+                    <span th:if="${youduInfoVO.linkUserCount!=null and youduInfoVO.linkUserCount!=''}" th:text="${youduInfoVO.linkUserCount}+'个'"></span>
+                    <span th:if="${youduInfoVO.linkUserCount==null or youduInfoVO.linkUserCount==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div id="linkDeviceCountDiv">使用设备数</div>
+                    <span id="linkDeviceCount" th:if="${youduInfoVO.linkDeviceCount!=null and youduInfoVO.linkDeviceCount!=''}" th:text="${youduInfoVO.linkDeviceCount}+'个'"></span>
+                    <span th:if="${youduInfoVO.linkDeviceCount==null or youduInfoVO.linkDeviceCount==''}">未知</span>
+                </div>
+            </div>
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <div>总借款平台数</div>
+                    <span th:if="${youduInfoVO.actualoanPlatformCount!=null and youduInfoVO.actualoanPlatformCount!=''}" th:text="${youduInfoVO.actualoanPlatformCount}+'个'"></span>
+                    <span th:if="${youduInfoVO.actualoanPlatformCount==null or youduInfoVO.actualoanPlatformCount==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>总还款平台数</div>
+                    <span th:if="${youduInfoVO.repaymentPlatformCount!=null and youduInfoVO.repaymentPlatformCount!=''}" th:text="${youduInfoVO.repaymentPlatformCount}+'个'"></span>
+                    <span th:if="${youduInfoVO.repaymentPlatformCount==null or youduInfoVO.repaymentPlatformCount==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>还款笔数</div>
+                    <span th:if="${youduInfoVO.repaymentTimesCount!=null and youduInfoVO.repaymentTimesCount!=''}" th:text="${youduInfoVO.repaymentTimesCount}+'笔'"></span>
+                    <span th:if="${youduInfoVO.repaymentTimesCount==null or youduInfoVO.repaymentTimesCount==''}">未知</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="iOweYouRisk">
+        <div class="newHead">
+            <img src="../../../../images/newImages/ious_risk.png"/>
+            <span class="newHeadHtml">借条平台风险</span>
+        </div>
+        <div class="nweBody">
+            <div class="nweBody1">
+                <div class="nweBody_content">
+                    <div>借条平台有无逾期</div>
+                    <span>未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>5大借条平台申请数</div>
+                    <span th:if="${jietiaoVO.effectApplyCnt!=null and jietiaoVO.effectApplyCnt!=''}" th:text="${jietiaoVO.effectApplyCnt}+'个'"></span>
+                    <span th:if="${jietiaoVO.effectApplyCnt==null or jietiaoVO.effectApplyCnt==''}">未知</span>
+                </div>
+                <div class="nweBody_content">
+                    <div>联系人申请关联</div>
+                    <span>未知</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../../../libs/jquery.min.js"></script>
+<script src="../../../../plugins/layer/layer.js"></script>
+<script src="../../../../libs/bootstrap.min.js"></script>
+<script src="../../../../libs/vue.min.js"></script>
+<script src="../../../../libs/viewer.min.js"></script>
+<script src="../../../../js/auth/cxb/comprehensive.js"></script>
+</html>

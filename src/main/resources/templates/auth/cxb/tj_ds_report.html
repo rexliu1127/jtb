@@ -1,0 +1,1183 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>风控系统</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="shortcut icon" href="//"/>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        a {
+            color: #333;
+            text-decoration: none
+        }
+
+        a img {
+            border: 0
+        }
+
+        li, ol, ul {
+            list-style: none
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 400
+        }
+
+        body {
+            font-size: 12px;
+            font-family: "Microsoft Yahei", "微软雅黑", Tahoma, Arial, Helvetica, STHeiti;
+            color: #333
+        }
+
+        em, i {
+            font-style: normal
+        }
+
+        input[type=password]::-ms-reveal, input[type=text]::-ms-clear {
+            display: none;
+            width: 0;
+            height: 0
+        }
+
+        .clear {
+            zoom: 1
+        }
+
+        .clear:after {
+            content: '';
+            display: block;
+            clear: both
+        }
+
+        .clearfix {
+            clear: both
+        }
+
+        .middle {
+            vertical-align: middle
+        }
+
+        .blue {
+            background: #36c !important
+        }
+
+        .indent-1 {
+            text-indent: 1em
+        }
+
+        .indent-2 {
+            text-indent: 2em
+        }
+
+        .wrap {
+            width: 990px;
+            margin: 0 auto;
+            overflow: hidden
+        }
+
+        .def_report_wrap {
+            width: 100%;
+            background: #fff;
+            padding: 25px 0 90px
+        }
+
+        .def_report_content {
+            width: 990px;
+            margin: 0 auto
+        }
+
+        .def_report_content .def_report_head {
+            background: #1ab9bb
+        }
+
+        .def_report_content .def_report_head h1 {
+            text-align: center;
+            font-size: 40px;
+            color: #fffefe;
+            padding-top: 34px
+        }
+
+        .def_report_content .def_report_head .def_report_desc {
+            color: #ffffff;
+            font-size: 16px;
+            padding: 19px 26px 37px
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul {
+            *zoom: 1
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul:after, .def_report_content .def_report_head .def_report_desc ul:before {
+            content: '';
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul li {
+            float: left;
+            width: 35%;
+            text-align: center;
+            white-space: nowrap
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul li em, .def_report_content .def_report_head .def_report_desc ul li i {
+            font-style: normal
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul li:first-child {
+            text-align: left
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul li:nth-child(2) {
+            width: 30%
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul li:last-child {
+            text-align: right
+        }
+
+        .def_report_content .def_report_box {
+            border: 1px solid #dfdfdf;
+            border-top: none;
+            background-color: #f0f0f0;
+            padding-bottom: 38px
+        }
+
+        .def_report_content .def_report_member, .def_report_content .def_report_realname {
+            display: inline-block;
+            white-space: nowrap;
+            color: #666666 !important;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 0 12px;
+            height: 22px;
+            line-height: 22px
+        }
+
+        .def_report_content .def_report_realname {
+            background-color: #fde057
+        }
+
+        .def_report_content .def_report_member {
+            background-color: #ffc852;
+            margin-left: 10px
+        }
+
+        .def_report_content dl {
+            *zoom: 1;
+            background-color: #ffffff;
+            text-indent: 20px;
+            padding-bottom: 16px;
+            border-radius: 9px
+        }
+
+        .def_report_content dl:after, .def_report_content dl:before {
+            content: '';
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden
+        }
+
+        .def_report_content dl dd {
+            color: #999;
+            float: left;
+            font-size: 16px;
+            margin-top: 16px;
+            width: 33%;
+            *zoom: 1
+        }
+
+        .def_report_content dl dd:after, .def_report_content dl dd:before {
+            content: '';
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden
+        }
+
+        .def_report_content dl dd em {
+            font-style: normal;
+            float: left
+        }
+
+        .def_report_content dl dd span {
+            color: #333;
+            float: left;
+            display: inline-block;
+            margin-left: 10px;
+            text-indent: 0
+        }
+
+        .def_report_content dl dd span a {
+            color: #346bda !important
+        }
+
+        .def_report_content .def_report_items {
+            padding: 0 26px 38px
+        }
+
+        .def_report_content .def_report_items:first-child {
+            padding-top: 26px
+        }
+
+        .def_report_content .def_report_items h4 {
+            color: #12a1a3;
+            font-size: 24px;
+            padding-bottom: 15px;
+            padding-left: 21px
+        }
+
+        .def_report_content .def_report_items p {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #666;
+            line-height: 2
+        }
+
+        .def_report_content .def_report_td, .def_report_content .def_report_th {
+            padding-left: 21px;
+            line-height: 19px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            overflow: hidden;
+            font-size: 14px
+        }
+
+        .def_report_content .def_report_td li, .def_report_content .def_report_th li {
+            float: left;
+            min-height: 1px;
+            word-wrap: break-word;
+            word-break: break-all
+        }
+
+        .def_report_content .def_report_td li:not(:first-child), .def_report_content .def_report_th li:not(:first-child) {
+            padding-left: 10px
+        }
+
+        .def_report_content .def_report_td li:nth-child(1), .def_report_content .def_report_th li:nth-child(1) {
+            width: 20%
+        }
+
+        .def_report_content .def_report_td li:nth-child(2), .def_report_content .def_report_th li:nth-child(2) {
+            width: 40%
+        }
+
+        .def_report_content .def_report_td li:nth-child(3), .def_report_content .def_report_th li:nth-child(3) {
+            width: 37%
+        }
+
+        .def_report_content .def_report_th {
+            background: #ffffff;
+            margin-top: 5px;
+            border-bottom: 1px solid #dfdfdf;
+            color: #999;
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px
+        }
+
+        .def_report_content .def_report_td {
+            background: #ffffff;
+            border-bottom: 1px solid #f5f5f5;
+            color: #333
+        }
+
+        .def_report_content .def_report_td:last-child {
+            border-bottom-left-radius: 9px;
+            border-bottom-right-radius: 9px
+        }
+
+        .def_report_content .def_report_td span {
+            display: inline-block
+        }
+
+        .def_report_content .def_report_td i {
+            display: inline-block;
+            color: #fc0;
+            border: 1px solid #fc0;
+            border-radius: 5px;
+            padding: 1px 6px;
+            vertical-align: top
+        }
+
+        .def_report_content .def_report_td i:not(:first-child) {
+            margin-left: 5px
+        }
+
+        .def_report_content .def_report_4_columns .def_report_td li:not(:last-child), .def_report_content .def_report_4_columns .def_report_th li:not(:last-child) {
+            width: 23.5%
+        }
+
+        .def_report_content .def_report_4_columns .def_report_td li:last-child, .def_report_content .def_report_4_columns .def_report_th li:last-child {
+            width: 26%
+        }
+
+        .def_report_content .def_report_5_columns .def_report_td li:not(:last-child), .def_report_content .def_report_5_columns .def_report_th li:not(:last-child) {
+            width: 20%
+        }
+
+        .def_report_content .def_report_5_columns .def_report_td li:last-child, .def_report_content .def_report_5_columns .def_report_th li:last-child {
+            width: 15.5%
+        }
+
+        dl.jd_report_inputinfo dd {
+            width: 50%
+        }
+
+        dl.jd_report_inputinfo dd:nth-last-child(1), dl.jd_report_inputinfo dd:nth-last-child(2) {
+            width: 100%
+        }
+
+        .jd_report_5_columns .def_report_td li:nth-child(1), .jd_report_5_columns .def_report_th li:nth-child(1) {
+            width: 30%
+        }
+
+        .jd_report_5_columns .def_report_td li:nth-child(2), .jd_report_5_columns .def_report_th li:nth-child(2) {
+            width: 12%
+        }
+
+        .jd_report_5_columns .def_report_td li:nth-child(3), .jd_report_5_columns .def_report_th li:nth-child(3) {
+            width: 8%
+        }
+
+        .jd_report_5_columns .def_report_td li:nth-child(4), .jd_report_5_columns .def_report_th li:nth-child(4) {
+            width: 19%
+        }
+
+        .jd_report_5_columns .def_report_td li:nth-child(5), .jd_report_5_columns .def_report_th li:nth-child(5) {
+            width: 25.5%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(1), .jd_report_8_columns .def_report_th li:nth-child(1) {
+            width: 29%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(1) span, .jd_report_8_columns .def_report_th li:nth-child(1) span {
+            width: 185px
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(2), .jd_report_8_columns .def_report_th li:nth-child(2) {
+            width: 9%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(3), .jd_report_8_columns .def_report_th li:nth-child(3) {
+            width: 7%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(4), .jd_report_8_columns .def_report_th li:nth-child(4) {
+            width: 10%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(5), .jd_report_8_columns .def_report_th li:nth-child(5) {
+            width: 10%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(6), .jd_report_8_columns .def_report_th li:nth-child(6) {
+            width: 9%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(7), .jd_report_8_columns .def_report_th li:nth-child(7) {
+            width: 12.5%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(8), .jd_report_8_columns .def_report_th li:nth-child(8) {
+            width: 5%
+        }
+
+        .table-bordered, .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+            line-height: 40px;
+        }
+
+        table {
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .table-bordered table thead tr {
+            color: #999;
+            background-color: #f9f9f9;
+        }
+
+        .table-bordered td {
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="def_report_wrap">
+    <div th:each="entry : ${reportMap}">
+        <div class="def_report_content" th:if="${entry.key.name() == 'ALIPAY'}" th:with="type = ${entry.key}, rpt = ${entry.value}">
+            <div class="def_report_head">
+                <h1 th:text="${type.displayName + '报告'}">电商报告</h1>
+                <div class="def_report_desc" th:with="d = ${rpt.head_info}">
+                    <ul>
+                        <li>
+                            <i>报告生成时间：</i>
+                            <em th:text="${d.report_time}">
+                                2018-04-23 21:42:43
+                            </em>
+                        </li>
+                        <li>
+                            <i>报告编号：</i>
+                            <em th:text="${d.search_id}">
+                                15244908958501467035
+                            </em>
+                        </li>
+                        <li>
+                            <i>报告状态：</i>
+                            <em class="def_report_realname" th:text="${d.report_status}">
+                                实名认证
+                            </em>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="def_report_box">
+                <div class="def_report_items" th:with="u = ${rpt.basic_info.user_info}">
+                    <h4>个人信息</h4>
+                    <ul class="def_report_th">
+                        <li>检查项目</li>
+                        <li>检查结果</li>
+                        <li>备注</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>真实姓名</li>
+                        <li th:text="${u.real_name}"></li>
+                        <li>该用户的身份证号码</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>身份证号码</li>
+                        <li th:text="${u.id_card}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>绑定邮箱</li>
+                        <li th:text="${u.email}"></li>
+                        <li>该用户绑定的邮箱号码</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>手机号码</li>
+                        <li th:text="${u.phone}"></li>
+                        <li>该用户绑定的手机号码</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>是否实名验证</li>
+                        <li th:text="${u.is_real_name == '1' ? '是' : '否'}"></li>
+                        <li>该用户是否进行了实名验证</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>注册的时间</li>
+                        <li th:text="${u.register_date}"></li>
+                        <li>该用户注册的时间</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>绑定的银行卡数</li>
+                        <li th:text="${u.total_card_cnt}"></li>
+                        <li>该用户在支付宝绑定的银行卡数</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>绑定的信用卡数</li>
+                        <li th:text="${u.credit_card_cnt}"></li>
+                        <li>该用户在支付宝绑定的信用卡数</li>
+                    </ul>
+                </div>
+                <div class="def_report_items" th:with="u = ${rpt.basic_info.assets_info}">
+                    <h4>资产信息</h4>
+                    <ul class="def_report_th">
+                        <li>检查项目</li>
+                        <li>检查结果</li>
+                        <li>备注</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>账户余额</li>
+                        <li th:text="${u.acct_balance}"></li>
+                        <li>该用户当前的账户余额金额</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>余额宝总额</li>
+                        <li th:text="${u.yuebao_tot_amt}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>余额宝总收入</li>
+                        <li th:text="${u.yuebao_tot_income}"></li>
+                        <li>该用户当前的余额宝总额</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>花呗额度</li>
+                        <li th:text="${u.huabei_tot_amt}"></li>
+                        <li>该用户当前的花呗额度</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>花呗可用额度</li>
+                        <li th:text="${u.huabei_avlb_amt}"></li>
+                        <li>该用户当前的花呗可用额度</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>借呗总额度</li>
+                        <li th:text="${u.jiebei_tot_amt}"></li>
+                        <li>该用户当前的借呗总额度</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>借呗可借额度</li>
+                        <li th:text="${u.jiebei_avlb_amt}"></li>
+                        <li>该用户当前的借呗可借额度</li>
+                    </ul>
+                </div>
+                <div class="def_report_items">
+                    <h4>支出情况</h4>
+                    <ul class="def_report_th">
+                        <li>检查项目</li>
+                        <li>检查结果</li>
+                        <li>备注</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年支出总额</li>
+                        <li th:text="${rpt.trade_summary.outcome_summary.outcome.outcome_total_amt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功的金额总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年支出笔数</li>
+                        <li th:text="${rpt.trade_summary.outcome_summary.outcome.outcome_total_cnt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功的笔数总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年还款总额</li>
+                        <li th:text="${rpt.trade_summary.outcome_summary.repay.repay_total_amt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为还款的金额总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年还款笔数</li>
+                        <li th:text="${rpt.trade_summary.outcome_summary.repay.repay_total_cnt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为还款的笔数总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年消费总额</li>
+                        <li th:text="${rpt.trade_summary.outcome_summary.consume.consume_total_amt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为消费的金额总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年消费笔数</li>
+                        <li th:text="${rpt.trade_summary.outcome_summary.consume.consume_total_cnt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为消费的笔数总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年转账转出总额</li>
+                        <li th:text="${rpt.trade_summary.outcome_summary.transfer_out.transfer_out_total_amt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为转账，并转出给他人的金额总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年转账转出笔数</li>
+                        <li th:text="${rpt.trade_summary.outcome_summary.transfer_out.transfer_out_total_cnt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为转账，并转出给他人的笔数总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年提现总额</li>
+                        <li th:text="${rpt.trade_summary.outcome_summary.alipay_withdraw.alipay_withdraw_total_amt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为提现的金额总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年提现笔数</li>
+                        <li th:text="${rpt.trade_summary.outcome_summary.alipay_withdraw.alipay_withdraw_total_cnt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为提现的笔数总和</li>
+                    </ul>
+                </div>
+
+                <div class="def_report_items" th:with="d = ${rpt.trade_detail}">
+                    <h4>支出详情 (近180天)</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th style="width: 10%">支出分类</th>
+                        <th style="width: 20%" title="该用户最近180天内交易中，该分类资金支出且交易成功的交易金额笔均值">金额笔均值</th>
+                        <th style="width: 20%" title="该用户最近180天内交易中，该分类资金支出且交易成功的交易金额最大值">金额最大值</th>
+                        <th style="width: 20%" title="该用户最近180天内交易中，该分类资金支出且交易成功的交易金额最小值">金额最小值</th>
+                        <th style="width: 10%" title="该用户最近180天内交易中，该分类资金支出且交易成功的交易笔数">交易笔数</th>
+                        <th style="width: 10%" title="该用户最近180天内交易中，该分类资金支出且交易成功的交易金额之和">交易总额</th>
+                        <th style="width: 10%" title="该用户最近180天内交易中，该分类资金支出且交易成功的交易金额占总金额比较">金额占比</th>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td>汇总</td>
+                            <td th:text="${d.d180_success_outcome_avg}">9</td>
+                            <td th:text="${d.d180_success_outcome_max}">10</td>
+                            <td th:text="${d.d180_success_outcome_min}">3331.5</td>
+                            <td th:text="${d.d180_success_outcome_num}">3331.5</td>
+                            <td th:text="${d.d180_success_outcome_sum}">3331.5</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>打车</td>
+                            <td th:text="${d.d180_success_taxi_avg}"></td>
+                            <td th:text="${d.d180_success_taxi_max}"></td>
+                            <td th:text="${d.d180_success_taxi_min}"></td>
+                            <td th:text="${d.d180_success_taxi_num}"></td>
+                            <td th:text="${d.d180_success_taxi_sum}"></td>
+                            <td th:text="${d.d180_success_taxi_scs_consume_sum_ratio}"></td>
+                        </tr>
+                        <tr>
+                            <td>点卡</td>
+                            <td th:text="${d.d180_success_dianka_avg}"></td>
+                            <td th:text="${d.d180_success_dianka_max}"></td>
+                            <td th:text="${d.d180_success_dianka_min}"></td>
+                            <td th:text="${d.d180_success_dianka_num}"></td>
+                            <td th:text="${d.d180_success_dianka_sum}"></td>
+                            <td th:text="${d.d180_success_dianka_scs_consume_sum_ratio}"></td>
+                        </tr>
+                        <tr>
+                            <td>外卖</td>
+                            <td th:text="${d.d180_success_takeout_avg}"></td>
+                            <td th:text="${d.d180_success_takeout_max}"></td>
+                            <td th:text="${d.d180_success_takeout_min}"></td>
+                            <td th:text="${d.d180_success_takeout_num}"></td>
+                            <td th:text="${d.d180_success_takeout_sum}"></td>
+                            <td th:text="${d.d180_success_takeout_scs_consume_sum_ratio}"></td>
+                        </tr>
+                        <tr>
+                            <td>生活缴费</td>
+                            <td th:text="${d.d180_success_live_avg}"></td>
+                            <td th:text="${d.d180_success_live_max}"></td>
+                            <td th:text="${d.d180_success_live_min}"></td>
+                            <td th:text="${d.d180_success_live_num}"></td>
+                            <td th:text="${d.d180_success_live_sum}"></td>
+                            <td th:text="${d.d180_success_live_scs_consume_sum_ratio}"></td>
+                        </tr>
+                        <tr>
+                            <td>转账转出</td>
+                            <td th:text="${d.d180_success_transfer_out_avg}"></td>
+                            <td th:text="${d.d180_success_transfer_out_max}"></td>
+                            <td th:text="${d.d180_success_transfer_out_min}"></td>
+                            <td th:text="${d.d180_success_transfer_out_num}"></td>
+                            <td th:text="${d.d180_success_transfer_out_sum}"></td>
+                            <td th:text="${d.d180_success_transfer_out_sum_ratio}"></td>
+                        </tr>
+                        <tr>
+                            <td>提现</td>
+                            <td th:text="${d.d180_success_withdraw_avg}"></td>
+                            <td th:text="${d.d180_success_withdraw_max}"></td>
+                            <td th:text="${d.d180_success_withdraw_min}"></td>
+                            <td th:text="${d.d180_success_withdraw_num}"></td>
+                            <td th:text="${d.d180_success_withdraw_sum}"></td>
+                            <td th:text="${d.d180_success_withdraw_sum_ratio}"></td>
+                        </tr>
+                        <tr>
+                            <td>还款</td>
+                            <td th:text="${d.d180_success_repay_avg}"></td>
+                            <td th:text="${d.d180_success_repay_max}"></td>
+                            <td th:text="${d.d180_success_repay_min}"></td>
+                            <td th:text="${d.d180_success_repay_num}"></td>
+                            <td th:text="${d.d180_success_repay_sum}"></td>
+                            <td th:text="${d.d180_success_repay_sum_ratio}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="def_report_items">
+                    <h4>收入情况</h4>
+                    <ul class="def_report_th">
+                        <li>检查项目</li>
+                        <li>检查结果</li>
+                        <li>备注</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年收入总额</li>
+                        <li th:text="${rpt.trade_summary.income_summary.income.income_total_amt}"></li>
+                        <li>该用户最近半年内资金流入且交易成功的金额总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年收入笔数</li>
+                        <li th:text="${rpt.trade_summary.income_summary.income.income_total_cnt}"></li>
+                        <li>该用户最近半年内资金流入且交易成功的笔数总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年借呗借款总额</li>
+                        <li th:text="${rpt.trade_summary.income_summary.jiebei_loan.jiebei_loan_total_amt}"></li>
+                        <li>该用户最近半年内资金流入且交易成功，类型为借呗借款金额总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年借呗借款笔数</li>
+                        <li th:text="${rpt.trade_summary.income_summary.jiebei_loan.jiebei_loan_total_cnt}"></li>
+                        <li>该用户最近半年内资金流入且交易成功，类型为借呗借款笔数总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年转账转入总额</li>
+                        <li th:text="${rpt.trade_summary.income_summary.transfer_in.transfer_in_total_amt}"></li>
+                        <li>该用户最近半年内资金流入且交易成功，类型为转账，并转入给自己的金额总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年转账转入笔数</li>
+                        <li th:text="${rpt.trade_summary.income_summary.transfer_in.transfer_in_total_cnt}"></li>
+                        <li>该用户最近半年内资金流入且交易成功，类型为转账，并转入给自己的笔数总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年充值总额</li>
+                        <li th:text="${rpt.trade_summary.income_summary.alipay_recharge.alipay_recharge_total_amt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为充值的金额总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年充值笔数</li>
+                        <li th:text="${rpt.trade_summary.income_summary.alipay_recharge.alipay_recharge_total_cnt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为充值的笔数总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年理财总额</li>
+                        <li th:text="${rpt.trade_summary.income_summary.alipay_financial.alipay_financial_total_amt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为理财的金额总和</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>近半年理财笔数</li>
+                        <li th:text="${rpt.trade_summary.income_summary.alipay_financial.alipay_financial_total_cnt}"></li>
+                        <li>该用户最近半年内资金支出且交易成功，类型为理财的笔数总和</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="def_report_content" th:if="${entry.key.name() == 'TAOBAO_CRAWL'}" th:with="type = ${entry.key}, rpt = ${entry.value}">
+            <div class="def_report_head">
+                <h1 th:text="${type.displayName + '报告'}">电商报告</h1>
+            </div>
+            <div class="def_report_box">
+                <div class="def_report_items" th:with="u = ${rpt.data.data_list[0].tb_user}">
+                    <h4>基本信息</h4>
+                    <ul class="def_report_th">
+                        <li>检查项目</li>
+                        <li>检查结果</li>
+                        <li>备注</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>淘宝帐户名</li>
+                        <li th:text="${u.login_name}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>淘宝会员名</li>
+                        <li th:text="${u.account_name}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>登录邮箱</li>
+                        <li th:text="${u.email}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>绑定手机</li>
+                        <li th:text="${u.binding_phone}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>是否已完成身份认证</li>
+                        <li th:text="${u.authentication}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>真实姓名</li>
+                        <li th:text="${u.name}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>淘宝买家级别</li>
+                        <li th:text="${u.buyer_credit}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>淘气值</li>
+                        <li th:text="${u.score}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>详细地址</li>
+                        <li th:text="${u.address}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>天猫积分</li>
+                        <li th:text="${u.tianmao_grade}"></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="def_report_items" th:with="u = ${rpt.data.data_list[0].tb_zhifubao_binding}">
+                    <h4>关联的支付宝信息</h4>
+                    <ul class="def_report_th">
+                        <li>检查项目</li>
+                        <li>检查结果</li>
+                        <li>备注</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>绑定的手机号</li>
+                        <li th:text="${u.binding_phone}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>支付宝账户</li>
+                        <li th:text="${u.zhifubao_account}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>支付宝账户类型</li>
+                        <li th:text="${u.account_type}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>支付宝实名认证的姓名</li>
+                        <li th:text="${u.verified_name}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>支付宝实名认证的身份证号</li>
+                        <li th:text="${u.verified_id_card}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>支付宝余额</li>
+                        <li th:text="${u.balance}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>余额宝历史累计收益</li>
+                        <li th:text="${u.total_profit}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>花呗总额度</li>
+                        <li th:text="${u.huabei_total_credit_amount}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>花呗可用额度</li>
+                        <li th:text="${u.huabei_credit_amount}">0</li>
+                        <li></li>
+                    </ul>
+
+
+                </div>
+                <div class="def_report_items def_report_5_columns" th:with="u = ${rpt.data.data_list[0].tb_deliver_addrs}">
+                    <h4>淘宝收货地址</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th style="width: 10%">收货人姓名</th>
+                        <th style="width: 15%">所在地区</th>
+                        <th style="width: 60%">详细地址</th>
+                        <th style="width: 10%">电话/手机</th>
+                        <th style="width: 5%">是否默认地址</th>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="d : ${u}">
+                            <td th:text="${d.receiver_name}"></td>
+                            <td th:text="${d.area}">9</td>
+                            <td th:text="${d.address}">10</td>
+                            <td th:text="${d.phone}">3331.5</td>
+                            <td th:text="${d.is_default_address}">3331.5</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="def_report_items jd_report_8_columns" th:with="u = ${rpt.data.data_list[0].tb_orders}">
+                    <h4>淘宝订单信息</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="width: 50%">订单包含的商品</th>
+                            <th style="width: 5%">状态</th>
+                            <th style="width: 10%">订单金额/元</th>
+                            <th style="width: 15%">成交时间</th>
+                            <th style="width: 10%">收货人姓名</th>
+                            <th style="width: 10%">收货人手机号</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l : ${u}">
+                            <td th:if="${#maps.containsKey(l, 'products')}">
+                                <p th:each="p : ${l.products}" th:text="${p.product_name}"></p>
+                            </td>
+                            <td th:if="${!#maps.containsKey(l, 'products')}">
+                            </td>
+                            <td th:text="${l.status}">
+                            </td>
+                            <td th:text="${l.actual_fee}">7312.23</td>
+                            <td th:text="${l.transaction_time}">26</td>
+                            <td th:text="${l.receiver_name}">2016-05-14</td>
+                            <td th:text="${l.receiver_telephone}">2018-03-02</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div class="def_report_content" th:if="${entry.key.name() == 'TAOBAOPAY'}" th:with="type = ${entry.key}, rpt = ${entry.value}, rptDetail = ${rpt.detail}">
+            <div class="def_report_head">
+                <h1 th:text="${type.displayName + '报告'}">电商报告</h1>
+                <div class="def_report_desc">
+                    <ul>
+                        <li>
+                            <i>报告生成时间：</i>
+                            <em th:text="${rptDetail.updateTime}">
+                                2018-04-23 21:42:43
+                            </em>
+                        </li>
+                        <li>
+                            <i>报告编号：</i>
+                            <em th:text="${rptDetail.id}">
+                                15244908958501467035
+                            </em>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="def_report_box">
+                <div class="def_report_items" th:with="u = ${rptDetail.data.taobao.basic_info}">
+                    <h4>基本信息</h4>
+                    <ul class="def_report_th">
+                        <li>检查项目</li>
+                        <li>检查结果</li>
+                        <li>备注</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>淘宝帐户名</li>
+                        <li th:text="${u.user_name}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>淘宝会员名</li>
+                        <li th:text="${u.nick_name}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>登录邮箱</li>
+                        <li th:text="${u.email}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>绑定手机</li>
+                        <li th:text="${u.mobile}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>是否已完成身份认证</li>
+                        <li th:text="${u.identity_status}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>真实姓名</li>
+                        <li th:text="${u.real_name}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>性别</li>
+                        <li th:text="${u.gender}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>淘宝买家级别</li>
+                        <li th:text="${u.vip_level}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>淘气值</li>
+                        <li th:text="${u.tao_score}"></li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>好评率</li>
+                        <li th:text="${u.favorable_rate + '%'}"></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="def_report_items" th:with="u = ${rptDetail.data.alipay.basic_info}, w = ${rptDetail.data.alipay.wealth}">
+                    <h4>关联的支付宝信息</h4>
+                    <ul class="def_report_th">
+                        <li>检查项目</li>
+                        <li>检查结果</li>
+                        <li>备注</li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>邮箱</li>
+                        <li th:text="${u.email}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>手机号</li>
+                        <li th:text="${u.mobile}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>支付宝实名认证的姓名</li>
+                        <li th:text="${u.name}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>支付宝实名认证的身份证号</li>
+                        <li th:text="${u.id_card}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>支付宝余额</li>
+                        <li th:text="${w.balance}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>余额宝</li>
+                        <li th:text="${w.yuebao}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>历史累计收益</li>
+                        <li th:text="${w.yeb_total_earnings}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>花呗总额度</li>
+                        <li th:text="${w.hb_total_limit}">0</li>
+                        <li></li>
+                    </ul>
+                    <ul class="def_report_td">
+                        <li>花呗可用额度</li>
+                        <li th:text="${w.hb_available_limit}">0</li>
+                        <li></li>
+                    </ul>
+                </div>
+
+                <div class="def_report_items def_report_5_columns" th:with="u = ${rptDetail.data.alipay.bank_cards}">
+                    <h4>支付宝银行卡</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th style="width: 20%">银行名称</th>
+                        <th style="width: 20%">银行卡号</th>
+                        <th style="width: 10%">卡类型</th>
+                        <th style="width: 20%">姓名</th>
+                        <th style="width: 20%">绑定手机</th>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="d : ${u}">
+                            <td th:text="${d.bank_name}"></td>
+                            <td th:text="${d.card_num}">9</td>
+                            <td th:text="${d.card_type}">10</td>
+                            <td th:text="${d.card_name}">3331.5</td>
+                            <td th:text="${d.phone_num}">3331.5</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="def_report_items jd_report_8_columns" th:with="u = ${rptDetail.data.alipay.trade_details}">
+                    <h4>支付宝交易明细(最近)</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="width: 20%">交易名称</th>
+                            <th style="width: 15%">交易对方</th>
+                            <th style="width: 10%">交易额/元</th>
+                            <th style="width: 10%">付款方式</th>
+                            <th style="width: 10%">账单分类</th>
+                            <th style="width: 20%">交易时间</th>
+                            <th style="width: 10%">交易状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l : ${u}">
+                            <td th:text="${l.trade_name}">
+                            </td>
+                            <td th:text="${l.trader}">
+                            </td>
+                            <td th:text="${l.amount}">
+                            </td>
+                            <td th:text="${l.payment_method}"></td>
+                            <td th:text="${l.trade_classification}"></td>
+                            <td th:text="${l.trade_time}"></td>
+                            <td th:text="${l.trade_status}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="def_report_items def_report_5_columns" th:with="u = ${rptDetail.data.taobao.addresses}">
+                    <h4>淘宝收货地址</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th style="width: 10%">收货人姓名</th>
+                        <th style="width: 15%">邮编</th>
+                        <th style="width: 60%">详细地址</th>
+                        <th style="width: 10%">电话/手机</th>
+                        <th style="width: 5%">是否默认地址</th>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="d : ${u}">
+                            <td th:text="${d.name}"></td>
+                            <td th:text="${d.postcode}">9</td>
+                            <td th:text="${d.address}">10</td>
+                            <td th:text="${d.phone_no}">3331.5</td>
+                            <td th:text="${d.note}">3331.5</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="def_report_items jd_report_8_columns" th:with="u = ${rptDetail.data.taobao.trade_details}">
+                    <h4>淘宝订单信息</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="width: 50%">订单包含的商品</th>
+                            <th style="width: 5%">状态</th>
+                            <th style="width: 10%">订单金额/元</th>
+                            <th style="width: 15%">成交时间</th>
+                            <th style="width: 10%">收货人姓名</th>
+                            <th style="width: 10%">收货人手机号</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l : ${u}">
+                            <td th:if="${#maps.containsKey(l, 'product_info')}">
+                                <p th:each="p : ${l.product_info}" th:text="${p.product_name}"></p>
+                            </td>
+                            <td th:if="${!#maps.containsKey(l, 'product_info')}">
+                            </td>
+                            <td th:text="${l.trade_info.trade_status}">
+                            </td>
+                            <td th:text="${l.trade_info.amount}">7312.23</td>
+                            <td th:text="${l.trade_info.trade_time}">26</td>
+                            <td th:text="${l.trade_info.receiver}">2016-05-14</td>
+                            <td th:text="${l.trade_info.receive_phone}">2018-03-02</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="def_report_content" th:if="${entry.key.name() != 'ALIPAY' and entry.key.name() != 'TAOBAO_CRAWL'  and entry.key.name() != 'TAOBAOPAY' }"
+             th:with="type = ${entry.key}, rpt = ${entry.value}">
+            <div th:remove="tag" th:utext="${rpt}"></div>
+        </div>
+    </div>
+    <div th:if="${reportMap.isEmpty()}" style="padding-top: 20px; color: red;">
+        该用户还没有认证电商报告或报告尚在生成中
+    </div>
+</div>
+</body>
+</html>

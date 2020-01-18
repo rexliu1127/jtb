@@ -1,0 +1,166 @@
+/*welcome*/
+.welcome{ width: 100%;height: auto;position: relative;}
+.welcome img{width: 100%;height: 100%;}
+.welcome-skip{position: absolute;right: 10px;top: 10px;font-size: 16px;}
+.welcome-skip >a{color: #4364f8;text-decoration: underline;}
+
+/* download */
+.downLoad-regit{width: 100%;height: auto;position: relative;}
+.downLoad-regit >img{width: 100%;height: 100%;}
+.load-div{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    right: 0px;
+    top: 10%;
+}
+.Install{
+    width: 60%;
+    height: auto;
+    margin: auto;
+}
+.Install ul li{
+    width: 100%;
+    height: auto;
+    text-align: center;
+    line-height: 25px;
+    
+}
+.Install ul li >img{
+    width: 2.9rem;
+    height:1.2rem;
+}
+.Install >p{text-align: center;color: #fff;line-height: 25px;font-size:18px;margin-top: 0.8rem ;letter-spacing: 2px;}
+.Install >span{display: block;text-align: center;color: #CCCCCC;}
+.load-span{margin-top: 13px;}
+.load-btn{
+    width: 100%;
+    height: 1rem!important;
+    padding-top: 20px
+}
+.load-btn >button{
+    width: 100%;
+    height: 100%;
+    line-height: 0.3rem;
+    background: url(../../../img/auth/v2/load-btn.png) no-repeat;
+    background-size: contain;
+    color: #FFF;
+    font-size: 0.4rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+/*login*/
+.Login{
+    width: 100%;
+    height: auto;
+    background: url(../img/shpro/login.png) no-repeat;
+    min-height: 740px;
+    background-size: cover
+}
+.Login .lg-logo{
+    width: 3rem;
+    height: 1.3rem;
+    margin: auto;
+    padding-top:60px 
+}
+.Login .lg-logo >img{
+    width: 100%;
+    height: 100%;
+}
+.lg-input{
+    width: 80%;
+    margin: auto
+}
+.inputText{
+    width:85%;
+    height: auto;
+    margin: auto;
+    margin-top: 55px;
+}
+.inputText .put-telpone{
+    width: 100%;
+    height: 0.8rem;
+    background:#fff;
+    border-radius:4px;
+    margin-top: 25px;
+}
+.inputText .put-telpone ul li{
+    float: left;
+    height: 100%;
+    line-height: 0.8rem
+}
+.inputText .put-telpone ul li >input{
+    text-indent: 0.5em;
+    padding-top: 9px;
+}
+.inputText .put-telpone ul li >input::-webkit-input-placeholder{color: #999;}
+.input-msg{
+    background: #fff;
+    width: 55%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+.input-yzm{
+    float: right!important;
+    width: 40%;
+    height: 100%;
+}
+.input-yzm >button{
+    width: 100%;
+    height: 100%;
+    background: #4364f8;
+    color: #fff;
+    border-radius:4px;
+    font-size: 0.25rem;
+}
+.login-btn{
+	background: linear-gradient(to right, #357BFF ,#4A8BFF)!important;
+    color: #fff!important;
+    border-radius: 4px;
+}
+.p-xieyi{
+    width: 90%;margin: auto;
+    text-align: left;
+    font-size: 0.23rem;
+    color: #a9805e;
+    letter-spacing: 0.3px;
+}
+/*register*/
+.regit-input{width: 90%;height: auto;margin: auto;background: #fff;}
+.regit-input ul {width: 90%;height: 1rem;margin: auto;padding-top: 0.5rem;}
+.regit-input ul li{float: left; width: auto;height: 1rem;line-height: 1rem;background:#efefef;border-radius: 2rem;}
+.regit-input ul li >input{width: 100%;height: 80%;text-indent: 0.5rem;background: none;font-size: 0.3rem;}
+.btn-before{
+	width: 100%;
+	height: 100%;
+	float: right;
+	color: #b64e08;
+	background: #febd07;
+	border-radius: 2rem;
+	font-size: 0.25rem;
+}
+.yzm-gray
+{
+	width: 100%;
+	height: 100%;
+	min-width: 97px;
+	float: right;
+	color: #a7673e;
+	background: cadetblue;
+	border-radius: 2rem;
+	font-size: 0.25rem;
+}
+.p-agree{width: 90%;margin: auto;line-height: 1rem;letter-spacing: 0.5px;}
+.p-agree >span{color: #476bfa;}
+.regist-btn{width: 90%;height: 1rem;margin: auto;padding-bottom:1rem}
+.regist-btn >button{
+	width: 100%;
+	height: 100%;
+	background: url(../img/shpro/rg-radiu.png) no-repeat;
+	background-size: cover;
+	color: #b64e08;
+	font-size: 0.32rem;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.min.css"/>
+    <title></title>
+</head>
+<body>
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>设 置</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+
+        <div class="setup">
+            
+                <ul>
+                    <li class="display">
+                        <div class="flex1">
+                            <h3>电子签名</h3>
+                        </div>
+                        <div>
+                            <a th:if="${!#strings.isEmpty(TX_USER.signImgPath)}" href="sign.png"><img src="sign.png" style="height: 40px; vertical-align:middle;"/></a>&nbsp;
+                            <a th:if="${!#strings.isEmpty(TX_USER.signImgPath)}" href="sign.html">重新签署</a>
+                            <a th:if="${#strings.isEmpty(TX_USER.signImgPath)}" href="sign.html">签署</a>
+                        </div>
+                    </li>
+                    <li class="display" onclick="location.href='../change_mobile.html'">
+                        <div class="flex1">
+                            <h3>更换手机号码</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                    <li class="display" onclick="location.href='../verify_sms.html?type=password&amp;forwardUrl=rcpt/set_password.html'">
+                        <div class="flex1">
+                            <h3>修改交易密码</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                </ul>
+        
+                <ul>
+                    <li class="display">
+                        <div class="flex1">
+                            <h3>常见问题</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                    <li class="display">
+                        <div class="flex1">
+                            <h3>版本介绍</h3>
+                        </div>
+                        <span>V1.0.0</span>
+                    </li>
+                    <li class="display" onclick="location.href='about_us.html'">
+                        <div class="flex1">
+                            <h3>关于</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                </ul>
+
+        </div>
+
+    </main>
+
+
+</div>
+<input id="userId" type="hidden" th:value="${TX_USER.userId}"/>
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../libs/jquery-weui.min.js"></script>
+<script src="../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../js/rcpt/main.js"></script>
+</body>
+</html>

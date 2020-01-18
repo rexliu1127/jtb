@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthMachineContactDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.auth.entity.AuthMachineContactEntity" id="authMachineContactMap">
+        <result property="machineId" column="machine_id"/>
+        <result property="contact" column="contact"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.auth.entity.AuthMachineContactEntity">
+		select * from auth_machine_contact where machine_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.auth.entity.AuthMachineContactEntity">
+		select * from auth_machine_contact
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by machine_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from auth_machine_contact 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.auth.entity.AuthMachineContactEntity">
+		insert into auth_machine_contact
+		(
+			machine_id, 
+			contact, 
+			create_time
+		)
+		values
+		(
+			#{machineId}, 
+			#{contact}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.AuthMachineContactEntity">
+		update auth_machine_contact 
+		<set>
+			<if test="contact != null">contact = #{contact}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where machine_id = #{machineId}
+	</update>
+	
+	<delete id="delete">
+		delete from auth_machine_contact where machine_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from auth_machine_contact where machine_id in 
+		<foreach item="machineId" collection="array" open="(" separator="," close=")">
+			#{machineId}
+		</foreach>
+	</delete>
+
+</mapper>

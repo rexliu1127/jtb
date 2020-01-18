@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta name="format-detection" content="email=no"/>
+<meta name="format-detection" content="address=no"/>
+<meta name="format-detection" content="date=no"/>
+
+<!-- CSS reset -->
+<link rel="stylesheet" href="../css/rcpt/reset.css"/>
+<!-- Resource fontsIcon -->
+<link rel="stylesheet" href="../css/rcpt/fontsIcon.css"/>
+<!-- Resource nav -->
+<link rel="stylesheet" href="../css/rcpt/nav.css"/>
+<!-- Resource style -->
+<link rel="stylesheet" href="../css/rcpt/style.css"/>
+<!-- Resource credit -->
+<link rel="stylesheet" href="../css/rcpt/account.css"/>
+<!-- CSS FOOTER-NAV -->
+<link rel="stylesheet" type="text/css" href="../css/rcpt/footer-nav.css"/>
+<link rel="stylesheet" href="../css/weui.min.css"/>
+<link rel="stylesheet" href="../css/jquery-weui.min.css"/>
+<title></title>
+</head>
+<body>
+<div class="mainAPP">
+  <main> 
+    <!-- all your content here -->
+    <div class="lendBorrow">
+      <div class="area01">
+        <div class="lendBorrow-cont">
+          <ul>
+            <li class="lendBorrowAmount display">
+              <div class="flex1">
+                <p>借款总额 (元)</p>
+                <h2 th:text="${sumBorrow}">1,000.00</h2>
+              </div>
+            </li>
+            <li class="lendBorrowDetail display">
+              <div class="flex1"> <span>总利息 (元)</span>
+                <p th:text="${#numbers.formatDecimal(sumBorrowInterest, 1,2)}">1,000.00</p>
+              </div>
+              <div class="flex1"> <span>借款次数</span>
+                <p th:text="${sumBorrowCount}">18</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="area02">
+        <div class="find-Box">
+          <input class="find form" id="searchValue" name="searchValue" type="tel" maxlength="20" autocomplete="off" required="required" placeholder="搜 索"/>
+        </div>
+        <div class="lendBorrowList">
+          <div class="noData">
+            <h4>暂无数据</h4>
+            <span>No Data</span> </div>
+          <ul id="tx_list">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="bottom-nav">
+    <ul class="ulnav">
+      <li><a href="index.html"><span class="icon menu1"></span> <span>打个借条</span> </a></li>      
+      <li class="active"><a href="borrower_sum.html"><span class="icon menu3"></span> <span>我的借款</span> </a></li>
+      <li><a href="lender_sum.html"><span class="icon menu4"></span> <span>我的出借</span> </a></li>
+      <!--li><a href="member/check_credit.html"><span class="icon menu2"></span> <span>信用报告</span> </a></li-->
+    </ul>
+  </footer>
+</div>
+<script src="../libs/jquery.min.js"></script> 
+<script src="../libs/jquery-weui.min.js"></script> 
+<script src="../js/wx_common.js"></script> 
+<script type="text/javascript" src="../js/rcpt/main.js"></script> 
+<script type="text/javascript" src="../js/rcpt/borrower_sum.js"></script>
+</body>
+</html>

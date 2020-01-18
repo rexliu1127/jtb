@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../../css/rcpt/account.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/rcpt/paypsw.css"/>
+    <link rel="stylesheet" href="../../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../../css/jquery-weui.min.css"/>
+    <title></title>
+    <script th:inline="text">
+        var userMobile = '[[${TX_USER.mobile}]]';
+    </script>
+</head>
+<body>
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>还 款</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="bindingBANK">
+            <div class="area01">
+                <div class="typeX">
+                    <form action="#" method="post">
+                        <ul>
+                            <li class="display">
+                                <div class="form-topic">
+                                    <h3>还款金额</h3>
+                                </div>
+                                <div class="form-box flex1"><strong th:inline="text"><i>￥</i> [[${tx.amount}]]</strong></div>
+                            </li>
+                            <li class="display">
+                                <div class="form-topic">
+                                    <h3>利息</h3>
+                                </div>
+                                <div class="form-box flex1"><strong th:inline="text"><i>￥</i> [[${tx.interest}]]</strong></div>
+                            </li>
+                            <li class="display">
+                                <div class="form-topic">
+                                    <h3>还款方式</h3>
+                                </div>
+                                <div class="form-box flex1" id="repaymentTypeLabel">现金</div>
+                                <i class="linecons-GT fr"></i></li>
+                        </ul>
+                    </form>
+                </div>
+                <button type="button" id="createRepayment" class="btn btnstyle01">我已还款,告知对方</button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<input id="txId" th:value="${tx.txId}" type="hidden"/>
+<input id="type" type="hidden" th:value="${type}"/>
+<input id="repaymentType" value="4" type="hidden"/>
+<script src="../../../libs/jquery.min.js"></script>
+<script src="../../../libs/jquery-weui.min.js"></script>
+<script src="../../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../../js/rcpt/main.js"></script>
+<script type="text/javascript" src="../../../js/rcpt/repayment_create.js"></script>
+<script type="text/javascript">
+    function payment() {
+        $(".bounced-R").addClass("modal-active");
+        if ($(".mask").length > 0) {
+            $(".mask").addClass("mask-active");
+        } else {
+            $("body").append('<div class="mask"></div>');
+            $(".mask").addClass("mask-active");
+        }
+        $(".mask-active,.bouncedAncel").click(function () {
+            $(".bounced-R").removeClass("modal-active");
+            setTimeout(function () {
+                $(".mask-active").removeClass("mask-active");
+                $(".mask").remove();
+            }, 300);
+        })
+    }
+</script>
+</body>
+</html>

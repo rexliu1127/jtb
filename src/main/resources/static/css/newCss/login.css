@@ -1,0 +1,15 @@
+.login-box .login-logo {
+	margin: 0 0 30px;
+	text-align: center;
+}
+.login-box .login-logo img {
+	width: 221px;
+	height: 88px;
+	display: inline-block;
+}
+.login-box .form-group {
+	padding: 0;
+}
+.login-box input.form-control {
+	height: 40px;
+}

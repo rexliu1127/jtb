@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxUserBalanceLogDao">
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxUserBalanceLogEntity">
+		select * from tx_user_balance_log where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxUserBalanceLogEntity">
+		select * from tx_user_balance_log
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_user_balance_log 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxUserBalanceLogEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into tx_user_balance_log
+		(
+			user_id, 
+			tx_id,
+			extension_id,
+			merchant_no, 
+			income, 
+			expense, 
+			balance
+		)
+		values
+		(
+			#{userId}, 
+			#{txId},
+			#{extensionId},
+			#{merchantNo}, 
+			#{income}, 
+			#{expense}, 
+			#{balance}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxUserBalanceLogEntity">
+		update tx_user_balance_log 
+		<set>
+			<if test="userId != null">user_id = #{userId}, </if>
+			<if test="txId != null">tx_id = #{txId}, </if>
+			<if test="extensionId != null">extension_id = #{extensionId}, </if>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="income != null">income = #{income}, </if>
+			<if test="expense != null">expense = #{expense}, </if>
+			<if test="balance != null">balance = #{balance}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from tx_user_balance_log where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_user_balance_log where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

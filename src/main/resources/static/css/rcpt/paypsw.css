@@ -1,0 +1,125 @@
+/* CSS RESET */
+.paypsw .sixpswbox {
+	z-index: 10;
+	background: #fff;
+}
+.paytitle {
+	line-height: 26px;
+	font-size: 16px;
+	text-align: center;
+	border-bottom: 1px solid #eee;
+	overflow: hidden;
+}
+.paytitle a {
+	display: block;
+	width: 10%;
+	padding: 10px 0;
+	text-align: center;
+}
+.paytitle img.tx {
+	width: 10%;
+	padding: 10px 0;
+}
+.paytitle h3 {
+	padding: 10px;
+	color: #333;
+}
+.zfmmxx_shop {
+	text-align: center;
+	font-size: 12px;
+	padding: 10px 0;
+	overflow: hidden;
+}
+.zfmmxx_shop .mz {
+	font-size: 14px;
+	float: left;
+	width: 100%;
+}
+.zfmmxx_shop .zhifu_price {
+	font-size: 24px;
+	float: left;
+	width: 100%;
+}
+.ml5 {
+	margin-left: 5px;
+}
+.sixpsw {
+	margin: 20px 10px 5px;
+	height: 46px;
+	overflow: hidden;
+	border: 1px solid #bebebe;
+}
+.sixpsw li {
+	border-right: 1px solid #dfdfdf;
+	height: 44px;
+	float: left;
+	width: 16.3%;
+	background: #FFF;
+}
+.sixpsw li.mmdd {
+	background: #FFF url('../../img/paypsw/pswh.jpg') center no-repeat;
+	background-size: 25%;
+}
+.sixpsw li:last-child {
+	border-right: none;
+}
+.xiaq_tb {
+	padding: 5px 0;
+	text-align: center;
+	border-top: 1px solid #dadada;
+}
+.forgetpsw {
+	margin: 10px 10px 20px;
+	text-align: right;
+}
+.forgetpsw a {
+	font-size: 14px;
+	color: #1f76ff;
+}
+.keyboard {
+	border-width: 0;
+	border-style: solid;
+	border-color: #dadada;
+	overflow: hidden;
+	border-bottom: none;
+	background-color: #dadada;
+}
+.keyboard li {
+	width: 33.3333%;
+	background-color: #fff;
+	float: left;
+	text-align: center;
+	font-size: 22px;
+	border-top: 1px solid #eee;
+}
+.keyboard li.border0101 {
+	border-left: 1px solid #eee;
+	border-right: 1px solid #eee;
+}
+.keyboard li div {
+	display: block;
+	color: #333;
+	height: 46px;
+	line-height: 46px;
+	overflow: hidden;
+}
+.keyboard li div:active {
+	background: #96add6;
+}
+.keyboard li div.numpsw {
+	font-size: 20px;
+}
+.keyboard li div.emptypsw, .keyboard li div.delpsw {
+	font-size: 16px;
+	background: #eeeeee;
+}
+.keyboard li span.del img {
+	width: 30%;
+}
+.fh_but {
+	position: absolute;
+	right: 0px;
+	top: 12px;
+	font-size: 14px;
+	color: #20d81f;
+}

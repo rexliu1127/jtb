@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxOverdueRecordDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.tx.entity.TxOverdueRecordEntity" id="txOverdueRecordMap">
+        <result property="id" column="id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="txId" column="tx_id"/>
+        <result property="overdueDate" column="overdue_date"/>
+        <result property="overdueEndDate" column="overdue_end_date"/>
+        <result property="overduedays" column="overdueDays"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxOverdueRecordEntity">
+		select * from tx_overdue_record where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxOverdueRecordEntity">
+		select * from tx_overdue_record
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_overdue_record 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxOverdueRecordEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into tx_overdue_record
+		(
+			merchant_no, 
+			tx_id, 
+			overdue_date, 
+			overdue_end_date, 
+			overdueDays, 
+			create_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{txId}, 
+			#{overdueDate}, 
+			#{overdueEndDate}, 
+			#{overduedays}, 
+			#{createTime}
+		)
+	</insert>
+
+    <insert id="insertByOverdueTx">
+        insert into tx_overdue_record (merchant_no, tx_id, overdue_date, overdue_end_date, overdueDays, create_time)
+            select merchant_no, tx_id, date_add(end_date, INTERVAL 1 day), null, null, current_timestamp from tx_base tb
+            where status = 2 and end_date &lt; current_date()
+			and not exists (select 1 from tx_extension te where te.tx_id = tb.tx_id and te.status in (1,2)
+				and te.new_end_date >= current_date())
+		<if test="txId != null">and tb.tx_id = #{txId}
+		</if>
+    </insert>
+
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxOverdueRecordEntity">
+		update tx_overdue_record 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="txId != null">tx_id = #{txId}, </if>
+			<if test="overdueDate != null">overdue_date = #{overdueDate}, </if>
+			<if test="overdueEndDate != null">overdue_end_date = #{overdueEndDate}, </if>
+			<if test="overduedays != null">overdueDays = #{overduedays}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from tx_overdue_record where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_overdue_record where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="queryOverdueSummary" resultType="io.grx.wx.dto.TxOverdueSummaryDto">
+		SELECT coalesce(sum(r.planned_amount), 0) amount,
+        count(1) count,
+        coalesce(sum(if(r.end_date &lt; date_add(COALESCE(r.repay_date, curdate()), INTERVAL -7 DAY), planned_amount, 0)), 0)
+        more_than_seven_day_amount,
+        count(if(r.end_date &lt; date_add(COALESCE(r.repay_date, curdate()), INTERVAL -7 DAY), planned_amount, null))
+        more_than_seven_day_count,
+        coalesce(sum(if (r.repay_date is null, planned_amount, 0)), 0) current_amount,
+        count(if (r.repay_date is null, planned_amount, null)) current_count
+        from tx_repay_plan r join tx_base tb on r.tx_id = tb.tx_id
+        where tb.borrower_user_id =  #{userId} and (tb.status = 4 or (status = 2 and tb.end_date &lt; CURRENT_DATE) or (status = 3 and tb.repay_date > tb.end_date) )
+	</select>
+
+    <select id="queryLatestByTxId" resultType="io.grx.modules.tx.entity.TxOverdueRecordEntity">
+        select * from tx_overdue_record where tx_id = #{value} order by id desc limit 1
+    </select>
+
+    <select id="queryByUserId" resultType="io.grx.modules.tx.dto.TxOverdueRecordDto">
+        select t.tx_id, t.planned_amount amount, t.begin_date, t.end_date, t.repay_date overdue_end_date,
+        datediff(coalesce(t.repay_date, curdate()), t.end_date) overdue_days
+        from tx_repay_plan t join tx_base tb on t.tx_id = tb.tx_id
+        where tb.borrower_user_id = #{userId} and ((t.repay_date is null and t.end_date &lt; CURRENT_DATE) or ( t.repay_date is not null and t.end_date &lt; t.repay_date))
+        order by 5 desc, 6 desc limit 50
+    </select>
+</mapper>

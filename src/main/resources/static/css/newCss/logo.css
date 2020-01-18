@@ -1,0 +1,102 @@
+@charset "utf-8";
+/* CSS 登录 */
+body {
+	background-color: #fff;
+}
+/*----*/
+.new-login-register {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+}
+.new-login-register .lg-info-panel {
+	background: url('../images/login-register.jpg') center center/cover no-repeat!important;
+	width: 500px;
+	height: 100%;
+	position: fixed;
+}
+@media (max-width: 1350px) {
+.new-login-register .lg-info-panel {
+	width: 450px;
+}
+}
+@media (max-width: 1023px) {
+.new-login-register .lg-info-panel {
+	display: none;
+}
+}
+.new-login-register .lg-info-panel .inner-panel {
+	height: 100%;
+	width: 100%;
+	padding: 20px;
+	background: rgba(0,0,0,.5);
+	position: absolute;
+}
+.new-login-register .lg-info-panel .lg-content {
+	margin-top: 50%;
+	text-align: center;
+	padding: 0 50px;
+}
+.new-login-register .lg-info-panel .lg-content h2 {
+	color: #fff;
+}
+.new-login-register .lg-info-panel .lg-content p {
+	padding: 20px 0;
+	color: rgba(255,255,255,.7);
+	font-style: italic;
+}
+.new-login-register .lg-info-panel .lg-content .btn-danger {
+	color: #fff;
+	background-color: #d9534f;
+	border-color: #d43f3a;
+}
+/*----*/
+.new-login-register .new-login-box {
+	max-width: 360px;
+	margin-left: 50%;
+	margin-top: 10%;
+	
+}
+@media (max-width: 1350px) {
+.new-login-register .new-login-box {
+	margin-left: 53%;
+}
+}
+@media (max-width: 1023px) {
+.new-login-register .new-login-box {
+	margin: 10% auto 0;
+}
+}
+.new-login-register .new-login-box .white-box {
+	background: #fff;
+	padding:10px;
+	margin-bottom: 30px;
+}
+.new-login-register .new-login-box .white-box .box-title {
+	margin: 0 0 6px;
+	font-weight: 500;
+	text-transform: uppercase;
+	font-size: 16px;
+}
+.new-login-register .new-login-box .new-lg-form {
+	padding: 30px 0;
+}
+.new-login-register .new-login-box .new-lg-form label {
+	text-transform: uppercase;
+	font-size: 12px;
+}
+.new-login-register .new-login-box .form-horizontal .form-group .input-Box {
+	max-width: 100%;
+	height: 38px;
+	padding: 7px 12px;
+	background-color: #fff;
+	color: #565656;
+	/*transition: all 300ms linear 0s;*/
+}
+/*----*/
+.form-group, .form-horizontal .form-group {
+	margin-bottom: 25px;
+}
+.form-horizontal .form-group p b {
+	color: #f64641;
+}

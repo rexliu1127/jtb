@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../css/rcpt/account.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/rcpt/paypsw.css"/>
+    <link rel="stylesheet" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.min.css"/>
+    
+    <title></title>
+</head>
+<body>
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>待收计划</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="plan">
+
+            <div class="area01">
+                <div class="plan-cont">
+                    <ul>
+                        <li class="planTheme">
+                            <a href="#" class="display">
+                                <div class="flex1">
+                                    <h2 th:text="${txRepay.usageTypeLabel}">装修</h2>
+                                    <p><span th:text="${'借款人：' + txRepay.borrowerName}">借款人：吴先生</span>
+                                        <span th:text="${'出借人：' + txRepay.lenderName}">出借人： 张先生</span></p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="planDetail display">
+
+                            <div class="flex1">
+                                <span>借款金额 (元)</span>
+                                <p th:text="${txRepay.amount}">1,000.00</p>
+                            </div>
+
+                            <div class="flex1">
+                                <span>利 率</span>
+                                <p th:text="${txRepay.rate + '%'}">12%</p>
+                            </div>
+
+                            <div class="flex1">
+                                <span>服务费</span>
+                                <p>无</p>
+                            </div>
+
+                            <div class="flex1">
+                                <span>担保费</span>
+                                <p>无</p>
+                            </div>
+
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="area02">
+                <div class="planRecord">
+                    <div class="tabMenu clear">
+                        <div class="card01 fl choose">
+                            <h3>收款计划</h3>
+                            <span th:text="${'待收' + #numbers.formatDecimal(txRepay.outstandingAmount + txRepay.outstandingInterest, 1,2)}">待收1000.00</span>
+                        </div>
+                        <div class="card02 fl">
+                            <h3>收款记录 <img src="../../img/RedDot.svg" class="redDot" th:if="${TX_USER == null}"/></h3>
+                            <span th:text="${'已收' + #numbers.formatDecimal(txRepay.amount + txRepay.interest - txRepay.outstandingAmount - txRepay.outstandingInterest, 1,2)}">
+                                待收1000.00</span>
+                        </div>
+                    </div>
+                    <div class="tabCNT">
+                        <div class="tabCNT01" style="display: block;">
+                            <div class="plan-list">
+                                <ul>
+                                    <li>
+                                        <label for="checkbox-1" class="display">
+
+                                            <div class="repaycheckbox">
+                                                <input id="checkbox-1" class="chk_style" type="checkbox" value="1" checked=""/><i class="radioIcon"></i>
+                                            </div>
+
+                                            <div class="repayAmount flex1">
+                                                <h3 th:inline="text">[[${#numbers.formatDecimal(txRepay.outstandingAmount + txRepay.outstandingInterest, 1,2)}]]<em> 元 </em></h3>
+                                                <p th:text="${'到期日: ' + txRepay.endDate}">2018.03.17</p>                                                
+                                            </div>
+
+                                            <div class="repayTime">
+                                                <em class="red" th:if="${txRepay.txStatus != 3 and txRepay.extensionStatus == 1}">展期待确认</em>
+                                                <em class="red" th:if="${txRepay.txStatus != 3 and txRepay.repaymentStatus == 1}">还款待确认</em>                                                
+                                            </div>
+                                            
+                                        </label>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tabCNT02" style="display: none;">
+
+                            <div class="record-list">
+                                <div class="noData" th:if="${repaymentList.isEmpty()}">
+                                    <h4>暂无数据</h4>
+                                    <span>No Data</span>
+                                </div>
+                                <ul th:if="${!repaymentList.isEmpty()}">
+                                    <li class="display" th:each="tr,iter : ${repaymentList}">
+                                        <div class="recordBorrower flex1">
+                                            <h3 th:text="${tr.borrowerName}">吴先生</h3>
+                                            <span th:text="${'还款日期：' + (#strings.isEmpty(tr.actualEndDate) ? tr.endDate : tr.actualEndDate)}">还款日期：2018.03.17</span>
+                                        </div>
+                                        <div class="recordEarn">
+                                            <h3 th:text="${#numbers.formatDecimal(tr.amount + tr.interest,1,2) + '元'}">100.00元</h3>
+                                            <span th:if="${iter.index == 0 and tr.repaymentStatus == 1}">
+                                                <a th:href="${'../repayment/repay/' + tr.txId + '.html'}" th:text="${tr.repaymentStatusLabel}">未还清</a></span>
+                                            <span th:text="${tr.repaymentStatusLabel}" th:if="${iter.index != 0 or tr.repaymentStatus != 1}">待确定</span>
+                                        </div>
+                                        <div class="more"><i class="linecons-GT"></i></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="tabBTN">
+        <div class="tabBTN02">
+            <div class="fixed-btn slideInUp shadow display">
+                <div class="reportBTN flex1">销 账</div>
+                <div class="chargeBTN flex1">展 期</div>
+                <div class="rollOverBTN flex1" th:if="${txRepay.txStatus != 3 and txRepay.repaymentStatus == 1}">还款确认</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="txId" th:value="${txRepay.txId}" />
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../libs/jquery-weui.min.js"></script>
+<script src="../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../js/rcpt/main.js"></script>
+<script type="text/javascript" src="../../js/rcpt/repayment_repay_plan.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".tabMenu div").click(function () {
+            $(this).addClass("choose").siblings().removeClass("choose");
+            $('.tabCNT>div:eq(' + $(this).index() + ')').show().siblings().hide();
+//            $('.tabBTN>div:eq(' + $(this).index() + ')').show().siblings().hide();
+        });
+
+        $('.rollOverBTN').click(function () {
+            location.href = baseURL + 'rcpt/repayment/repay/' + $('#txId').val() + pageExt;
+        });
+
+        $('.chargeBTN').click(function () {
+            location.href = baseURL + 'rcpt/repayment/create_extension/' + $('#txId').val() + pageExt;
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+.head-title{
+    text-align: center;
+    line-height: 0.9rem;
+    line-height: 0.9rem;
+    position: relative;
+    font-size: 0.34rem;
+    color: #000;
+    background: #fff;
+    letter-spacing: 1px;
+}
+.head-title> a >span{
+    position: absolute;
+    left: 10px;
+    top: 13px;
+    background: url(../img/title-arr.png);
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    background-size: contain
+}
+.nextBtn{width:90%;height: 0.9rem;margin:0.8rem auto;}
+.nextBtn >button{
+    width: 100%;
+    height: 100%;
+    line-height: 0.9rem;
+    color: #502712;
+    font-size: 0.33rem;
+    background: url(../img/cmbtn.png);
+    background-size:cover;
+    letter-spacing: 1px;
+}
+
+/* foot底部 */
+.footer{
+     width: 100%;
+     height:1rem;
+     background: #fff;
+     position: fixed;
+     bottom: 0;
+     left:0;
+     box-shadow: 1px 1px 12px #ececec;
+}
+ .footer ul li{
+     float: left;
+     width: 50%;
+     height: 100%;
+     text-align: center;
+}
+.footer ul li >img{width: 0.4rem;height:0.5rem;margin-top: 0.05rem;}
+
+/*系统公告*/
+.notice 
+   {
+	width: 100%;
+	margin: 0 auto;
+	  padding: 10px 0;
+	  background-color: #fff;
+	  border-bottom: 1px solid #f0f0f0;
+	  overflow: hidden;
+	}
+    .notice .container{width: 100%;height: 100%;}
+    .notice .container .txt{ float: left;font-size: 0.3rem;margin-left: 0.3rem;}
+    .icon_v2.noticeIcon{background-position:-199px -2px;}
+    .notice .notice-items {
+	  width: auto;
+	  float: left;
+	  font-size: 0.25rem;
+	  height: 21px;
+	  line-height: 21px;
+	  padding-left: 15px;
+	  position: relative;
+	  overflow: hidden;
+	  margin-top:0.06rem;
+	}

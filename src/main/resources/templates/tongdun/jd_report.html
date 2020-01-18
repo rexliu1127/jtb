@@ -1,0 +1,393 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style></style>
+    <style type="text/css">.ng-animate.item:not(.left):not(.right) {
+        -webkit-transition: 0s ease-in-out left;
+        transition: 0s ease-in-out left
+    }</style>
+    <style type="text/css">@charset "UTF-8";
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+    }
+
+    ng\:form {
+        display: block;
+    }
+
+    .ng-animate-shim {
+        visibility: hidden;
+    }
+
+    .ng-anchor {
+        position: absolute;
+    }
+    .dataTables_wrapper  {
+        margin-top: 20px;
+    }
+        .report-item-title {
+            margin-top: 20px;
+        }
+    </style>
+    <title>认证报告</title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="../../../css/jxl_bower_stylesheet_7bdfbd21f0.min.css"/>
+    <link rel="stylesheet" href="../../../css/jxl_dev_platform_4e3d90716a.min.css"/>
+    <style></style>
+    <style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+    .en-markup-crop-options {
+        top: 18px !important;
+        left: 50% !important;
+        margin-left: -100px !important;
+        width: 200px !important;
+        border: 2px rgba(255, 255, 255, .38) solid !important;
+        border-radius: 4px !important;
+    }
+
+    .en-markup-crop-options div div:first-of-type {
+        margin-left: 0px !important;
+    }
+    </style>
+</head>
+<head>
+</head>
+<body>
+<article class="jxl-structure-core"> <!-- uiView: undefined -->
+    <ui-view class="ng-scope" style=""><!-- uiView: content -->
+        <div ui-view="content" class="ng-scope">
+            <div class="container ng-scope">
+                <div class="report report-fade  watermark-box active" ng-class="{
+  'active': reportDetail.showRenderReport,
+  }" style="">
+                    <div class="watermark-list-text" ng-show="reportDetail.watermarkShow">
+                        <!-- ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                  class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope" style="">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index -->
+                    </div>
+                    <div class="watermark-theme-text" th:if="${report != null}">
+                        <h2 class="h2 report-title text-center" style="font-weight: 700;">
+                            京东认证报告
+                            <div id="showReport" style="display: none;">
+                                <button style="right: auto" class="btn btn-primary">打印</button>
+                                <button class="btn btn-primary">导出图片</button>
+                            </div>
+
+                        </h2>
+
+                        <!--基本信息开始-->
+                        <div class="report-basic-info">
+                            <table class="table" style="margin-bottom:10px;">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <em class="ng-binding" th:inline="text">编号：[[${report.task_id}]]</em>
+                                    </td>
+                                    <td style="text-align: right">
+                                        <em class="ng-binding" th:inline="text">报告时间：[[${report.data.created_time}]]</em>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--基本信息结束-->
+
+                        <h4 class="report-item-title">用户信息</h4>
+
+                        <!--申请信息核查开始-->
+                        <div class="report-basic-info" style="margin: 10px 0px;" th:if="${report.data.task_data.base_info != null}">
+                            <table class="table teb-time">
+                                <!-- ngRepeat: reportapp in reportDetail.report.application_check -->
+                                <tbody th:with="data = ${report.data.task_data.base_info}" class="ng-scope" style="">
+                                <tr class="ng-scope">
+                                    <th>用户名：</th>
+                                    <td>
+                                        <em class="ng-binding" th:text="${data.user_name}">黄一一</em>
+                                    </td>
+                                    <td>邮箱: <span th:text="${data.email}"></span></td>
+                                    <td>用户等级: <span th:text="${data.user_level}"></span></td>
+                                </tr>
+                                <tr class="ng-scope">
+                                    <th>姓名：</th>
+                                    <td>
+                                        <em class="ng-binding" th:text="${data.real_name}">黄一一</em>
+                                    </td>
+                                    <td>性别: <span th:text="${data.gender}"></span></td>
+                                    <td>昵称: <span th:text="${data.nick_name}"></span></td>
+                                </tr>
+                                <tr class="ng-scope">
+                                    <th>身份证：</th>
+                                    <td>
+                                        <em class="ng-binding" th:text="${data.identity_code}">440921201010101011</em>
+                                    </td>
+
+                                    <td>绑定手机: <span th:text="${data.mobile}"></span></td>
+
+                                    <td>
+                                        <em class="ng-binding">
+                                        </em>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--申请信息核查结束-->
+                        <!--账户信息结束-->
+                        <h4 class="report-item-title">账户信息</h4>
+                        <div class="report-basic-info" style="margin: 10px 0px;" th:if="${report.data.task_data.account_info != null}">
+                            <table class="table teb-time">
+                                <!-- ngRepeat: reportapp in reportDetail.report.application_check -->
+                                <tbody th:with="data = ${report.data.task_data.account_info}" class="ng-scope" style="">
+                                <tr class="ng-scope">
+                                    <th>余额：</th>
+                                    <td th:inline="text">
+                                        [[${#numbers.formatDecimal(T(Integer).parseInt(data.account_balance)/100.0, 1,2)}]] 元
+                                    </td>
+                                    <td>金融账户余额: <span th:text="${#numbers.formatDecimal(T(Integer).parseInt(data.financial_account_balance)/100.0, 1,2)}"></span> 元</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="ng-scope">
+                                    <th>信用分：</th>
+                                    <td>
+                                        <em class="ng-binding" th:text="${data.credit_point}">黄一一</em>
+                                    </td>
+                                    <td>信用额度: <span th:text="${#numbers.formatDecimal(T(Integer).parseInt(data.credit_quota)/100.0, 1,2)}"></span>元</td>
+                                    <td>消费额度: <span th:text="${#numbers.formatDecimal(T(Integer).parseInt(data.consume_quota)/100.0, 1,2)}"></span>元</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4 class="report-item-title">收货地址</h4>
+                        <div class="report-item">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="">收货人</th>
+                                    <th width="">地区</th>
+                                    <th width="">地址</th>
+                                    <th width="">手机号码</th>
+                                    <th width="">固定电话</th>
+                                    <th width="">默认地址</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr  th:each="cell : ${report.data.task_data.receiver_list}" class="ng-scope" style="">
+                                    <td th:text="${cell.name}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.area}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.address}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.mobile}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.telephone}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.default}" class="ng-binding">广东</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4 class="report-item-title">订单信息</h4>
+                        <div class="report-item">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="">订单编号</th>
+                                    <th width="">订单金额(元)</th>
+                                    <th width="">收货人</th>
+                                    <th width="">收货人地址</th>
+                                    <th width="">收货人手机</th>
+                                    <th width="">订单时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr  th:each="cell : ${report.data.task_data.order_list}" class="ng-scope" style="">
+                                    <td th:text="${cell.order_id}" class="ng-binding">广东电信</td>
+                                    <td th:text="${#numbers.formatDecimal(T(Integer).parseInt(cell.order_amount)/100.0, 1,2)}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.receiver_name}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.receiver_addr}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.receiver_mobile}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.order_time}" class="ng-binding">广东</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <style class="ng-scope">
+
+                tbody td, tbody th {
+                    border: 1px solid #CCCCCC;
+                }
+
+                tbody tr > th {
+                    background: #f5f5f5;
+                    font-size: 13px !important;
+                }
+
+                td .label {
+                    margin-right: 10px;
+                }
+
+                td .label {
+                    margin: 3px;
+                }
+
+                .table42 td {
+                    font-size: 8px !important;
+                }
+
+                .table-td {
+                    text-align: right;
+                    padding-right: 15px;
+                }
+
+                .report42 td {
+                    font-size: 13px !important;
+                }
+
+                .report42 .fa {
+                    margin-right: 5px;
+                }
+
+                h2 {
+                    margin-top: 15px !important;
+                }
+            </style>
+        </div>
+    </ui-view>
+</article>
+
+<!-- jQuery 2.0.2 -->
+<script src="../../../libs/jquery-2.1.4.js"></script>
+<!-- Bootstrap -->
+<script src="../../../libs/bootstrap.min.js" type="text/javascript"></script>
+<!-- DATA TABES SCRIPT -->
+<script src="../../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+<script src="../../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function() {
+        var lang = { //国际化配置
+            "sProcessing" : "正在获取数据，请稍后...",
+            "sLengthMenu" : "显示 _MENU_ 条",
+            "sZeroRecords" : "没有您要搜索的内容",
+            "sInfo" : "从 _START_ 到  _END_ 条记录 总记录数为 _TOTAL_ 条",
+            "sInfoEmpty" : "记录数为0",
+            "sInfoFiltered" : "(全部记录数 _MAX_ 条)",
+            "sInfoPostFix" : "",
+            "sSearch" : "搜索",
+            "bSort": false,
+            "asSorting" : [[3, "desc"]],
+            "oPaginate": {
+                "sFirst" : "第一页",
+                "sPrevious" : "上一页",
+                "sNext" : "下一页",
+                "sLast" : "最后一页"
+            }
+        };
+        $(".page_table").dataTable({
+            "bFilter": false,
+            "bLengthChange": false,
+            "oLanguage": lang
+        });
+
+        $('#page_table1').dataTable( {
+            "aaSorting": [[3, "desc"]],//默认第几列排序
+            "bStateSave": true,
+            "bFilter": false,
+            "bLengthChange": false,
+            "oLanguage": lang
+        } );
+    });
+</script>
+</body>
+</html>

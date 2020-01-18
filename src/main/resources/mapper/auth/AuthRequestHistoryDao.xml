@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthRequestHistoryDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.auth.entity.AuthRequestHistoryEntity" id="authRequestHistoryMap">
+        <result property="id" column="id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="requestId" column="request_id"/>
+        <result property="processorId" column="processor_id"/>
+        <result property="status" column="status"/>
+        <result property="userRemark" column="user_remark"/>
+        <result property="adminRemark" column="admin_remark"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.auth.entity.AuthRequestHistoryEntity">
+		select * from auth_request_history where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.auth.entity.AuthRequestHistoryEntity">
+		select * from auth_request_history
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from auth_request_history 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.auth.entity.AuthRequestHistoryEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into auth_request_history
+		(
+			merchant_no, 
+			request_id, 
+			processor_id, 
+			status, 
+			user_remark, 
+			admin_remark, 
+			create_user_id, 
+			create_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{requestId}, 
+			#{processorId}, 
+			#{status}, 
+			#{userRemark}, 
+			#{adminRemark}, 
+			#{createUserId}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.AuthRequestHistoryEntity">
+		update auth_request_history 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="requestId != null">request_id = #{requestId}, </if>
+			<if test="processorId != null">processor_id = #{processorId}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="userRemark != null">user_remark = #{userRemark}, </if>
+			<if test="adminRemark != null">admin_remark = #{adminRemark}, </if>
+			<if test="createUserId != null">create_user_id = #{createUserId}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from auth_request_history where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from auth_request_history where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="queryHistories" resultType="io.grx.modules.auth.entity.AuthRequestHistoryEntity">
+		select * from auth_request_history where request_id = #{value} order by id desc
+	</select>
+</mapper>

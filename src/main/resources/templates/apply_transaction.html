@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <title></title>
+    <link rel="stylesheet" href="../css/wx_common.css"/>
+    <link rel="stylesheet" href="../css/wx_main.css"/>
+    <link rel="stylesheet" href="../css/wx/passwordbox.css"/>
+    <link rel="stylesheet" href="../css/page.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css"/>
+
+    <script th:inline="text">
+        var bindedUser = [[${!#strings.isEmpty(TX_USER.name)}]];
+    </script>
+</head>
+<body class="body_bg">
+<form id="txForm">
+<div class="body_contant">
+    <div class="daiou" id="form">
+        <div class="daiou_person"><img src="../images/person.png"/></div>
+        <div class="daiou_list pt20">
+            <input id="type" type="hidden" th:value="${type}"/>
+            <ul>
+                <li><span>借款金额：</span><font><input id="amount" type="number" placeholder="请输入金额"/><em>元</em></font></li>
+                <li><span th:text="${type == 1 ? '对方姓名 (出借人)' : '对方姓名 (借款人)'}">对方姓名（出借人/借款人）：</span><font>
+                    <input id="otherName" type="text" placeholder="正确才可以生效"/></font></li>
+            </ul>
+        </div>
+        <div class="daiou_list">
+            <ul>
+                <li><span>借款日期：</span><font><input id="beginDate" type="text" th:value="${beginDate}" readonly="readonly"/></font></li>
+                <li><span>还款日期：</span><font><input type="text" id="endDate" th:value="${endDate}" readonly="readonly"/></font></li>
+                <li><span>年利率：</span><font><input type="text" id="rate" data-values="24" value="24%" placeholder="请选择年化利率" readonly="readonly"/></font></li>
+                <li id="usageSelect"><span>借款用途：</span><font><div id="usageSelectDesc">请选择</div></font></li>
+            </ul>
+        </div>
+        <div class="daiou_list">
+            <ul>
+                <li><span>补充说明：</span><font><input id="remark" type="text" placeholder="如有请输入"/></font></li>
+                <li th:if="${type == 1}"><input id="feeAmount" type="hidden" th:value="${feeAmount}" />
+                    <span>服务费：</span><font class="red" th:text="${feeAmount > 0 ? (feeAmount + '元') : '限时免费'}">限时免费</font></li>
+            </ul>
+        </div>
+        <div class="daiou_sm">
+            <div class="checkbox"><input id="weuiAgree" name="agreement" checked="checked" type="checkbox"/>已阅读并同意<a class="red">《借款协议》</a></div>
+            <p>提示</p>
+            <p>1.出借人7天内未确认／驳回借条，该借条将自动删除；</p>
+            <p>2.借条若作废，已支付的服务费（若有）将退回到个人钱包余额，可在下次打借条时使用；</p>
+            <p>3.打借条不支持线上出借，请确保你们的线下交易完毕</p>
+        </div>
+    </div>
+    <div id="form2" style="display: none;">
+        <div class="weui-cells__title">借款用途</div>
+        <div class="weui-cells weui-cells_radio">
+            <label class="weui-cell weui-check__label" for="x11">
+                <div class="weui-cell__bd">
+                    <p>个体经营</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" name="usageType" value="1" id="x11"/>
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x12">
+
+                <div class="weui-cell__bd">
+                    <p>消费</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" name="usageType" class="weui-check" value="2" id="x12"/>
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x13">
+
+                <div class="weui-cell__bd">
+                    <p>助学</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" name="usageType" class="weui-check" value="3" id="x13"/>
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x14">
+
+                <div class="weui-cell__bd">
+                    <p>创业</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" name="usageType" class="weui-check" value="4" id="x14"/>
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x15">
+
+                <div class="weui-cell__bd">
+                    <p>租房</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" name="usageType" class="weui-check" value="5" id="x15"/>
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x16">
+
+                <div class="weui-cell__bd">
+                    <p>旅游</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" name="usageType" class="weui-check" value="6" id="x16"/>
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+
+            <label class="weui-cell weui-check__label" for="x17">
+
+                <div class="weui-cell__bd">
+                    <p>装修</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" name="usageType" class="weui-check" value="7" id="x17"/>
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x18">
+
+                <div class="weui-cell__bd">
+                    <p>医疗</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" name="usageType" class="weui-check" value="8" id="x18"/>
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="x10">
+                <div class="weui-cell__bd">
+                    <p>其他</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" name="usageType" class="weui-check" value="0" id="x10" checked="checked"/>
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+        </div>
+
+        <div class="weui-cells__title">补充说明(不超过300个字)</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <textarea id="usageRemark" class="weui-textarea" placeholder="具体说明您的借贷用途或者证明你的还款能力" rows="3"></textarea>
+                    <!--<div class="weui-textarea-counter"><span>0</span>/200</div>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <!--div class="weui-uploader">
+                    <div class="weui-uploader__hd">
+                        <p class="weui-uploader__title">图片上传</p>
+                    </div>
+                    <div class="weui-uploader__bd">
+                        <ul class="weui-uploader__files" id="uploaderFiles">
+
+                            <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                                <div class="weui-uploader__file-content">
+                                    <i class="weui-icon-warn"></i>
+                                </div>
+                            </li>
+                            <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                                <div class="weui-uploader__file-content">50%</div>
+                            </li>
+                        </ul>
+                        <div class="weui-uploader__input-box">
+                            <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="multiple"/>
+                        </div>
+                    </div>
+                </div-->
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="borrow_height"></div>
+<div class="borrow_bottom">
+    <div class="borrow_but"><a id="formSubmitBtn" class="but_color_y">创建借条</a><a id="formSubmitBtn2" class="but_color_y" style="display: none;">保存</a></div>
+</div>
+</form>
+
+<div id="keyboardDIV">
+    <p id="set_text"></p>
+    <form id="password" >
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+    </form>
+    <p id="forget"><a id="forgetBtn" href="javascript:;">忘记密码?</a></p>
+</div>
+<div id="password_mask"></div>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="../js/wx_common.js"></script>
+<script src="../js/wx/transaction.js"></script>
+<script src="../js/wx/passwordbox.js"></script>
+</body>
+
+
+</html>

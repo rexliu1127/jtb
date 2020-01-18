@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>借条列表</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/daterangepicker.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <style>
+        #barcodeImage {
+            width: 200px;
+        }
+
+    </style>
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/validator.min.js"></script>
+    <script src="../../libs/clipboard.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <table id="searchTable">
+            <tr>
+                <td style="width: 80px;"><label>借款人:</label></td>
+                <td style="width: 200px;"><input type="text" class="form-control" v-model="q.borrowerValue" @keyup.enter="query" placeholder="姓名/手机/身份证"></td>
+                <td style="width: 80px;"><label>出借人:</label></td>
+                <td style="width: 200px;"><input type="text" class="form-control" v-model="q.lenderValue" @keyup.enter="query" placeholder="姓名/手机/身份证"></td>
+                <td style="width: 60px;"><label>状态:</label></td>
+                <td style="width: 100px;">
+                    <select id="statusSelect" class="form-control" style="display: inline-block; width: auto; margin-left: 5px;"  v-model="q.status">
+                        <option value="1">待确认</option>
+                        <option value="2">还款中</option>
+                        <option value="3">已还清</option>
+                        <option value="4">已逾期</option>
+                        <option value="5">未支付</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>开始时间:</label></td>
+                <td><input type="text" class="form-control" id="beginDateRange" placeholder="开始时间"></td>
+                <td><label>还款时间:</label></td>
+                <td><input type="text" class="form-control" id="repayDateRange" placeholder="还款时间"></td>
+                <td colspan="2"><a class="btn btn-default" @click="query">查询</a>
+                    <a class="btn btn-default" @click="reset">重置</a></td>
+            </tr>
+        </table>
+        <div class="grid-btn">
+            <a v-if="hasPermission('tx:txbase:update')" class="btn btn-primary" @click="markStatus2"><i class="fa fa-pencil-square-o"></i>&nbsp;标记未还款</a>
+            <a v-if="hasPermission('tx:txbase:delete')" class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+    </div>
+</div>
+
+<!-- 显示二维码layer -->
+<div id="barcodeLayer" class="row text-center" style="display: none;">
+    <img id="barcodeImage" title="右键保存二维码图片" />
+</div>
+
+
+<script src="../../libs/moment.min.js"></script>
+<script src="../../libs/daterangepicker.js"></script>
+<script src="../../js/modules/tx/tx_base.js"></script>
+</body>
+</html>

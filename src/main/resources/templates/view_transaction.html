@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" href="../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../css/wx_main.css"/>
+    <link href="../../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .button-sp-area {
+            width: 100%;
+            text-align: center;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .weui-btn {
+            width: 30%;
+            display: inline-block;
+            padding-left: 10px;
+        }
+
+        #mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 550;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #maskContent {
+            width: 38%;
+            margin-left: 30%;
+            margin-top: 20%;
+
+        }
+
+        #maskContent p {
+            color: white;
+            font-size: 16px;
+        }
+        #qrCode {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+    <script src="../../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../../js/wx_common.js"></script>
+    <script src="../../js/wx/view_transaction.js"></script>
+</head>
+<body ontouchstart="" class="body_bg">
+
+<div class="body_contant">
+    <h1><span class="bo_ico1"></span>借款内容</h1>
+    <div class="borrow_content">
+        <ul>
+            <li>
+                <span>借款人</span><font th:text="${tx.borrowerName}">RINA</font>
+            </li>
+            <li>
+                <span>出借人</span><font th:text="${tx.lenderName}">LIN</font>
+            </li>
+            <li>
+                <span>借款金额</span><font th:inline="text">¥[[${tx.amount}]]元</font>
+            </li>
+            <li>
+                <span>借款日期</span><font th:text="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}">2017-09-18</font>
+            </li>
+            <li>
+                <span>还款日期</span><font th:text="${#dates.format(tx.endDate, 'yyyy-MM-dd')}">2017-10-18</font>
+            </li>
+            <li>
+                <span>借款利率</span><font th:text="${tx.rate + '%'}">8％</font>
+            </li>
+            <li>
+                <span>借款用途</span><font th:text="${tx.usageType.displayName}">其他</font>
+            </li>
+            <li>
+                <span>补充说明</span><font th:text="${tx.remark}">无</font>
+            </li>
+            <li>
+                <span>借款协议</span><font><a class="yellow" th:href="${'../transaction/agreement.html?txId=' + tx.txId}">点击查看</a></font>
+            </li>
+        </ul>
+    </div>
+    <div class="borrow_content">
+        <ul>
+            <li>
+                <span>订单编号</span><font th:text="${tx.txUuid}">20170918000000412</font>
+            </li>
+            <li>
+                <span>创建时间</span><font th:text="${#dates.format(tx.createTime, 'yyyy-MM-dd')}">2017-09-18</font>
+            </li>
+            <li>
+                <span>订单状态</span><font th:text="${tx.status.displayName}">待确认</font>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="borrow_bottom">
+    <div class="borrow_but">
+        <a class="but_color_b" id="delete"
+           th:if="${TX_USER.userId == tx.createUserId and (tx.status.name() == 'NEW' || tx.status.name() == 'REJECTED' || tx.status.name() == 'UNPAID')}">删除</a>
+        <a class="but_color_y" id="resend" th:if="${tx.status.name() == 'NEW' || tx.status.name() == 'REJECTED'}">再次发送</a>
+        <a class="but_color_y" id="confirm"
+           th:if="${tx.createUserId == tx.borrowerUserId and tx.status.name() == 'UNPAID'}">确认支付</a>
+    </div>
+</div>
+
+<input id="txUuid" type="hidden" th:value="${tx.txUuid}"/>
+<input id="txId" type="hidden" th:value="${tx.txId}"/>
+<input type="hidden" id="feeAmount" th:value="${tx.feeAmount}"/>
+
+</body>
+</html>

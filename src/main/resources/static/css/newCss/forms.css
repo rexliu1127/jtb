@@ -1,0 +1,217 @@
+@charset "utf-8";
+/* CSS 表单 */
+label {
+	display: inline-block;
+	max-width: 100%;
+	margin-bottom: 5px;
+	font-weight: 600;
+}
+table {
+	border-collapse: collapse;
+	background-color: transparent;
+}
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	color: #fff;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	background: #0475ff;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border-width: 0;
+	border-style: solid;
+	border-color: transparent;
+	border-radius: 4px;
+}
+.btn:disabled {
+	background-color: #ddd;
+	cursor: no-drop;
+}
+/*----*/
+.checkbox label {
+	min-height: 20px;
+	margin-bottom: 0;
+	padding-left: 5px;
+	font-weight: 400;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+}
+.checkbox label::before {
+	width: 16px;
+	height: 16px;
+	left: 0;
+	margin-left: -20px;
+	display: inline-block;
+	position: absolute;
+	transition: .3s ease-in-out;
+	-o-transition: .3s ease-in-out;
+	-webkit-transition: .3s ease-in-out;
+	background-color: #fff;
+	border-radius: 1px;
+	border: 1px solid rgba(120, 130, 140, 0.38);
+	content: "";
+	outline: 0!important;
+}
+.checkbox input[type=checkbox] {
+	cursor: pointer;
+	opacity: 0;
+	z-index: 1;
+	outline: 0!important;
+}
+.checkbox input[type=checkbox]:checked+label::after {
+	content: "\f00c";
+	font-family: FontAwesome;
+}
+.checkbox label::after {
+	width: 16px;
+	height: 16px;
+	top: 0;
+	left: 0;
+	margin-left: -20px;
+	padding-left: 3px;
+	padding-top: 1px;
+	color: #313131;
+	display: inline-block;
+	font-size: 11px;
+	position: absolute;
+}
+.checkbox-info input[type=checkbox]:checked+label::before {
+	background-color: #ff2d27;
+	border-color: #ff2d27;
+}
+.checkbox-info input[type=checkbox]:checked+label::after {
+	color: #fff;
+}
+.checkbox-primary input[type=checkbox]:checked+label::before {
+	background-color: #ff2d27;
+	border-color: #ff2d27;
+}
+.checkbox-primary input[type=checkbox]:checked+label::after {
+	color: #fff;
+}
+/*----*/
+::-webkit-input-placeholder { /* WebKit browsers */
+font-size:14px;
+font-weight:500;
+color:#ccc;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+font-size:14px;
+font-weight:500;
+color:#ccc;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+font-size:14px;
+font-weight:500;
+color:#ccc;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+font-size:14px;
+font-weight:500;
+color:#ccc;
+}
+/*----*/
+input {
+	outline: none;
+}
+.input-group {
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	width: 100%;
+}
+.input-Box, .textarea-Box, .select-Box {
+	width: 100%;
+	height: 38px;
+	line-height: 1.42857143;
+	padding: 6px 12px;
+	font-size: 14px;
+	color: #555;
+	display: block;
+	background-image: none;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #CCC;
+	box-shadow: none;
+}
+.input-Box:focus, .textarea-Box:focus, .select-Box:focus {
+	border: 1px solid #CCC;
+	-moz-box-shadow: inset 0 0 10px #CCC;
+	-webkit-box-shadow: inset 0 0 10px #CCC;
+	box-shadow: inset 0 0 10px #CCC;
+}
+.textarea-Box {
+	max-width: 100%;
+	height: 260px;
+}
+.select-Box {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+.no-focus:focus {
+	border: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+/*--table--*/
+table {
+	border-collapse: collapse;
+	background-color: transparent;
+}
+th {
+	text-align: left;
+}
+table td, table th {
+	max-width: 250px;
+	padding: 10px 8px;
+	vertical-align: top;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: #eceeef;
+}
+table tbody tr:last-child td {
+	border-width: 0;
+}
+.footable {
+	width: 100%;
+}
+tr.sort {
+	cursor: pointer;
+}
+tr.sort .fa-sort {
+	color: rgba(205, 205, 205, 0.5);
+}
+tbody tr.designate {
+	background-color: #ffd6d6;
+}
+tbody tr td, tbody tr td p {
+	font-size: 14px;
+	color: #666;
+	word-wrap: break-word;
+}
+tbody tr td h3 {
+	font-size: 16px;
+	font-weight: 500;
+	color: #666;
+}
+tbody tr td span {
+	font-size: 14px;
+	color: #999;
+}

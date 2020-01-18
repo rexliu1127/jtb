@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.pay.dao.PayScanRecordDao">
+	<cache/>
+	<select id="queryObject" resultType="io.grx.modules.pay.entity.PayScanRecordEntity">
+		select * from pay_scan_record where pay_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.pay.entity.PayScanRecordEntity">
+		select * from pay_scan_record
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by pay_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from pay_scan_record 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.pay.entity.PayScanRecordEntity">
+		insert into pay_scan_record
+		(
+			pay_id, 
+			merchant_no, 
+			order_no,
+            order_id,
+            pay_type,
+			pay_user_id, 
+			status, 
+			create_time
+		)
+		values
+		(
+			#{payId}, 
+			#{merchantNo}, 
+			#{orderNo},
+            #{orderId},
+            #{payType},
+			#{payUserId}, 
+			#{status}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.pay.entity.PayScanRecordEntity">
+		update pay_scan_record 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="orderNo != null">order_no = #{orderNo}, </if>
+            <if test="orderId != null">order_id = #{orderId}, </if>
+			<if test="payType != null">pay_type = #{payType}, </if>
+			<if test="payUserId != null">pay_user_id = #{payUserId}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where pay_id = #{payId}
+	</update>
+	
+	<delete id="delete">
+		delete from pay_scan_record where pay_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from pay_scan_record where pay_id in 
+		<foreach item="payId" collection="array" open="(" separator="," close=")">
+			#{payId}
+		</foreach>
+	</delete>
+
+</mapper>

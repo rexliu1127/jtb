@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthUserReportDsDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.auth.entity.AuthUserReportDsEntity" id="authUserReportDsMap">
+        <result property="id" column="id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="userId" column="user_id"/>
+        <result property="taskId" column="task_id"/>
+        <result property="dsType" column="ds_type"/>
+        <result property="name" column="name"/>
+        <result property="idNo" column="id_no"/>
+        <result property="mobile" column="mobile"/>
+        <result property="reportData" column="report_data"/>
+        <result property="verifyStatus" column="verify_status"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.auth.entity.AuthUserReportDsEntity">
+		select * from auth_user_report_ds where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.auth.entity.AuthUserReportDsEntity">
+		select * from auth_user_report_ds
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from auth_user_report_ds 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.auth.entity.AuthUserReportDsEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into auth_user_report_ds
+		(
+			merchant_no, 
+			user_id, 
+			task_id, 
+			ds_type, 
+			name, 
+			id_no, 
+			mobile, 
+			report_data, 
+			verify_status, 
+			create_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{userId}, 
+			#{taskId}, 
+			#{dsType}, 
+			#{name}, 
+			#{idNo}, 
+			#{mobile}, 
+			#{reportData}, 
+			#{verifyStatus}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.AuthUserReportDsEntity">
+		update auth_user_report_ds 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="userId != null">user_id = #{userId}, </if>
+			<if test="taskId != null">task_id = #{taskId}, </if>
+			<if test="dsType != null">ds_type = #{dsType}, </if>
+			<if test="name != null">name = #{name}, </if>
+			<if test="idNo != null">id_no = #{idNo}, </if>
+			<if test="mobile != null">mobile = #{mobile}, </if>
+			<if test="reportData != null">report_data = #{reportData}, </if>
+			<if test="verifyStatus != null">verify_status = #{verifyStatus}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from auth_user_report_ds where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from auth_user_report_ds where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="queryByTaskId" resultType="io.grx.modules.auth.entity.AuthUserReportDsEntity">
+		select * from auth_user_report_ds where task_id = #{taskId}
+	</select>
+
+	<select id="queryByStatuses" resultType="io.grx.modules.auth.entity.AuthUserReportDsEntity">
+		select * from auth_user_report_ds where
+		<if test="verifyStatuses != null">
+			verify_status in
+			<foreach item="status" collection="verifyStatuses" open="(" separator="," close=")">
+				#{status}
+			</foreach>
+		</if>
+		<if test="userId != null">
+			and user_id = #{userId}
+		</if>
+        order by id
+	</select>
+
+</mapper>

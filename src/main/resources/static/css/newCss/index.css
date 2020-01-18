@@ -1,0 +1,85 @@
+@charset "utf-8";
+/* CSS 首 页 */
+.index {
+	margin: 0 0 88px;
+}
+.overview {
+	margin: 0 10px;
+}
+.overview .item {
+}
+.overview .item div {
+	margin: 10px 0;
+	padding: 20px;
+	text-align: right;
+	position: relative;
+}
+.overview .item div i {
+	left: 10px;
+	bottom: 2px;
+	font-size: 1px;
+	color: transparent;
+	position: absolute;
+}
+.overview .item div strong {
+	font-size: 18px;
+	font-weight: 500;
+	color: #fff;
+	display: block;
+}
+.overview .item div strong em {
+	padding: 0 0 0 2px;
+	font-size: 14px;
+}
+.overview .item div span {
+	font-size: 14px;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.7);
+	display: block;
+}
+.overview .item div.history {
+}
+.loanRefund, .applyFor {
+	padding: 20px;
+	background-color: #fff;
+}
+.header {
+	margin: 0 0 10px;
+	padding: 0 0 10px;
+}
+.header h3 {
+	line-height: 22px;
+	font-size: 22px;
+	font-weight: 500;
+	color: #666;
+}
+.header span {
+	padding: 0 0 0 30px;
+	font-size: 14px;
+	color: #999;
+}
+.loanRefund .header h3 span i {
+	width: 10px;
+	height: 10px;
+	margin: 0 5px 0 0;
+	display: inline-block;
+}
+.loanRefund .header h3 span i.l {
+	background-color: #1880ff;
+}
+.loanRefund .header h3 span i.r {
+	background-color: #999;
+}
+.track {
+	margin: 20px 0;
+	padding: 20px;
+	background-color: #fff;
+}
+.applyFor .formList table tbody tr td i.state {
+	line-height: 17px;
+	padding: 2px 5px;
+	font-size: 12px;
+	color: #fff;
+	display: inline-block;
+}
+

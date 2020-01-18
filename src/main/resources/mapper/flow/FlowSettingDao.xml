@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.flow.dao.FlowSettingDao">
+
+	<select id="queryObject" resultType="io.grx.modules.flow.entity.FlowSettingEntity">
+		select * from sys_flow_setting where id = #{value}
+	</select>
+
+	<select id="queryOpenSettingFlow" resultType="io.grx.modules.flow.entity.FlowSettingEntity">
+		select * from sys_flow_setting
+		where status = 0
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.flow.entity.FlowSettingEntity">
+		select * from sys_flow_setting
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from sys_flow_setting 
+	</select>
+	
+	<select id="queryLastSettingByMerchantNo" parameterType="java.lang.String"  resultType="io.grx.modules.flow.entity.FlowSettingEntity">
+		select * from sys_flow_setting
+		where merchant_no=#{merchantNo} and status = 0
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.flow.entity.FlowSettingEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_flow_setting (merchant_no,flow_count,complete_count,status,create_time,create_by,channel_id,after_amount)
+		values (#{merchantNo},#{flowCount},#{completeCount},#{status},#{createTime},#{createBy},#{channelId},#{afterAmount})
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.flow.entity.FlowSettingEntity">
+		update sys_flow_setting 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="flowCount != null">flow_count = #{flowCount}, </if>
+			<if test="completeCount != null">complete_count = #{completeCount}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="createBy != null">create_by = #{createBy}, </if>
+			<if test="channelId != null">channel_id = #{channelId}, </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sys_flow_setting where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from sys_flow_setting where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

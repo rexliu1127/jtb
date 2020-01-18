@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/weui.css"/>
+    <link href="css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .vip_personal_con a {
+            display: inline-block; width: 100%;
+        }
+
+        .message_box h3 {
+            font-weight: 400;
+            font-size: 24px;
+            text-align: center;
+            display: block;
+        }
+
+        .message_box h4 {
+            font-weight: 400;
+            font-size: 18px;
+            text-align: center;
+            display: block;
+        }
+
+        .vip_personal_con .right {
+            float: right;
+        }
+
+        .but {
+            margin-top: 50px;
+        }
+
+        .but a {
+            width: 30%;
+        }
+
+    </style>
+    <script src="libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="js/wx_common.js"></script>
+</head>
+<body class="body_bg" ontouchstart="">
+<div class="logo">
+    <i class="weui-icon-success weui-icon_msg" th:if="${type == 'success'}"></i>
+    <i class="weui-icon-info weui-icon_msg" th:if="${type == 'info'}"></i>
+    <i class="weui-icon-warn weui-icon_msg-primary" th:if="${type == 'warn'}"></i>
+    <i class="weui-icon-warn weui-icon_msg" th:if="${type == 'error'}"></i>
+    <i class="weui-icon-waiting weui-icon_msg" th:if="${type == 'waiting'}"></i>
+</div>
+<div class="message_box">
+    <h3 th:text="${title}">支付成功</h3>
+    <h4 th:text="${message}">¥ 5.00元</h4>
+</div>
+
+<div class="but">
+    <a id="finishBtn" th:if="${!#strings.isEmpty(returnUrl)}" th:href="${returnUrl}" >完成</a>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //your code here
+    });
+    $(function(){
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../css/wx_common.css"/>
+    <link rel="stylesheet" href="../css/wx_main.css"/>
+    <link rel="stylesheet" href="../css/page.css" type="text/css"/>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css"/>
+    <style>
+        .weui-panel__bd {
+            position: relative;
+        }
+        .weui-panel__bd #refresh-img {
+            display: block;
+            position: absolute;
+            top: 10px;
+            right: 5px;
+            width: 25px;
+            height: 25px;
+        }
+
+        #refresh-img img {
+            width: 100%;
+        }
+    </style>
+    <script src="../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.3/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../js/wx_common.js"></script>
+    <script src="../js/wx/main.js"></script>
+</head>
+<body class="body_bg" ontouchstart="">
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+
+<div class="container" id="container">
+    <div class="weui-tab">
+        <div class="weui-tab__panel">
+            <div class="vip_center">
+                <div class="vip_center_top">
+                    <div class="vip_photo"><a href="member">
+                        <img th:if="${!#strings.isEmpty(user.headImgUrl)}" class="round-img"
+                             th:src="${user.headImgUrl}" alt=""/>
+                        <img th:if="${#strings.isEmpty(user.headImgUrl)}" class="round-img"
+                             src="../images/icon_guest.png" alt=""/>
+                    </a></div>
+                    <div class="vip_photo_xx"><h1 th:text="${#strings.isEmpty(user.name) ? (#strings.isEmpty(user.nickName) ? user.mobile : user.nickName) : user.name}">who are you?</h1>
+                        <p>余额：<span th:text="${balance}"></span>元</p></div>
+                    <div class="refresh"><a id="refresh-img" href="main"><img src="../images/refresh.png"/></a></div>
+                </div>
+                <div class="vip_center_con">
+                    <ul>
+                        <li onclick="location.href='repayment_to_pay';">
+                            <div class="sum">
+                                <p>待还金额（元）</p>
+                                <h1 th:text="${#numbers.formatDecimal(sumPendingRepayByMe, 1,2)}">0.00</h1>
+                            </div>
+                        </li>
+                        <li onclick="location.href='repayment_repay';">
+                            <div class="sum">
+                                <p>待收金额（元）</p>
+                                <h1 th:text="${#numbers.formatDecimal(sumPendingRepayToMe, 1,2)}">0.00</h1>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="weui-tab mt15" id="tab">
+                <div class="weui-navbar">
+                    <div class="weui-navbar__item" style="background-color: #fff">正在借款</div>
+                    <div class="weui-navbar__item" style="background-color: #fff">正在出借</div>
+                </div>
+                <div class="weui-tab__panel mt15">
+                    <div class="weui-tab__content">
+                        <div class="borrow_list" th:if="${!borrowingList.isEmpty()}">
+                            <ul>
+                                <li th:each="tx : ${borrowingList}">
+                                    <a th:href="${'transaction/' + tx.txId}">
+                                        <div class="borrow_con">
+                                            <div class="borrow_top">
+                                                <div class="borrow_photo"><img
+                                                        th:src="${tx.createdByBorrower ? tx.lenderHeadImg : tx.borrowerHeadImg}" alt="" class="round-img"
+                                                        style="width:30px;margin-right:5px;display:block"/>
+                                                </div>
+                                                <div class="borrow_xx">
+                                                    <h1 th:inline="text">[[${tx.createdByBorrower ? tx.lenderName : tx.borrowerName}]]
+                                                        <span th:text="${tx.txStatus.displayName}">待确定</span></h1>
+                                                    <p>剩余<span th:text="${tx.daysBeforeInvalid}">4</span>天</p>
+                                                </div>
+                                            </div>
+                                            <div class="borrow_bottom">
+                                                <dl>
+                                                    <dd>
+                                                        <div class="borrow_b_xx">
+                                                            <h1 th:text="${tx.amount}">100元</h1>
+                                                            <p>筹款金额</p>
+                                                        </div>
+                                                    </dd>
+                                                    <dd>
+                                                        <div class="borrow_b_xx">
+                                                            <h1 th:text="${tx.useDay}">7天</h1>
+                                                            <p>借款时长</p>
+                                                        </div>
+                                                    </dd>
+                                                    <dd>
+                                                        <div class="borrow_b_xx">
+                                                            <h1 th:text="${tx.rate + '%'}">0%</h1>
+                                                            <p>年利率</p>
+                                                        </div>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div th:if="${borrowingList.isEmpty()}" class="weui-panel" >
+                            <div class="weui-loadmore weui-loadmore_line">
+                                <span class="weui-loadmore__tips">暂无数据</span>
+                            </div>
+                            <div class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+                                <span class="weui-loadmore__tips"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui-tab__content">
+                        <div class="borrow_list" th:if="${!lendingList.isEmpty()}">
+                            <ul>
+                                <li th:each="tx : ${lendingList}">
+                                    <a th:href="${'transaction/' + tx.txId}">
+                                        <div class="borrow_con">
+                                            <div class="borrow_top">
+                                                <div class="borrow_photo"><img
+                                                        th:src="${#strings.isEmpty(tx.borrowerHeadImg) ? '../images/icon_guest.png' : tx.borrowerHeadImg}" alt="" class="round-img"
+                                                        style="width:30px;margin-right:5px;display:block"/>
+                                                </div>
+                                                <div class="borrow_xx">
+                                                    <h1 th:inline="text">[[${tx.borrowerName}]]
+                                                        <span th:text="${tx.txStatus.displayName}">待确定</span></h1>
+                                                    <p>借款时长<span th:text="${tx.useDay}">4</span>天</p>
+                                                </div>
+                                            </div>
+                                            <div class="borrow_bottom">
+                                                <dl>
+                                                    <dd>
+                                                        <div class="borrow_b_xx">
+                                                            <h1 th:text="${tx.amount}">100元</h1>
+                                                            <p>筹款金额</p>
+                                                        </div>
+                                                    </dd>
+                                                    <dd>
+                                                        <div class="borrow_b_xx">
+                                                            <h1 th:text="${tx.useDay}">7天</h1>
+                                                            <p>借款时长</p>
+                                                        </div>
+                                                    </dd>
+                                                    <dd>
+                                                        <div class="borrow_b_xx">
+                                                            <h1 th:text="${tx.rate + '%'}">0%</h1>
+                                                            <p>年利率</p>
+                                                        </div>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div th:if="${lendingList.isEmpty()}" class="weui-panel" >
+                            <div class="weui-loadmore weui-loadmore_line">
+                                <span class="weui-loadmore__tips">暂无数据</span>
+                            </div>
+                            <div class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+                                <span class="weui-loadmore__tips"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom_menu">
+            <ul>
+                <li><a id="applyTransaction" href="javascript:;"><div class="bottom_ico b_ico1"></div><p>打借条</p></a></li>
+                <li><a th:href="${#strings.isEmpty(user.name) ? 'bind_bank_page' : 'member/check_credit.html'}"><div class="bottom_ico b_ico4"></div><p>查信用</p></a></li>
+                <li><a th:href="${#strings.isEmpty(user.name) ? 'bind_bank_page' : 'borrower_sum'}"><div class="bottom_ico b_ico2"></div><p>我的借条</p></a></li>
+                <li><a th:href="${#strings.isEmpty(user.name) ? 'bind_bank_page' : 'lender_sum'}"><div class="bottom_ico b_ico3"></div><p>我的出借</p></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

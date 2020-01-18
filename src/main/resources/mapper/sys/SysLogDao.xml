@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.sys.dao.SysLogDao">
+
+	<select id="queryObject" resultType="io.grx.modules.sys.entity.SysLogEntity">
+		select * from sys_log where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.sys.entity.SysLogEntity">
+		select * from sys_log 
+		<where>
+			<if test="key != null and key.trim() != ''">
+				`username` like concat('%',#{key},'%') or `operation` like concat('%',#{key},'%')
+			</if>
+		</where>
+		order by id desc 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="queryListByMerchantNo" resultType="io.grx.modules.sys.entity.SysLogEntity">
+		SELECT *,(SELECT su.name FROM sys_user su WHERE su.username=sl.username) as sysUserName FROM sys_log sl WHERE sl.username IN
+		(
+		SELECT username FROM sys_user su WHERE su.merchant_no=#{merchantNo}
+		)
+		<if test="key != null and key.trim() != ''">
+			and `username` like concat('%',#{key},'%') or `operation` like concat('%',#{key},'%')
+		</if>
+		<if test="applyStartDate != null and applyStartDate.trim() != ''">
+			and sl.create_date &gt;= #{applyStartDate}
+		</if>
+		<if test="applyEndDate != null and applyEndDate.trim() != ''">
+			and sl.create_date &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+		</if>
+		order by id desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="queryTotalByMerchantNo" resultType="int">
+		select count(*) from sys_log sl WHERE sl.username IN
+		(
+		SELECT username FROM sys_user su WHERE su.merchant_no=#{merchantNo}
+		)
+		<if test="key != null and key.trim() != ''">
+			and `username` like concat('%',#{key},'%') or `operation` like concat('%',#{key},'%')
+		</if>
+		<if test="applyStartDate != null and applyStartDate.trim() != ''">
+			and sl.create_date &gt;= #{applyStartDate}
+		</if>
+		<if test="applyEndDate != null and applyEndDate.trim() != ''">
+			and sl.create_date &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from sys_log 
+		<where>
+			<if test="key != null and key.trim() != ''">
+				`username` like concat('%',#{key},'%') or `operation` like concat('%',#{key},'%')
+			</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.sys.entity.SysLogEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_log
+		(
+			`username`, 
+			`operation`, 
+			`method`, 
+			`params`,
+			`time`,
+			`ip`, 
+			`create_date`
+		)
+		values
+		(
+			#{username}, 
+			#{operation}, 
+			#{method}, 
+			#{params}, 
+			#{time},
+			#{ip},
+			#{createDate}
+		)
+	</insert>
+	
+	<delete id="delete">
+		delete from sys_log where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from sys_log where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <title>客户管理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/daterangepicker.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <style>
+        ol, ul {
+            list-style: none;
+        }
+
+        .auth_icon {
+            border: 1px solid #777;
+            margin-left: 2px;
+            padding: 2px 2px 2px 2px;
+            color: #777;
+            background-color: #eee;
+        }
+
+        .done {
+            border: 1px solid #00a65a;
+            color: white;
+            background-color: #00a65a;
+        }
+    </style>
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <table id="searchTable" style="width: 850px;">
+            <tr>
+                <td style="width: 80px;"><label>申请时间:</label></td>
+                <td style="width: 200px;"><input type="text" class="form-control" id="applyTimeRange" placeholder="申请时间"></td>
+                <td style="width: 80px;"><label>基本信息:</label></td>
+                <td style="width: 200px;"><input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="姓名/手机/身份证"></td>
+                <td style="width: 60px;"><label>渠道:</label></td>
+                <td style="width: 100px;"><input type="text" class="form-control" v-model="q.channelName" @keyup.enter="query" placeholder="渠道名称"></td>
+                <td style="width: 120px;"><a class="btn btn-default" @click="query">查询</a>
+                    <a class="btn btn-default" @click="reset">重置</a></td>
+            </tr>
+        </table>
+        <div class="grid-btn">
+            <a v-if="hasPermission('auth:user:export')" class="btn btn-primary btn-xs" @click="exp"><i class="fa fa-trash-o"></i>&nbsp;导出</a>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+
+<iframe src="" name="downloadFrame" id="downloadFrame" style="display: none"></iframe>
+<script src="../../libs/moment.min.js"></script>
+<script src="../../libs/daterangepicker.js"></script>
+<script src="../../js/modules/auth/auth_user.js"></script>
+</body>
+</html>

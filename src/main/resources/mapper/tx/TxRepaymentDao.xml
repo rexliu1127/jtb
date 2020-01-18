@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxRepaymentDao">
+	<cache />
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.tx.entity.TxRepaymentEntity" id="txRepaymentMap">
+        <result property="repaymentId" column="repayment_id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="txId" column="tx_id"/>
+        <result property="repaymentType" column="repayment_type"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxRepaymentEntity">
+		select * from tx_repayment where repayment_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxRepaymentEntity">
+		select * from tx_repayment
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by repayment_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_repayment 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxRepaymentEntity" useGeneratedKeys="true" keyProperty="repaymentId">
+		insert into tx_repayment
+		(
+			merchant_no, 
+			tx_id, 
+			repayment_type, 
+			status, 
+			create_time, 
+			update_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{txId}, 
+			#{repaymentType}, 
+			#{status}, 
+			#{createTime}, 
+			#{updateTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxRepaymentEntity">
+		update tx_repayment 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="txId != null">tx_id = #{txId}, </if>
+			<if test="repaymentType != null">repayment_type = #{repaymentType}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="updateTime != null">update_time = #{updateTime}</if>
+		</set>
+		where repayment_id = #{repaymentId}
+	</update>
+	
+	<delete id="delete">
+		delete from tx_repayment where repayment_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_repayment where repayment_id in 
+		<foreach item="repaymentId" collection="array" open="(" separator="," close=")">
+			#{repaymentId}
+		</foreach>
+	</delete>
+
+	<select id="getLastRepaymentByTx" resultType="io.grx.modules.tx.entity.TxRepaymentEntity">
+		select * from tx_repayment where tx_id = #{txId} ORDER BY repayment_id DESC LIMIT 1
+	</select>
+
+
+	<select id="queryListByLender" resultType="io.grx.modules.tx.entity.TxRepaymentEntity">
+		select tr.* from tx_repayment tr join tx_base tb where tr.tx_id = tb.tx_id and tb.lender_user_id = #{userId}
+		<if test="userName != null and userName != ''">
+			and tb.borrower_name like concat('%', #{userName}, '%')
+		</if>
+        order by tr.repayment_id desc;
+	</select>
+
+    <select id="queryListByBorrower" resultType="io.grx.modules.tx.entity.TxRepaymentEntity">
+        select tr.* from tx_repayment tr join tx_base tb where tr.tx_id = tb.tx_id and tb.borrower_user_id = #{userId}
+        <if test="userName != null and userName != ''">
+            and tb.lender_name like concat('%', #{userName}, '%')
+        </if>
+        order by tr.repayment_id desc;
+    </select>
+
+	<select id="queryListByTx" resultType="io.grx.modules.tx.entity.TxRepaymentEntity">
+		select tr.* from tx_repayment tr where tr.tx_id = #{txId}
+		order by tr.repayment_id desc;
+	</select>
+</mapper>

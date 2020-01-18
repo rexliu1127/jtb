@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" href="../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../css/wx_main.css"/>
+    <link href="../../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .bank-info {
+            margin: 20px 15px 20px 15px;
+            background-color: #66ccff;
+            height: 90px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        .bank-info p {
+            color: #fff;
+            padding: 15px 15px 5px 20px;
+        }
+    </style>
+    <script src="../../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../../js/wx_common.js"></script>
+    <script src="../../js/wx/setup.js"></script>
+    <script th:inline="text">
+        var userMobile = '[[${TX_USER.mobile}]]';
+    </script>
+</head>
+<body class="body_bg">
+<div class="bank">
+    <ul>
+        <li>
+            <div class="add_bank"><a></a></div>
+        </li>
+        <li>
+            <div class="add_bank bank_bank">
+                <a>
+                    <h1 th:text="${#strings.isEmpty(TX_USER.bankName) ? '中国**银行' : TX_USER.bankName}">中国农业银行</h1>
+                    <p th:text="${#strings.length(TX_USER.bankAccount) > 4 ? '**** **** **** ' + #strings.substring(TX_USER.bankAccount,#strings.length(TX_USER.bankAccount) - 4,#strings.length(TX_USER.bankAccount)) : TX_USER.bankAccount} "></p>
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

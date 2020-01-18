@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxUserRewardDao">
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxUserRewardEntity">
+		select * from tx_user_reward where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxUserRewardEntity">
+		select * from tx_user_reward
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_user_reward 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxUserRewardEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into tx_user_reward
+		(
+			merchant_no, 
+			user_id,
+			invitee_user_id,
+			tx_id, 
+			extension_id, 
+			level, 
+			reward, 
+			create_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{userId},
+			#{inviteeUserId},
+			#{txId},
+			#{extensionId}, 
+			#{level}, 
+			#{reward}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxUserRewardEntity">
+		update tx_user_reward 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="userId != null">user_id = #{userId}, </if>
+			<if test="txId != null">tx_id = #{txId}, </if>
+			<if test="extensionId != null">extension_id = #{extensionId}, </if>
+			<if test="level != null">level = #{level}, </if>
+			<if test="reward != null">reward = #{reward}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from tx_user_reward where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_user_reward where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+
+	<select id="queryListByUser" resultType="io.grx.modules.tx.dto.TxUserRewardVO">
+		select level, left(u.name, 1) invitee_name,
+		DATE_FORMAT(u.create_time, '%Y-%m-%d') create_date,
+		reward amount
+		from tx_user_reward ur join tx_user u on ur.invitee_user_id = u.user_id
+		where ur.user_id = #{userId}
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by ur.id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+	<select id="queryRewardStat" resultType="io.grx.modules.tx.dto.TxUserRewardStatVO">
+		select ur.user_id, ur.name, ur.period,
+		(select count(1) from tx_user_invite where inviter_user_id = ur.user_id and DATE_FORMAT(create_time, '%Y-%m') = ur.period) level2_invitee_count,
+		(select count(1) from tx_user_invite ui2 join tx_user_invite ui3 on ui2.inviter_user_id = ui3.user_id where ui3.inviter_user_id = ur.user_id and DATE_FORMAT(ui2.create_time, '%Y-%m') = ur.period) level3_invitee_count,
+		ur.reward reward,
+		ub.balance,
+		ur.valid_invitee_count
+		from (
+		select r.user_id, u.name, DATE_FORMAT(r.create_time, '%Y-%m') period, SUM(r.reward) reward, count(distinct invitee_user_id) valid_invitee_count from tx_user_reward r
+		join tx_user u on r.user_id = u.user_id
+		group by 1,3
+		) ur
+		left join tx_user_balance ub on ur.user_id = ub.user_id
+		order by 3 desc, 1
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+	<select id="queryRewardSum" resultType="io.grx.modules.tx.dto.TxUserRewardSum">
+		select (select coalesce(sum(fee_amount),0) from tx_base where status in (2,3,4)) total_tx_amount,
+		(select count(1) from tx_user_invite) total_tx_user_invitee,
+		(select count(1) from tx_user_invite ui where EXISTS (select 1 from tx_base where borrower_user_id = ui.user_id)) valid_user_invitee;
+	</select>
+
+	<select id="queryRewardStatTotal" resultType="int">
+		select count(1) from (
+		select r.user_id, DATE_FORMAT(r.create_time, '%Y-%m') period from tx_user_reward r
+		group by 1,2) t
+	</select>
+
+	<select id="sumUserReward" resultType="double">
+		select coalesce(sum(reward),0) from tx_user_reward where user_id = #{userId}
+	</select>
+
+</mapper>

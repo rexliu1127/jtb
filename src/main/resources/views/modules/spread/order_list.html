@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <title>申请单</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/daterangepicker.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <table id="searchTable">
+            <tr>
+                <td style="width: 80px;"><label>申请时间:</label></td>
+                <td style="width: 200px;"><input type="text" class="form-control" id="applyTimeRange" placeholder="申请时间"></td>
+                <td style="width: 80px;"><label>渠道来源:</label></td>
+                <td style="width: 200px;"><select class='form-control' id="targetChannel"></select></td>
+                
+                <td ><a class="btn btn-default" @click="query">查询</a>
+                    <a class="btn btn-default" @click="reset">重置</a></td>
+            </tr>
+        </table>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+
+<script src="../../libs/moment.min.js"></script>
+<script src="../../libs/daterangepicker.js"></script>
+<script src="../../js/modules/spread/order_list.js"></script>
+</body>
+</html>

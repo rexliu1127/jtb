@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../css/rcpt/account.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/rcpt/paypsw.css"/>
+    <link rel="stylesheet" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.min.css"/>
+    <title>我是签名</title>
+    <script th:inline="text">
+    </script>
+</head>
+<body ontouchstart="">
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>签名</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="login">
+            <div class="area01">
+            	<div class="titleLabel">
+                    <h2>电子签名</h2>
+                    <span>请在以下区域内签署您的名字</span>
+                    </div>
+                <div class="typeX">
+                    <div id="editing_area">
+                        <canvas id="canvasEdit" style="width: 100%; height: 250px;"></canvas>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <a id="sign_clear" type="button" class="btn radius3PX" style="width: 80px; display:inline-block; margin-right: 10px; color: #9a9a9a; background-color: #d7d7d7;">清除</a>
+                    <a id="submitSign" type="button" class="btn btnstyle01 radius3PX" style="width: 150px; display:inline-block;">提交签名</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <input id="userId" type="hidden" th:value="${TX_USER.userId}" />
+    <input id="returnUrl" type="hidden" th:value="${returnUrl}" />
+</div>
+
+<!-- body 最后 -->
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../libs/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../../libs/esign.js"></script>
+<script type="text/javascript" src="../../libs/html2canvas.min.js"></script>
+<script src="../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../js/rcpt/main.js"></script>
+<script type="text/javascript" src="../../js/rcpt/usersign.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

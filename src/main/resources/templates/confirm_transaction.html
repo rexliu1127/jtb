@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>确认借条</title>
+    <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" href="../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../css/wx_main.css"/>
+    <link rel="stylesheet" href="../../css/wx/passwordbox.css"/>
+    <link href="../../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .button-sp-area {
+            width: 100%;
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .weui-btn {
+            width: 30%;
+            display: inline-block;
+            padding-left: 10px;
+        }
+
+        #mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 550;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #maskContent {
+            width: 38%;
+            margin-left: 30%;
+            margin-top: 20%;
+
+        }
+
+        #maskContent p {
+            color: white;
+            font-size: 16px;
+        }
+        #qrCode {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        #creditLink {
+            margin-right: 10px;
+        }
+    </style>
+    <script src="../../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../../js/wx_common.js"></script>
+    <script src="../../js/wx/confirm_transaction.js"></script>
+    <script th:inline="text">
+        var bindedUser = [[${!#strings.isEmpty(TX_USER.name)}]];
+        var createdByBorrower = [[${tx.createUserId == tx.borrowerUserId}]];
+        var createdByLender = [[${tx.createUserId == tx.lenderUserId}]];
+        var borrowerHasOverdueRecord = [[${borrowerHasOverdueRecord}]];
+        var hasPassword = [[${hasPassword}]];
+    </script>
+</head>
+<body ontouchstart="" class="body_bg">
+
+<div class="body_contant">
+    <h1><span class="bo_ico1"></span>借款内容</h1>
+    <div class="borrow_content">
+        <ul>
+            <li>
+                <span>借款人</span>
+                <font th:inline="text">
+                    <!--a id="creditLink" class="yellow" th:if="${tx.lenderUserId == null or TX_USER.name == tx.lenderName}"
+                       th:href="${'../member/credit_detail/' + tx.borrowerUserId + '?txId=' + tx.txId}">查看信用</a-->[[${tx.borrowerName}]]</font>
+            </li>
+            <li>
+                <span>出借人</span><font th:text="${tx.lenderName}">LIN</font>
+            </li>
+            <li>
+                <span>借款金额</span><font th:inline="text">¥[[${tx.amount}]]元</font>
+            </li>
+            <li>
+                <span>借款日期</span><font th:text="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}">2017-09-18</font>
+            </li>
+            <li>
+                <span>还款日期</span><font th:text="${#dates.format(tx.endDate, 'yyyy-MM-dd')}">2017-10-18</font>
+            </li>
+            <li>
+                <span>借款利率</span><font th:text="${tx.rate + '%'}">8％</font>
+            </li>
+            <li>
+                <span>借款用途</span><font th:text="${tx.usageType.displayName}">其他</font>
+            </li>
+            <li>
+                <span>补充说明</span><font th:text="${tx.remark}">无</font>
+            </li>
+            <li th:if="${tx.borrowerUserId == null or TX_USER.userId == tx.borrowerUserId}">
+                <span>服务费</span><font th:text="${tx.feeAmount > 0 ? (tx.feeAmount + '元') : '限时免费'}">无</font>
+            </li>
+            <li>
+                <span>借款协议</span><font><a class="yellow" th:href="${'../transaction/agreement?txId=' + tx.txId}">点击查看</a></font>
+            </li>
+        </ul>
+    </div>
+    <div class="borrow_content">
+        <ul>
+            <li>
+                <span>订单编号</span><font th:text="${tx.txUuid}">20170918000000412</font>
+            </li>
+            <li>
+                <span>创建时间</span><font th:text="${#dates.format(tx.createTime, 'yyyy-MM-dd')}">2017-09-18</font>
+            </li>
+            <li>
+                <span>订单状态</span><font th:text="${tx.status.displayName}">待确认</font>
+            </li>
+
+        </ul>
+    </div>
+    <div style="height:100px"/>
+</div>
+<div class="borrow_bottom">
+    <div class="borrow_but" th:if="${tx.createUserId != TX_USER.userId}">
+        <a class="but_color_b" id="canncel">驳回</a>
+        <a class="but_color_y" id="confirm">确认</a>
+    </div>
+</div>
+
+<input type="hidden" id="amount" th:value="${tx.amount}"/>
+<input type="hidden" id="feeAmount" th:value="${tx.feeAmount}"/>
+<input type="hidden" id="rate" th:value="${tx.rate}"/>
+<input type="hidden" id="usage" th:value="${tx.usageType.displayName}"/>
+<input id="txUuid" type="hidden" th:value="${tx.txUuid}"/>
+<input id="txId" type="hidden" th:value="${tx.txId}"/>
+
+<div id="mask">
+    <div id="maskContent">
+        <p>发送给微信好友或朋友圈或者让对方扫一扫二维码</p>
+        <img id="qrCode"/>
+        <p>点击屏幕返回首页</p>
+    </div>
+</div>
+<div id="keyboardDIV">
+    <p id="set_text"></p>
+    <form id="password" >
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+    </form>
+    <p id="forget"><a href="javascript:goForgetPasswordPage();">忘记密码?</a></p>
+</div>
+<div id="password_mask"></div>
+<script src="../../js/wx/passwordbox.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+<script type="text/javascript" th:if="${!#strings.isEmpty(TX_USER.name) AND !(TX_USER.name == tx.borrowerName || TX_USER.name == tx.lenderName)}">
+    $('#navDiv').hide();
+    alert('该借条姓名与您的姓名不匹配!');
+    location.href = baseURL + 'rcpt/index.html';
+</script>
+
+<script type="text/javascript" th:if="${tx.createUserId == TX_USER.userId}">
+    $('#qrCode').attr('src', baseURL + 'wx/confirm_transaction_code/' + $('#txUuid').val() + '.png');
+    $('#mask').show();
+    $('#navDiv').hide();
+
+    $('#mask').on('click', function () {
+        $('#mask').hide();
+        location.href = baseURL + 'wx/main';
+    });
+</script>
+<script th:inline="text">
+    var signature = '[[${signature}]]';
+    var appId = '[[${appId}]]';
+    var url = '[[${url}]]';
+    var jsapi_ticket = '[[${jsapi_ticket}]]';
+    var nonceStr = '[[${nonceStr}]]';
+    var timestamp = [[${timestamp}]];
+
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: appId, // 必填，公众号的唯一标识
+        timestamp: timestamp, // 必填，生成签名的时间戳
+        nonceStr: nonceStr, // 必填，生成签名的随机串
+        signature: signature,// 必填，签名，见附录1
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareAppMessage'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    wx.ready(function () {
+        wx.onMenuShareAppMessage({
+             title: '我在宝信凭证给你打了一张借条, 快来确认吧~', // 分享标题
+             desc: '金额:' + $('#amount').val() + "元, 利率:" + $('#rate').val() + "%, 用途:" + $('#usage').val(), // 分享描述
+             link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+             imgUrl: location.href.substr(0, location.href.indexOf(baseURL)) + baseURL + 'images/logo.jpg' // 分享图标
+        });
+    });
+
+</script>
+</body>
+</html>

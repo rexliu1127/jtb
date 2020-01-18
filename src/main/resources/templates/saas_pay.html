@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>支付</title>
+</head>
+<body ontouchstart="">
+<form name="myForm" id="myForm" th:action="${postUrl}" method="POST">
+<input type="hidden" name="apiId" th:value="${apiId}" />
+<input type="hidden" name="name" th:value="${name}" />
+<input type="hidden" name="payType" th:value="${payType}" />
+<input type="hidden" name="price" th:value="${price}" />
+<input type="hidden" name="orderNo" th:value="${orderNo}" />
+<input type="hidden" name="userinfo" th:value="${userinfo}" />
+<input type="hidden" name="returnUrl" th:value="${returnUrl}" />
+<input type="hidden" name="notifyUrl" th:value="${notifyUrl}" />
+    <input type="hidden" name="feedbackUrl" th:value="${feedbackUrl}" />
+    <input type="hidden" name="sign" th:value="${sign}" />
+</form>
+
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="js/wx_common.js"></script>
+
+<script type="text/javascript">
+    window.onload=function(){
+        setTimeout(function(){ submitform(); }, 500);
+
+        function submitform(){
+            document.forms["myForm"].submit();
+        }
+    }
+</script>
+
+</body>
+</html>

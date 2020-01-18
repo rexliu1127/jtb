@@ -1,0 +1,51 @@
+body {
+    line-height: 1.5;
+    background-color: #ececec;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family: YaHei,tahoma,arial,Helvetica,sans-serif;
+    color: #666;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+.clearfix {
+    zoom: 1;
+    display: block;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.f-l{float: left;}
+.f-r{float: right;}
+.mt15{ margin-top: 15px;}
+
+.picker-button  {
+    color: #f19f00 !important;
+}
+
+.weui-dialog__ft .weui-dialog__btn_primary {
+    color: #f19f00;
+}
+
+.weui-cells_radio .weui-check:checked+.weui-icon-checked:before {
+    color: #f19f00 !important;
+}
+
+.weui-search-bar__cancel-btn {
+    color: #f19f00 !important;
+}
+
+

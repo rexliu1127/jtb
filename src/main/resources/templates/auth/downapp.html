@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+    <link rel="stylesheet" href="../css/auth/v2/SHglabal.css"/>
+    <link rel="stylesheet" href="../css/auth/v2/SHmy.css"/>
+    <script type="text/javascript" src="../js/auth/v2/common.js" ></script>
+
+    <title th:if="${CHANNEL != null and not #strings.isEmpty(CHANNEL.productName)}" th:text="${CHANNEL.productName}"></title>
+    <title th:if="${CHANNEL != null and #strings.isEmpty(CHANNEL.productName)}" th:text="${CHANNEL.name}"></title>
+
+    </head>
+    <body >
+        <div class="wrapper">
+            <div class="downLoad-regit">
+                <img src="../img/auth/v2/sh-load.png" alt="" />
+                <div class="load-div">
+                    <div class="Install">
+                        <ul>
+                            <li><img src="../img/auth/v2/logo-1.png" alt=""/></li>
+                            <li style="margin-top: 1rem" ><img src="../img/auth/v2/load-logo.png" alt="" style="width: 60%;height:60%" /></li>
+                        </ul>
+                        <p class="load-p"><strong>宝信速贷企业版</strong></p>
+                        <span class="load-span">1.0.0(Build 1)29.9MB</span>
+                        <span>更新于2019-06-15 23:59:59</span>
+
+                        <div class="load-btn">
+                            <button onclick="down()">立即下载APP</button>
+                        </div>
+                        <input type="hidden" id="channel" th:value="${channel}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+    function down(){
+        location.href="http://120.79.95.169:8080/#/login.htm?channel="+document.getElementById("channel").value;
+    }
+</script>

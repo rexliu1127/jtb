@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../css/rcpt/style.css"/>
+    <!-- CSS FOOTER-NAV -->
+	<link rel="stylesheet" type="text/css" href="../../css/rcpt/footer-nav.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../css/rcpt/account.css"/>
+    <link rel="stylesheet" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.min.css"/>
+    <title></title>
+    <script th:inline="text">
+        var needCaptcha = [[${needCaptcha}]];
+        var captcha = '';
+    </script>
+</head>
+<body ontouchstart="">
+<div class="mainAPP">
+    <main>
+        <!-- all your content here -->
+        <div class="login">
+            <div class="area01">
+            	<div class="titleLabel">
+                    <h2>信用报告</h2>
+                    <span>有信用才能助您走天下</span>
+                    </div>
+                <div class="typeX">
+                    <form action="#" method="post">
+                        <ul>
+                            <li class="display">
+                                <div class="form-box flex1">
+                                    <input id="name" class="userName form" type="text" maxlength="23" autocomplete="off" require="required" placeholder="请输入查询对象真实姓名"/>
+                                </div>
+                            </li>
+                            <li class="display">                                
+                                <div class="form-box flex1">
+                                    <input id="idNo" class="IDcard form" type="text" maxlength="18" autocomplete="off" require="required" placeholder="请输入查询对象身份证号码"/>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+                <div style="margin-left: 5%; margin-right: 5%; padding-top: 10px;">
+                    <div class="l-captcha" th:if="${needCaptcha}" th:attr="data-site-key=${captchaKey}" data-width="100%"
+                         data-callback="captchaResponse"></div>
+                </div>
+                <a id="submit" type="button" class="btn btnstyle01 radius3PX">查询报告</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bottom-nav">
+    <ul class="ulnav">
+      <li><a href="../index.html"><span class="icon menu1"></span> <span>打个借条</span> </a></li>
+      <li><a href="../borrower_sum.html"><span class="icon menu3"></span> <span>我的借条</span> </a></li>
+      <li><a href="../lender_sum.html"><span class="icon menu4"></span> <span>我的出借</span> </a></li>
+        <li class="active"><a><span class="icon menu2"></span> <span>信用报告</span> </a></li>
+    </ul>
+  </footer>
+    
+</div>
+
+<!-- body 最后 -->
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../libs/jquery-weui.min.js"></script>
+<script src="//captcha.luosimao.com/static/dist/api.js"></script>
+<script src="../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../js/rcpt/main.js"></script> <!-- Resource jQuery -->
+<script src="../../js/rcpt/check_credit.js"></script>
+</body>
+</html>

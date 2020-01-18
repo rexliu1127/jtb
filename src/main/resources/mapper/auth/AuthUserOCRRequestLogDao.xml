@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthUserOCRRequestLogDao">
+	<cache />
+
+	<insert id="save" parameterType="io.grx.modules.auth.entity.AuthUserOCRRequestLogEntity" useGeneratedKeys="true" keyProperty="userId">
+		insert into auth_user_ocr_request_log
+		(
+			userId,
+			orderId,
+			status,
+			createTime
+		)
+		values
+		(
+			#{userId},
+			#{orderId},
+			#{status},
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.AuthUserOCRRequestLogEntity">
+		update auth_user_ocr_request_log set status = #{status} where orderId = #{orderId}
+	</update>
+
+	<select id="queryByOrderId" resultType="io.grx.modules.auth.entity.AuthUserOCRRequestLogEntity">
+		select * from auth_user_ocr_request_log where orderId = #{orderId}
+	</select>
+
+
+
+</mapper>

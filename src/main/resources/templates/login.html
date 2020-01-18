@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="css/wx_common.css"/>
+    <link rel="stylesheet" href="css/wx_main.css"/>
+    <link rel="stylesheet" href="css/page.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css"/>
+    <style>
+        #logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #logo img {
+            width: 50%;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+<div class="logo"><img src="images/logo.jpg" style="max-width: 300px;"/></div>
+<div class="login_box">
+    <ul>
+        <li>
+            <div class="login_input">
+                <span class="login_ico li1"></span>
+                <input id="mobile" type="text" placeholder="账号/手机号码" class="login_text"/>
+            </div>
+        </li>
+        <li>
+            <div class="login_input">
+                <span class="login_ico li4"></span>
+                <input id="verifyCode" type="number" placeholder="输入手机验证码" class="login_text ww50"/>
+                <div class="send_yzm"><a id="getCode">发送验证码</a></div>
+            </div>
+        </li>
+        <li>
+            <div class="but"><a id="loginBtn" href="javascript:">登录</a></div>
+        </li>
+    </ul>
+
+</div>
+
+<input id="returnUrl" type="hidden" th:value="${returnUrl}"/>
+<input id="unionId" type="hidden" th:value="${unionId}"/>
+<input id="openId" type="hidden" th:value="${openId}"/>
+<input id="nickName" type="hidden" th:value="${nickName}"/>
+<input id="headImgUrl" type="hidden" th:value="${headImgUrl}"/>
+<!-- body 最后 -->
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="js/wx_common.js"></script>
+<script src="js/wx/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <title>渠道</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <style>
+        #barcodeImage {
+            width: 200px;
+        }
+        #channelImg {
+            min-height: 50px;
+            max-width: 300px;
+            max-height: 400px;
+            margin-top: 5px;
+        }
+        #logoImg {
+            min-height: 50px;
+            max-width: 300px;
+            max-height: 400px;
+            margin-top: 5px;
+        }
+    </style>
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/clipboard.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../libs/ajaxupload.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <a v-if="hasPermission('opt:channel:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+            <a v-if="hasPermission('opt:channel:update')" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+            <a v-if="hasPermission('opt:channel:delete')" class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2 control-label">渠道名称</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="channel.name" placeholder="渠道名称"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">产品名称</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="channel.productName" placeholder="产品名称"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">所属部门</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" style="cursor:pointer;" v-model="channel.deptName" @click="deptTree" readonly="readonly" placeholder="所属部门"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">负责人</div>
+                <div class="col-sm-10">
+                    <select v-model="channel.ownerUserId" class="form-control dropdown">
+                        <option :value="null" disabled hidden>无指定负责人</option>
+                        <option v-for="option in auditorList" v-bind:value="option.userId">
+                            {{ option.username }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">指定审核员</div>
+                <div class="col-sm-10">
+                    <label v-for="auditorUser in auditorList" class="checkbox-inline">
+                        <input type="checkbox" :value="auditorUser.userId" v-model="channel.auditorIdList">{{auditorUser.username}}
+                    </label>
+                    <p>如无指定审核员，系统将自动分配给部门内没有绑定任何渠道的审核员 (拥有“审核员”角色)</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">状态</div>
+                <label class="radio-inline">
+                    <input type="radio" name="status" value="0" v-model="channel.status"/> 禁用
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="status" value="1" v-model="channel.status"/> 正常
+                </label>
+            </div>
+            
+            <div class="form-group" >
+                <div class="col-sm-2 control-label" style="    padding-right: 0px;">借款金额(APP)</div>
+                <div class="col-sm-10">
+                	<input type="text" class="form-control" v-model="channel.appMoneyList" placeholder="用于APP进件展示 多个用|隔开  如1000|2000|3000"/>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-sm-2 control-label">产品logo</div>
+                <div class="col-sm-10">
+                    <a class="btn btn-primary" id="uploadLogo"><i class="fa fa-plus"></i>&nbsp;上传文件</a><br/>
+                    <span>logo规格比为512*512</span>
+                    <img id="logoImg" :src="channel.logoPath"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">欢迎页背景</div>
+                <div class="col-sm-10">
+                    <a class="btn btn-primary" id="upload"><i class="fa fa-plus"></i>&nbsp;上传文件</a><br/>
+                    <span>背景长高比为9:16, 例如900x1600, 登录框出现在垂直中线以下</span>
+                    <img id="channelImg" :src="channel.imagePath"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 显示二维码layer -->
+<div id="barcodeLayer" class="row text-center" style="display: none;">
+    <img id="barcodeImage" title="右键保存二维码图片" />
+</div>
+
+<!-- 选择部门 -->
+<div id="deptLayer" style="display: none;padding:10px;">
+    <ul id="deptTree" class="ztree"></ul>
+</div>
+
+<script src="../../js/modules/opt/channel.js"></script>
+</body>
+</html>

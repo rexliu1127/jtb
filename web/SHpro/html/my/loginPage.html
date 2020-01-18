@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../../css/SHglabal.css">
+    <link rel="stylesheet" href="../../css/SHmy.css">
+    <link rel="stylesheet" href="../../css/SHcomponent.css">
+    <script type="text/javascript" src="../../js/SHmy.js"></script>
+    <script type="text/javascript" src="../../js/jquery-3.3.1.min.js" ></script>
+    <script type="text/javascript" src="../../js/ajax.js" ></script>
+    <script type="text/javascript" src="../../js/url.js" ></script>
+    <script type="text/javascript" src="../../js/common.js" ></script>
+    <script type="text/javascript">
+        function login() {
+
+			
+            if (clkSQ()) {
+
+				var params = "{\"mobile\":\""+$("#text-tel").val()+"\",\"verifyCode\":\""+$("#txt-yzm").val()+"\"}";
+				POST(URL_LOGIN,params,function(reuslt){
+					
+					alert(result);
+				});
+				
+				
+                //window.location.href = "../creditLine/creditLine.html"
+            }
+           
+           //$.cookie('the_cookie', 'the_value', { expires: 7 });
+           
+           //$.cookie('the_cookie');
+
+
+			//$.cookie('the_cookie', null);   //通过传递null作为cookie的值即可
+        }
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="Login">
+            <div class="lg-logo">
+                <img src="../../img/shpro/login-logo.png" alt="">
+            </div>
+            <div class="inputText">
+                <div class="put-telpone" style="border: 1px solid #ccc;">
+                    <ul>
+                        <li>
+                            <input type="text" id="text-tel" placeholder="请输入手机号码" />
+                        </li>
+                    </ul>
+                </div>
+                <div class="put-telpone" style="background: none">
+                    <ul>
+                        <li class="input-msg">
+                            <input type="text" id="txt-yzm" placeholder="请输入短信验证码" style="width: 80%"/>
+                        </li>
+                        <li class="input-yzm">
+                            <button onclick="clksend(this,'login')">获取验证码</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nextBtn" style="margin-bottom: 20px">
+                <button class="login-btn" onclick="login()">登录</button>
+            </div>
+            <p class="p-xieyi">点击登录表示已阅读《用户注册协议服务协议》</p>
+        </div>
+    </div>
+</body>
+
+</html>

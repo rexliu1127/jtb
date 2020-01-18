@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxLenderDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.tx.entity.TxLenderEntity" id="txLenderMap">
+        <result property="id" column="id"/>
+        <result property="mobile" column="mobile"/>
+        <result property="name" column="name"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="createTime" column="create_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxLenderEntity">
+		select * from tx_lender where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxLenderEntity">
+		select * from tx_lender
+		<where>
+			merchant_no = #{_merchantNo}
+			<if test="name != null and name != ''">
+			   and name like concat('%',#{name},'%')
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_lender 
+	</select>
+
+	<select id="queryByMobile" resultType="io.grx.modules.tx.entity.TxLenderEntity">
+		select * from tx_lender where mobile = #{mobile}
+	</select>
+
+	<select id="queryListByMerchantNo" resultType="io.grx.modules.tx.entity.TxLenderEntity">
+		select * from tx_lender where merchant_no = #{merchantNo} and status = 1
+	</select>
+
+
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxLenderEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into tx_lender
+		(
+			mobile, 
+			name, 
+			merchant_no, 
+			create_time, 
+			status
+		)
+		values
+		(
+			#{mobile}, 
+			#{name}, 
+			#{merchantNo}, 
+			#{createTime}, 
+			#{status}
+		)
+	</insert>
+
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxLenderEntity">
+		update tx_lender 
+		<set>
+			<if test="mobile != null">mobile = #{mobile}, </if>
+			<if test="name != null">name = #{name}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="status != null">status = #{status}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from tx_lender where id = #{value}
+	</delete>
+
+	<delete id="deleteBatch">
+		delete from tx_lender where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="getAllLenderMobiles" resultType="string">
+        SELECT mobile from tx_lender where merchant_no = #{_merchantNo} and status = 1
+    </select>
+
+</mapper>

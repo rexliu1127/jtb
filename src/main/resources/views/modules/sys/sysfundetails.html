@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户费用明细表</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/font-awesome.min.css">
+<link rel="stylesheet" href="../../css/daterangepicker.css">
+<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../plugins/layer/layer.js"></script>
+<script src="../../libs/bootstrap.min.js"></script>
+<script src="../../libs/vue.min.js"></script>
+<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+<script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<table id="searchTable">
+			<tr>
+				<td style="width: 60px;"><label>手机:</label></td>
+				<td style="width: 150px;"><input type="text" class="form-control" v-model="q.keyword" @keyup.enter="query" placeholder="手机号码"></td>
+				<td style="width: 80px;" class="hideMerchantNo"><label>商户编号:</label></td>
+				<td style="width: 150px;" class="hideMerchantNo"><input type="text" class="form-control" v-model="q.merchantNo" @keyup.enter="query"  placeholder="商户编号"></td>
+				<td style="width: 80px;"><label>消费时间:</label></td>
+				<td style="width: 200px;"><input type="text" class="form-control" id="applyTimeRange" placeholder="申请时间"></td>
+				<td style="width: 60px;"><label>类型:</label>
+				</td>
+				<td style="width: 100px;">
+					<select id="statusSelect" class="form-control" style="display: inline-block; width: auto; margin-left: 5px;"  v-model="q.funtype">
+						<option value="1">多头报告</option>
+						<option value="2">支付宝报告</option>
+						<option value="3">流量采购</option>
+
+					</select>
+				</td>
+				<td><a class="btn btn-default" @click="query">查询</a>
+					<a class="btn btn-default" @click="reset">重置</a></td>
+			</tr>
+		</table>
+		<div class="grid-btn">
+			<a v-if="hasPermission('sys:sysfundetails:save')" class="btn btn-primary" @click="exp"><i class="fa fa-plus"></i>&nbsp;导出</a>
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+											<div class="form-group">
+			   	<div class="col-sm-2 control-label">关联申请用户id</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFunDetails.userId" placeholder="关联申请用户id"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">借款人手机</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFunDetails.borrowerPhone" placeholder="借款人手机"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">关联费用类型</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFunDetails.funType" placeholder="关联费用类型"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">费用</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFunDetails.amount" placeholder="费用"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">创建时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFunDetails.createTime" placeholder="创建时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">商户名称</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFunDetails.merchantName" placeholder="商户名称"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">商家编号</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFunDetails.merchantNo" placeholder="商家编号"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">用户名称</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="sysFunDetails.userName" placeholder="用户名称"/>
+			    </div>
+			</div>
+							<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+<script src="../../libs/moment.min.js"></script>
+<script src="../../libs/daterangepicker.js"></script>
+<script src="../../js/modules/sys/sysfundetails.js"></script>
+</body>
+</html>

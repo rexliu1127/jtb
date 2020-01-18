@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="css/wx_common.css"/>
+    <link rel="stylesheet" href="css/wx_main.css"/>
+    <link rel="stylesheet" href="css/page.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css"/>
+    <style>
+        #logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items :center ;
+        }
+        #logo img {
+            width: 50%;
+        }
+
+        #mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 550;
+            background: rgba(0, 0, 0, 0.8);
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #maskContent {
+            width: 38%;
+            margin-left: 30%;
+            margin-top: 20%;
+
+        }
+
+        #maskContent p {
+            color: white;
+            font-size: 16px;
+        }
+        #qrCode {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+
+<div class="body_contant">
+    <h1><span class="bo_ico1"></span>支付详情</h1>
+    <div class="borrow_content">
+        <ul>
+            <li>
+                <span>订单编号</span><font th:text="${orderNo}">20170918000000412</font>
+            </li>
+            <li>
+                <span>支付金额</span><font th:text="${amount + '元'}">5.00元</font>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="borrow_bottom">
+    <div class="borrow_but">
+    </div>
+</div>
+
+<div id="mask" th:if="${!isMobileWechat}">
+    <div id="maskContent">
+        <p>请用手机微信扫描支付 <span class="yellow" th:text="${amount}"></span>元</p>
+        <img id="qrCode"/>
+        <p></p>
+    </div>
+</div>
+<input type="hidden" id="txId" th:value="${txId}" />
+<input type="hidden" id="amount" th:value="${amount}" />
+<input type="hidden" id="type" th:value="${type}" />
+<input type="hidden" id="id" th:value="${id}" />
+
+<input type="hidden" id="returnUrl" th:value="${returnUrl}" />
+<input type="hidden" id="successUrl" th:value="${successUrl}" />
+
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="js/wx_common.js"></script>
+
+<script>
+    var goBack = function() {
+        var returnUrl = $('#returnUrl').val();
+        if (returnUrl) {
+            location.href = returnUrl;
+        }
+    };
+
+    var goTo = function () {
+        var returnUrl = $('#successUrl').val();
+        if (returnUrl) {
+            location.href = returnUrl;
+        }
+    };
+
+    var returnUrl = $('#returnUrl').val();
+    var successUrl = $('#successUrl').val();
+</script>
+<script th:if="${isMobileWechat}" th:inline="javascript">
+//<![CDATA[
+    var payinfo = /*[[${payinfo}]]*/ null;
+    var payUUid = [[${payUuid}]];
+
+    var onBridgeReady = function () {
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', payinfo,
+            function (res) {
+                switch (res.err_msg) {
+                    case 'get_brand_wcpay_request:cancel':
+                        location.href = baseURL + 'wx_pay_result?type=warn&title=支付取消&forwardUrl=' + returnUrl + '&uuid=' + payUUid;
+                        break;
+                    case 'get_brand_wcpay_request:fail':
+                        location.href = baseURL + 'wx_pay_result?type=error&title=支付失败&forwardUrl=' + returnUrl
+                            + "&message=" + res.err_desc + '&uuid=' + payUUid;
+                        break;
+                    case 'get_brand_wcpay_request:ok':
+                        location.href = baseURL + 'wx_pay_result?type=success&showMore=true&title=支付成功&forwardUrl=' + successUrl
+                            + "&message=" + $('#amount').val() + '元' + '&uuid=' + payUUid;
+                        break;
+                    default:
+                        location.href = baseURL + 'wx_pay_result?type=error&title=支付失败&forwardUrl=' + returnUrl
+                            + "&message=未知错误" + '&uuid=' + payUUid;
+                        break;
+                }
+            }
+        );
+    };
+
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+//]]>
+</script>
+<script th:if="${!isMobileWechat}" th:inline="javascript">
+    //<![CDATA[
+    var payUUid = [[${payUuid}]];
+    $('#qrCode').attr('src', baseURL + 'scan_pay/' + payUUid + '.png');
+
+    var checkStatus = function () {
+        $.get(baseURL + "wx_pay_status?uuid="+payUUid, function(r){
+            if (r.code == 0) {
+                if (r.paid) {
+                    location.href = baseURL + 'wx_pay_result?type=success&showMore=true&title=支付成功&forwardUrl=' + successUrl
+                        + "&message=" + $('#amount').val() + '元' + '&uuid=' + payUUid;
+                } else {
+                    checkWork = setTimeout(checkStatus, 3000);
+                }
+            } else {
+                clearTimeout(checkWork);
+
+                location.href = baseURL + 'wx_pay_result?type=error&forwardUrl=' + returnUrl
+                    + "&title=" + r.msg;
+            }
+        });
+    };
+
+    var checkWork = setTimeout(checkStatus, 3000);
+    //]]>
+</script>
+
+</body>
+</html>

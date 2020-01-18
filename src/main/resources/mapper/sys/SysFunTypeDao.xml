@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.sys.dao.SysFunTypeDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.sys.entity.SysFunTypeEntity" id="sysFunTypeMap">
+        <result property="id" column="id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="funType" column="fun_type"/>
+        <result property="singleFee" column="single_fee"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.sys.entity.SysFunTypeEntity">
+		select * from sys_fun_type where id = #{value}
+	</select>
+
+	<select id="queryInfo" resultType="io.grx.modules.sys.entity.SysFunTypeEntity">
+		select * from sys_fun_type where merchant_no = #{merchant_no}
+	</select>
+	<select id="queryCountByConditions" resultType="int">
+		select count(id) from sys_fun_type where 1=1
+		<if test="merchantNo != null">and merchant_no = #{merchantNo} </if>
+		<if test="funType != null">and fun_type = #{funType} </if>
+	</select>
+
+	<select id="queryObjectByConditions" resultType="io.grx.modules.sys.entity.SysFunTypeEntity">
+		select * from sys_fun_type where 1=1
+		<if test="merchantNo != null">and merchant_no = #{merchantNo} </if>
+		<if test="funType != null">and fun_type = #{funType} </if>
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.sys.entity.SysFunTypeEntity">
+		select sft.*  , (select m.name from sys_merchant m where m.merchant_no = sft.merchant_no) merchantName from sys_fun_type sft
+		<where>1=1
+			<if test="merchantNo != null and merchantNo != ''">
+				and sft.merchant_no like concat('%',#{merchantNo},'%')
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from sys_fun_type
+		<where>1=1
+			<if test="merchantNo != null and merchantNo != ''">
+				and merchant_no like concat('%',#{merchantNo},'%')
+			</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.sys.entity.SysFunTypeEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_fun_type
+		(
+			merchant_no, 
+			fun_type,
+			single_fee, 
+			create_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{funType},
+			#{singleFee}, 
+			#{createTime}
+		)
+	</insert>
+
+	<insert id="saveFunTypeList" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_fun_type
+		(
+			merchant_no,
+			fun_type,
+			single_fee,
+			create_time
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator="," >
+			(
+				#{item.merchantNo},
+				#{item.funType},
+				#{item.singleFee},
+				#{item.createTime}
+			)
+		</foreach>
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.sys.entity.SysFunTypeEntity">
+		update sys_fun_type 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="funType != null">fun_type = #{funType}, </if>
+			<if test="singleFee != null">single_fee = #{singleFee}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sys_fun_type where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from sys_fun_type where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

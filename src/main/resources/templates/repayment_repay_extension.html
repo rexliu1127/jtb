@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../../../css/weui.css"/>
+    <link rel="stylesheet" href="../../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../../css/wx_main.css"/>
+    <link rel="stylesheet" href="../../../css/wx/passwordbox.css"/>
+    <link href="../../../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .button-sp-area {
+            width: 100%;
+            text-align: center;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .weui-btn {
+            width: 30%;
+            display: inline-block;
+            padding-left: 10px;
+        }
+
+        #maskContent p {
+            color: white;
+            font-size: 16px;
+        }
+        #css_table {
+            display:table;
+            width: 100%;
+            text-align: left;
+            vertical-align: middle;
+            background-color: #fff;
+        }
+
+        #css_table ul{
+            background-color: #ffffff;
+            height: 55px;
+            margin-top: 10px;
+            padding: 10px 6% 10px 6%;
+            display: block;
+        }
+
+        #css_table li{
+            float: left;
+            width: 50%;
+            line-height: 25px;
+            display: inline-block;
+        }
+
+        .css_tr {
+            display: table-row;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .css_td {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            border-top: 1px solid #D7D6DC;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+    </style>
+    <script src="../../../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../../../js/wx_common.js"></script>
+    <script src="../../../js/wx/repayment_repay_extension.js"></script>
+</head>
+<body ontouchstart="" class="body_bg">
+<div class="body_contant">
+    <div class="ckzq">
+        <p>借条详情：</p>
+        <div class="ckzq_list">
+            <ul>
+                <li><span>借款人：</span><font th:text="${tx.borrowerName}">RINA</font></li>
+                <li><span>借款日期：</span><font th:text="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}">2017-11-12</font></li>
+                <li><span>出借人：</span><font th:text="${tx.lenderName}">LIN</font></li>
+                <li><span>还款日期：</span><font th:text="${#dates.format(tx.endDate, 'yyyy-MM-dd')}">2017-11-12</font></li>
+                <li><span>借款金额：</span><font th:text="${tx.amount + '元'}">100元</font></li>
+                <li><span>借款利率：</span><font th:text="${tx.rate + '%'}">3%</font></li>
+            </ul>
+        </div>
+    </div>
+    <div class="ckzq">
+        <p>展期历史：</p>
+        <div class="borrow_table">
+            <table>
+                <tr>
+                    <th>展期本金</th>
+                    <th>利率</th>
+                    <th>展期至</th>
+                    <th>状态</th>
+                </tr>
+                <tr th:each="te : ${extensionList}">
+                    <td th:text="${tx.amount + '元'}">100.00</td>
+                    <td th:text="${te.rate + '%'}">10%</td>
+                    <td th:text="${#dates.format(te.newEndDate, 'yyyy-MM-dd')}">2017-12-26</td>
+                    <td th:text="${te.status.displayName}">已生效</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div class="borrow_height"></div>
+<div class="borrow_bottom">
+    <div class="borrow_but">
+        <a class="but_color_y" id="confirmExtension"
+           th:if="${tx.borrowerUserId == TX_USER.userId AND txExtension != null AND (txExtension.status == T(io.grx.modules.tx.enums.ExtensionStatus).NEW) }">
+            同意展期</a>
+        <a class="but_color_b" id="rejectExtension"
+           th:if="${tx.borrowerUserId == TX_USER.userId AND txExtension != null AND (txExtension.status == T(io.grx.modules.tx.enums.ExtensionStatus).NEW) }">
+            拒绝展期</a>
+        <a class="but_color_b" id="cancelExtension" th:if="${tx.lenderUserId == TX_USER.userId and txExtension != null AND txExtension != null AND (txExtension.status == T(io.grx.modules.tx.enums.ExtensionStatus).NEW) }">取消展期
+        </a>
+    </div>
+</div>
+<input id="txId" type="hidden" th:if="${txExtension != null}" th:value="${txExtension.txId}" />
+<input id="extensionId" type="hidden" th:if="${txExtension != null}" th:value="${txExtension.extensionId}" />
+<input id="extensionFee" type="hidden" th:if="${txExtension != null}" th:value="${txExtension.feeAmount}"/>
+
+<div id="keyboardDIV">
+    <p id="set_text"></p>
+    <form id="password" >
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+    </form>
+    <p id="forget"><a href="javascript:goForgetPasswordPage();">忘记密码?</a></p>
+</div>
+<div id="password_mask"></div>
+<script src="../../../js/wx/passwordbox.js"></script>
+</body>
+</html>

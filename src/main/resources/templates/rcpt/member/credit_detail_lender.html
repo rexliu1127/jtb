@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../../../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../../css/jquery-weui.min.css"/>
+    
+    <title></title>
+    <script th:inline="text">
+        var creditUserId = [[${userId}]];
+        var txId = [[${txId == null ? -1 : txId}]];
+    </script>
+</head>
+<body  class="whiteBG">
+<div class="mainAPP">
+  <main>
+    <div class="lendingData">
+      <div class="titleLabel">
+        <h2>出借详情</h2>
+        <span th:inline="text">数据来源[[${@environment.getProperty('site.name')}]]</span> </div>
+      <div class="lendingDetails"><!-- id="css_table"-->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="dataTable">
+          <thead>
+            <tr>
+              <th>借款人</th>
+              <th>金额(元)</th>
+              <th>起止日期</th>
+              <th>还款日期</th>
+              <th>状 态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--tr>
+              <td>***</td>
+              <td><p class="red">50000.00</p></td>
+              <td>
+                <p><i class="greenBG white">岂</i>2018.04.25</p>
+                <p><i class="redBG white">止</i>2018.05.25</p>
+              </td>
+              <td>2018.05.26</td>
+              <td><i class="greenBG white">已还</i></td>
+            </tr>
+            
+            <tr>
+              <td>***</td>
+              <td><p class="red">30000.00</p></td>
+              <td>
+                <p><i class="greenBG white">岂</i>2018.03.10</p>
+                <p><i class="redBG white">止</i>2018.05.10</p>
+              </td>
+              <td>2018.05.11</td>
+              <td><i class="orangeBG white">未还</i></td>
+            </tr>
+            
+            <tr>
+              <td>***</td>
+              <td><p class="red">35000.00</p></td>
+              <td>
+                <p><i class="greenBG white">岂</i>2018.04.01</p>
+                <p><i class="redBG white">止</i>2018.06.01</p>
+              </td>
+              <td>2018.06.02</td>
+              <td><i class="orangeBG white">未还</i></td>
+            </tr-->
+            
+            
+          </tbody>
+        </table>
+      </div>
+      <div class="noData">
+        <h4>暂无数据</h4>
+        <span>No Data</span> </div>
+    </div>
+  </main>
+</div>
+<script src="../../../libs/jquery.min.js"></script>
+<script src="../../../libs/jquery-weui.min.js"></script>
+<script src="../../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../../js/rcpt/main.js"></script>
+<script src="../../../js/rcpt/credit_detail_lender.js"></script>
+</body>
+</html>

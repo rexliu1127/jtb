@@ -1,0 +1,189 @@
+@charset "utf-8";
+.market {
+	padding: 0 0 8px;
+}
+.market .area01 {
+	background: linear-gradient(left, #358dff, #176dff);
+	background: -webkit-linear-gradient(left, #358dff, #176dff);
+	background: -o-linear-gradient(left, #358dff, #176dff);
+	background: -ms-linear-gradient(left, #358dff, #176dff);
+}
+.market .area01 div {
+	padding: 26px 15px 20px;
+}
+.market .area01 div p {
+	font-size: 16px;
+	color: #fff;
+}
+.market .area01 div h2 {
+	line-height: 46px;
+	font-size: 30px;
+	color: #fff;
+	font-family: sanfrancisco-medium, 'PingFang SC', roboto-medium, 'droid sans';
+}
+.market .area02 .certification {
+	margin: 0 0 16px;
+	padding: 0 15px 0;
+	background-color: #fff;
+}
+.market .area02 .certification .title {
+	padding: 10px 0 0;
+}
+.market .area02 .certification .title h3 {
+	line-height: 30px;
+	font-size: 18px;
+	color: #999;
+}
+.market .area02 .certification .title p {
+	font-size: 14px;
+	color: #cecece;
+	text-transform: uppercase;
+}
+.market .area02 .certification .title span {
+	font-size: 10px;
+	font-weight: 500;
+	color: #999;
+	text-transform: uppercase;
+}
+.market .area02 .certification ul li {
+	width: 50%;
+	padding: 15px 0 15px 35px;
+	float: left;
+	border-color: #eee;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	background-position: 0 center;
+	background-repeat: no-repeat;
+	background-size: 30px;
+}
+.market .area02 .certification ul li:last-child {
+	border-width: 0;
+}
+.market .area02 .certification ul li.ba01 {
+	background-image: url('../../img/icon/ba01.svg');
+}
+.market .area02 .certification ul li.ba01s {
+	background-image: url('../../img/icon/ba01s.svg');
+}
+.market .area02 .certification ul li.ba02 {
+	background-image: url('../../img/icon/ba02.svg');
+}
+.market .area02 .certification ul li.ba02s {
+	background-image: url('../../img/icon/ba02s.svg');
+}
+.market .area02 .certification ul li.ba03 {
+	background-image: url('../../img/icon/ba03.svg');
+}
+.market .area02 .certification ul li.ba03s {
+	background-image: url('../../img/icon/ba03s.svg');
+}
+.market .area02 .certification ul li.ba04 {
+	background-image: url('../../img/icon/ba04.svg');
+}
+.market .area02 .certification ul li.ba04s {
+	background-image: url('../../img/icon/ba04s.svg');
+}
+.market .area02 .certification ul li.ba05 {
+	background-image: url('../../img/icon/ba05.svg');
+}
+.market .area02 .certification ul li.ba05s {
+	background-image: url('../../img/icon/ba05s.svg');
+}
+.market .area02 .certification ul li.ba06 {
+	background-image: url('../../img/icon/ba06.svg');
+}
+.market .area02 .certification ul li.ba06s {
+	background-image: url('../../img/icon/ba06s.svg');
+}
+.market .area02 .certification ul li.ba07 {
+	background-image: url('../../img/icon/ba07.svg');
+}
+.market .area02 .certification ul li.ba07s {
+	background-image: url('../../img/icon/ba07s.svg');
+}
+.market .area02 .certification ul li.ba08 {
+	background-image: url('../../img/icon/ba08.svg');
+}
+.market .area02 .certification ul li.ba08s {
+	background-image: url('../../img/icon/ba08s.svg');
+}
+.market .area02 .certification ul li.ba09 {
+	background-image: url('../../img/icon/ba09.svg');
+}
+.market .area02 .certification ul li.ba09s {
+	background-image: url('../../img/icon/ba09s.svg');
+}
+.market .area02 .certification ul li.ba10 {
+	background-image: url('../../img/icon/ba10.svg');
+}
+.market .area02 .certification ul li.ba10s {
+	background-image: url('../../img/icon/ba10s.svg');
+}
+.market .area02 .certification ul li.ba11 {
+	background-image: url('../../img/icon/ba11.svg');
+}
+.market .area02 .certification ul li.ba11s {
+	background-image: url('../../img/icon/ba11s.svg');
+}
+.market .area02 .certification ul li.ba12 {
+	background-image: url('../../img/icon/ba12.svg');
+}
+.market .area02 .certification ul li.ba12s {
+	background-image: url('../../img/icon/ba12s.svg');
+}
+.market .area02 .certification ul li.ba13 {
+	background-image: url('../../img/icon/ba13.svg');
+}
+.market .area02 .certification ul li.ba13s {
+	background-image: url('../../img/icon/ba13s.svg');
+}
+.market .area02 .certification ul li.ba14 {
+	background-image: url('../../img/icon/ba14.svg');
+}
+.market .area02 .certification ul li.ba14s {
+	background-image: url('../../img/icon/ba14s.svg');
+}
+.market .area02 .certification ul li.ba15 {
+	background-image: url('../../img/icon/ba15.svg');
+}
+.market .area02 .certification ul li.ba15s {
+	background-image: url('../../img/icon/ba15s.svg');
+}
+
+.market .area02 .certification ul li.ba16 {
+	background-image: url('../../img/icon/ba16.png');
+}
+.market .area02 .certification ul li.ba16s {
+	background-image: url('../../img/icon/ba16s.png');
+}
+.market .area02 .certification ul li .ba-cont {
+}
+.market .area02 .certification ul li h3 {
+	line-height: 26px;
+	font-size: 14px;
+	color: #333;
+}
+.market .area02 .certification ul li h3 em {
+	padding: 1px 2px;
+	font-size: 12px;
+	font-weight: 500;
+	border-width: 1px;
+	border-style: solid;
+}
+.market .area02 .certification ul li h3 em.not {
+	border-color: #fb9610;
+}
+.market .area02 .certification ul li h3 em.has {
+	border-color: #0C3;
+}
+.market .area02 .certification ul li span {
+	font-size: 10px;
+	color: #999;
+	text-transform: uppercase;
+}
+.fixed-btn .applyBtn {
+	width: 100%;
+	font-size: 18px;
+	color: #fff;
+	background-color: #1a70ff;
+}

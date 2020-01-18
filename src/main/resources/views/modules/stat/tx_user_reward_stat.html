@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <title>凭证用户佣金</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/daterangepicker.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <style>
+#myTabContent {
+	padding-top: 20px;
+}
+.sum li {
+	width: 30%;
+	list-style: none;
+	float: left;
+	padding-left: 25px;
+	padding-right: 25px;
+	border-right: solid 1px #ececec;
+}
+.sum .inner {
+	text-align: center;
+}
+.sum .inner h3 span{
+	font-size: 22px;
+	color: #333;
+}
+.sum .inner p {
+	font-size:16px;
+	color: #666;
+}
+.sum .last {
+	border-right: none;
+	color: #f19f00;
+	font-weight: bold;
+}
+
+
+    </style>
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div id="sumApp" class="row sum" style="border-top: none; padding-bottom: 20px; padding-top: 5px;">
+        <li class="inner">
+            <h3>{{stat.totalTxAmount}}</h3>
+            <p> 总凭证金额 </p>
+        </li>
+        <li class="inner">
+            <h3>{{stat.totalTxUserInvitee}}</h3>
+            <p> 总推荐人 </p>
+        </li>
+        <li class="inner">
+            <h3>{{stat.validUserInvitee}}</h3>
+            <p> 用户有效推广数 </p>
+        </li>
+    </div>
+
+    <div>
+        <div class="grid-btn form-inline">
+            <input type="text" class="form-control" v-model="q.name" @keyup.enter="query"
+                   placeholder="用户名/手机/身份证号">
+            <a class="btn btn-default" @click="query">查询</a>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+
+<script src="../../libs/moment.min.js"></script>
+<script src="../../libs/daterangepicker.js"></script>
+<script src="../../js/modules/stat/tx_user_reward_stat.js"></script>
+</body>
+</html>

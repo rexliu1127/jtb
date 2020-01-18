@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.flow.dao.FlowAllocationRecordDao">
+
+	<select id="queryObject" resultType="io.grx.modules.flow.entity.FlowAllocationRecordEntity">
+		select * from sys_flow_allocation_record where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.flow.entity.FlowAllocationRecordEntity">
+		select * from sys_flow_allocation_record
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+	
+	<select id="queryListBySourceRequestId" resultType="io.grx.modules.flow.entity.FlowAllocationRecordEntity">
+		select * from sys_flow_allocation_record
+		where source_request_id = #{sourceRequestId}
+	</select>
+	
+	
+	<select id="queryFollowDraftList" resultType="io.grx.modules.flow.entity.FlowAllocationRecordEntity">
+		select * from sys_flow_allocation_record
+		<where>
+			and req_status = 0
+			<if test="createTime!=null and createTime.trim() != ''">
+				and create_time &gt;= #{createTime}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryAllocationStatisTotal" resultType="int">
+		SELECT 
+			ifnull(COUNT(1),0) 
+		FROM (
+			SELECT 
+			DATE_FORMAT(rec.create_time,'%Y-%m-%d') AS _date 
+			FROM sys_flow_allocation_record rec,
+			auth_request req
+			WHERE rec.new_request_id = req.request_id
+			AND req.merchant_no = #{_merchantNo}
+			GROUP BY DATE_FORMAT(rec.create_time,'%Y-%m-%d') 
+		) c 
+		where 1 = 1
+		<if test="applyStartDate != null and applyStartDate.trim() != ''">
+			AND c._date &gt;= #{applyStartDate}
+		</if>
+		<if test="applyEndDate != null and applyEndDate != ''">
+			AND c._date &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+		</if>
+	</select>
+	
+	<select id="queryAllocationStatis" resultType="java.util.Map">
+		select * from (
+			SELECT 
+				_date,
+				merchant_no,
+				SUM(_count) AS total,
+				MAX(CASE _status WHEN 0 THEN _count ELSE 0 END) AS 'progress',
+				MAX(CASE _status WHEN 2 THEN _count ELSE 0 END) AS 'payment',
+				MAX(CASE _status WHEN 3 THEN _count ELSE 0 END) AS 'reject',
+				MAX(CASE _status WHEN 4 THEN _count ELSE 0 END) AS 'finish'
+			FROM (
+				SELECT 
+				DATE_FORMAT(rec.create_time,'%Y-%m-%d') AS _date,
+				req.status AS _status,
+				COUNT(req.status) AS _count,
+				req.merchant_no
+				FROM sys_flow_allocation_record rec,
+				auth_request req
+				WHERE rec.new_request_id = req.request_id
+				AND req.merchant_no = #{_merchantNo}
+				GROUP BY DATE_FORMAT(rec.create_time,'%Y-%m-%d'),req.status 
+			) c
+			where 1 = 1
+			<if test="applyStartDate != null and applyStartDate.trim() != ''">
+				AND c._date &gt;= #{applyStartDate}
+			</if>
+			<if test="applyEndDate != null and applyEndDate != ''">
+				AND c._date &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+			</if>
+			GROUP BY c._date
+			ORDER BY c._date DESC
+		) fx
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+	
+	
+	<select id="querySpreadList" resultType="java.util.Map">
+		select * from (
+		SELECT 
+			s.id,
+			DATE_FORMAT(s.create_time,'%Y-%m-%d') as create_time,
+			m.merchant_no,
+			m.name,
+			s.after_amount,
+			s.status,
+			s.flow_count,
+			s.complete_count,
+			(SELECT IFNULL(COUNT(1),0) FROM auth_request q,sys_flow_allocation_record a
+			WHERE q.request_id = a.new_request_id AND q.status IN (2,4)
+			AND a.setting_id = s.id ) AS payment_count
+		FROM sys_flow_setting s,sys_merchant m,sys_fun f
+		WHERE s.merchant_no = m.merchant_no
+		AND s.merchant_no = f.merchant_no
+		<if test="queryMerchantNo!=null and queryMerchantNo.trim() !=''">
+			and s.merchant_no = #{queryMerchantNo}
+		</if>
+		ORDER BY s.id DESC
+		) d
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+	
+	<select id="querySpreadListTotal" resultType="int">
+		select 
+			count(1)
+		from sys_flow_setting s,sys_merchant m,sys_fun f
+		where s.merchant_no = m.merchant_no
+		and s.merchant_no = f.merchant_no 
+		<if test="queryMerchantNo!=null and queryMerchantNo.trim() !=''">
+			and s.merchant_no = #{queryMerchantNo}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from sys_flow_allocation_record 
+	</select>
+	
+	<select id="queryConcurrentCountByRequestId" resultType="int">
+		SELECT IFNULL(COUNT(1),0) AS concurrent_count FROM sys_flow_allocation_record
+		WHERE source_request_id=#{sourceRequestId} 
+	</select>
+	
+	<insert id="save" parameterType="io.grx.modules.flow.entity.FlowAllocationRecordEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_flow_allocation_record (setting_id,source_request_id,new_request_id,create_time,req_status)
+		values (#{settingId},#{sourceRequestId},#{newRequestId},#{createTime},${reqStatus})
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.flow.entity.FlowAllocationRecordEntity">
+		update sys_flow_allocation_record 
+		<set>
+			<if test="settingId != null">setting_id = #{settingId}, </if>
+			<if test="sourceRequestId != null">source_request_id = #{sourceRequestId}, </if>
+			<if test="newRequestId != null">new_request_id = #{newRequestId}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="reqStatus != null">req_status = #{reqStatus}, </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sys_flow_allocation_record where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from sys_flow_allocation_record where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+</mapper>

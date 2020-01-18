@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <title>申请单</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/daterangepicker.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div>
+        <div class="grid-btn form-inline">
+            <label>状态:
+                <select id="statusSelect" class="form-control" style="display: inline-block; width: auto; margin-left: 5px;" v-model="q.status">
+                    <option v-for="option in requestStatusList" v-bind:value="option.value">
+                        {{ option.displayName }}
+                    </option>
+                </select>
+            </label>
+            <label class="ml15" v-if="channelList.length > 0">渠道:
+                <select id="channelSelect" class="form-control" style="display: inline-block; width: auto; margin-left: 5px;" v-model="q.channelId">
+                    <option v-for="option in channelList" v-bind:value="option.channelId">
+                        {{ option.name }}
+                    </option>
+                </select>
+            </label>
+            <label class="ml15">申请时间:
+                <input type="text" class="form-control" id="applyTimeRange" placeholder="申请时间">
+            </label>
+            <a class="btn btn-default" @click="query">查询</a>
+            <a class="btn btn-default" @click="reset">重置</a>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+
+<script src="../../libs/moment.min.js"></script>
+<script src="../../libs/daterangepicker.js"></script>
+<script src="../../js/modules/opt/order_list.js"></script>
+</body>
+</html>

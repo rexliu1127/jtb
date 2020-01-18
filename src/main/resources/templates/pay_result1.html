@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="css/wx_common.css"/>
+    <link rel="stylesheet" href="css/wx_main.css"/>
+    <link rel="stylesheet" href="css/page.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css"/>
+    <style>
+        #logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items :center ;
+        }
+
+        .message_box h3 {
+            font-weight: 400;
+            font-size: 24px;
+            text-align: center;
+            display: block;
+        }
+
+        .message_box h4 {
+            font-weight: 400;
+            font-size: 18px;
+            text-align: center;
+            display: block;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+<div class="logo"><i class="weui-icon-success weui-icon_msg"></i></div>
+<div class="message_box">
+    <h3>支付成功</h3>
+    <h4>¥ 5.00元</h4>
+</div>
+
+
+<li><div class="but"><a id="loginBtn" href="javascript:" >登录</a></div></li>
+
+<input id="returnUrl" type="hidden" th:value="${returnUrl}"/>
+<input id="unionId" type="hidden" th:value="${unionId}"/>
+<input id="openId" type="hidden" th:value="${openId}"/>
+<input id="nickName" type="hidden" th:value="${nickName}"/>
+<input id="headImgUrl" type="hidden" th:value="${headImgUrl}"/>
+<!-- body 最后 -->
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="js/wx_common.js"></script>
+<script src="js/wx/login.js"></script>
+</body>
+</html>

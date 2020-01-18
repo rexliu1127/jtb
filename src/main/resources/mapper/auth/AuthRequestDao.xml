@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthRequestDao">
+
+    <select id="queryObject" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+        SELECT *
+        FROM auth_request
+        WHERE request_id = #{value}
+    </select>
+
+    <select id="queryList" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+        select ar.*, (select d.name from sys_dept d where d.dept_id = c.dept_id) deptName from auth_request ar join auth_user au on ar.user_id = au.user_id
+        left join sys_user su on ar.assignee_id = su.user_id
+        left join channel c on ar.channel_id = c.channel_id
+        <where>
+            1 = 1
+            <if test="_merchantNo != '00'">
+                and ar.merchant_no = #{_merchantNo}
+            </if>
+            <if test="requestIds != null">
+                and request_id in
+                <foreach item="requestId" collection="requestIds" open="(" separator="," close=")">
+                    #{requestId}
+                </foreach>
+            </if>
+            <if test="status != null and status.toString().trim() != ''">
+                and ar.status = #{status}
+            </if>
+            <if test="channelId != null and channelId.toString().trim() != ''">
+                and ar.channel_id = #{channelId}
+            </if>
+            <if test="allocateStatus == 0">
+                and ar.assignee_id is null
+            </if>
+            <if test="allocateStatus == 1">
+                and ar.assignee_id is not null
+            </if>
+            <if test="_isCS">
+                and ar.assignee_id = #{_sysUserId}
+            </if>
+            <if test="_isDataPrivacy">
+                and ar.status not in (2)
+            </if>
+            <if test="applyStartDate != null and applyStartDate.trim() != ''">
+                and ar.create_time &gt;= #{applyStartDate}
+            </if>
+            <if test="applyEndDate != null and applyEndDate.trim() != ''">
+                and ar.create_time &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+            </if>
+            <if test="auditStartDate != null and auditStartDate.trim() != ''">
+                and ar.update_time &gt;= #{auditStartDate}
+            </if>
+            <if test="auditEndDate != null and auditEndDate.trim() != ''">
+                and ar.update_time &lt; DATE_ADD(#{auditEndDate}, INTERVAL 1 DAY)
+            </if>
+            <if test="name != null and name.trim() != ''">
+                and ar.name like concat('%',#{name},'%')
+            </if>
+            <if test="mobile != null and mobile.trim() != ''">
+                and au.mobile like concat('%',#{mobile},'%')
+            </if>
+            <if test="assignee != null and assignee.trim() != ''">
+                and (su.username like concat('%',#{assignee},'%') or su.name like concat('%',#{assignee},'%'))
+            </if>
+            <if test="_channelIdList != null">
+                and ar.channel_id in
+                <foreach item="channelId" collection="_channelIdList" open="(" separator="," close=")">
+                    #{channelId}
+                </foreach>
+            </if>
+            <!--  数据过滤  -->
+            ${filterSql}
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by request_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{limit} offset #{offset}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        SELECT count(*)
+        FROM auth_request ar join auth_user au on ar.user_id = au.user_id
+        left join sys_user su on ar.assignee_id = su.user_id
+        left join channel c on ar.channel_id = c.channel_id
+        <where>
+            1 = 1
+            <if test="_merchantNo != '00'">
+                and ar.merchant_no = #{_merchantNo}
+            </if>
+            <if test="requestIds != null">
+                and request_id in
+                <foreach item="requestId" collection="requestIds" open="(" separator="," close=")">
+                    #{requestId}
+                </foreach>
+            </if>
+            <if test="status != null and status.toString().trim() != ''">
+                and ar.status = #{status}
+            </if>
+            <if test="channelId != null and channelId.toString().trim() != ''">
+                and ar.channel_id = #{channelId}
+            </if>
+            <if test="allocateStatus == 0">
+                and ar.assignee_id is null
+            </if>
+            <if test="allocateStatus == 1">
+                and ar.assignee_id is not null
+            </if>
+            <if test="_isCS">
+                and ar.assignee_id = #{_sysUserId}
+            </if>
+            <if test="_isDataPrivacy">
+                and ar.status not in (2)
+            </if>
+            <if test="applyStartDate != null and applyStartDate.trim() != ''">
+                and ar.create_time &gt;= #{applyStartDate}
+            </if>
+            <if test="applyEndDate != null and applyEndDate.trim() != ''">
+                and ar.create_time &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+            </if>
+            <if test="auditStartDate != null and auditStartDate.trim() != ''">
+                and ar.update_time &gt;= #{auditStartDate}
+            </if>
+            <if test="auditEndDate != null and auditEndDate.trim() != ''">
+                and ar.update_time &lt; DATE_ADD(#{auditEndDate}, INTERVAL 1 DAY)
+            </if>
+            <if test="name != null and name.trim() != ''">
+                and ar.name like concat('%',#{name},'%')
+            </if>
+            <if test="mobile != null and mobile.trim() != ''">
+                and au.mobile like concat('%',#{mobile},'%')
+            </if>
+            <if test="assignee != null and assignee.trim() != ''">
+                and (su.username like concat('%',#{assignee},'%') or su.name like concat('%',#{assignee},'%'))
+            </if>
+            <if test="_channelIdList != null">
+                and ar.channel_id in
+                <foreach item="channelId" collection="_channelIdList" open="(" separator="," close=")">
+                    #{channelId}
+                </foreach>
+            </if>
+            <!--  数据过滤  -->
+            ${filterSql}
+        </where>
+    </select>
+
+    <insert id="save" parameterType="io.grx.modules.auth.entity.AuthRequestEntity" useGeneratedKeys="true"
+            keyProperty="requestId">
+        INSERT INTO auth_request
+        (
+            request_uuid,
+            merchant_no,
+            user_id,
+            dept_id,
+            processor_id,
+            assignee_id,
+            channel_id,
+            name,
+            id_no,
+            qq_no,
+			wechat_no,
+			company_name,
+			company_addr,
+			company_tel,
+            gps_addr,
+            mobile_pass,
+            contact1_type,
+            contact1_name,
+            contact1_mobile,
+            contact2_type,
+            contact2_name,
+            contact2_mobile,
+			contact3_type,
+			contact3_name,
+			contact3_mobile,
+            contact1_call_count,
+            contact2_call_count,
+            id_url_1,
+            id_url_2,
+            id_url_3,
+            status,
+            verify_token,
+            verify_status,
+            create_time,
+            update_time,
+            phone_checked,
+            id_no_matched,
+            name_matched,
+            vendor_type,
+            latitude,
+            longitude
+        )
+        VALUES
+            (
+                #{requestUuid},
+                #{merchantNo},
+                #{userId},
+                #{deptId},
+                #{processorId},
+                #{assigneeId},
+                #{channelId},
+                #{name},
+                #{idNo},
+                #{qqNo},
+                #{wechatNo},
+                #{companyName},
+                #{companyAddr},
+                #{companyTel},
+                #{gpsAddr},
+                #{mobilePass},
+                #{contact1Type},
+                #{contact1Name},
+                #{contact1Mobile},
+                #{contact2Type},
+                #{contact2Name},
+                #{contact2Mobile},
+                #{contact3Type},
+                #{contact3Name},
+                #{contact3Mobile},
+                #{contact1CallCount},
+                #{contact2CallCount},
+                #{idUrl1},
+                #{idUrl2},
+                #{idUrl3},
+                #{status},
+                #{verifyToken},
+                #{verifyStatus},
+                #{createTime},
+                #{updateTime},
+                #{phoneChecked},
+                #{idNoMatched},
+                #{nameMatched},
+                #{vendorType},
+                #{latitude},
+                #{longitude}
+            )
+    </insert>
+
+    <update id="update" parameterType="io.grx.modules.auth.entity.AuthRequestEntity">
+        update auth_request
+        <set>
+            <if test="requestUuid != null">request_uuid = #{requestUuid},</if>
+            <if test="merchantNo != null">merchant_no = #{merchantNo},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="processorId != null">processor_id = #{processorId},</if>
+            <if test="assigneeId != null">assignee_id = #{assigneeId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="idNo != null">id_no = #{idNo},</if>
+            <if test="qqNo != null">qq_no = #{qqNo},</if>
+            <if test="wechatNo != null">wechat_no = #{wechatNo}, </if>
+            <if test="companyName != null">company_name = #{companyName}, </if>
+            <if test="companyAddr != null">company_addr = #{companyAddr}, </if>
+            <if test="companyTel != null">company_tel = #{companyTel}, </if>
+            <if test="gpsAddr != null">gps_addr = #{gpsAddr},</if>
+            <if test="mobilePass != null">mobile_pass = #{mobilePass},</if>
+            <if test="contact1Type != null">contact1_type = #{contact1Type},</if>
+            <if test="contact1Name != null">contact1_name = #{contact1Name},</if>
+            <if test="contact1Mobile != null">contact1_mobile = #{contact1Mobile},</if>
+            <if test="contact2Type != null">contact2_type = #{contact2Type},</if>
+            <if test="contact2Name != null">contact2_name = #{contact2Name},</if>
+            <if test="contact2Mobile != null">contact2_mobile = #{contact2Mobile},</if>
+            <if test="contact3Type != null">contact3_type = #{contact3Type}, </if>
+            <if test="contact3Name != null">contact3_name = #{contact3Name}, </if>
+            <if test="contact3Mobile != null">contact3_mobile = #{contact3Mobile}, </if>
+            <if test="contact1CallCount != null">contact1_call_count = #{contact1CallCount},</if>
+            <if test="contact2CallCount != null">contact2_call_count = #{contact2CallCount},</if>
+            <if test="idUrl1 != null">id_url_1 = #{idUrl1},</if>
+            <if test="idUrl2 != null">id_url_2 = #{idUrl2},</if>
+            <if test="idUrl3 != null">id_url_3 = #{idUrl3},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="verifyToken != null">verify_token = #{verifyToken},</if>
+            <if test="verifyStatus != null">verify_status = #{verifyStatus},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="phoneChecked != null">phone_checked = #{phoneChecked},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            id_no_matched = #{idNoMatched}, name_matched = #{nameMatched}
+        </set>
+        where request_id = #{requestId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM auth_request
+        WHERE request_id = #{value}
+    </delete>
+
+    <delete id="deleteBatch">
+        delete from auth_request where request_id in
+        <foreach item="requestId" collection="array" open="(" separator="," close=")">
+            #{requestId}
+        </foreach>
+    </delete>
+
+    <select id="queryByUserAndStatus" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+        select * from auth_request where user_id = #{userId} and verify_status in (1)
+        <if test="statuses != null">
+            and status in
+            <foreach item="status" collection="statuses" open="(" separator="," close=")">
+                #{status}
+            </foreach>
+        </if>
+        order by request_id desc
+    </select>
+
+    <select id="queryByUuid" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+        SELECT *
+        FROM auth_request
+        WHERE request_uuid = #{value}
+    </select>
+
+    <select id="queryRequestCount" resultType="int">
+        SELECT count(1)
+        FROM auth_request
+        WHERE user_id = #{userId} AND request_id &lt;= #{requestId} and verify_status = 1
+    </select>
+
+    <select id="queryByVerifyStatus" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+        select * from auth_request
+        <where>
+            verify_status in
+            <foreach item="status" collection="statuses" open="(" separator="," close=")">
+                #{status}
+            </foreach>
+        </where>
+        order by create_time asc
+    </select>
+
+    <select id="queryLatestByUserId" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+        select r.* from auth_request r
+        where r.user_id = #{userId}
+        <if test="channelId != null and channelId>0">
+            and channel_id = #{channelId}
+        </if>
+        order by create_time desc limit 1
+    </select>
+
+    <select id="queryLatestByIdNo" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+        select r.* from auth_request r
+        <if test="channelId != null and channelId.trim() != ''">
+            join channel c on r.channel_id = c.channel_id
+        </if>
+        where r.id_no = #{idNo} and r.verify_status = 1
+        <if test="channelId != null and channelId.trim() != ''">
+            and c.channel_key = #{channelId}
+        </if>
+        order by r.create_time desc limit 1
+    </select>
+
+    <select id="queryByToken" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+        select r.* from auth_request r
+        where r.verify_token = #{value}
+    </select>
+
+    <select id="queryPendingVerifyRequests" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+        select r.* from auth_request r
+        where r.verify_status = 3
+    </select>
+
+    <select id="idNoHasRequest" resultType="boolean">
+        select exists(select 1 from auth_request where id_no = #{idNo}
+        and create_time > date_add(current_date, INTERVAL - #{inRecentDays} DAY)
+        <if test="deptIds != null">
+            and dept_id in
+            <foreach item="deptId" collection="deptIds" open="(" separator="," close=")">
+                #{deptId}
+            </foreach>
+        </if>
+        limit 1)
+    </select>
+
+    <select id="querySummary" resultType="io.grx.modules.auth.dto.AuthSummary">
+        select count(1) total_count,
+        count(case when status = 1 then 1 else null end) processing_count,
+        count(case when status = 2 then 1 else null end) approved_count,
+        count(case when status = 3 then 1 else null end) rejected_count,
+        count(case when status = 4 then 1 else null end) completed_count,
+        count(case when status = 5 then 1 else null end) overdue_count
+        from auth_request ar where ar.verify_status = 1
+        <if test="_merchantNo != '00'">
+            and ar.merchant_no = #{_merchantNo}
+        </if>
+        <if test="startDate != null and startDate != ''">
+            and ar.create_time >= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and ar.create_time &lt; date_add(#{endDate}, interval 1 day)
+        </if>
+        <!--  数据过滤  -->
+        ${filterSql}
+    </select>
+
+
+
+
+    <select id="queryChannelStatList" resultType="io.grx.modules.opt.dto.ChannelStatVO">
+        select c.channel_id, min(c.name) channel_name, min(u.name) owner_name,
+        coalesce((select count(1) from auth_user where channel_id = c.channel_id),0) user_count,
+        coalesce(count(r.request_id),0) total_count,
+        coalesce(count(case when r.status in (1,2,3,4,5) then r.request_id else null end),0) processed_count,
+        coalesce(count(case when r.status = 2 then r.request_id else null end),0) approved_count
+        from channel c
+        join auth_request r on c.channel_id = r.channel_id
+        left join sys_user u on c.owner_user_id = u.user_id
+        <where>
+            c.merchant_no = #{_merchantNo} and r.verify_status = 1
+            <if test="applyStartDate != null and applyStartDate.trim() != ''">
+                and r.create_time &gt;= #{applyStartDate}
+            </if>
+            <if test="applyEndDate != null and applyEndDate.trim() != ''">
+                and r.create_time &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+            </if>
+            <!--  数据过滤  -->
+            ${filterSql}
+        </where>
+        group by c.channel_id
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by channel_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{limit} offset #{offset}
+        </if>
+    </select>
+
+    <select id="queryChannelStatTotal" resultType="int">
+        select count(distinct c.channel_id)
+        from channel c
+        join auth_request r on c.channel_id = r.channel_id
+        <where>
+            c.merchant_no = #{_merchantNo} and r.verify_status = 1
+            <if test="applyStartDate != null and applyStartDate.trim() != ''">
+                and r.create_time &gt;= #{applyStartDate}
+            </if>
+            <if test="applyEndDate != null and applyEndDate.trim() != ''">
+                and r.create_time &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+            </if>
+            <!--  数据过滤  -->
+            ${filterSql}
+        </where>
+    </select>
+    
+    
+    <select id="queryFlowCopyList" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+        select ar.*, (select d.name from sys_dept d where d.dept_id = c.dept_id) deptName from auth_request ar join auth_user au on ar.user_id = au.user_id
+        left join sys_user su on ar.assignee_id = su.user_id
+        left join channel c on ar.channel_id = c.channel_id
+        <where>
+            ar.merchant_no = #{merchantNo}
+			and ar.status = #{status}
+            <if test="startTime != null and startTime.trim() != ''">
+                and ar.create_time &gt;= #{startTime}
+            </if>
+        </where>
+        order by request_id desc
+    </select>
+    
+    <!-- 查询待跟踪[流量分发任务]的单据 -->
+    <select id="queryFlowChangeList" resultType="io.grx.modules.auth.entity.AuthRequestEntity">
+    	SELECT * FROM auth_request 
+    	WHERE merchant_no = #{merchantNo}
+    	AND `status` = 0 
+    	AND request_id IN(
+			SELECT 
+			    source_request_id 
+			FROM
+			    sys_flow_allocation_record 
+			WHERE create_time &gt;= #{createTime}
+			GROUP BY source_request_id ) 
+    </select>
+    
+    <select id="queryRejectCountByIdNo"  resultType="int">
+    	SELECT IFNULL(COUNT(1),0) FROM auth_request 
+    	WHERE merchant_no=#{merchantNo} AND status=3 AND id_no = #{idNo}
+    </select>
+    
+    
+</mapper>

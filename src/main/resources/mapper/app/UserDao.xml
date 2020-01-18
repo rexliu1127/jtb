@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.contact.dao.UserDao">
+    <cache/>
+
+	<insert id="save" parameterType="io.grx.modules.contact.entity.UserEntity" useGeneratedKeys="true" keyProperty="userId">
+		insert into contact_user
+		(
+			`mobile`,
+			`contact`,
+			`create_time`,
+			`update_time`
+		)
+		values
+			(
+				#{mobile},
+				#{contact},
+				#{createTime},
+				#{updateTime}
+			)
+	</insert>
+
+	<update id="update" parameterType="io.grx.modules.contact.entity.UserEntity">
+		update contact_user
+		<set>
+			<if test="contact != null">`contact` = #{contact}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime} </if>
+		</set>
+		where user_id = #{userId}
+	</update>
+
+	<select id="queryObject" resultType="io.grx.modules.contact.entity.UserEntity">
+		select * from contact_user where user_id = #{value}
+	</select>
+
+	<select id="queryByMobile" resultType="io.grx.modules.contact.entity.UserEntity">
+		select * from contact_user where mobile = #{value}
+	</select>
+
+</mapper>

@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../css/rcpt/account.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/rcpt/paypsw.css"/>
+    <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/jquery-weui.min.css"/>
+    <title></title>
+    <script th:inline="text">
+        var bindedUser = [[${!#strings.isEmpty(TX_USER.name)}]];
+        var userSigned = [[${!#strings.isEmpty(TX_USER.signImgPath)}]];
+    </script>
+</head>
+<body>
+<div class="mainAPP">
+
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>打借条</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="createIous">
+            <form action="#" method="post">
+                <div class="createIousMoney">
+                    <div class="loanMoney">
+                        <h3>借款金额</h3>
+                        <input id="amount" class=" form" type="tel" maxlength="20" autocomplete="off" required="required" placeholder="请输入借款金额"/>
+                    </div>
+                    <div class="typeX">
+                        <ul>
+                            <li class="display">
+                                <div class="form-topic">
+                                    <h3 id="otherNameLabel" th:text="${type == 1 ? '对方姓名 (出借人)' : '对方姓名 (借款人)'}">对方姓名 (出借人)</h3>
+                                </div>
+                                <div class="form-box flex1">
+                                    <input id="otherName" class="userName-other form" type="text" maxlength="6" autocomplete="off" required="required" placeholder="填写正确才可生效"/>
+                                </div>
+                            </li>
+
+                            <li class="display" th:if="${!#strings.isEmpty(TX_USER.signImgPath)}">
+                                <div class="form-topic">
+                                    <h3 th:text="${type == 1 ? '已方签名 (借款人)' : '已方签名 (出借人)'}">对方姓名 (出借人)</h3>
+                                </div>
+                                <div class="form-box flex1" style="text-align: right;">
+                                    <img src="member/sign.png" style="height: 40px; vertical-align:middle;"/>
+                                    <a href="member/sign.html">重新签署</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="createIousState">
+                    <ul>
+                        <li class="display">
+                            <div class="s01 flex1">
+                                <h3>借款日期 <em><input id="beginDate" class="form" type="text" th:value="${beginDate}" readonly="readonly" /></em></h3>
+                            </div>
+                        </li>
+                        <li class="display">
+                            <div class="s02 flex1">
+                                <h3>还款日期<em><input type="text" class="form" id="endDate" th:value="${endDate}" readonly="readonly" /></em></h3>
+                                <p></p>
+                            </div>
+                        </li>
+                        <li class="display">
+                            <div class="s03 flex1">
+                                <div class="form-topic fl">
+                                    <h3>年化利率</h3>
+                                </div>
+                                <div class="use fr form-box">
+                                    <select id="rate">
+                                        <option value="1">1%</option>
+                                        <option value="2">2%</option>
+                                        <option value="3">3%</option>
+                                        <option value="4">4%</option>
+                                        <option value="5">5%</option>
+                                        <option value="6">6%</option>
+                                        <option value="7">7%</option>
+                                        <option value="8">8%</option>
+                                        <option value="8">8%</option>
+                                        <option value="9">9%</option>
+                                        <option value="10" selected="selected">10%</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="s04 clear">
+                                <div class="form-topic fl">
+                                    <h3>借款用途</h3>
+                                </div>
+                                <div class="use fr form-box">
+                                    <select id="usageType">
+                                        <option value="1">个人经营</option>
+                                        <option value="2" selected="selected">消 费</option>
+                                        <option value="3">助 学</option>
+                                        <option value="4">创 业</option>
+                                        <option value="5">租 房</option>
+                                        <option value="6">旅 游</option>
+                                        <option value="7">装 修</option>
+                                        <option value="8">医 疗</option>
+                                        <option value="0">其 他</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="describe">
+                                <textarea id="remark" class="feedbackText" name="feedbackText" maxlength="200" placeholder="请输入不少于10个字的描述(选填)"></textarea>
+                            </div>
+                        </li>
+                        <li class="display" th:if="${type == 1}">
+                            <div class="s05 flex1">
+                                <h3>服务费<em class="orange" th:text="${feeAmount > 0 ? (feeAmount + '元') : '限时免费'}">限时免费</em></h3>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="agreement">
+                    <div class="checkbox checkbox-primary pull-left">
+                        <input type="checkbox" checked="checked" id="chkAgree" name="agreement"/>
+                        <label for="chkAgree">我已阅读并同意</label><a href="transaction/agreement.html">《借款协议》</a>
+                    </div>
+                </div>
+                <button type="button" id="submit" class="btn btnstyle01 radius3PX">创建借条</button>
+            </form>
+            <div class="rules">
+                <dl>
+                    <dd class="clear"><b>1</b> <span>7天未确定或驳回借条，该借条将自动删除；</span></dd>
+                    <dd class="clear"><b>2</b> <span>借条若作废，已支付的服务费(若有)将退回个人钱包余额，可在下次打借条时使用；</span></dd>
+                    <dd class="clear"><b>3</b> <span>打借条不支持线上出借，请确保你们的线下交易完毕。</span></dd>
+                </dl>
+            </div>
+        </div>
+    </main>
+
+
+</div>
+
+<input id="type" type="hidden" th:value="${type}"/>
+<input id="feeAmount" type="hidden" th:value="${feeAmount}" />
+
+<script src="../libs/jquery.min.js"></script>
+<script src="../libs/jquery-weui.min.js"></script>
+<script src="../js/wx_common.js"></script>
+<script type="text/javascript" src="../js/rcpt/main.js"></script>
+<script type="text/javascript" src="../js/rcpt/transaction.js"></script>
+</body>
+</html>

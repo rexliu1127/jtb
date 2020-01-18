@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <title>渠道</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../plugins/layui/layui.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div class="panel panel-default">
+        <!--div class="panel-heading">{{title}}</div-->
+        <form class="form-horizontal from-ask">
+            <div class="lableSlect">
+                <label>流量需求设置</label>
+                <br/>
+                <select>
+                    <option>宝信速贷</option>
+                    <!--<option>设置2</option>-->
+                </select>
+            </div>
+            <h4 style="margin: 15px 0px">基本资料认证<span class="span-txt">(基本资料认证单笔5元)</span></h4>
+            <div class="form-group">
+                <!--<div class="col-sm-2 control-label">基本信息:</div>-->
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" v-model="config.qqNo">QQ号
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" v-model="config.wechatNo">微信号
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" v-model="config.companyName">公司名称
+                    </label>
+                    <label class="checkbox-inline input-margin" style="padding-left: 10px">
+                        <input type="checkbox" v-model="config.companyJob">公司职位
+                    </label>
+                    <label class="checkbox-inline input-margin">
+                        <input type="checkbox" v-model="config.companyAddr">公司地址
+                    </label>
+                    <label class="checkbox-inline input-margin">
+                        <input type="checkbox" v-model="config.companyTel">公司电话
+                    </label>
+                    <label class="checkbox-inline input-margin" style="margin-left: 0px">
+                        <input type="checkbox" v-model="config.salary">月薪
+                    </label>
+                    <label class="checkbox-inline input-margin">
+                        <input type="checkbox" v-model="config.sesamePoints">芝麻分
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="float: left;line-height: 30px;">紧急联系人数:</label>
+                <div class="col-sm-10" style="display: inline-block;width: 168px">
+                    <select v-model="config.relationCount" class="form-control dropdown">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <h4 style="margin: 15px 0">进阶资料认证<span class="span-txt">(进阶资料认证单笔1元)</span></h4>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <lable class="checkbox-inline AdvanceAuthen padding-left">运营商认证:</lable>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="1" v-model="config.mobile">已认证
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="0" v-model="config.mobile">未认证
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <lable class="checkbox-inline AdvanceAuthen padding-left">通讯录认证:</lable>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="2" v-model="config.contact">已认证
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="0" v-model="config.contact">未认证
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <lable class="checkbox-inline AdvanceAuthen padding-left">支付宝认证:</lable>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="2" v-model="config.alipay">已认证
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="0" v-model="config.alipay">未认证
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <lable class="checkbox-inline AdvanceAuthen padding-left">淘宝认证:</lable>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="2" v-model="config.taobao">已认证
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="0" v-model="config.taobao">未认证
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <lable class="checkbox-inline AdvanceAuthen padding-left">社保认证:</lable>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="3" v-model="config.insure">已认证
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="0" v-model="config.insure">未认证
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <lable class="checkbox-inline AdvanceAuthen padding-left">公积金认证:</lable>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="3" v-model="config.fund">已认证
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="0" v-model="config.fund">未认证
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <lable class="checkbox-inline AdvanceAuthen padding-left">短信记录认证:</lable>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="3" v-model="config.mifang">已认证
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" value="0" v-model="config.mifang">未认证
+                    </label>
+                </div>
+            </div>
+            <div class="form-group btn-save">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="保存"/>
+            </div>
+        </form>
+        <form class="form-horizontal form-range">
+            <div class="lableSlect">
+                <div class="layui-inline">
+                    <label class="layui-form-label">请选择范围</label>
+                    <div class="layui-input-inline" style="font-size: 14px;width: 350px;height: 30px">
+                        <input type="text" class="layui-input" id="test16" placeholder="开始到结束" style="width: 100%;height: 100%">
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <form class="form-horizontal form-number">
+            <div class="lableSlect">
+                <label>需求数量</label>
+                <br/>
+                <input type="text" style="width: 168px">
+            </div>
+            <div class="cpa-style">
+                CPA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>7<span>元/个
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test16'
+            ,type: 'datetime'
+            ,range: '到'
+            ,format: 'yyyy年M月d日H时m分s秒'
+        });
+    });
+</script>
+<script src="../../js/modules/opt/auth_config.js"></script>
+</body>
+</html>

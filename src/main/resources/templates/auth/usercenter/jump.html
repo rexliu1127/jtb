@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+    <title>认证跳转</title>
+    <script type="text/javascript" src="../../js/auth/v2/common.js"></script>
+</head>
+<body>
+    <div style="width: 100%; height: 100%">
+        <div style="width: 100%; height: 1rem; margin-top: 48%;text-align: center; font-size: 0.3rem">正在跳转认证页面...</div>
+        <input type="hidden" th:value="${url}" id="url"/>
+    </div>
+</body>
+</html>
+<script>
+    location.href = document.getElementById("url").value;
+</script>

@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css"/>
+    <link href="css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .vip_personal_con a {
+            display: inline-block; width: 100%;
+        }
+
+        .message_box h3 {
+            font-weight: 400;
+            font-size: 24px;
+            text-align: center;
+            display: block;
+        }
+
+        .message_box h4 {
+            font-weight: 400;
+            font-size: 18px;
+            text-align: center;
+            display: block;
+        }
+
+        .vip_personal_con .right {
+            float: right;
+        }
+
+        .borrow_but {
+            margin-top: 50px;
+        }
+
+        .borrow_but a {
+            width: 20%;
+        }
+
+        .borrow_but a.secondary:hover{color: #000; }
+
+    </style>
+</head>
+<body class="body_bg" ontouchstart="">
+<div class="logo">
+    <i class="weui-icon-success weui-icon_msg" th:if="${type == 'success'}"></i>
+    <i class="weui-icon-info weui-icon_msg" th:if="${type == 'info'}"></i>
+    <i class="weui-icon-warn weui-icon_msg-primary" th:if="${type == 'warn'}"></i>
+    <i class="weui-icon-warn weui-icon_msg" th:if="${type == 'error'}"></i>
+    <i class="weui-icon-waiting weui-icon_msg" th:if="${type == 'waiting'}"></i>
+</div>
+<div class="message_box">
+    <h3 th:if="${title != null}" th:text="${title}">支付成功</h3>
+    <h4 th:if="${message != null}" th:text="${message}">¥5.00元</h4>
+</div>
+<div class="vip_personal_con mt10 bg_b" th:if="${showMore}">
+    <ul>
+        <li><span>支付方式</span><span class="right">零钱</span></li>
+    </ul>
+</div>
+
+<div class="borrow_but">
+    <a id="finishBtn" class="primary but_color_y" th:if="${!#strings.isEmpty(forwardUrl)}" th:href="${forwardUrl}">完成</a>
+    <a id="close" th:if="${isWechat}" class="secondary but_color_b">关闭</a>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="js/wx_common.js"></script>
+
+<script th:inline="text">
+    var signature = '[[${signature}]]';
+    var appId = '[[${appId}]]';
+    var url = '[[${url}]]';
+    var jsapi_ticket = '[[${jsapi_ticket}]]';
+    var nonceStr = '[[${nonceStr}]]';
+    var timestamp = [[${timestamp}]];
+
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: appId, // 必填，公众号的唯一标识
+        timestamp: timestamp, // 必填，生成签名的时间戳
+        nonceStr: nonceStr, // 必填，生成签名的随机串
+        signature: signature,// 必填，签名，见附录1
+        jsApiList: [
+            'closeWindow'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    $('#close').on('click', function () {
+        wx.ready(function(){
+            wx.closeWindow();
+        });
+    });
+
+</script>
+
+</body>
+</html>

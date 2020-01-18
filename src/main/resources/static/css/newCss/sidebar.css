@@ -1,0 +1,239 @@
+@charset "utf-8";
+/* CSS 侧栏 */
+/*----*/
+[layout], [data-layout] {
+ box-sizing: border-box;
+ display: -webkit-flex;
+ display: -moz-flex;
+ display: -ms-flexbox;
+ display: flex;
+}
+ [layout=column], [data-layout=column] {
+ -webkit-flex-direction: column;
+ -ms-flex-direction: column;
+ flex-direction: column;
+}
+ [layout=row], [data-layout=row] {
+ -webkit-flex-direction: row;
+ -ms-flex-direction: row;
+ flex-direction: row;
+}
+ [flex], [data-flex] {
+ box-sizing: border-box;
+ -webkit-flex: 1;
+ -ms-flex: 1;
+ flex: 1;
+}
+/*-----*/
+.sidebar {
+	width: 200px;
+	height: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	float: left;
+	color: #333;
+	background-color: #fff;
+	position: fixed;
+	overflow: hidden;
+	outline: 0;
+	z-index: 1;
+}
+.sidebar .brand {
+	padding: 16px 20px;
+}
+.sidebar .brand a {
+	color: #999;
+	display: inline-block;
+}
+.sidebar .brand a img {
+	height: 30px;
+}
+.sidebar .brand a p {
+	font-size: 12px;
+	color: #999;
+}
+.sidebar .brand a span {
+	line-height: 0.8;
+	margin-left: 6px;
+	font-size: 20px;
+	font-weight: 600;
+}
+.sidebar .brand svg {
+	max-height: 24px;
+	vertical-align: -4px;
+	display: inline-block;
+}
+/*----*/
+.sidebar .scroll {
+	width: auto;
+	height: 100%;
+	margin-right: -17px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+.sidebar ul {
+	padding-left: 0;
+	padding-right: 0;
+	list-style: none;
+	display: block;
+}
+.sidebar nav {
+	width: 12.5rem;
+}
+.sidebar .nav li {
+	margin: 8px 0;
+	border: inherit;
+	position: relative;
+	cursor: pointer;
+}
+.sidebar .nav-header {
+	padding: 0 20px;
+	height: 2.25rem;
+	line-height: 2.25rem;
+}
+.sidebar .nav li a {
+	line-height: 2.25rem;
+	padding: 0 20px;
+	font-size: 14px;
+	font-weight: 700;
+	color: #333;
+	position: relative;
+	display: block;
+}
+.sidebar .nav li li a {
+	line-height: 2rem;
+	padding-left: 3.5rem;
+	font-weight: 500;
+}
+.sidebar .nav li a:hover, .sidebar .nav li a:focus {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+.sidebar a:hover > .nav-text, .sidebar a:focus > .nav-text, .sidebar .active > a > .nav-text {
+	opacity: 1;
+}
+.sidebar .nav li.active {
+	background-color: rgb(228, 240, 255);
+}
+.nav-icon {
+	float: left;
+	line-height: inherit;
+	margin-right: 10px;
+	top: 0;
+	min-width: 1.5rem;
+	text-align: center;
+}
+.nav-caret {
+	width: 10px;
+	height: 36px;
+	float: right;
+	margin-left: 1rem;
+	opacity: 0.45;
+	display: inline-block;
+}
+.nav-caret i {
+	-webkit-transition: transform 0.3s ease-in-out;
+	transition: transform 0.3s ease-in-out;
+}
+.nav-label {
+	float: right;
+	margin-left: 1rem;
+	font-style: normal;
+	z-index: 1;
+}
+.nav-label b {
+	display: inline-block;
+	padding: 0.15em 0.35em;
+	font-size: 75%;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	font-weight: bold;
+	color: #fff;
+ border-radius: .2rem;
+}
+.sidebar .nav-text {
+	opacity: 0.8;
+}
+.nav-icon i svg, .nav-icon i img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+.sidebar .nav li .nav-icon i {
+	position: relative;
+}
+.sidebar .nav li .material-icons {
+	font-size: 18px;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	vertical-align: -4px;
+}
+.sidebar .nav li a::after {
+	display: block;
+	content: "";
+	clear: both;
+}
+.nav-sub {
+	max-height: 0;
+	overflow: hidden;
+	-webkit-transition: max-height 0.4s ease 0s;
+	transition: max-height 0.4s ease 0s;
+}
+.sidebar .nav li ul.nav-sub li {
+	margin: 0;
+}
+.active > .nav-sub {
+	max-height: 50rem;
+}
+.sidebar .nav li.active > a .nav-caret i {
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+/*----*/
+.hidden-folded span {
+	font-size: 14px;
+	font-weight: 500;
+	color: #999;
+	text-transform: uppercase;
+}
+/*----*/
+
+.loginState {
+	padding: 0.75rem 1rem;
+	border-top: 1px solid rgba(120, 130, 140, 0.13);	
+}
+.loginState a {
+	color: #fff;
+}
+.loginState .picture img {
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	display: inline-block;
+	text-align: center;
+	border-radius: 100%;
+}
+.loginState .pmID {
+	padding-right: 1rem;
+	padding-left: 1rem;
+}
+.loginState .pmID span {
+	color: #fff;
+	display: block;
+}
+.loginState .pmID small {
+	font-size: 90%;
+	color: #fff;
+	opacity: 0.5;
+}
+.loginState .pmID small i {
+	margin-right: 6px;
+	color: #6cc788
+}

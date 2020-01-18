@@ -1,0 +1,162 @@
+@charset "utf-8";
+.feedback .banner {
+	width: 100%;
+	height: 166px;
+	background: #e1e1e1;
+	overflow: hidden;
+}
+.feedback .banner img {
+	width: 100%;
+}
+.feedback h4 {
+	padding: 20px 10px 5px;
+	font-size: 16px;
+	font-weight: 400;
+	color: #a4a4a4;
+}
+/*-----*/
+textarea.feedbackText {
+	height: 180px;
+	margin: 0 0 20px;
+	padding: 8px;
+	font-size: 22px;
+	background: #fff;
+	border-color: #ECECEC;
+	border-style: solid;
+	border-width: 1px 0;
+	line-height: 26px;
+	resize: none;
+	overflow: auto;
+}
+/*-----*/
+.screenshots {
+	padding: 16px 10px;
+	background: #fff;
+	border-color: #ECECEC;
+	border-style: solid;
+	border-width: 1px 0;
+}
+.screenshots h3 {
+	padding: 0 0 20px 0;
+	font-size: 16px;
+}
+.screenshots .addIMG, .screenshots .sketch {
+	margin: 0 10px 10px 0;
+	float: left;
+}
+.screenshots .addIMG {
+	width: 88px;
+	height: 88px;
+	text-align: center;
+	background-image: url('../../img/feedback/plus.svg');
+	background-repeat: no-repeat;
+	background-size: 40px;
+	background-position: center 10px;
+	overflow: hidden;
+	border-color: #ECECEC;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-ms-border-radius: 5px;
+}
+.screenshots .addIMG div {
+	padding: 10px;
+}
+.screenshots .addIMG img {
+	width: 60%;
+}
+.screenshots .addIMG span {
+	padding-top: 60px;
+	color: #c0c0c0;
+	font-size: 14px;
+	display: block;
+}
+.screenshots .sketch {
+	width: 88px;
+	height: 88px;
+	text-align: center;
+	overflow: hidden;
+}
+.screenshots .sketch img {
+	width: 100%;
+}
+.controls {
+	margin: 20px 0;
+	position: relative;
+}
+.controls .file_head {
+	display: none;
+}
+.controls input {
+}
+/*----*/
+#choose {
+	display: none;
+}
+.touch {
+	background-color: #ddd;
+}
+.img-list li {
+	position: relative;
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	margin: 10px 10px 40px 0;
+	border: 1px solid rgb(100,149,198);
+	background: #fff no-repeat center;
+	background-size: cover;
+}
+.progress {
+	position: absolute;
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(100,149,198,.5);
+}
+.progress span {
+	display: block;
+	width: 0;
+	height: 100%;
+	background-color: rgb(100,149,198);
+	text-align: center;
+	color: #FFF;
+	font-size: 13px;
+}
+.size {
+	position: absolute;
+	width: 100%;
+	height: 15px;
+	line-height: 15px;
+	bottom: -18px;
+	text-align: center;
+	font-size: 13px;
+	color: #666;
+}
+.tips {
+	display: block;
+	text-align: center;
+	font-size: 13px;
+	margin: 10px;
+	color: #999;
+}
+.pic-list {
+	margin: 10px;
+	line-height: 18px;
+	font-size: 13px;
+}
+.pic-list a {
+	display: block;
+	margin: 10px 0;
+}
+.pic-list a img {
+	vertical-align: middle;
+	max-width: 30px;
+	max-height: 30px;
+	margin: -4px 0 0 10px;
+}
+
+

@@ -1,0 +1,254 @@
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+        max-threads: 1000
+        min-spare-threads: 30
+        remote_ip_header: x-forwarded-for
+        protocol_header: x-forwarded-proto
+        port-header: X-Forwarded-Port
+    use-forward-headers: true
+    port: 8080
+    connection-timeout: 5000
+    context-path: /m
+    externalUrl:
+
+spring:
+    # 环境 dev|test|pro
+    profiles:
+        active: dev
+    # jackson时间格式化
+    jackson:
+        time-zone: GMT+8
+        date-format: yyyy-MM-dd HH:mm:ss
+    http:
+        multipart:
+            max-file-size: 100MB
+            max-request-size: 100MB
+            enabled: true
+    resources: # 指定静态资源的路径
+        static-locations: classpath:/static/,classpath:/views/,file:/home/cxb
+    redis:
+        open: true  # 是否开启redis缓存  true开启   false关闭
+        database: 0
+        host: localhost
+        port: 6379
+        password:       # 密码（默认为空）
+        timeout: 6000  # 连接超时时长（毫秒）
+        pool:
+            max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+            max-wait: -1      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+            max-idle: 10      # 连接池中的最大空闲连接
+            min-idle: 5       # 连接池中的最小空闲连接
+    thymeleaf:
+      mode: HTML5
+      encoding: UTF-8
+      content-type: text/html
+      cache: true
+
+# Mybatis配置
+mybatis:
+    mapperLocations: classpath:mapper/**/*.xml
+    configLocation: classpath:mybatis.xml
+
+grx:
+    # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
+    jwt:
+        # 加密秘钥
+        secret: f4e2e52034348f86b67cde581c0f9ebg[md]
+        # token有效时长，30天，单位秒
+        expire: 2678400
+        header: CONTACT-TOKEN
+
+logging:
+    path: ./logs
+
+
+
+
+wechat:
+    wechatHost: https://sz.api.weixin.qq.com
+    enabled: true
+    callbackHost:
+    appId: wxa5495d3abd5f7cdc
+    appSecret: 84c26edf2677370ad7cad651320a9f14
+    keywordColor: "#173177"
+    cancelMessageTemplateId: 3tDu39E0bQ8JN3PGIvuj0ynw0q-HOI4XXNfZ50J9mDU
+    confirmOrderTemplateId: N9xYp8JeJlwkk10SsAwtsIuFu6IlxL_5zdRkU5eZxA8
+    createExtensionTemplateId: N9xYp8JeJlwkk10SsAwtsIuFu6IlxL_5zdRkU5eZxA8
+    confirmExtensionTemplateId: N9xYp8JeJlwkk10SsAwtsIuFu6IlxL_5zdRkU5eZxA8
+    rejectExtensionTemplateId: 3tDu39E0bQ8JN3PGIvuj0ynw0q-HOI4XXNfZ50J9mDU
+    repayTemplateId: 5b2OIhRV0Jmyl9XZjf18GMcro_jL3ZSXyqfqNZFFfRY
+    rejectRepayTemplateId: qlDI3VD2ZpDCtX6fFdEMvBoif6pEsVVkSFqryDiFey4
+    confirmRepayTemplateId: DOvqCXK0m-982N7IBzwNrcbYAL5EWEO6ydOD3xAOdY8
+
+sms:
+  enabled: false
+  name: cl253SmsService # dh3tSmsService大汉三通, wlwxSmsService未来无线 noNameSmsService
+  fakeCode: abcde!
+  dingxin:
+    host: http://dingxin.market.alicloudapi.com
+    path: /dx/sendSms
+    method: POST
+    appcode:
+    defaultVerifyCodeId:
+    loginVerifyCodeId:
+    bindBankVerifyCodeId:
+    passwordVerifyCodeId:
+  dh3t:
+    host: http://www.dh3t.com
+    path: /json/sms/Submit
+    account:
+    password:
+    sign:
+    loginLabel: 登录
+    bindBankLabel: 绑定银行卡
+    passwordLabel: 设置密码
+  wlwx:
+    host: http://123.58.255.70:8860
+    custCode: 860354
+    password: Z3LKZVHC3W
+    loginLabel: 登录
+    bindBankLabel: 绑定银行卡
+    passwordLabel: 设置密码
+  noName:
+    url: http://120.79.207.210:7862/sms
+    account: 888008
+    password: SQdbtB
+    extNo: 10690008
+    sign:
+  cl253:
+    url: http://smssh1.253.com/msg/send/json
+    account: N4392774
+    password: qlG4Csnyb
+
+bank:
+  enabled: true
+  fakeBankMobile: 19900000000
+  yunyi:
+    host: https://yunyidata.market.alicloudapi.com
+    path: /bankAuthenticate4
+    appcode:
+
+phoneCheck:
+  enabled: true
+  yunyi:
+    host: https://phonecheck.market.alicloudapi.com
+    path: /phoneAuthentication
+    appcode:
+
+
+upload:
+  path: /home/jtb/upload
+
+juxinli:
+  orgCode:
+  host: https://www.juxinli.com
+  clientSecret:
+  applicationsPath: /orgApi/rest/v3/applications
+  messagesPath: /orgApi/rest/v2/messages/collect/req
+  tokenPath: /api/v2/access_report_token
+  reportDataPath: /api/access_report_data_by_token
+  rawDataPath: /api/access_raw_data_by_token
+  jobStatusPath: /api/v2/job/access_jobs_status_by_token
+
+shujumohe:
+  partnerCode:
+  partnerKey:
+  host: https://api.shujumohe.com
+  createTaskPath: /octopus/task.unify.create/v3
+  verifyMobilePath: /octopus/yys.unify.acquire/v3
+  verifyDsPath: /octopus/ds.unify.acquire/v3
+  retryTaskPath: /octopus/task.unify.retry/v3
+  queryTaskPath: /octopus/task.unify.query/v3
+  queryReportPath: /octopus/report.task.query/v2
+
+tongdun:
+  host: https://api.tongdun.cn
+  partnerCode:
+  partnerKey:
+  appName:
+  bodyGuardPath: /bodyguard/apply/v4
+
+site:
+  name: 米兜凭证
+
+login:
+  allowConcurrentLogin: false
+  h5: http://120.79.95.169:8080/#/login.htm
+
+integration:
+  auth:
+    source:
+    host:
+    path:
+  accessKey: test
+  accessSecret: test
+
+allinpay:
+  name: 米兜凭证信息咨询服务费
+  cusId: 551584073991P6T
+  appId: "00092302"
+  appKey: wxa5495d3abd5f7cdc-md
+  host: https://vsp.allinpay.com
+  payPath: /apiweb/unitorder/pay
+
+tianji:
+  appId: 2010581
+  privateKey: "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAK6Y5EHv3Ki8m+cp\njAKiONab9pcT5J3SoM9UPiPXm3ulGAt8mX3c5yebfduvjs4vKFLiwTo3Bf/D/Ek9\nDpOJA+3Z+GC11JtVb3IqtGXP4sZOMF3j9+IvkrqhWCEXp8OGuedbA7xU2nwkydNA\nST6sgD9Mkh1UgmW0V+VxOHUlbaDpAgMBAAECgYEAmPOPYsQCBj/UQ9l9sgDy0e6n\nQwpGSIvwHDCsjzGeH98tBUMOI9iVF3l79CwDalSdep7yr1DsjHbgWDiIwG5TZWJ/\nfLwB5PqjHUEBcHdneqx0INQKp4LcFxRVRLiLlq3vz6EJorGj4RzYurjUAZwH+kUR\nIlE83H5Q6uVIvmk3CgECQQDn8hlWawy4VlcTpw4KFfHveGQzuUTEpnH6fEhkwyRp\ncM2kPI8TtR6pFc5VKBhk/Rl+pWx6/L42OSBEfDW8OWA5AkEAwLRBJnNF9x2sHSz6\nM4cCnnhG/Sfbsbc/rauqsRKI62w/ilM550bZULXSlA9SDHfUUy4P/n/wZFvV0uEU\nk/fmMQJAKca1QZduZxVGAcgpAzAIr3Ujtx07gZ/pD5CrCVsMh+FFaLtvmcEZkKLY\n0wWxvx7HJMRu0YgMSn/ni+5DT2+WIQJBALZOkcg/i/RyZO8hKv9ufeLQJVDA0Y46\nsAqseoqU32Xh/ebuP7x2gYdizHp4WAYlo4Ch9k2uWg2H+C1N9TrbbzECQGYuLtGe\nb8wAhb6aDmnRcDaKeN1gcWfZStEBq/AIjwpdHBnFeYxC+CpvuQjNQCSyBWsomnJ/\nk31zFoLoWRRjzuA="
+  userPrefix: "PU"
+  host: http://120.78.143.11:8081
+  reportPath: /app/tjCommonReportJieTiao
+  storageBucket: ym-tjreport
+  mobileHost: http://120.78.143.11:8082
+  mobilePath: /tj/collect_user
+  callBackDomain: http://120.79.95.169:8081/m
+
+yixiang:
+  userPrefix: "MD"
+  host: https://qz.xinyan.com
+  orgId: 2018041113193309934
+  apiKey: b45ceba0f45246dbaa9d6c66d8b5d072
+  otherHostCXB: http://cxb.xiaocaiquan.cn
+  otherPathCXB: /a
+  otherHostMDT: https://md.cuisb.cn
+  otherPathMDT: /test
+  otherHostJF: https://m.juhuahua.cn
+  otherPathJF: /m
+
+luosimao:
+  siteHost: cuisb.cn
+  siteKey: e1c15d4e87670f358b7924b7d1534f5d
+  appKey: 73c0b2718e41643f1ca06f139f8de262
+
+qqmap:
+  key: GAMBZ-LL2CJ-V36FC-K6NWP-AR4MJ-2DBWZ
+  host: http://apis.map.qq.com
+  geocoderPath: /ws/geocoder/v1/
+
+youdun:
+  userPrefix: MD
+  host: https://m.juhuahua.cn
+  path: /udcredit/h5_url
+  btnColor: "#2c84ff"
+  ocrCallBackUrl: http://120.79.95.169:8081/m/yd/ocr/return
+
+baiqishi:
+  partnerId: grx
+  mobileHost: https://credit.baiqishi.com
+  mobilePath: /clclient/mno/login
+  userPrefix: "MDB"
+  verifykey:  87787ad1b18c4c3e884a469a58bd50bc
+  htmlUrl:  https://credit.baiqishi.com/clweb/api/mno/getreportpage
+  jsonUrl:    https://credit.baiqishi.com/clweb/api/mno/getreport
+
+huluobo:
+  userPrefix: HLB
+  host: http://api.credit.huluobokeji.com/carrotcredit/getblackListJdbReport
+  apiSecret: 7a39c068c5814aed937f0df3c91eafd3
+
+shuiping:
+  appId: 969043f78eabfe5f
+  secretKey: 12214ca39cf9103e
+  spiderUrl: http://103.141.1.155:9626/data/api-v50/spider.aspx
+  dataUrl: http://103.141.1.155:9626/data/api-v50/data.aspx

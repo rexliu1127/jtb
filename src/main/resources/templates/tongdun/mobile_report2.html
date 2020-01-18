@@ -1,0 +1,1016 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style></style>
+    <style type="text/css">.ng-animate.item:not(.left):not(.right) {
+        -webkit-transition: 0s ease-in-out left;
+        transition: 0s ease-in-out left
+    }</style>
+    <style type="text/css">@charset "UTF-8";
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+    }
+
+    ng\:form {
+        display: block;
+    }
+
+    .ng-animate-shim {
+        visibility: hidden;
+    }
+
+    .ng-anchor {
+        position: absolute;
+    }
+    .dataTables_wrapper  {
+        margin-top: 20px;
+    }
+        .report-item-title {
+            margin-top: 20px;
+        }
+    </style>
+    <title>认证报告</title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="../../css/jxl_bower_stylesheet_7bdfbd21f0.min.css"/>
+    <link rel="stylesheet" href="../../css/jxl_dev_platform_4e3d90716a.min.css"/>
+    <style></style>
+    <style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+    .en-markup-crop-options {
+        top: 18px !important;
+        left: 50% !important;
+        margin-left: -100px !important;
+        width: 200px !important;
+        border: 2px rgba(255, 255, 255, .38) solid !important;
+        border-radius: 4px !important;
+    }
+
+    .en-markup-crop-options div div:first-of-type {
+        margin-left: 0px !important;
+    }
+    </style>
+</head>
+<head>
+</head>
+<body>
+<article class="jxl-structure-core"> <!-- uiView: undefined -->
+    <ui-view class="ng-scope" style=""><!-- uiView: content -->
+        <div ui-view="content" class="ng-scope">
+            <div class="container ng-scope">
+                <div class="report report-fade  watermark-box active" ng-class="{
+  'active': reportDetail.showRenderReport,
+  }" style="">
+                    <div class="watermark-list-text" ng-show="reportDetail.watermarkShow">
+                        <!-- ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                  class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope" style="">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index --><span ng-repeat="num in reportDetail.watermarkList track by $index"
+                                                                                                      class="ng-binding ng-scope">东莞市浙金信息科技有限公司</span>
+                        <!-- end ngRepeat: num in reportDetail.watermarkList track by $index -->
+                    </div>
+                    <div class="watermark-theme-text">
+                        <h2 class="h2 report-title text-center" style="font-weight: 700;">
+                            运营商报告
+                            <div id="showReport" style="display: none;">
+                                <button style="right: auto" class="btn btn-primary">打印</button>
+                                <button class="btn btn-primary">导出图片</button>
+                            </div>
+
+                        </h2>
+
+                        <!--基本信息开始-->
+                        <div class="report-basic-info">
+                            <table class="table" style="margin-bottom:10px;">
+                                <tbody>
+                                <tr th:if="${report.report_info != null}">
+                                    <td>
+                                        <em class="ng-binding" th:inline="text">编号：[[${report.report_info.report_id}]]</em>
+                                    </td>
+                                    <td style="text-align: right">
+                                        <em class="ng-binding" th:inline="text">报告时间：[[${report.report_info.report_update_time}]]</em>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--基本信息结束-->
+
+                        <h4 class="report-item-title">用户信息</h4>
+
+                        <!--申请信息核查开始-->
+                        <div class="report-basic-info" style="margin: 10px 0px;" th:if="${report.mobile_info != null}">
+                            <table class="table teb-time" th:with="match = ${report.info_match}">
+                                <!-- ngRepeat: reportapp in reportDetail.report.application_check -->
+                                <tbody th:with="data = ${report.mobile_info}" class="ng-scope" style="">
+                                <tr class="ng-scope">
+                                    <th>姓名：</th>
+                                    <td th:if="${request.phoneChecked == null}">
+                                        <em class="ng-binding" th:text="${data.real_name}">黄一一</em>
+                                        <span class="label label-danger ng-scope" th:if="${match.real_name_check_yys == '不匹配'}"><i
+                                                class="fa fa-user-secret" aria-hidden="true"></i>和运营商数据不匹配</span>
+
+                                        <span class="label label-success ng-scope" th:if="${match.real_name_check_yys == '完全匹配'}"><i
+                                                class="fa fa-user-secret" aria-hidden="true"></i>和运营商数据匹配</span>
+
+                                        <span class="label label-warning ng-scope" th:if="${match.real_name_check_yys == '模糊匹配'}"><i
+                                                class="fa fa-user-secret" aria-hidden="true"></i>和运营商数据模糊匹配</span>
+                                    </td>
+                                    <td th:if="${request.phoneChecked != null and request.phoneChecked}">
+                                        <em class="ng-binding" th:text="${user.name}">黄一一</em>
+                                        <span class="label label-success ng-scope"><i
+                                                class="fa fa-user-secret" aria-hidden="true"></i>运营商实名认证匹配</span>
+                                    </td>
+                                    <td th:if="${request.phoneChecked != null and !request.phoneChecked}">
+                                        <em class="ng-binding" th:text="${user.name}">黄一一</em>
+                                        <span class="label label-danger ng-scope"><i
+                                                class="fa fa-user-secret" aria-hidden="true"></i>运营商实名认证不匹配</span>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr class="ng-scope">
+                                    <th>身份证：</th>
+                                    <td th:if="${request.phoneChecked == null}">
+                                        <em class="ng-binding" th:text="${data.identity_code}">440921201010101011</em>
+
+
+                                        <span class="label label-danger ng-scope" th:if="${match.identity_code_check_yys == '不匹配'}"><i
+                                                class="fa fa-user-secret" aria-hidden="true"></i>和运营商数据不匹配</span>
+
+                                        <span class="label label-success ng-scope" th:if="${match.identity_code_check_yys == '完全匹配'}"><i
+                                                class="fa fa-user-secret" aria-hidden="true"></i>和运营商数据匹配</span>
+
+                                        <span class="label label-warning ng-scope" th:if="${match.identity_code_check_yys == '模糊匹配'}"><i
+                                                class="fa fa-user-secret" aria-hidden="true"></i>和运营商数据模糊匹配</span>
+                                    </td>
+
+                                    <td th:if="${request.phoneChecked != null and request.phoneChecked}">
+                                        <em class="ng-binding" th:text="${user.idNo}">440921201010101011</em>
+                                        <span class="label label-success ng-scope"><i
+                                                class="fa fa-user-secret" aria-hidden="true"></i>运营商实名认证匹配</span>
+                                    </td>
+                                    <td th:if="${request.phoneChecked != null and !request.phoneChecked}">
+                                        <em class="ng-binding" th:text="${user.idNo}">440921201010101011</em>
+                                        <span class="label label-danger ng-scope"><i
+                                                class="fa fa-user-secret" aria-hidden="true"></i>运营商实名认证不匹配</span>
+                                    </td>
+                                    <td></td>
+
+                                    <td>
+                                        <em class="ng-binding"
+                                            th:inline="text">[[${data.contact_addr}]]
+                                        </em>
+                                    </td>
+                                </tr>
+                                <tr class="ng-scope">
+                                    <th>手机号：</th>
+
+                                    <td th:with="reliability = ${report.info_check.is_identity_code_reliable == '是'}"
+                                        th:class="${(reliability ? 'text-success' : 'text-danger') + ' ng-scope'}">
+
+                                        <em class="ng-binding" th:inline="text">[[${data.mobile_carrier}]]｜<span th:text="${data.mobile_net_addr}"></span>
+                                            <span th:if="${request.phoneChecked == null || !request.phoneChecked}"
+                                                  th:class="${'label ' + (reliability ? 'label-success' : 'label-danger') + ' ng-binding'}">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                实名认证[[${report.info_check.is_identity_code_reliable == '是' ? '已登记' : (report.info_check.is_identity_code_reliable == '否' ? '未登记'  : '无数据')}]]</span>
+
+                                            <span th:if="${request.phoneChecked != null and request.phoneChecked}" class="label label-success">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                实名认证通过</span>
+
+                                        </em>
+                                    </td>
+                                    <td>
+                                        <em class="ng-binding" th:text="${data.user_mobile}">15302688343</em>
+
+                                        <span class="label label-success ng-scope" th:if="${data.account_status == '正常'}" th:inline="text">
+                                            <i class="fa fa-user-secret" aria-hidden="true"></i>账户状态: [[${data.account_status}]]</span>
+
+                                        <span class="label label-danger ng-scope" th:if="${data.account_status != '正常'}" th:inline="text">
+                                            <i class="fa fa-user-secret" aria-hidden="true"></i>账户状态: [[${data.account_status}]]</span>
+                                    </td>
+
+                                </tr>
+                                <!-- ngIf: reportapp.app_point=='cell_phone' -->
+                                <tr class="ng-scope">
+                                    <td></td>
+                                    <td>
+                                        <ul class="phone-list">
+                                            <li th:inline="text">
+                                                入网时间： [[${data.mobile_net_time}]]
+                                                <span class="label label-success" th:if="${report.info_check.is_net_age_over_3month == '是'}">入网大于3个月</span>
+                                                <span class="label label-danger" th:if="${report.info_check.is_net_age_over_3month == '否'}">入网少于3个月</span>
+                                                <span class="label label-warning" th:if="${report.info_check.is_net_age_over_3month == '无数据'}">无数据</span>
+                                            </li>
+                                            <li th:inline="text" th:if="${data.account_balance != null}">
+                                                账户余额： [[${#numbers.formatDecimal(T(Integer).parseInt(data.account_balance)/100.0, 1,2)}]]
+                                            </li>
+                                            <li th:inline="text" th:if="${data.account_balance == null}">
+                                                账户余额： 0.00
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--申请信息核查结束-->
+
+                        <h4 class="report-item-title">全部联系人明细</h4>
+                        <div class="report-item">
+                            <table class="table table-bordered" id="page_table1">
+                                <thead>
+                                <tr>
+                                    <th width="">号码</th>
+                                    <th width="">号码标签</th>
+                                    <th width="100px">归属地</th>
+                                    <th width="">近3月通话次数(次)</th>
+                                    <th width="">近3月通话时长(秒)</th>
+                                    <th width="">近3月短信次数(次)</th>
+                                    <th width="">近6月通话次数(次)</th>
+                                    <th width="">近6月通话时长(秒)</th>
+                                    <th width="">近6月短信次数(次)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr  th:each="cell : ${report.all_contact_detail}" class="ng-scope" style="">
+                                    <td th:text="${cell.contact_number}" class="ng-binding">广东电信</td>
+                                    <td th:text="${#strings.isEmpty(cell.contact_name) ? contactMap.get(cell.contact_number) : cell.contact_name}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.contact_area}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_count_3month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.call_time_3month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.msg_count_3month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_count_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_6month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.msg_count_6month}" class="ng-binding">广东</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <h4 class="report-item-title">每月通话统计</h4>
+                        <div class="report-item">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="100px">月份</th>
+                                    <th width="">通话号码数量(个)</th>
+                                    <th width="">通话次数(次)</th>
+                                    <th width="">主叫通话次数(次)</th>
+                                    <th width="">被叫通话次数(次)</th>
+                                    <th width="">通话时长(秒)</th>
+                                    <th width="">主叫通话时长(秒)</th>
+                                    <th width="">被叫通话时长(秒)</th>
+                                    <th width="">短信次数(次)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr  th:each="cell : ${report.all_contact_stats_per_month}" class="ng-scope" style="">
+                                    <td th:text="${cell.month}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.contact_count}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.call_count}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_count_active}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.call_count_passive}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.call_time_active}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_passive}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.msg_count}" class="ng-binding">广东</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+                        <h4 class="report-item-title">每月消费统计</h4>
+                        <div class="report-item">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="100px">月份</th>
+                                    <th width="">月消费金额</th>
+                                    <th width="">月充值次数</th>
+                                    <th width="">月充值金额</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr  th:each="cell : ${report.carrier_consumption_stats_per_month}" class="ng-scope" style="">
+                                    <td th:text="${cell.month}" class="ng-binding">广东电信</td>
+                                    <td th:text="${#numbers.formatDecimal(T(Integer).parseInt(cell.consume_amount)/100.0, 1,2)}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.recharge_count}" class="ng-binding">广东</td>
+                                    <td th:text="${#numbers.formatDecimal(T(Integer).parseInt(cell.recharge_amount)/100.0, 1,2)}" class="ng-binding">2017-12</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4 class="report-item-title">紧急联系人</h4>
+                        <!--金融机构联系人开始-->
+                        <div class="report-item">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="">联系人号码</th>
+                                    <th width="">关系</th>
+                                    <th width="">号码标签</th>
+                                    <th width="">号码归属地</th>
+                                    <th width="">近3月通话次数(次)</th>
+                                    <th width="">近3月通话时长(秒)</th>
+                                    <th width="">近6月通话次数(次)</th>
+                                    <th width="">近6月通话时长(秒)</th>
+                                    <th width="">近6月主叫通话次数</th>
+                                    <th width="">近6月被叫通话次数</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr th:if="${report.emergency_contact1_detail != null}" th:with="cell = ${report.emergency_contact1_detail}" class="ng-scope" style="">
+                                    <td th:text="${cell.contact_number}" class="ng-binding">广东电信</td>
+                                    <td th:if="${cell.contact_relation == 'FATHER'}" class="ng-binding">父母</td>
+                                    <td th:if="${cell.contact_relation == 'SPOUSE'}" class="ng-binding">配偶</td>
+                                    <td th:if="${cell.contact_relation == 'OTHER_RELATIVE'}" class="ng-binding">其他</td>
+                                    <td th:text="${cell.contact_name}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.contact_area}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.call_count_3month}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.call_time_3month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.call_count_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_6month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.call_count_active_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_count_passive_6month}" class="ng-binding">广东</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr th:if="${report.emergency_contact2_detail != null}" th:with="cell = ${report.emergency_contact2_detail}" class="ng-scope" style="">
+                                    <td th:text="${cell.contact_number}" class="ng-binding">广东电信</td>
+
+                                    <td th:if="${cell.contact_relation == 'FATHER'}" class="ng-binding">父母</td>
+                                    <td th:if="${cell.contact_relation == 'SPOUSE'}" class="ng-binding">配偶</td>
+                                    <td th:if="${cell.contact_relation == 'OTHER_RELATIVE'}" class="ng-binding">其他</td>
+                                    <td th:text="${cell.contact_name}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.contact_area}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.call_count_3month}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.call_time_3month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.call_count_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_6month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.call_count_active_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_count_passive_6month}" class="ng-binding">广东</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <h4 class="report-item-title">联系人数据</h4>
+                        <div class="report-item">
+                            <h2>
+                                <span>智信分分析</span>
+                            </h2>
+                            <table class="table" style="margin-bottom: 0px;" th:with="data = ${report.contact_creditscore_analysis}">
+                                <tbody>
+                                <tr>
+                                    <th width="210px;" style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        前10联系人匹配智信分成功人数
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.creditscore_top10_contact_count}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人平均智信分</th>
+                                    <td style=" border-right:1px solid #f5f5f5;"
+                                        th:text="${data.creditscore_top10_contact_avg}" class="ng-binding ng-scope">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人最大智信分</th>
+                                    <td style=" border-right:1px solid #f5f5f5;"
+                                        th:text="${data.creditscore_top10_contact_max}" class="ng-binding ng-scope">
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人最小智信分</th>
+                                    <td style=" border-right:1px solid #f5f5f5;"
+                                        th:text="${data.creditscore_top10_contact_min}" class="ng-binding ng-scope">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人智信分中位数</th>
+                                    <td style=" border-right:1px solid #f5f5f5;"
+                                        th:text="${data.creditscore_top10_contact_median}" class="ng-binding ng-scope">
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+                            <h2>
+                                <span>黑名单分析</span>
+                            </h2>
+                            <table class="table" style="margin-bottom: 0px;" th:with="data = ${report.contact_blacklist_analysis}">
+                                <tbody>
+                                <tr>
+                                    <th width="210px;" style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        前10联系人黑名单人数占比
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);" th:if="${data.black_top10_contact_total_count_ratio != null}"
+                                        th:text="${(T(Double).parseDouble(data.black_top10_contact_total_count_ratio) * 100) + '%'}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人信贷逾期名单人数占比</th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);" th:if="${data.black_top10_contact_creditcrack_count_ratio != null}"
+                                        th:text="${(T(Double).parseDouble(data.black_top10_contact_creditcrack_count_ratio) * 100) + '%'}"
+                                        class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人游戏消费欠费人数占比</th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);" th:if="${data.black_top10_contact_paymentfraud_count_ratio != null}"
+                                        th:text="${(T(Double).parseDouble(data.black_top10_contact_paymentfraud_count_ratio) * 100) + '%'}"
+                                        class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人信贷逾期后还款人数占比</th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);" th:if="${data.black_top10_contact_discreditrepay_count_ratio != null}"
+                                        th:text="${(T(Double).parseDouble(data.black_top10_contact_discreditrepay_count_ratio) * 100) + '%'}"
+                                        class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人刷单人数占比</th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);" th:if="${data.black_top10_contact_scalping_count_ratio != null}"
+                                        th:text="${(T(Double).parseDouble(data.black_top10_contact_scalping_count_ratio) * 100) + '%'}"
+                                        class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人助学贷款逾期名单人数占比</th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);" th:if="${data.black_top10_contact_studentloans_overdue_count_ratio != null}"
+                                        th:text="${(T(Double).parseDouble(data.black_top10_contact_studentloans_overdue_count_ratio) * 100) + '%'}"
+                                        class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人车贷黑名单人数占比</th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);" th:if="${data.black_top10_contact_carloan_blacklist_count_ratio != null}"
+                                        th:text="${(T(Double).parseDouble(data.black_top10_contact_carloan_blacklist_count_ratio) * 100) + '%'}"
+                                        class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人虚假号码人数占比</th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);" th:if="${data.black_top10_contact_fakemobile_count_ratio != null}"
+                                        th:text="${(T(Double).parseDouble(data.black_top10_contact_fakemobile_count_ratio) * 100) + '%'}"
+                                        class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="210px;" style=" border-left:1px solid #f5f5f5;">前10联系人2种及以上黑名单人数占比</th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);" th:if="${data.black_top10_contact_over2_count_ratio != null}"
+                                        th:text="${(T(Double).parseDouble(data.black_top10_contact_over2_count_ratio) * 100) + '%'}"
+                                        class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4 class="report-item-title">金融机构数据</h4>
+                        <!--金融机构联系人开始-->
+                        <div class="report-item">
+                            <h2>
+                                <span>金融机构联系人统计</span>
+                            </h2>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="">金融机构</th>
+                                    <th width="">近3月通话号码数量</th>
+                                    <th width="">近3月通话次数(次)</th>
+                                    <th width="">近3月通话时长(秒)</th>
+                                    <th width="">近3月短信次数(次)</th>
+                                    <th width="">近6月通话号码数量</th>
+                                    <th width="">近6月通话次数(次)</th>
+                                    <th width="">近6月通话时长(秒)</th>
+                                    <th width="">近6月短信次数(次)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr  th:each="cell : ${report.finance_contact_stats}" class="ng-scope" style="">
+                                    <td th:text="${cell.contact_type}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.contact_count_3month}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.call_count_3month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_3month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.msg_count_3month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.contact_count_6month}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.call_count_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_6month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.msg_count_6month}" class="ng-binding">广东</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                            <h2>
+                                <span>金融机构联系人统计</span>
+                            </h2>
+                            <table class="table table-bordered page_table">
+                                <thead>
+                                <tr>
+                                    <th width="">号码</th>
+                                    <th width="">号码标签</th>
+                                    <th width="">归属地</th>
+                                    <th width="">近3月通话次数(次)</th>
+                                    <th width="">近3月通话时长(秒)</th>
+                                    <th width="">近3月短信次数(次)</th>
+                                    <th width="">近6月通话次数(次)</th>
+                                    <th width="">近6月通话时长(秒)</th>
+                                    <th width="">近6月短信次数(次)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr  th:each="cell : ${report.finance_contact_detail}" class="ng-scope" style="">
+                                    <td th:text="${cell.contact_number}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.contact_name}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.contact_area}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_count_3month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.call_time_3month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.msg_count_3month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_count_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_6month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.msg_count_6month}" class="ng-binding">广东</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--金融机构联系人结束-->
+
+                        <h4 class="report-item-title">全部通话统计</h4>
+                        <div class="report-item">
+                            <table class="table" style="margin-bottom: 0px;" th:with="data = ${report.all_contact_stats}">
+                                <tbody>
+                                <tr>
+                                    <th>项目</th>
+                                    <th>近1个月</th>
+                                    <th>近3个月</th>
+                                    <th>近6个月</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 210px; border-top:none;border-left:1px solid #f5f5f5;">
+                                        通话号码数量(个)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.contact_count_1month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.contact_count_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.contact_count_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        互通号码数量(个)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        class="ng-binding ng-scope">--
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.contact_count_mutual_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.contact_count_mutual_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        通话次数(次)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_count_1month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_count_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_count_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        主叫通话次数(次)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        class="ng-binding ng-scope">--
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.contact_count_active_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.contact_count_active_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        被叫通话次数(次)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        class="ng-binding ng-scope"> --
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.contact_count_passive_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.contact_count_passive_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        通话时长(秒)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_time_1month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_time_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_time_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        主叫通话时长(秒)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        class="ng-binding ng-scope">
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_time_active_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_time_active_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        被叫通话时长(秒)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        class="ng-binding ng-scope"> --
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_time_passive_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_time_passive_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        深夜时间通话(次)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        class="ng-binding ng-scope">--
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_count_late_night_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_count_late_night_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        工作时间通话(次)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        class="ng-binding ng-scope">--
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_count_work_time_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_count_work_time_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:none;border-left:1px solid #f5f5f5;">
+                                        非工作时间通话(次)
+                                    </th>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        class="ng-binding ng-scope">--
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_count_offwork_time_3month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                    <td style="border-top: none; border-right: 1px solid rgb(245, 245, 245);"
+                                        th:text="${data.call_count_offwork_time_6month}" class="ng-binding ng-scope"> 1
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <h4 class="report-item-title">联系人归属地统计</h4>
+                        <div class="report-item">
+                            <table class="table table-bordered page_table">
+                                <thead>
+                                <tr>
+                                    <th width="100px">归属地</th>
+                                    <th width="">近3月通话号码数量</th>
+                                    <th width="">近3月通话次数(次)</th>
+                                    <th width="">近3月通话时长(秒)</th>
+                                    <th width="">近6月通话号码数量</th>
+                                    <th width="">近6月通话次数(次)</th>
+                                    <th width="">近6月通话时长(秒)</th>
+                                    <th width="">近6月主叫通话次数(次)</th>
+                                    <th width="">近6月被叫通话次数(次)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr  th:each="cell : ${report.contact_area_stats_per_city}" class="ng-scope" style="">
+                                    <td th:text="${cell.contact_area_city}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.contact_count_3month}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.call_count_3month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_3month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.contact_count_6month}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.call_count_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_6month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.call_count_active_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_count_passive_6month}" class="ng-binding">15302688343</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+                        <h4 class="report-item-title">通话地区统计</h4>
+                        <div class="report-item">
+                            <table class="table table-bordered page_table">
+                                <thead>
+                                <tr>
+                                    <th width="100px">归属地</th>
+                                    <th width="">近3月通话活跃天数</th>
+                                    <th width="">近3月通话次数</th>
+                                    <th width="">近3月通话时长(秒)</th>
+                                    <th width="">近6月通话活跃天数</th>
+                                    <th width="">近6月通话次数</th>
+                                    <th width="">近6月通话时长(秒)</th>
+                                    <th width="">近6月工作日通话次数</th>
+                                    <th width="">近6月节假日通话次数</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr  th:each="cell : ${report.call_area_stats_per_city}" class="ng-scope" style="">
+                                    <td th:text="${cell.call_area_city}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.active_day_1call_3month}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.call_count_3month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_3month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.active_day_1call_6month}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.call_count_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_time_6month}" class="ng-binding">2017-12</td>
+                                    <td th:text="${cell.call_count_workday_6month}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.call_count_holiday_6month}" class="ng-binding">15302688343</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <h4 class="report-item-title">出行记录分析</h4>
+                        <div class="report-item">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="">出发城市</th>
+                                    <th width="">出发日期</th>
+                                    <th width="">到达城市</th>
+                                    <th width="">到达日期</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                <tr  th:each="cell : ${report.travel_track_analysis_per_city}" class="ng-scope" style="">
+                                    <td th:text="${cell.leave_city}" class="ng-binding">广东电信</td>
+                                    <td th:text="${cell.leave_day}" class="ng-binding">15302688343</td>
+                                    <td th:text="${cell.arrive_city}" class="ng-binding">广东</td>
+                                    <td th:text="${cell.arrive_day}" class="ng-binding">2017-12</td>
+                                    <!-- ngIf: (cell.total_amount | number:0)!=-1 -->
+                                </tr><!-- end ngRepeat: cell in reportDetail.report.cell_behavior[0].behavior -->
+                                </tbody>
+                                <tbody><!-- ngIf: reportDetail.report.cell_behavior[0].behavior== 0 || reportDetail.report.cell_behavior== null -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <style class="ng-scope">
+
+                tbody td, tbody th {
+                    border: 1px solid #CCCCCC;
+                }
+
+                tbody tr > th {
+                    background: #f5f5f5;
+                    font-size: 13px !important;
+                }
+
+                td .label {
+                    margin-right: 10px;
+                }
+
+                td .label {
+                    margin: 3px;
+                }
+
+                .table42 td {
+                    font-size: 8px !important;
+                }
+
+                .table-td {
+                    text-align: right;
+                    padding-right: 15px;
+                }
+
+                .report42 td {
+                    font-size: 13px !important;
+                }
+
+                .report42 .fa {
+                    margin-right: 5px;
+                }
+
+                h2 {
+                    margin-top: 15px !important;
+                }
+            </style>
+        </div>
+    </ui-view>
+</article>
+
+<!-- jQuery 2.0.2 -->
+<script src="../../libs/jquery-2.1.4.js"></script>
+<!-- Bootstrap -->
+<script src="../../libs/bootstrap.min.js" type="text/javascript"></script>
+<!-- DATA TABES SCRIPT -->
+<script src="../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+<script src="../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function() {
+        var lang = { //国际化配置
+            "sProcessing" : "正在获取数据，请稍后...",
+            "sLengthMenu" : "显示 _MENU_ 条",
+            "sZeroRecords" : "没有您要搜索的内容",
+            "sInfo" : "从 _START_ 到  _END_ 条记录 总记录数为 _TOTAL_ 条",
+            "sInfoEmpty" : "记录数为0",
+            "sInfoFiltered" : "(全部记录数 _MAX_ 条)",
+            "sInfoPostFix" : "",
+            "sSearch" : "搜索",
+            "bSort": false,
+            "asSorting" : [[3, "desc"]],
+            "oPaginate": {
+                "sFirst" : "第一页",
+                "sPrevious" : "上一页",
+                "sNext" : "下一页",
+                "sLast" : "最后一页"
+            }
+        };
+        $(".page_table").dataTable({
+            "bFilter": false,
+            "bLengthChange": false,
+            "oLanguage": lang
+        });
+
+        $('#page_table1').dataTable( {
+            "aaSorting": [[3, "desc"]],//默认第几列排序
+            "bStateSave": true,
+            "bFilter": false,
+            "bLengthChange": false,
+            "oLanguage": lang
+        } );
+    });
+</script>
+</body>
+</html>

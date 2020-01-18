@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.pay.dao.PayRecordDao">
+
+	<select id="queryObject" resultType="io.grx.modules.pay.entity.PayRecordEntity">
+		select * from pay_record where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.pay.entity.PayRecordEntity">
+		select * from pay_record
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from pay_record 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.pay.entity.PayRecordEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into pay_record
+		(
+			merchant_no, 
+			tx_id, 
+			extension_id,
+			pay_user_id,
+			order_no, 
+			amount, 
+			account_id, 
+			trx_id, 
+			out_trx_id, 
+			chnl_trx_id, 
+			request_trx_status, 
+			pay_trx_status, 
+			fin_time, 
+			pay_time, 
+			error_message,
+            status,
+            create_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{txId}, 
+			#{extensionId},
+			#{payUserId},
+			#{orderNo}, 
+			#{amount}, 
+			#{accountId}, 
+			#{trxId}, 
+			#{outTrxId}, 
+			#{chnlTrxId}, 
+			#{requestTrxStatus}, 
+			#{payTrxStatus}, 
+			#{finTime}, 
+			#{payTime}, 
+			#{errorMessage},
+            #{status},
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.pay.entity.PayRecordEntity">
+		update pay_record 
+		<set>
+			<if test="accountId != null">account_id = #{accountId}, </if>
+			<if test="outTrxId != null">out_trx_id = #{outTrxId}, </if>
+			<if test="chnlTrxId != null">chnl_trx_id = #{chnlTrxId}, </if>
+			<if test="payTrxStatus != null">pay_trx_status = #{payTrxStatus}, </if>
+			<if test="finTime != null">fin_time = #{finTime}, </if>
+			<if test="payTime != null">pay_time = #{payTime}, </if>
+			<if test="errorMessage != null">error_message = #{errorMessage}, </if>
+            <if test="status != null">status = #{status}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from pay_record where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from pay_record where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="queryByTrxId" resultType="io.grx.modules.pay.entity.PayRecordEntity">
+		select * from pay_record where trx_id = #{value} order by create_time desc limit 1
+	</select>
+
+	<select id="sumPaidAmount" resultType="long">
+		select coalesce(sum(amount), 0) from pay_record
+		where status = 1
+		<if test="startTime != null">and create_time >= #{startTime}</if>
+		<if test="endTime != null">and create_time &lt; #{endTime}</if>
+	</select>
+
+	<select id="queryByPaidExtensions" resultType="io.grx.modules.pay.entity.PayRecordEntity">
+		select * from pay_record p where status = 1 and extension_id is not null
+		<if test="startTime != null">and create_time >= #{startTime}</if>
+		and exists (select 1 from tx_extension where extension_id = p.extension_id and status = 1)
+		order by id
+	</select>
+</mapper>

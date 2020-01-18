@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../css/rcpt/paypsw.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/jquery-weui.min.css"/>
+    <title>提现</title>
+    <style type="text/css">
+		.userLetter .ul02 {
+			padding: 20px 0;
+		}
+
+        .loanMoney {
+            font-family: arial;
+            border-color: #eee;
+            border-width: 0 0 1px 0;
+            border-style: solid;
+        }
+        .loanMoney h3 {
+            margin: 0 0 10px;
+        }
+        .loanMoney input {
+            height: 50px;
+            padding: 0 30px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #FF5722;
+            background-image: url('../img/RMB.svg');
+            background-position: 5px 8px;
+            background-repeat: no-repeat;
+            background-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>提现</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+
+        <div class="userLetter account">
+            <div class="ul03">
+                <div class="loanMoney">
+                    <h3>账户余额(元):</h3>
+                    <p th:text="${#numbers.formatDecimal(balance, 1,2)}">1000</p>
+                </div>
+            </div>
+            <div class="ul03" th:if="${!#strings.isEmpty(TX_USER.bankAccount)}">
+                <div class="loanMoney">
+                    <h3 th:value="${TX_USER.bankName}">中国银行</h3>
+                    <p th:value="${TX_USER.bankAccount}">6230000******1254</p>
+                </div>
+            </div>
+            <div class="ul03">
+                <div class="loanMoney">
+                    <h3>提现金额</h3>
+                    <input id="amount" class="form" type="number"  min="0" maxlength="20" autocomplete="off" required="required" placeholder="请输入提现金额" value="0"/>
+                </div>
+                <p style="padding-top: 10px;">手续费(元)：<span id="feeInfo"></span></p>
+            </div>
+            <button type="button" id="submit" class="btn btnstyle01 radius3PX">提交</button>
+        </div>
+        <input type="hidden" id="feeRate" th:value="${feeRate}" />
+        <input type="hidden" id="balance" th:value="${balance}" />
+        <input type="hidden" id="minFee" th:value="${minFee}" />
+        <input type="hidden" id="maxFee" th:value="${maxFee}" />
+        <input type="hidden" id="minAmount" th:value="${minAmount}" />
+    </main>
+</div>
+<script src="../libs/jquery.min.js"></script>
+<script src="../libs/jquery-weui.min.js"></script>
+<script src="../js/wx_common.js"></script>
+<script type="text/javascript" src="../js/rcpt/withdrawal.js"></script>
+<script th:inline="text">
+
+
+</script>
+</body>
+</html>

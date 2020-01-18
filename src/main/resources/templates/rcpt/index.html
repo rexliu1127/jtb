@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/jquery-weui.min.css"/>
+    <title></title>
+</head>
+<body ontouchstart="">
+
+<div class="mainAPP">   
+    <main>
+        <!-- all your content here -->
+        <div class="account">
+
+            <div class="area01 gradient01">
+                <div class="acc-cont">
+                    <ul class="display">
+                        <li class="flex2">
+                            <a href="member.html" class="display">
+                                <div class="aPHO radius50P">
+                                    <img th:if="${!#strings.isEmpty(user.headImgUrl)}"
+                                         th:src="${user.headImgUrl}" alt=""/>
+                                    <img th:if="${#strings.isEmpty(user.headImgUrl)}"
+                                         src="../img/accoubt/photo.svg" alt=""/>
+                                </div>
+                                <div class="aID flex1">
+                                    <h3 th:text="${#strings.isEmpty(user.name) ? (#strings.isEmpty(user.nickName) ? '未实名认证' : user.nickName) : user.name}">15019430196</h3>
+                                    <p th:if="${!#strings.isEmpty(user.mobile)}" th:text="${#strings.substring(user.mobile, 0, 3) + '****' + #strings.substring(user.mobile, 7, 11)}">18001200128</p>
+									<p th:if="${#strings.isEmpty(user.mobile)}">未实名认证</p>
+                                </div>                                
+                            </a>
+                        </li>
+                        <li class="flex1">
+                            <a class="display">
+                                <div class="aMoney flex1"><span>余额 (元)</span>
+                                    <h3 th:text="${#numbers.formatDecimal(balance, 1,2)}">0.00</h3>
+                                </div>                                
+                            </a>
+                        </li>                        
+                    </ul>
+                </div>
+                
+                <div class="borrowLend">
+                    <ul>
+                        <li class="display">
+                            <div class="borrow flex1 radius3PX" onclick="location.href='repayment_to_pay.html';"><span>待还(元)</span>
+                                <h3 th:text="${#numbers.formatDecimal(sumPendingRepayByMe, 1,2)}">0.00</h3>
+                            </div>
+                            <div class="lend flex1 radius3PX" onclick="location.href='repayment_repay.html';"><span>待收(元)</span>
+                                <h3 th:text="${#numbers.formatDecimal(sumPendingRepayToMe, 1,2)}">0.00</h3>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="area02">
+                <div class="lendLoan-cont">
+                    <div class="tabMenu clear">
+                        <div class="card01 fl choose">正在借款</div>
+                        <div class="card02 fl">正在出借</div>
+                    </div>
+                    <div class="tabCNT">
+                        <div class="tabCNT01" style="display: block;">
+                        
+                            <div class="noData" th:if="${borrowingList.isEmpty()}">
+                            <h4>暂无数据</h4>
+                            <span>No Data</span>
+                            </div>
+                            
+                            <ul th:if="${!borrowingList.isEmpty()}">
+                                <li th:each="tx : ${borrowingList}"><a th:href="${'transaction/' + tx.txId + '.html'}">
+                                    <div class="display">
+                                        <div class="aPHO radius50P">
+                                        <img th:src="${#strings.isEmpty(tx.lenderHeadImg) ? '../img/accoubt/photo.svg' : tx.lenderHeadImg}"/>
+                                        <img src="../img/aPHOmask.svg" class="aPHOmask" />
+                                        </div>
+                                        <div class="aID flex1">
+                                            <h3 th:inline="text">[[${tx.lenderName}]] <em>[[${tx.txStatus.displayName}]]</em> <em th:inline="text">剩余[[${tx.daysBeforeInvalid}]]天</em></h3>
+                                        </div>                                        
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div class="display">
+                                    
+                                    	<div class="tlimit flex2">
+                                        <h4 th:inline="text">[[${tx.useDay}]]<em>天</em></h4>
+                                        <span>借款时长 </span>
+                                        </div>
+                                        
+                                        <div class="tlimit flex2">
+                                        <h4 th:inline="text">[[${tx.amount}]]<em>元</em></h4>
+                                        <span>筹款金额</span>
+                                        </div>
+                                        
+                                        <div class="interest flex1">
+                                        <h3 class="red" th:inline="text">[[${tx.rate}]]<em>%</em></h3>
+                                        <span>年利率</span>
+                                        </div> 
+                                                                               
+                                    </div>
+                                    
+                                </a></li>
+                            </ul>
+                            
+                            
+                            
+                        </div>
+                        <div class="tabCNT02" style="display: none;">
+                            
+                            <div class="noData" th:if="${lendingList.isEmpty()}">
+                            <h4>暂无数据</h4>
+                            <span>No Data</span>
+                            </div>
+                            
+                            <ul th:if="${!lendingList.isEmpty()}">
+                                <li th:each="tx : ${lendingList}"><a th:href="${'transaction/' + tx.txId + '.html'}">
+                                    <div class="display">
+                                        <div class="aPHO radius50P"><img th:src="${#strings.isEmpty(tx.borrowerHeadImg) ? '../img/accoubt/photo.svg' : tx.borrowerHeadImg}"/><img src="../img/aPHOmask.svg" class="aPHOmask" /></div>
+                                        <div class="aID flex1">
+                                            <h3 th:inline="text">[[${tx.borrowerName}]] <em>[[${tx.txStatus.displayName}]]</em>  <em th:inline="text">剩余[[${tx.daysBeforeInvalid}]]天</em></h3>
+                                        </div>                                       
+                                    </div>
+                                    
+                                    <div class="display">
+                                    
+                                    	<div class="tlimit flex2">
+                                        <h4 th:inline="text">[[${tx.useDay}]]<em>天</em></h4>
+                                        <span>借款时长 </span>
+                                        </div>
+                                        
+                                        <div class="tlimit flex2">
+                                        <h4 th:inline="text">[[${tx.amount}]]<em>元</em></h4>
+                                        <span>筹款金额</span>
+                                        </div>
+                                        
+                                        <div class="interest flex1">
+                                        <h3 class="red" th:inline="text">[[${tx.rate}]]<em>%</em></h3>
+                                        <span>年利率</span>
+                                        </div> 
+                                                                               
+                                    </div>
+                                    
+                                    
+                                </a></li>
+                            </ul>                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <div class="userTypesList bounced-R">
+        <ul class="display">
+            <li class="flex1"><a href="apply_transaction.html?type=1"> <i><img src="../img/borrower.svg"/></i> <span>我是借款人</span> </a></li>
+            <li class="flex1"><a href="apply_transaction.html?type=2"> <i><img src="../img/lenderbg.svg"/></i> <span>我是出借人</span> </a></li>
+        </ul>
+        <div class="bouncedAncel">取 消</div>
+    </div>
+<footer class="bottom-nav">
+    <ul class="ulnav">
+        <li class="active"><a onClick="userTypes()"><span class="icon menu1"></span> <span>打个借条</span> </a></li>        
+        <li><a href="borrower_sum.html"><span class="icon menu3"></span> <span>我的借款</span> </a></li>
+        <li><a href="lender_sum.html"><span class="icon menu4"></span> <span>我的出借</span> </a></li>
+        <!--li><a href="member/check_credit.html"><span class="icon menu2"></span> <span>信用报告</span> </a></li-->
+
+    </ul>
+</footer>
+</div>
+
+
+
+<script src="../libs/jquery.min.js"></script>
+<script src="../libs/jquery-weui.min.js"></script>
+<script src="../js/wx_common.js"></script>
+<script type="text/javascript" src="../js/rcpt/main.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".tabMenu div").click(function () {
+            $(this).addClass("choose").siblings().removeClass("choose");
+            $('.tabCNT>div:eq(' + $(this).index() + ')').show().siblings().hide();
+        });
+    });
+</script>
+<script type="text/javascript">
+    function userTypes() {
+        $(".bounced-R").addClass("modal-active");
+        if ($(".mask").length > 0) {
+            $(".mask").addClass("mask-active");
+        } else {
+            $("body").append('<div class="mask"></div>');
+            $(".mask").addClass("mask-active");
+        }
+        $(".mask-active,.bouncedAncel").click(function () {
+            $(".bounced-R").removeClass("modal-active");
+            setTimeout(function () {
+                $(".mask-active").removeClass("mask-active");
+                $(".mask").remove();
+            }, 300);
+        })
+    }
+</script>
+</body>
+</html>

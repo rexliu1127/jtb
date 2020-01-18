@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../css/rcpt/account.css"/>
+    <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/jquery-weui.min.css"/>
+    <title></title>
+    <script th:inline="text">
+        var needCaptcha = [[${needCaptcha}]];
+        var captcha = '';
+    </script>
+</head>
+<body ontouchstart="">
+<div class="mainAPP wholeHigh">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>登 录</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="login">
+            <div class="area01">
+                <div class="typeX">
+                    <form action="#" method="post">
+                        <div class="login-logo">
+                        	<img src="../images/logo_yxy.png" />
+                        </div>
+                        <ul>
+                            <li class="display">
+                                <div class="form-box flex1 inpIcon">
+                                    <input id="mobile" class="phone form" type="tel" maxlength="23" autocomplete="off" required="required" placeholder="请输入手机号码"/>
+                                </div>
+                            </li>
+                            <li class="display">
+                                <div class="form-box flex1 inpIcon">
+                                    <input  id="verifyCode" class="checkCode form" type="tel" maxlength="6" autocomplete="off" required="required" placeholder="请输入验证码"/>
+                                </div>
+                                <div class="send"> <a id="getCode">获取验证码 </a></div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+                <div style="margin-left: 5%; margin-right: 5%; padding-top: 10px;">
+                    <div class="l-captcha" th:if="${needCaptcha}" th:attr="data-site-key=${captchaKey}" data-width="100%"
+                     data-callback="captchaResponse"></div>
+                </div>
+
+                <a id="loginBtn" type="button" class="btn btnstyle01 radius3PX">登 入 / 註 冊</a>
+            </div>
+        </div>
+    </main>
+</div>
+<div style="width: 100%; text-align: center; position: absolute; bottom: 10px; ">易信智能科技有限公司 粤ICP备 19034553 号</div>
+<input id="returnUrl" type="hidden" th:value="${returnUrl}"/>
+<input id="unionId" type="hidden" th:value="${unionId}"/>
+<input id="openId" type="hidden" th:value="${openId}"/>
+<input id="nickName" type="hidden" th:value="${nickName}"/>
+<input id="headImgUrl" type="hidden" th:value="${headImgUrl}"/>
+<input th:if="${!#strings.isEmpty(inviterCode)}" id="inviterCode" type="hidden" th:value="${inviterCode}"/>
+<!-- body 最后 -->
+<script src="../libs/jquery.min.js"></script>
+<script src="../libs/jquery-weui.min.js"></script>
+<script src="//captcha.luosimao.com/static/dist/api.js"></script>
+<script src="../js/wx_common.js"></script>
+<script type="text/javascript" src="../js/rcpt/main.js"></script> <!-- Resource jQuery -->
+<script src="../js/rcpt/login.js"></script>
+</body>
+</html>

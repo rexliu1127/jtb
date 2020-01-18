@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <title>渠道</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div class="panel panel-default">
+        <!--div class="panel-heading">{{title}}</div-->
+        <form class="form-horizontal" style="width: 1000px;">
+            <div class="form-group">
+                <div class="col-sm-2 control-label">年龄:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="年龄" class="form-control2"  v-model="config.ages">
+                    <em class="emStyle">年龄段用英文逗号","隔开</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">省份:</div>
+                <div class="col-sm-10">
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.beijing">北京
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.tianjin">天津
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.hebei">河北
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.shanxijin">山西
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.neimenggu">内蒙古
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.liaoning">辽宁
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.jilin">吉林
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.heilongjiang">黑龙江
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.shanghai">上海
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.jingsu">江苏
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.zhejiang">浙江
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.anhui">安徽
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.fujian">福建
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.jiangxi">江西
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.shandong">山东
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.henan">河南
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.hubei">湖北
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.hunan">湖南
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.guangdong">广东
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.guangxi">广西
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.hainan">海南
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.chongqing">重庆
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.sichuan">四川
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.guizhou">贵州
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.yunnan">云南
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.xizang">西藏
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.shanxi">陕西
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.gansu">甘肃
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.qinghai">青海
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.ningxia">宁夏
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.xinjiang">新疆
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.taiwan">台湾
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.xianggang">香港
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.aomen">澳门
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <em class="emStyle">如申请人户籍所在的省份与勾选中的省份相匹配，将减少审核通过几率，一个都未勾选，则不检测此项</em>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">今借到超过查询的负债金额:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="今借到超过查询的负债金额" class="form-control2" v-model="config.amountOfDebt">
+                    <em class="emStyle">如设置为10000，表示申请人当前在今借到的负债金额超过10000将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">今借到超过查询的逾期金额:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="今借到超过查询的逾期金额" class="form-control2" v-model="config.overdueAmount">
+                    <em class="emStyle">如设置为2000，表示申请人当前在今借到的逾期金额超过2000将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">今借到借款订单数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="今借到借款订单数" class="form-control2" v-model="config.loanOrderAmount">
+                    <em class="emStyle">如设置为30，表示申请人当前在今借到的订单总数超过30笔将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">今借到待还款订单数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="今借到待还款订单数" class="form-control2" v-model="config.orderAmountToBePaid">
+                    <em class="emStyle">如设置为3，表示申请人当前在今借到的待还款订单数超过3笔将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">米兜凭证是否超过查询的负债金额:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="米兜凭证是否超过查询的负债金额" class="form-control2" v-model="config.miDouAmountOfDebt">
+                    <em class="emStyle">如设置为10000，表示申请人当前在米兜凭证的负债金额超过10000将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">米兜凭证是否超过查询的逾期金额:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="米兜凭证是否超过查询的逾期金额" class="form-control2" v-model="config.miDouOverdueAmount">
+                    <em class="emStyle">如设置为2000，表示申请人当前在米兜凭证的逾期金额超过2000将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">米兜凭证借条订单数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="米兜凭证借条订单数" class="form-control2" v-model="config.miDouLoanOrderAmount">
+                    <em class="emStyle">如设置为30，表示申请人在米兜凭证的借条总数超过30笔将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">米兜凭证待还款订单数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="米兜凭证待还款订单数" class="form-control2" v-model="config.miDouOrderAmountToBePaid">
+                    <em class="emStyle">如设置为3，表示申请人在米兜凭证的待还款借条数超过3笔将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">米兜凭证今日待还款订单数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="米兜凭证今日待还款订单数" class="form-control2" v-model="config.miDouTodayOrderAmountToBePaid">
+                    <em class="emStyle">如设置为2，表示申请人在米兜凭证的今日待还款借条数超过2笔将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">米兜凭证当日新增借条数量:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="米兜凭证当日新增借条数量" class="form-control2" v-model="config.miDouLoanOrderTodaysNewNumber">
+                    <em class="emStyle">如设置为5，表示申请人在米兜凭证的当日新增借条数超过5笔将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">芝麻分是否超过当前查询:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="芝麻分是否超过当前查询" class="form-control2" v-model="config.sesamePoints">
+                    <em class="emStyle">如设置为560，表示申请人的芝麻分低于560将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">芝麻信用逾期未处理:</div>
+                <div class="col-sm-10">
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.sesamePointsIsOverdue">芝麻信用逾期未处理
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <em class="emStyle">如勾选，表示查询当前有未处理的芝麻逾期将减少审核通过几率，如不勾选，则不检测此项</em>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">借贷宝是否超过查询的负债金额:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="借贷宝是否超过查询的负债金额" class="form-control2" v-model="config.jieDaiBaoAmountOfDebt">
+                    <em class="emStyle">如设置为10000，表示申请人当前在借贷宝的负债金额超过10000将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">借贷宝是否超过查询的逾期金额:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="借贷宝是否超过查询的逾期金额" class="form-control2" v-model="config.jieDaiBaoOverdueAmount">
+                    <em class="emStyle">如设置为2000，表示申请人当前在借贷宝的逾期金额超过2000将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">借贷宝借款订单数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="借贷宝借款订单数" class="form-control2" v-model="config.jieDaiBaoLoanOrderAmount">
+                    <em class="emStyle">如设置为30，表示申请人在借贷宝的订单总数超过30笔将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">借贷宝待还款订单数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="借贷宝待还款订单数" class="form-control2" v-model="config.jieDaiBaoOrderAmountToBePaid">
+                    <em class="emStyle">如设置为5，表示申请人在借贷宝的待还款的订单数超过5笔将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">运营商是否认证:</div>
+                <div class="col-sm-10">
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.operatorIsCertification">运营商是否认证
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <em class="emStyle">如勾选，表示当前申请人如未认证运营商将减少审核通过几率，运营商已认证将提高审核通过几率，如不勾选，则不检测此项</em>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">互通电话个数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="互通电话个数" class="form-control2" v-model="config.numberOfCalls">
+                    <em class="emStyle">如设置为10，表示申请人与联系人互通电话数量超过10个将提高审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">手机实名时间:</div>
+                <div class="col-sm-10">
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="radio" value="0" v-model="config.realNameTime">不检测此项
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" value="1" v-model="config.realNameTime">已实名
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" value="2" v-model="config.realNameTime">半年以上
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" value="3" v-model="config.realNameTime">一年以上
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <em class="emStyle">如勾选半年以上，表示申请人手机号实名认证已超过半年，将提高审核通过几率。</em>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">非活跃天数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="非活跃天数" class="form-control2" v-model="config.unActiveDays">
+                    <em class="emStyle">如设置为180，表示申请人静默天数超过180天将减少审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">前十联系人最近一个月命中网贷人数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="前十联系人最近一个月命中网贷人数" class="form-control2" v-model="config.topTenNetCredits">
+                    <em class="emStyle">如设置为10，表示申请人通讯录前10联系人近一个月申请网贷的人数未超过10人将提高审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">前十联系人匹配成功人数:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="前十联系人匹配成功人数" class="form-control2" v-model="config.matchSuccessfuls">
+                    <em class="emStyle">如设置为8，表示申请人通讯录前10联系人真实信息超过8人将提高审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">近一月疑似被催贷:</div>
+                <div class="col-sm-10">
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.beingCalledBorrow">近一月疑似被催贷
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <em class="emStyle">如勾选，表示申请人如果最近一个月疑似被催贷过将减少审核通过几率，如不勾选，则不检测此项</em>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">京东信息认证:</div>
+                <div class="col-sm-10">
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.jingDongInformationAuthentication">京东信息认证
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <em class="emStyle">如勾选，表示对比申请人的信息与京东认证的信息是否一致，一致将提高审核通过几率，如不勾选，则不检测此项</em>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">淘宝信息认证:</div>
+                <div class="col-sm-10">
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.taobaoInformationAuthentication">淘宝信息认证
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <em class="emStyle">如勾选，表示对比申请人的信息与淘宝认证的信息是否一致，一致将提高审核通过几率，如不勾选，则不检测此项</em>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">花呗额度:</div>
+                <div class="col-sm-10">
+                    <input type="text" placeholder="花呗额度" class="form-control2" v-model="config.spendBaiLines">
+                    <em class="emStyle">如设置为20000，表示申请人的花呗额度超过20000将提高审核通过几率，如设置为0，则不检测此项</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">社保认证:</div>
+                <div class="col-sm-10">
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.socialSecurityAuthentication">社保认证
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <em class="emStyle">如勾选，表示对比申请人的信息与社保的信息是否一致，一致将提高审核通过几率，如不勾选，则不检测此项</em>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">公积金认证:</div>
+                <div class="col-sm-10">
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" v-model="config.providentFundCertification">公积金认证
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <em class="emStyle">如勾选，表示对比申请人的信息与公积金的信息是否一致，一致将提高审核通过几率，如不勾选，则不检测此项</em>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="保存"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../../js/modules/opt/machine_auth_config.js"></script>
+</body>
+</html>

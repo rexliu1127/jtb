@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="../css/weui.css"/>
+    <link rel="stylesheet" href="../css/wx_common.css"/>
+    <link rel="stylesheet" href="../css/wx_main.css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .member_money_sum {
+            background-color: #99DBF0;
+        }
+
+        .member_money_sum li {
+            text-align: center;
+            padding: 15px 0 10px;
+            border-bottom-color: #fff;
+        }
+        .member_money_sum li span {
+            color: #fff;
+        }
+        #css_table {
+            display:table;
+            width: 100%;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        #css_table .head{
+            background-color: #ececec;
+        }
+
+        .css_tr {
+            display: table-row;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .css_td {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            border-top: 1px solid #D7D6DC;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        .css_tr .img {
+            width: 50px;
+        }
+
+        .css_tr img {
+            width: 60%;
+            margin-left: 15px;
+        }
+
+    </style>
+    <script src="../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../js/wx_common.js"></script>
+    <script src="../js/wx/borrower_sum.js"></script>
+</head>
+<body class="body_bg" ontouchstart="">
+<div class="money_con3">
+    <div class="sum">
+        <p>借款总额（元）</p>
+        <h1 th:text="${sumBorrow}">100.00</h1>
+    </div>
+</div>
+<div class="money_con2">
+    <ul>
+        <li>
+            <div class="sum">
+                <p>总利息（元）</p>
+                <h1 th:text="${#numbers.formatDecimal(sumBorrowInterest, 1,2)}">100.00</h1>
+            </div>
+        </li>
+        <li>
+            <div class="sum">
+                <p>借入次数</p>
+                <h1 th:text="${sumBorrowCount}">100</h1>
+            </div>
+        </li>
+
+    </ul>
+</div>
+<div class="weui-search-bar" id="searchBar">
+    <form class="weui-search-bar__form" id="searchForm">
+        <div class="weui-search-bar__box">
+            <i class="weui-icon-search"></i>
+            <input name="searchValue" type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索姓名" th:value="${searchValue}" required="required"/>
+            <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+        </div>
+        <label class="weui-search-bar__label" id="searchText">
+            <i class="weui-icon-search"></i>
+            <span>搜索姓名</span>
+        </label>
+    </form>
+    <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+</div>
+<div class="borrow_table">
+    <table id="css_table">
+        <!--tr>
+            <th>出借人</th>
+            <th>借款金额</th>
+            <th>时间</th>
+            <th>状态</th>
+        </tr>
+        <tr>
+            <td><div class="pic_pic"><span><img src="images/vip_photo.png"/></span>徐伟伟</div></td>
+            <td>5.00</td>
+            <td>2018-10-02</td>
+            <td>还款中</td>
+        </tr-->
+    </table>
+
+</div>
+
+<div id="emptyDiv" class="weui-panel" style="display: none;">
+    <div class="weui-loadmore weui-loadmore_line">
+        <span class="weui-loadmore__tips">暂无数据</span>
+    </div>
+    <div class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+        <span class="weui-loadmore__tips"></span>
+    </div>
+</div>
+
+</body>
+</html>

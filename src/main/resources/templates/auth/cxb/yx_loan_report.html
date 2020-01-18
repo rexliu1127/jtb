@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='UTF-8'/>
+    <title>借贷报告</title>
+    <link href='https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css' rel='stylesheet'/>
+    <style type='text/css'>.json-table-container table td {
+        min-width: 90pt
+    }
+
+    .json-table-container .tr-title.tr-level-1 {
+        background-color: #8aa1fa
+    }
+
+    .json-table-container .tr-title.tr-level-1 td {
+        text-align: center;
+        font-weight: 700
+    }
+
+    .json-table-container .tr-level-2-last {
+        border-bottom: 5px solid #1aa094
+    }
+
+    .json-table-container .core-basic-info .title, .json-table-container .td-title {
+        font-weight: 700
+    }
+
+    .json-table-container tr td {
+        max-width: 25pc;
+        min-width: 70px;
+        word-wrap: break-word
+    }
+
+    .json-table-container {
+        padding: 20px 30px 0
+    }
+
+    .json-table-container .td-title {
+        background: #f4f6fd
+    }
+
+    .json-table-container .tr-title.tr-level-2 .composite-td {
+        background: #f4f6fd;
+        font-weight: 700
+    }
+
+    .json-table-container .td-title-level-2 {
+        background: #d8dffb
+    }
+
+    .json-table-container .core-basic-info {
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 0 2px 2px 0;
+        background-color: #f2f2f2;
+        line-height: 22px
+    }
+
+    .json-table-container .core-basic-info, .core-basic-info li {
+        margin-right: 0;
+        margin-left: 0;
+        list-style: none
+    }
+
+    .json-table-container .core-basic-info li:nth-of-type(1) {
+        text-align: left
+    }
+
+    .json-table-container .core-basic-info li:nth-of-type(2) {
+        text-align: center
+    }
+
+    .json-table-container .core-basic-info li:nth-of-type(3) {
+        text-align: right
+    }
+
+    .json-table-container .table-bordered {
+        border: 3px solid #8aa1fa
+    }
+
+    .json-table-container .table-bordered td:last-child {
+        border-right: 3px solid #8aa1fa
+    }
+
+    .layui-layer-dialog .layui-layer-content {
+        padding-top: 0
+    }</style>
+</head>
+<body>
+<div th:each="entry : ${reportMap}">
+    <div th:remove="tag" th:utext="${entry.value}"></div>
+</div>
+<div th:if="${reportMap.isEmpty()}" style="padding-top: 20px; color: red;">
+    该用户还没有认证借贷报告或报告尚在生成中
+</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Expires" content="0"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Cache-control" content="no-cache"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>资信云报告</title>
+    <link rel="stylesheet" href="https://credit.baiqishi.com/clweb/resources/lib/iconfont/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="https://credit.baiqishi.com/clweb/resources/css/reportNew.css?v=201708101"/>
+    <script src="https://credit.baiqishi.com/clweb/resources/lib/jquery-2.1.1/jquery.min.js"></script>
+    <script id="jsEcharts" src="https://credit.baiqishi.com/clweb/resources/lib/echarts/echarts.common.min.js"></script>
+    <script id="jshtml2canvas" src="https://credit.baiqishi.com/clweb/resources/lib/html2canvas/html2canvas.js"></script>
+    <script id="jsreportNew" src="https://credit.baiqishi.com/clweb/resources/js/reportNew.js"></script>
+
+    <style>
+        .diagram{
+            min-width: 600px !important;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div th:remove="tag" th:utext="${reportHtml}"></div>
+    <div th:if="${#strings.isEmpty(reportHtml)}" style="padding-top: 20px; color: red;">
+        该用户还没有运营商报告
+    </div>
+   <!-- <script
+  src="//code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        //<![CDATA[
+    $(document).ready(function(){$("#contactPhoneCntChart").highcharts({title:{text:"通话号码数",style:{fontWeight:"bold",fontSize:"24px"}},credits:{enabled:false},tooltip:{enabled:false},plotOptions:{pie:{dataLabels:{format:"<b>{point.name}</b>: {point.y}"}}},series:[{type:"pie",innerSize:"70%",data:$("#contactPhoneCntChart").data("value")}]});$("#talkSecondsChart").highcharts({title:{text:"通话时长",style:{fontWeight:"bold",fontSize:"24px"}},credits:{enabled:false},tooltip:{enabled:false},plotOptions:{pie:{dataLabels:{format:"<b>{point.name}</b>: {point.y}"}}},series:[{type:"pie",innerSize:"70%",data:$("#talkSecondsChart").data("value")}]});$("#contactPhoneCntAreaChart").highcharts({title:{text:"联系人地区top10数量分布",style:{fontWeight:"bold",fontSize:"24px"}},credits:{enabled:false},tooltip:{enabled:false},plotOptions:{pie:{dataLabels:{format:"<b>{point.name}</b>: {point.y}"}}},series:[{type:"pie",innerSize:"70%",data:$("#contactPhoneCntAreaChart").data("value")}]});$("#talkSecondsAreaChart").highcharts({chart:{type:"bar"},title:{text:"联系人地区top10通话时长分布",style:{fontWeight:"bold",fontSize:"24px"}},credits:{enabled:false},plotOptions:{bar:{stacking:"normal",dataLabels:{enabled:false}}},xAxis:{categories:$("#talkSecondsAreaChart").data("categories")},yAxis:{min:0,title:{text:"通话时长/分"},stackLabels:{enabled:true,style:{fontWeight:"bold",color:(Highcharts.theme&&Highcharts.theme.textColor)||"gray"}}},series:$("#talkSecondsAreaChart").data("series")});$("#monthlyTalkSecondsChart").highcharts({chart:{type:"bar"},title:{text:"各月通话时长",style:{fontWeight:"bold",fontSize:"24px"}},credits:{enabled:false},plotOptions:{bar:{stacking:"normal",dataLabels:{enabled:false}}},xAxis:{categories:$("#monthlyTalkSecondsChart").data("categories")},yAxis:{min:0,title:{text:"通话时长/分"},stackLabels:{enabled:true,style:{fontWeight:"bold",color:(Highcharts.theme&&Highcharts.theme.textColor)||"gray"}}},series:$("#monthlyTalkSecondsChart").data("series")});$("#monthlyConsumptionChart").highcharts({title:{text:"消费金额情况",style:{fontWeight:"bold",fontSize:"24px"}},credits:{enabled:false},legend:{enabled:false},plotOptions:{line: {dataLabels: {enabled: true}}},xAxis:{categories:$("#monthlyConsumptionChart").data("categories")},yAxis:{min:0,title:{text:"消费金额/元"},stackLabels:{enabled:true,style:{fontWeight:"bold",color:(Highcharts.theme&&Highcharts.theme.textColor)||"gray"}}},series:$("#monthlyConsumptionChart").data("series")});$("#talkAreaChart").highcharts({chart:{type:"bar"},title:{text:"通话地区top10通话时长分布情况",style:{fontWeight:"bold",fontSize:"24px"}},credits:{enabled:false},plotOptions:{bar:{stacking:"normal",dataLabels:{enabled:false}}},xAxis:{categories:$("#talkAreaChart").data("categories")},yAxis:{min:0,title:{text:"通话时长/分"},stackLabels:{enabled:true,style:{fontWeight:"bold",color:(Highcharts.theme&&Highcharts.theme.textColor)||"gray"}}},series:$("#talkAreaChart").data("series")});$(".check-more").on("click",function(){var className=$(this).slideUp().data("class");$("."+className).slideDown()});$(".sidenav li").on("click",function(){$(".sidenav li").removeClass("active");$(this).addClass("active")});var inputInfoTop=$("#inputInfo").offset().top;var basicInfoTop=$("#basicInfo").offset().top;var riskAnalysisTop=$("#riskAnalysis").offset().top;var userPortraitTop=$("#userPortrait").offset().top;var emergencyAnalysisTop=$("#emergencyAnalysis").offset().top;var areaAnalysisTop=$("#areaAnalysis").offset().top;var monthlyConsumptionTop=$("#monthlyConsumption").offset().top;var tripAnalysisTop=$("#tripAnalysis").offset().top;var callLogTop=$("#callLog").offset().top;$(window).scroll(function(){var scrolls=$(this).scrollTop();if(scrolls>150){$(".back-to-top").show()}else{$(".back-to-top").hide()}var activeSideNav="#inputInfo";if(scrolls>=callLogTop){activeSideNav="#callLog"}else{if(scrolls>=tripAnalysisTop){activeSideNav="#tripAnalysis"}else{if(scrolls>=monthlyConsumptionTop){activeSideNav="#monthlyConsumption"}else{if(scrolls>=areaAnalysisTop){activeSideNav="#areaAnalysis"}else{if(scrolls>=emergencyAnalysisTop){activeSideNav="#emergencyAnalysis"}else{if(scrolls>=userPortraitTop){activeSideNav="#userPortrait"}else{if(scrolls>=riskAnalysisTop){activeSideNav="#riskAnalysis"}else{if(scrolls>=basicInfoTop){activeSideNav="#basicInfo"}else{if(scrolls>=inputInfoTop){activeSideNav="#inputInfo"}}}}}}}}}$('.sidenav li a[href="'+activeSideNav+'"]').parent().click()})});
+        //]]>
+    </script>-->
+
+    <script src="//cdn.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="//cdn.hcharts.cn/highcharts/themes/avocado.js"></script>
+</body>
+
+<script>
+    $(document).ready(function(){
+        $("#downloadToPdf").click(function () {
+            var partnerId = $("#hid_partnerId").val();
+
+            $("#downloadToPdf").hide();
+            html2canvas(document.body).then(function(canvas) {
+                var src = canvas.toDataURL('image/png');
+                $("#downloadToPdf").show();
+                var resRoot = 'https://credit.baiqishi.com/clweb/resources';
+                var reportSn = $("#reportSn").text();
+                var name= $("#name").text();
+                var certNo= $("#certNo").text();
+                var mobile= $("#mobile").text();
+                var type="资信云报告";
+
+                jQuery.ajax({
+                    url: "/clweb/api/common/generatepdf",
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType:'application/x-www-form-urlencoded; charset=utf-8',
+                    data: {
+                        "reportSn": reportSn,
+                        "src": src,
+                        "partnerId": partnerId
+                    },
+                    success: function (data) {
+                        var resultCode = data.resultCode;
+                        if(resultCode == "CCOM1000"){
+                            window.open("/clweb/api/common/download?reportSn="+reportSn+"&amp;name="+name+"&amp;certNo="+certNo+"&amp;mobile="+mobile+"&amp;type="+type+"&amp;partnerId="+partnerId);
+                        }else{
+                            $.message.pop(data.resultDesc, "error", 3000);
+                        }
+                    }
+                });
+            });
+        });
+        //加载js
+        document.getElementById("jsEcharts").src="https://credit.baiqishi.com/clweb/resources/lib/echarts/echarts.common.min.js";
+        document.getElementById("jshtml2canvas").src="https://credit.baiqishi.com/clweb/resources/lib/html2canvas/html2canvas.js";
+        document.getElementById("jsreportNew").src="https://credit.baiqishi.com/clweb/resources/js/reportNew.js";
+    });
+</script>
+</html>

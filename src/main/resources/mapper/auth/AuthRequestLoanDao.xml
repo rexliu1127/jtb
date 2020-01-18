@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthRequestLoanDao">
+
+    <select id="queryObject" resultType="io.grx.modules.auth.entity.AuthRequestLoanEntity">
+        SELECT *
+        FROM auth_request_loan
+        WHERE request_id = #{value}
+    </select>
+    
+    <select id="queryApplyList" resultType="io.grx.modules.auth.entity.AuthRequestLoanEntity">
+    	SELECT l.*,r.create_time,r.status,CONCAT(DATE_FORMAT(r.create_time,'%Y%m%d%H%i%s'),r.request_id) as requestNo,r.name FROM auth_request r,auth_request_loan l
+		WHERE r.request_id = l.request_id
+		AND r.user_id = #{userId}
+		and r.channel_id = #{channelId}
+		<if test="status!=null">
+			AND r.status = #{status}
+		</if>
+		order by r.create_time desc
+		
+    </select>
+    
+    <select id="queryLastApply" resultType="io.grx.modules.auth.entity.AuthRequestLoanEntity">
+    	SELECT l.*,r.create_time,r.status,CONCAT(DATE_FORMAT(r.create_time,'%Y%m%d%H%i%s'),r.request_id) as requestNo,r.name FROM auth_request r,auth_request_loan l
+		WHERE r.request_id = l.request_id
+		AND r.user_id = #{userId}
+		and r.channel_id = #{channelId}
+		order by r.create_time desc limit 1
+		
+    </select>
+
+
+    <insert id="save" parameterType="io.grx.modules.auth.entity.AuthRequestLoanEntity" useGeneratedKeys="true"
+            keyProperty="requestId">
+        INSERT INTO auth_request_loan
+        (
+            `request_id`,
+			  `amount`,
+			  `period`,
+			  `period_type`,
+			  `interest`,
+			  `service_fee`,
+			  `repay_date`,
+			  `fact_repay_date`,
+			  `repay_amount`,
+			  `fact_repay_amount`,
+			  `overdue_day`,
+			  `overdue_fee`
+        )
+        VALUES
+            (
+                #{requestId},
+			  #{amount},
+			  #{period},
+			  #{periodType},
+			  #{interest},
+			  #{serviceFee},
+			  #{repayDate},
+			  #{factRepayDate},
+			  #{repayAmount},
+			  #{factRepayAmount},
+			  #{overdueDay},
+			  #{overdueFee}
+            )
+    </insert>
+
+    <update id="update" parameterType="io.grx.modules.auth.entity.AuthRequestLoanEntity">
+        update auth_request_loan
+        <set>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="period != null">period = #{period},</if>
+            <if test="periodType != null">period_type = #{periodType},</if>
+            <if test="interest != null">interest = #{interest},</if>
+            <if test="serviceFee != null">service_fee = #{serviceFee},</if>
+            <if test="repayDate != null">repay_date = #{repayDate},</if>
+            <if test="factRepayDate != null">fact_repay_date = #{factRepayDate},</if>
+            <if test="repayAmount != null">repay_amount = #{repayAmount},</if>
+            <if test="factRepayAmount != null">fact_repay_amount = #{factRepayAmount},</if>
+            <if test="overdueDay != null">overdue_day = #{overdueDay},</if>
+            <if test="overdueFee != null">overdue_fee = #{overdueFee},</if>
+        </set>
+        where request_id = #{requestId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM auth_request_loan
+        WHERE request_id = #{value}
+    </delete>
+
+    <delete id="deleteBatch">
+        delete from auth_request_loan where request_id in
+        <foreach item="requestId" collection="array" open="(" separator="," close=")">
+            #{requestId}
+        </foreach>
+    </delete>
+
+</mapper>

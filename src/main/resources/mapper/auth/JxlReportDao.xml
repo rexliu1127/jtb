@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.JxlReportDao">
+
+	<select id="queryObject" resultType="io.grx.modules.auth.entity.JxlReportEntity">
+		select * from jxl_report where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.auth.entity.JxlReportEntity">
+		select * from jxl_report
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from jxl_report 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.auth.entity.JxlReportEntity">
+		insert into jxl_report
+		(
+			id, 
+			token, 
+			request_id, 
+			report_data, 
+			raw_data,
+			mobile_data,
+			expire_time, 
+			update_time
+		)
+		values
+		(
+			#{id}, 
+			#{token}, 
+			#{requestId}, 
+			#{reportData}, 
+			#{rawData},
+			#{mobileData},
+			#{expireTime}, 
+			#{updateTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.JxlReportEntity">
+		update jxl_report 
+		<set>
+			<if test="token != null">token = #{token}, </if>
+			<if test="requestId != null">request_id = #{requestId}, </if>
+			<if test="reportData != null">report_data = #{reportData}, </if>
+			<if test="rawData != null">raw_data = #{rawData}, </if>
+			<if test="mobileData != null">mobile_data = #{mobileData}, </if>
+			<if test="expireTime != null">expire_time = #{expireTime}, </if>
+			<if test="updateTime != null">update_time = #{updateTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from jxl_report where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from jxl_report where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="queryByToken" resultType="io.grx.modules.auth.entity.JxlReportEntity">
+		select * from jxl_report where token = #{value} order by id desc limit 1
+	</select>
+</mapper>

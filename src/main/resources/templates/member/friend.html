@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" href="../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../css/wx_main.css"/>
+    <link href="../../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        #css_table {
+            display:table;
+            width: 100%;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        #css_table .head{
+            background-color: #ececec;
+        }
+
+        .css_tr {
+            display: table-row;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .css_td {
+            display: table-cell;
+            text-align: left;
+            vertical-align: middle;
+            border-top: 1px solid #D7D6DC;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        .css_tr .img {
+            width: 50px;
+        }
+
+        .css_tr img {
+            width: 60%;
+            margin-left: 15px;
+        }
+
+    </style>
+    <script src="../../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../../js/wx_common.js"></script>
+    <script src="../../js/wx/friend.js"></script>
+</head>
+<body ontouchstart="" class="body_bg">
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+
+<div class="container" id="container"></div>
+
+<div class="weui-search-bar" id="searchBar">
+    <form class="weui-search-bar__form" id="searchForm">
+        <div class="weui-search-bar__box">
+            <i class="weui-icon-search"></i>
+            <input name="searchValue" type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索姓名" th:value="${searchValue}" required="required"/>
+            <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+        </div>
+        <label class="weui-search-bar__label" id="searchText">
+            <i class="weui-icon-search"></i>
+            <span>搜索姓名</span>
+        </label>
+    </form>
+    <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+</div>
+<div class="weui-panel">
+    <input id="userId" type="hidden" th:value="${TX_USER.userId}"/>
+    <div class="weui-cells__title" th:text="${'全部好友(' + total + ')'}">全部好友(2)</div>
+    <div id="css_table">
+        <!--div class="css_tr">
+            <div class="css_td img"><img th:src="${TX_USER.headImgUrl}"/></div>
+            <div class="css_td">张三</div>
+        </div>
+        <div class="css_tr">
+            <div class="css_td img"><img th:src="${TX_USER.headImgUrl}"/></div>
+            <div class="css_td">张三</div>
+        </div-->
+    </div>
+</div>
+
+</body>
+</html>

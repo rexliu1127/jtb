@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/jquery-weui.min.css"/>   
+    <title></title>
+</head>
+<body>
+<div class="mainAPP">
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>待 收</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="lendBorrow">
+            <div class="area01">
+                <div class="lendBorrow-cont">
+                    <ul>
+                        <li class="lendBorrowAmount display">
+                            <div class="flex1">
+                                <p>待收总额 (元)</p>
+                                <h2 th:text="${#numbers.formatDecimal(allPendingRepay,1,2)}">1,000.00</h2>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="area02">
+
+                <div class="find-Box">
+                    <input class="find form" id="searchValue" name="searchValue" type="tel" maxlength="20" autocomplete="off" required="required" placeholder="搜 索"/>
+     </div>
+
+                <div class="lendBorrowList">
+
+                    <!--div class="sorting display">
+                    <div class="flex1">还款日期排序<i class="linecons-triangleU"></i></div><div class="flex1">状 态<i class="deg180 linecons-triangleU"></i></div>
+                    </div-->
+
+                    <div class="noData">
+                        <h4>暂无数据</h4>
+                        <span>No Data</span>
+                    </div>
+                    <ul id="tx_list">
+                        <!--li class="display">
+
+                            <div class="borrowersPhoto">
+                                <img src="../img/accoubt/photo.svg" />
+                            </div>
+
+                            <div class="borrowers flex1">
+                                <h3>吴先生 <i class="radius7PX">借款人</i></h3>
+                                <span>还款日期：2018.03.17</span>
+                            </div>
+
+                            <div class="state">
+                                <h3>100.00元</h3>
+                                <span>已还清</span>
+                            </div>
+
+                            <div class="more"><i class="linecons-GT"></i></div>
+
+                        </li-->
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+<script src="../libs/jquery.min.js"></script>
+<script src="../libs/jquery-weui.min.js"></script>
+<script src="../js/wx_common.js"></script>
+<script type="text/javascript" src="../js/rcpt/main.js"></script>
+<script type="text/javascript" src="../js/rcpt/repayment_repay.js"></script>
+</body>
+</html>

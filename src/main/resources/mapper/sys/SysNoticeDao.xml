@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.sys.dao.SysNoticeDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.sys.entity.SysNoticeEntity" id="sysNoticeMap">
+        <result property="noticeId" column="notice_id"/>
+        <result property="noticeTitle" column="notice_title"/>
+        <result property="noticeStatus" column="notice_status"/>
+        <result property="noticeContent" column="notice_content"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.sys.entity.SysNoticeEntity">
+		select * from sys_notice where notice_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.sys.entity.SysNoticeEntity">
+		select sn.*,su.name as userName from sys_notice sn left join sys_user su on sn.create_by=su.user_id
+		where 1=1
+		<if test="noticeStatus != null">and notice_status = #{noticeStatus} </if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by notice_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from sys_notice
+		where 1=1
+		<if test="noticeStatus != null">and notice_status = #{noticeStatus} </if>
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.sys.entity.SysNoticeEntity" useGeneratedKeys="true" keyProperty="noticeId">
+		insert into sys_notice
+		(
+			notice_title, 
+			notice_status, 
+			notice_content, 
+			create_time, 
+			create_by
+		)
+		values
+		(
+			#{noticeTitle}, 
+			#{noticeStatus}, 
+			#{noticeContent}, 
+			#{createTime}, 
+			#{createBy}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.sys.entity.SysNoticeEntity">
+		update sys_notice 
+		<set>
+			<if test="noticeTitle != null">notice_title = #{noticeTitle}, </if>
+			<if test="noticeStatus != null">notice_status = #{noticeStatus}, </if>
+			<if test="noticeContent != null">notice_content = #{noticeContent}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="createBy != null">create_by = #{createBy}</if>
+		</set>
+		where notice_id = #{noticeId}
+	</update>
+	
+	<delete id="delete">
+		delete from sys_notice where notice_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from sys_notice where notice_id in 
+		<foreach item="noticeId" collection="array" open="(" separator="," close=")">
+			#{noticeId}
+		</foreach>
+	</delete>
+
+</mapper>

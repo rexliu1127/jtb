@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.sys.dao.SysFunDetailsDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.sys.entity.SysFunDetailsEntity" id="sysFunDetailsMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="borrowerPhone" column="borrower_phone"/>
+        <result property="funType" column="fun_type"/>
+        <result property="amount" column="amount"/>
+        <result property="createTime" column="create_time"/>
+        <result property="merchantName" column="merchant_name"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="userName" column="user_name"/>
+        <result property="taskId" column="task_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.sys.entity.SysFunDetailsEntity">
+		select * from sys_fun_details where id = #{value}
+	</select>
+
+	<select id="queryInfoByTaskID" resultType="io.grx.modules.sys.entity.SysFunDetailsEntity">
+		select * from sys_fun_details where task_id = #{taskID}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.sys.entity.SysFunDetailsEntity">
+		select * from sys_fun_details
+		<where>
+			1 = 1
+			<!-- 控制商户端-->
+			<if test="merchantno != '00'">
+				and  merchant_no =  #{merchantno}
+			</if>
+		    <!-- 控制总平台商户号搜索-->
+			<if test="merchantNo != null and merchantNo != ''">
+				and  merchant_no like concat('%',#{merchantNo},'%')
+			</if>
+			<if test="keyword != null">
+				and  borrower_phone  like concat('%',#{keyword},'%')
+			</if>
+
+			<if test="funtype != null and funtype != ''">
+				and fun_type = #{funtype}
+			</if>
+
+			<if test="applyStartDate != null and applyStartDate.trim() != ''">
+				and create_time >= #{applyStartDate}
+			</if>
+			<if test="applyEndDate != null and applyEndDate.trim() != ''">
+				and create_time &lt;  DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+			</if>
+			<if test="_channelIdList != null">
+				and id in
+				<foreach item="channelId" collection="_channelIdList" open="(" separator="," close=")">
+					#{channelId}
+				</foreach>
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from sys_fun_details
+		<where>
+			1 = 1
+			<!-- 控制商户端-->
+			<if test="merchantno != '00'">
+				and  merchant_no =  #{merchantno}
+			</if>
+			<!-- 控制总平台商户号搜索-->
+			<if test="merchantNo != null and merchantNo != ''">
+				and  merchant_no like concat('%',#{merchantNo},'%')
+			</if>
+			<if test="keyword != null">
+				and  borrower_phone  like concat('%',#{keyword},'%')
+			</if>
+
+			<if test="funtype != null and funtype != ''">
+				and fun_type = #{funtype}
+			</if>
+
+			<if test="applyStartDate != null and applyStartDate.trim() != ''">
+				and create_time >= #{applyStartDate}
+			</if>
+			<if test="applyEndDate != null and applyEndDate.trim() != ''">
+				and create_time &lt;  DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+			</if>
+			<if test="_channelIdList != null">
+				and id in
+				<foreach item="channelId" collection="_channelIdList" open="(" separator="," close=")">
+					#{channelId}
+				</foreach>
+			</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.sys.entity.SysFunDetailsEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_fun_details
+		(
+			user_id, 
+			borrower_phone, 
+			fun_type, 
+			amount, 
+			create_time, 
+			merchant_name, 
+			merchant_no, 
+			user_name, 
+			task_id
+		)
+		values
+		(
+			#{userId}, 
+			#{borrowerPhone}, 
+			#{funType}, 
+			#{amount}, 
+			#{createTime}, 
+			#{merchantName}, 
+			#{merchantNo}, 
+			#{userName}, 
+			#{taskId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.sys.entity.SysFunDetailsEntity">
+		update sys_fun_details 
+		<set>
+			<if test="userId != null">user_id = #{userId}, </if>
+			<if test="borrowerPhone != null">borrower_phone = #{borrowerPhone}, </if>
+			<if test="funType != null">fun_type = #{funType}, </if>
+			<if test="amount != null">amount = #{amount}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="merchantName != null">merchant_name = #{merchantName}, </if>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="userName != null">user_name = #{userName}, </if>
+			<if test="taskId != null">task_id = #{taskId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sys_fun_details where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from sys_fun_details where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

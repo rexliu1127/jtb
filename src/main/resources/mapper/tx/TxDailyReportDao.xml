@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxDailyReportDao">
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxDailyReportEntity">
+		select * from tx_daily_report where report_date = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxDailyReportEntity">
+		select * from tx_daily_report
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by report_date desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_daily_report 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxDailyReportEntity">
+		insert into tx_daily_report
+		(
+			report_date, 
+			new_user_count, 
+			new_user_tx_bount, 
+			old_user_tx_bount, 
+			total_tx_bount,
+			total_ex_count
+		)
+		values
+		(
+			#{reportDate}, 
+			#{newUserCount}, 
+			#{newUserTxBount}, 
+			#{oldUserTxBount}, 
+			#{totalExCount}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxDailyReportEntity">
+		update tx_daily_report 
+		<set>
+			<if test="newUserCount != null">new_user_count = #{newUserCount}, </if>
+			<if test="newUserTxBount != null">new_user_tx_bount = #{newUserTxBount}, </if>
+			<if test="oldUserTxBount != null">old_user_tx_bount = #{oldUserTxBount}, </if>
+			<if test="totalTxBount != null">total_tx_bount = #{totalTxBount},</if>
+			<if test="totalExCount != null">total_ex_count = #{totalExCount}</if>
+		</set>
+		where report_date = #{reportDate}
+	</update>
+	
+	<delete id="delete">
+		delete from tx_daily_report where report_date = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_daily_report where report_date in 
+		<foreach item="reportDate" collection="array" open="(" separator="," close=")">
+			#{reportDate}
+		</foreach>
+	</delete>
+
+	<select id="queryStatSum" resultType="io.grx.modules.tx.dto.TxStatSum">
+		select sum(new_user_count) new_user_count,
+			sum(new_user_tx_bount) new_user_tx_count,
+			sum(old_user_tx_bount) old_user_tx_count,
+			sum(total_ex_count) total_ex_count
+		from tx_daily_report
+	</select>
+
+    <insert id="generateLastDaySum">
+        INSERT INTO tx_daily_report(report_date, new_user_count, new_user_tx_bount, old_user_tx_bount, total_tx_bount)
+        SELECT
+        date(create_time),
+        count(DISTINCT CASE WHEN NOT exists(SELECT 1 FROM tx_base t2
+          WHERE t2.create_user_id = t.create_user_id AND t2.create_time &lt; date(t.create_time)) THEN create_user_id END) new_user_count,
+        count(CASE WHEN NOT exists(SELECT 1 FROM tx_base t2 WHERE t2.create_user_id = t.create_user_id AND t2.create_time &lt; date(t.create_time))
+                THEN 1 END)  new_user,
+        count(CASE WHEN exists(SELECT 1 FROM tx_base t2 WHERE t2.create_user_id = t.create_user_id AND t2.create_time &lt; date(t.create_time)) THEN 1 END) old_user,
+        count(1)
+        FROM tx_base t where t.create_time &lt; curdate() and t.create_time &gt;= date_add(curdate(), INTERVAL -1 day) and t.deleted = 0;
+
+		update tx_daily_report r set r.total_ex_count
+		= (select count(1) from tx_extension where status in (1,2) and date(create_time) = r.report_date)
+		where r.report_date = date_add(curdate(), INTERVAL -1 day)
+    </insert>
+</mapper>

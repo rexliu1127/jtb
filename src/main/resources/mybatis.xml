@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+    <typeHandlers>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.tx.enums.TxStatus" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.tx.enums.RepaymentType" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.tx.enums.RepaymentStatus" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.tx.enums.ExtensionStatus" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.tx.enums.UsageType" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.tx.enums.ComplainType" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.tx.enums.ComplainResult" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.tx.enums.WithdrawalStatus" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.ContactType" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.RequestStatus" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.VerifyStatus" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.BaiqishiType" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.BaiqishiState" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.DsType" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.AuthVendorType" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.pay.enums.PayStatus" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.pay.enums.PayScanStatus" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.sys.enums.AccountStatus" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.TianjiState" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.TianjiType" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.YiXiangType" jdbcType="TINYINT"/>
+        <typeHandler handler="io.grx.common.mybatis.handler.EnumValueHandler"
+                     javaType="io.grx.modules.auth.enums.StaffType" jdbcType="TINYINT"/>
+    </typeHandlers>
+
+    <plugins>
+        <plugin interceptor="io.grx.common.mybatis.interceptor.QueryDefaultParamInterceptor"/>
+        <plugin interceptor="io.grx.common.mybatis.interceptor.UpdateDefaultParamInterceptor"/>
+    </plugins>
+</configuration>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxRepayPlanDao">
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxRepayPlanEntity">
+		select * from tx_repay_plan where plan_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxRepayPlanEntity">
+		select * from tx_repay_plan
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by plan_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_repay_plan 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxRepayPlanEntity" useGeneratedKeys="true" keyProperty="planId">
+		insert into tx_repay_plan
+		(
+			merchant_no, 
+			tx_id, 
+			begin_date, 
+			end_date, 
+			planned_amount, 
+			planned_interest, 
+			actual_amount, 
+			actual_interest, 
+			repay_date, 
+			update_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{txId}, 
+			#{beginDate}, 
+			#{endDate}, 
+			#{plannedAmount}, 
+			#{plannedInterest}, 
+			#{actualAmount}, 
+			#{actualInterest}, 
+			#{repayDate}, 
+			#{updateTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxRepayPlanEntity">
+		update tx_repay_plan 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="txId != null">tx_id = #{txId}, </if>
+			<if test="beginDate != null">begin_date = #{beginDate}, </if>
+			<if test="endDate != null">end_date = #{endDate}, </if>
+			<if test="plannedAmount != null">planned_amount = #{plannedAmount}, </if>
+			<if test="plannedInterest != null">planned_interest = #{plannedInterest}, </if>
+			<if test="actualAmount != null">actual_amount = #{actualAmount}, </if>
+			<if test="actualInterest != null">actual_interest = #{actualInterest}, </if>
+			<if test="repayDate != null">repay_date = #{repayDate}, </if>
+			<if test="updateTime != null">update_time = #{updateTime}</if>
+		</set>
+		where plan_id = #{planId}
+	</update>
+	
+	<delete id="delete">
+		delete from tx_repay_plan where plan_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_repay_plan where plan_id in 
+		<foreach item="planId" collection="array" open="(" separator="," close=")">
+			#{planId}
+		</foreach>
+	</delete>
+
+	<select id="queryLatestByTx" resultType="io.grx.modules.tx.entity.TxRepayPlanEntity">
+		select * from tx_repay_plan where tx_id = #{value} order by plan_id desc limit 1
+	</select>
+</mapper>

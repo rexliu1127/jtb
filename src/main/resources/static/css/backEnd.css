@@ -1,0 +1,161 @@
+@charset "utf-8";
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body, html {
+	font-size: 100%;
+	padding: 0;
+	margin: 0;
+}
+body {
+	font: 14px/1.5 '微软雅黑', YaHei, tahoma, arial, "Hiragino Sans GB", \5b8b\4f53;
+	color: #475058;
+	background-color: #fff;
+}
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+::-webkit-scrollbar {
+ width: 8px;
+ height: 8px;
+}
+/*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track {
+ -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+ border-radius: 0px;
+ background-color: #F5F5F5;
+}
+/*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb {
+ border-radius: 0px;
+ -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+ background-color: #555;
+}
+::-webkit-scrollbar-track-piece {
+ background-color: #fff;
+ -webkit-border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+ height: 2px;
+ background-color: rgba(125, 125, 125, 0.7);
+ -webkit-border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+ width: 8px;
+ background-color: rgba(125, 125, 125, 0.7);
+ -webkit-border-radius: 0px;
+}
+img {
+	vertical-align: top;
+	bolder: none;
+}
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, input, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+	margin: 0;
+	padding: 0;
+}
+a {
+	color: #118bde;
+	text-decoration: none;
+}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+ background-color:#fff;
+ background-image: none;
+ color: rgb(0, 0, 0);
+ border: 1px solid #bec4c9;
+}
+a:hover, a:active {
+	color: #15a0ff;
+}
+ul, ol {
+	list-style-type: none;
+}
+address, caption, cite, code, dfn, em, th, var, b, i {
+	font-style: normal;
+	font-weight: 400;
+}
+button {
+	border: none;
+}
+input[type="text"], input[type="password"], input[type="tel"], input[type="url"], input[type="email"], input[type="number"], textarea, select {
+	color: #777;
+	border: 1px solid #C5C5C5;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-khtml-border-radius: 2px;
+	font-family: \5FAE\8F6F\96C5\9ED1;
+}
+input[type="text"]:focus, input[type="password"]:focus, input[type="tel"]:focus, input[type="url"]:focus, input[type="email"]:focus, textarea:focus, select:focus, button:focus {
+	outline: none;
+}
+input[type="button"], input[type="reset"] {
+	font-size: 16px;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	outline: none;
+	font-family: \5FAE\8F6F\96C5\9ED1;
+	-webkit-transition: all 0.4s ease-in;
+	-ms-transition: all 0.4s ease-in;
+	transition: all 0.4s ease-in;
+}
+input[type="button"]:active {
+	-webkit-transform: scale(0.9);
+	-moz-transform: scale(0.9);
+	-ms-transform: scale(0.9);
+	-o-transform: scale(0.9);
+	transform: scale(0.9);
+}
+input[type="checkbox"] {
+	display: inline-block;
+	vertical-align: middle;
+}
+.clear:after {
+	clear: both;
+	display: table;
+	content: '';
+}
+.applyForm {
+	padding: 170px 0 0;
+	position: relative;
+}
+.applyForm .applyHead {
+	width: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	position: fixed;
+	background-color: #fff;
+	z-index: 9;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: #ddd;
+}
+{
+ font-weight: 700;
+ color: #f19f00;
+ background-color: #f3f3f3;
+}
+.basicData {
+}
+.basicData ul li {
+	padding: 20px 88px 20px 0;
+	float: left;
+	font-size: 14px;
+	color: #999;
+}
+.basicData ul li span {
+	padding: 0 0 0 6px;
+	font-size: 16px;
+	color: #333;
+}
+h4.box-title {
+	font-weight: 700;
+	color: #333;
+	font-size: 16px;
+}
+.title-row em {
+	font-size: 12px;
+	color: #999;
+}

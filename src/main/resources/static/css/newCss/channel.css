@@ -1,0 +1,80 @@
+@charset "utf-8";
+/* CSS 渠道名片 */
+.channel {
+	margin: 0 10px 88px;
+}
+.channel .headline {
+	background-color: #fff;
+}
+.channel .card ul {
+	padding: 0 0 88px;
+}
+.channel .card ul li {
+	width: 33%;
+	max-width: 350px;
+	min-width: 300px;
+	height: 188px;
+	margin: 10px 10px 0 0;
+	padding: 20px;
+	float: left;
+	background-color: #fff;
+}
+.channel .card ul li:hover {
+	position: relative;
+	-webkit-box-shadow: 0 20px 60px #D9D9D9;
+	box-shadow: 0 20px 60px #D9D9D9;
+	z-index: 3;
+}
+.channel .card ul li .brand h4 {
+	margin: 0 0 8px;
+	font-size: 16px;
+	color: #666;
+}
+.channel .card ul li .brand h4 img {
+	height: 24px;
+}
+.channel .card ul li .brand p {
+	line-height: 18px;
+	font-size: 14px;
+	color: #999;
+}
+.channel .card ul li .brand span {
+	font-size: 12px;
+	color: #999;
+}
+.channel .card ul li .kittyinky {
+	margin: 10px 0;
+}
+.channel .card ul li .kittyinky i {
+	margin: 0 5px 0 0;
+	padding: 2px 8px;
+	font-size: 14px;
+	color: #fff;
+	background-color: rgb(119, 180, 255);
+}
+.channel .card ul li .appH5 a {
+	margin: 0 10px 0 0;
+	display: inline-block;
+}
+.channel .card ul li .appH5 a img {
+	width: 30px;
+	opacity: 0.6
+}
+.h5urlQR .dialog-cont {
+	padding: 20px;
+	text-align: center;
+	background-color: #fff;
+	position: relative;
+}
+.h5urlQR .slogan {
+	text-align: center;
+}
+.h5urlQR .close {
+	width: 40px;
+	height: 40px;
+	background-size: 40px;
+	top: -15px;
+	right: -15px;
+	margin: 0 auto;
+	position: absolute;
+}

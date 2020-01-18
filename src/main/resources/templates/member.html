@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="../css/weui.css"/>
+    <link rel="stylesheet" href="../css/wx_common.css"/>
+    <link rel="stylesheet" href="../css/wx_main.css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .vip_personal_con a {
+            display: inline-block; width: 100%;
+        }
+    </style>
+    <script src="../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../js/wx_common.js"></script>
+</head>
+<body class="body_bg" ontouchstart="">
+<div class="vip_personal">
+    <div class="personal_photo">
+        <img th:if="${!#strings.isEmpty(user.headImgUrl)}" class="weui-media-box__thumb"
+             th:src="${user.headImgUrl}" alt=""/>
+        <img th:if="${#strings.isEmpty(user.headImgUrl)}" class="weui-media-box__thumb"
+             src="../images/icon_guest.png" alt=""/>
+    </div>
+    <div class="personal_photo_xx"><h1 th:text="${#strings.isEmpty(user.name) ? user.nickName : user.name}">who are you?</h1>
+        <p th:if="${!#strings.isEmpty(user.mobile)}"
+           th:text="${#strings.substring(user.mobile, 0, 3) + '****' + #strings.substring(user.mobile, 7, 11)}">18001200128</p>
+        <p th:if="${#strings.isEmpty(user.mobile)}">未实名认证</p>
+    </div>
+</div>
+<div class="vip_personal_con mt10 bg_b">
+    <ul>
+        <li><a href="member/friend"><span><i class="p_ico1"></i>好友</span><b></b></a></li>
+        <li><a href="member/setup"><span><i class="p_ico2"></i>设置</span><b></b></a></li>
+        <li><a th:href="${'member/credit/' + TX_USER.userId}"><span><i class="p_ico3"></i>信用</span><b></b></a></li>
+        <li><a href="member/bank_info"><span><i class="p_ico4"></i>银行卡</span><b></b></a></li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //your code here
+    });
+    $(function(){
+    });
+</script>
+
+</body>
+</html>

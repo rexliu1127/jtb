@@ -1,0 +1,13 @@
+/target/
+
+/.idea/
+
+/temp/
+
+/logs
+/
+*.iml
+
+*.project
+
+/.svn

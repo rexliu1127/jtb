@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.min.css"/>
+    <style>
+.friendImg {
+	width: 100px;
+}
+.friendImg img {
+	width: 40px;
+}
+.userLetter input {
+	padding: 0 20px 0 40px;
+	font-size: 16px;
+	font-weight: 700;
+	color: #ff5e00;
+	background-image: url('/a/img/find.svg');
+	background-position: 10px center;
+	background-size: 20px;
+	background-repeat: no-repeat;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+}
+</style>
+    <title></title>
+    </head>
+    <body>
+<div class="mainAPP"> 
+      <!-- .cd-header -->
+      <header class="cd-header clear">
+    <div class="cd-3d-nav-trigger">Menu<span></span></div>
+    <h2>我的好友</h2>
+  </header>
+      <main> 
+    <!-- all your content here -->
+    
+    <div class="userLetter">
+          <div class="ul01 g-blue gradient01">
+        <div class="find-Box">
+              <input class="find form" id="searchValue" name="searchValue" type="tel" maxlength="20" autocomplete="off" required="required" value="" placeholder="搜 索"/>
+            </div>
+      </div>
+          <div class="ul03">
+        <div class="noData">
+              <h4>暂无数据</h4>
+              <span>No Data</span> </div>
+        <ul id="list">
+              <li class="display">
+            <div class="friendImg"> <img src="../../img/accoubt/photo.svg"/> </div>
+            <div class="flex1">
+                  <h3>当前到期</h3>
+                </div>
+            <div><i class="linecons-GT fr"></i></div>
+          </li>
+            </ul>
+      </div>
+        </div>
+  </main>
+    </div>
+<input id="userId" type="hidden" th:value="${TX_USER.userId}"/>
+<script src="../../libs/jquery.min.js"></script> 
+<script src="../../libs/jquery-weui.min.js"></script> 
+<script src="../../js/wx_common.js"></script> 
+<script type="text/javascript" src="../../js/rcpt/main.js"></script> 
+<script type="text/javascript" src="../../js/rcpt/friend.js"></script>
+</body>
+</html>

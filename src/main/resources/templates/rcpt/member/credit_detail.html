@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../../../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../../css/jquery-weui.min.css"/>
+    
+    <title></title>
+</head>
+<body class="whiteBG">
+<div class="mainAPP">
+    <main>
+        <div class="lendingData"> 
+        		
+                <div class="titleLabel">
+                <h2>借贷数据分析</h2>
+                <span th:inline="text">数据来源[[${@environment.getProperty('site.name')}]]</span>
+                </div>
+                
+				<div class="lendingAnalysis">
+                    <table>
+                        <tr>
+                            <td>借入总额</td>
+                            <td th:text="${borrowerSummary.count + '次'}">2次</td>
+                            <td th:text="${borrowerSummary.amount + '元'}">2.00元</td>
+                            <td><a class="yellow" th:href="${'../credit_detail_borrower/' + userId + '.html' + (txId != null ? ('?txId=' + txId) : '')}">点击查看</a></td>
+                        </tr>
+                        <tr>
+                            <td>借出总额</td>
+                            <td th:text="${lenderSummary.count + '次'}">2次</td>
+                            <td th:text="${lenderSummary.amount + '元'}">2.00元</td>
+                            <td><a class="yellow" th:href="${'../credit_detail_lender/' + userId + '.html' + (txId != null ? ('?txId=' + txId) : '')}">点击查看</a></td>
+                        </tr>
+                        <tr>
+                            <td>逾期总额</td>
+                            <td th:text="${overdueSummary.count + '次'}">2次</td>
+                            <td th:text="${overdueSummary.amount + '元'}">2.00元</td>
+                            <td><a class="yellow" th:href="${'../credit_detail_overdue/' + userId + '.html' + (txId != null ? ('?txId=' + txId) : '')}">点击查看</a></td>
+                        </tr>
+
+                    </table>
+                </div>         
+        </div>
+
+    </main>
+
+
+</div>
+<script src="../../../libs/jquery.min.js"></script>
+<script src="../../../libs/jquery-weui.min.js"></script>
+<script src="../../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../../js/rcpt/main.js"></script>
+<script th:inline="text">
+    $(function(){
+        $('#view').click(function () {
+            location.href = '../credit_detail/' + [[${userId}]] + pageExt;
+        });
+    });
+</script>
+</body>
+</html>

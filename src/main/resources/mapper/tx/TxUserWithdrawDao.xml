@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxUserWithdrawDao">
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxUserWithdrawEntity">
+		select * from tx_user_withdraw where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxUserWithdrawEntity">
+		select * from tx_user_withdraw
+		<where>
+			merchant_no = #{_merchantNo}
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+
+    <select id="queryAdminList" resultType="io.grx.modules.tx.dto.TxUserWithdrawalVO">
+        select uw.id, u.name, u.mobile, u.id_no, uw.amount, uw.fee_amount, uw.create_time, uw.status, su.name approval_user_name,
+		uw.approval_time
+		from tx_user_withdraw uw join tx_user u on uw.user_id = u.user_id
+        left join sys_user su on uw.approval_user_id = su.user_id
+        <where>
+            uw.merchant_no = #{_merchantNo}
+            <if test="userId != null">
+                and uw.user_id = #{userId}
+            </if>
+			<if test="keyword != null and keyword != ''">
+				and (u.name like concat('%', #{keyword}, '%')
+				or u.mobile like concat('%', #{keyword}, '%')
+				or u.id_no like concat('%', #{keyword}, '%')
+				)
+			</if>
+			<if test="status != null and status != ''">
+				and uw.status = #{status}
+			</if>
+			<if test="applyStartDate != null and applyStartDate != ''">
+				and uw.create_time >= #{applyStartDate}
+			</if>
+			<if test="applyEndDate != null and applyEndDate != ''">
+				and uw.create_time &lt; #{applyEndDate}
+			</if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by uw.id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{limit} offset #{offset}
+        </if>
+    </select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*)
+		from tx_user_withdraw uw join tx_user u on uw.user_id = u.user_id
+		<where>
+			uw.merchant_no = #{_merchantNo}
+			<if test="userId != null">
+				and uw.user_id = #{userId}
+			</if>
+			<if test="keyword != null and keyword != ''">
+				and (u.name like concat('%', #{keyword}, '%')
+				or u.mobile like concat('%', #{keyword}, '%')
+				or u.id_no like concat('%', #{keyword}, '%')
+				)
+			</if>
+			<if test="status != null and status != ''">
+				and uw.status = #{status}
+			</if>
+			<if test="applyStartDate != null and applyStartDate != ''">
+				and uw.create_time >= #{applyStartDate}
+			</if>
+			<if test="applyEndDate != null and applyEndDate != ''">
+				and uw.create_time &lt; #{applyEndDate}
+			</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxUserWithdrawEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into tx_user_withdraw
+		(
+			user_id, 
+			merchant_no, 
+			amount, 
+			fee_amount, 
+			status, 
+			create_time, 
+			approval_time, 
+			complete_time,
+            actual_amount,
+			bank_account,
+			bank_name,
+			tranx_id,
+			tranx_code,
+			tranx_message
+		)
+		values
+		(
+			#{userId}, 
+			#{merchantNo}, 
+			#{amount}, 
+			#{feeAmount}, 
+			#{status}, 
+			#{createTime}, 
+			#{approvalTime}, 
+			#{completeTime},
+            #{actualAmount},
+			#{bankAccount},
+			#{bankName},
+			#{tranxId},
+			#{tranxCode},
+			#{tranxMessage}
+		)
+	</insert>
+
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxUserWithdrawEntity">
+		update tx_user_withdraw 
+		<set>
+			<if test="userId != null">user_id = #{userId}, </if>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="amount != null">amount = #{amount}, </if>
+			<if test="feeAmount != null">fee_amount = #{feeAmount}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+            <if test="approvalUserId != null">approval_user_id = #{approvalUserId}, </if>
+			<if test="approvalTime != null">approval_time = #{approvalTime}, </if>
+			<if test="completeTime != null">complete_time = #{completeTime},</if>
+            <if test="actualAmount != null">actual_amount = #{actualAmount},</if>
+			<if test="bankAccount != null">bank_account = #{bankAccount},</if>
+			<if test="bankName != null">bank_name = #{bankName},</if>
+			<if test="tranxId != null">tranx_id = #{tranxId},</if>
+			<if test="tranxCode != null">tranx_code = #{tranxCode},</if>
+			<if test="tranxMessage != null">tranx_message = #{tranxMessage},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from tx_user_withdraw where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_user_withdraw where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+    <select id="sumUserWithdrawal" resultType="double">
+        select coalesce(sum(amount),0) from tx_user_withdraw where user_id = #{userId} and status in (1,2,4)
+    </select>
+</mapper>

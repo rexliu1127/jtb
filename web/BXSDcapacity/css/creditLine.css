@@ -1,0 +1,144 @@
+/* 运营商认证 */
+.Authen-input{width: 100%;height: auto;}
+.Authen-input .all-inp{width: 100%;height: 1.15rem;border-bottom: 1px solid #ececec;}
+.Authen-input .all-inp ul li
+{
+	width: auto;
+	float: left;
+	height: 100%;
+	line-height: 1.15rem;
+	text-align: left;
+	font-size: 0.3rem;
+}
+ .Authen-input .all-inp ul li:first-child{width: 32%;text-indent: 1em;}
+ .Authen-input .all-inp ul li:nth-child(2){width:38%;}
+ .Authen-input .all-inp .uploadPhoto
+{
+	width: 40px!important;
+	height: 20px;
+	border: 1px solid #999;
+	margin-top: 25px;
+	line-height: 20px;
+	text-align: center;
+	border-radius: 4px;
+	color: #999;
+}
+.Authen-input .all-inp ul li >input{text-align: left;width: 100%;height: 70%;background: none;}
+.Authen-input .all-inp ul li >input::-webkit-input-placeholder{color: #999;}
+.Authen-input .all-inp ul li >button{
+    width: 1.9rem;
+    height: 0.7rem;
+    background:url(../img/cmbtn.png) no-repeat;
+    color: #502712;
+    border-radius: 2px;
+    background-size: cover;
+    font-size: 0.25rem;
+    text-align: center;
+}
+
+/*身份证认证*/
+ .Authen-input .IDcard{height: 85px;background: #fff;}
+ .Authen-input .all-inp ul li>img{width: 88px;height: 60px;margin-top: 15px;margin-left: 25px;}
+
+ /*creditLine 借款*/
+.Credit-part1{
+	width: 100%;
+	height:6rem;
+	background: url(../img/black.png);
+	background-size: cover;
+	color: #fff;
+	text-align: center;
+	position: relative;
+}
+.Credit-part1>h3{padding-top:30px;letter-spacing: 3px;font-size: 0.4rem;font-weight: normal;}
+.Credit-line{
+	width: 90%;
+	height: 4rem;
+	margin: auto;
+	background: url(../img/cred-1.png) no-repeat;
+	background-size: contain;
+	position:absolute;
+	bottom: 0.3rem;
+	left: 0.38rem;
+}
+.Credit-line >h3,h4{padding-top:15px;letter-spacing: 3px;color: #874000}
+.Credit-line >h3{line-height: 40px}
+/* .Credit-part1 , */
+.Credit-part1 h4{padding-bottom: 25px;}
+.Credit-line h1{font-size: 0.8rem;color: #874000;margin-top: 0.2rem;}
+.Credit-line h1 >span{display: inline-block;font-size: 20px;}
+.Credit-line >ul{width:90%;height: 20px;margin: auto;margin-top: 0.65rem;}
+.Credit-line >ul li{float: left;width: 32%;line-height: 20px;text-align: center;color: #8C634B;border-right: 1px solid #874000;}
+.Credit-line >ul li:last-child{border-right: 0;}
+.systemNotice{width: 100%;height: 40px;background: #fff;line-height: 40px;text-indent: 1em;}
+
+.Loan-part2{width: 90%;height: auto;margin: auto;margin-top: 20px;}
+.Loan-part2 .Loan-money{width: 100%;height: auto;margin-top: 0.2rem;margin-top: 0.2rem;}
+.Loan-part2 .Loan-money ul li{width: 100%;height: 45px;line-height: 45px;font-size: 20px;letter-spacing: 1px;clear: both;color: #000;}
+.Loan-part2 .Loan-money .progressBar{
+	width: 100%;
+	height: 6px;
+	background: #f4e2cf;
+	border: 1px solid #edb795;
+	border-radius: 4px;
+	margin-top: 30px;
+	position: relative;
+}
+.Loan-part2 .Loan-money .progressBar .progressRed
+{
+	width: 13px;
+	height: 13px;
+	background: #be754d;
+	display:block;
+	border-radius: 50%;
+	position: relative;
+	left: 0;
+	top: -5px;
+}
+.Loan-part2 .Loan-money .pgsdispaly .pg-1{float: left;display: inline-block;}
+.Loan-part2 .Loan-money .progressBar .progressRed >span:first-child{text-align: left;}
+.Loan-part2 .Loan-money .span2{display: inline-block;font-size: 14px;color: #999;width: auto;text-indent: 0em;letter-spacing: 0px;padding-left: 15px;}
+.Loan-part2 .Loan-money .pgsdispaly{font-size: 16px;text-align: right;line-height: 25px;height: 25px;}
+
+/*会员专享优质平台*/
+.Credit-part1 .underReview
+{
+	width: 160px;
+	height: 35px;
+	line-height: 35px;
+	margin: auto;
+	font-size: 16px;
+	border-radius:20px;
+	background: #fff;
+	color: #47B5BE;
+	letter-spacing: 3px;
+	font-weight: bold;
+	margin-top: 10px;
+}
+.QyPlatform{width: 100%;height: auto;margin-top: 20px;margin-bottom: 65px;}
+.QyPlatform >h3{text-indent:1em ;padding-bottom: 10px;}
+.QyPlatform .Platform-list{width: 100%;height:1rem;border-bottom:1px solid #efefef;}
+.QyPlatform .Platform-list ul{width: 90%;height: 100%;margin: auto;}
+.QyPlatform .Platform-list ul >li{width:58%;float: left;height: 100%;}
+.QyPlatform .Platform-list .PlLogo{width: 16%;float: left;height: 80%;text-align: center;line-height: 1rem;margin-top: 0.13rem;}
+.QyPlatform .Platform-list .PlLogo >img{width: 0.55rem;height: 0.55rem;}
+.QyPlatform .Platform-list .plText{width: 77%;float: left;height: 80%;padding-left: 0.2rem;margin-top: 0.14rem;}
+.QyPlatform .Platform-list .plText >p{letter-spacing: 1px;}
+.QyPlatform .Platform-list .plText >p >span{color: #999;font-size: 12px!important;}
+.QyPlatform .Platform-list .rightPart{float: right;width: auto;height:100%;/*margin-top:0.25rem*/}
+.QyPlatform .Platform-list .rightPart >span{display: block;text-align: right;}
+.QyPlatform .Platform-list .rightPart >span:first-child{
+	/*line-height: 0.5rem;*/
+	color: #ef4040;
+	font-size: 0.3rem;
+	padding-right: 0.3rem;
+	}
+.QyPlatform .Platform-list .rightPart >span:nth-child(2)
+{
+	border-radius: 10px;
+	width: 1.5rem;
+	line-height: 0.5rem;
+	text-align: center;
+	color: #fff;
+	background: linear-gradient(to right, #ff3908 ,#ff9f25);
+}

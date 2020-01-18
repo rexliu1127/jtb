@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+  <title>充值类型表</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+  <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/jquery.typeahead.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <script src="../../libs/jquery.min.js"></script>
+  <script src="../../plugins/layer/layer.js"></script>
+  <script src="../../libs/bootstrap.min.js"></script>
+  <script src="../../libs/vue.min.js"></script>
+  <script src="../../libs/validator.min.js"></script>
+  <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+  <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+  <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+  <script src="../../js/common.js"></script>
+</head>
+
+<body>
+  <div id="rrapp" v-cloak>
+    <div v-show="showList">
+      <table id="searchTable">
+        <tr>
+          <td class="hideMerchantNo"><label>商户编号:</label></td>
+          <td style="width: 150px;" class="hideMerchantNo"><input type="text" class="form-control" v-model="q.merchantNo"
+              @keyup.enter="query" placeholder="商户编号"></td>
+          <td><a class="btn btn-default" @click="query">查询</a></td>
+        </tr>
+      </table>
+      <div class="grid-btn">
+        <a v-if="hasPermission('sys:sys_fun_type:save')" class="btn btn-primary" @click="add" id="newaddBTN"><i class="fa fa-plus"></i>&nbsp;新增</a>
+        <a v-if="hasPermission('sys:sys_fun_type:update')" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+        <a v-if="hasPermission('sys:sys_fun_type:delete')" class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+      </div>
+      <table id="jqGrid">
+      </table>
+      <div id="jqGridPager"></div>
+    </div>
+    <div v-show="!showList" class="panel panel-default">
+      <div class="panel-heading">{{title}}</div>
+      <form class="form-horizontal">
+        <div class="topUpclass">
+          <ul>
+            <li>
+              <label>公司名称</label>
+              <div class="position-rel">
+                <div class="company">
+                  <!--<div id="companyListBody" class="companyListBody"></div>-->
+                  <div class="typeahead__container">
+                    <div class="typeahead__field">
+                      <span class="typeahead__query">
+                        <input id="companyName" v-model="selectedMerchant" class="js-typeahead input-Box" name="q" type="search" autofocus autocomplete="off">
+                      </span>
+                    </div>
+                  </div>
+                  <div class="arrow" v-bind:class="{ upward: selecting }" @click="selecting = !selecting"><i></i></div>
+                </div>
+                <div class="company-list" v-show="selecting">
+                  <ul v-model="sysFunType.merchantNo">
+                    <li v-for="option in filteredMerList" :title="option.name + '(' + option.merchantNo + ')'" @click="selectMerchant(option)">
+                      {{ option.name }}({{ option.merchantNo }})
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <label>充值类型</label>
+              <div class="">
+                <select v-model="sysFunType.funType" class="select-Box">
+                  <option value="1">多头报告</option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <label>单笔费用</label>
+              <div class="">
+                <input type="text" class="input-Box" v-model="sysFunType.singleFee" placeholder="单笔费用" />
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <div class="control-label"></div>
+          <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定" />
+          <input type="button" class="btn btn-warning" @click="reload" value="返回" />
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="../../js/modules/sys/sys_fun_type.js"></script>
+  <script src="../../js/jquery.typeahead.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    //提交按钮激活
+    $(".checkbox input").change(function () {
+      if ($("#chkAgree").attr("checked") == "checked") {
+        $("#submit").removeAttr("disabled");
+      } else {
+        $("#submit").attr("disabled", "disabled");
+      }
+    });
+  </script>
+  <script type="text/javascript">
+    $(function () {
+      //下拉名选择
+    })
+  </script>
+</body>
+
+</html>

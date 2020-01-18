@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta name="format-detection" content="email=no"/>
+<meta name="format-detection" content="address=no"/>
+<meta name="format-detection" content="date=no"/>
+
+<!-- CSS reset -->
+<link rel="stylesheet" href="../../../css/rcpt/reset.css"/>
+<!-- Resource fontsIcon -->
+<link rel="stylesheet" href="../../../css/rcpt/fontsIcon.css"/>
+<!-- Resource nav -->
+<link rel="stylesheet" href="../../../css/rcpt/nav.css"/>
+<!-- Resource style -->
+<link rel="stylesheet" href="../../../css/rcpt/style.css"/>
+<!-- Resource credit -->
+<link rel="stylesheet" href="../../../css/rcpt/account.css"/>
+<!-- CSS FOOTER-NAV -->
+<link rel="stylesheet" type="text/css" href="../../../css/rcpt/footer-nav.css"/>
+<link rel="stylesheet" href="../../../css/weui.min.css"/>
+<link rel="stylesheet" href="../../../css/jquery-weui.min.css"/>
+<style>
+.ul02 {
+	color: #333;
+}
+.borrow_table table {
+	width: 100%;
+	background: #fff;
+	border-top: 1px solid #eee;
+	border-collapse: collapse;
+	border-spacing: 0;
+	text-align: center;
+	line-height: 40px;
+	margin-top: 10px;
+}
+.borrow_table tr {
+	text-align: left;
+	border-top: 1px solid #eee;
+	border-collapse: collapse;
+}
+.borrow_table tr td {
+	font-size: 14px;
+	color: #333;
+	padding: 0 20px 0 0;
+}
+.fixed-btn {
+	height: 50px;
+	line-height: 50px;
+	padding: 0 6px;
+	text-align: center;
+	font-size: 16px;
+	color: #fff;
+	background-color: #ff8b12;
+}
+</style>
+<title></title>
+</head>
+<body>
+<div class="mainAPP"> 
+  <!-- .cd-header -->
+  <header class="cd-header clear">
+    <div class="cd-3d-nav-trigger">Menu<span></span></div>
+    <h2>信用记录</h2>
+  </header>
+  <main> 
+    <!-- all your content here -->
+    
+    <div class="userLetter">
+      <div class="ul01 display g-blue gradient01">
+        <div class="ul-HP radius50P"> <img th:if="${!#strings.isEmpty(user.headImgUrl)}"
+                         th:src="${user.headImgUrl}" alt=""/> <img th:if="${#strings.isEmpty(user.headImgUrl)}"
+                         src="../../../img/accoubt/photo.svg" alt=""/> </div>
+        <div class="ul-UN flex1">
+          <h3 th:text="${#strings.isEmpty(user.name) ? user.nickName : user.name}">黒田</h3>
+          <p th:if="${!#strings.isEmpty(user.mobile)}"
+                       th:text="${#strings.substring(user.mobile, 0, 3) + '****' + #strings.substring(user.mobile, 7, 11)}">18001200128</p>
+          <p th:if="${#strings.isEmpty(user.mobile)}">未实名认证</p>
+        </div>
+      </div>
+      <div class="ul02">
+        <h3 th:inline="text"><span class="bo_ico01"></span>借贷记录（数据来源[[${@environment.getProperty('site.name')}]]）</h3>
+        <div class="borrow_table">
+          <table>
+            <tr>
+              <th>类型</th>
+              <th>借入</th>
+              <th>借出</th>
+            </tr>
+            <tr>
+              <td>累计金额(元)</td>
+              <td th:text="${borrowerSummary.amount}">2</td>
+              <td th:text="${lenderSummary.amount}">17</td>
+            </tr>
+            <tr>
+              <td>累计笔数</td>
+              <td th:text="${borrowerSummary.count}">2</td>
+              <td th:text="${lenderSummary.count}">17</td>
+            </tr>
+            <tr>
+              <td>累计人数</td>
+              <td th:text="${borrowerSummary.userCount}">2</td>
+              <td th:text="${lenderSummary.userCount}">17</td>
+            </tr>
+            <tr>
+              <td>当天借当天还笔数占比</td>
+              <td th:text="${borrowerSummary.count == 0 ? '0%' : #numbers.formatDecimal(borrowerSummary.inDayTransactionCount * 100.0 / borrowerSummary.count, 1, 0) + '%'}"> 100%</td>
+              <td th:text="${lenderSummary.count == 0 ? '0%' : #numbers.formatDecimal(lenderSummary.inDayTransactionCount * 100.0 / lenderSummary.count, 1, 0) + '%'}">33
+                %</td>
+            </tr>
+            <tr>
+              <td>当前金额(元)</td>
+              <td th:text="${borrowerSummary.currentAmount}">0.00</td>
+              <td th:text="${lenderSummary.currentAmount}">12.00</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="ul02">
+        <h3 th:inline="text"><span class="bo_ico02"></span>逾期记录（数据来源[[${@environment.getProperty('site.name')}]]）</h3>
+        <div class="borrow_table">
+          <table>
+            <tr>
+              <th width="33%">类型</th>
+              <th width="33%">金额</th>
+              <th width="33%">次数</th>
+            </tr>
+            <tr>
+              <td>逾期占比</td>
+              <td th:text="${borrowerSummary.amount == 0 ? '0%' : #numbers.formatDecimal(overdueSummary.amount * 100.0 / borrowerSummary.amount, 1, 0) + '%'}">0%</td>
+              <td th:text="${borrowerSummary.count == 0 ? '0%' : #numbers.formatDecimal(overdueSummary.count * 100.0 / borrowerSummary.count, 1, 0) + '%'}">>0%</td>
+            </tr>
+            <tr>
+              <td>累计逾期</td>
+              <td th:text="${overdueSummary.amount}">0.00</td>
+              <td th:text="${overdueSummary.count}">0</td>
+            </tr>
+            <tr>
+              <td>≥7天逾期</td>
+              <td th:text="${overdueSummary.moreThanSevenDayAmount}">0.00</td>
+              <td th:text="${overdueSummary.moreThanSevenDayCount}">0</td>
+            </tr>
+            <tr>
+              <td>当前逾期</td>
+              <td th:text="${overdueSummary.currentAmount}">0.00</td>
+              <td th:text="${overdueSummary.currentCount}">0</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="view" class="fixed-btn slideInUp shadow">详版报告</div>
+</div>
+<script src="../../../libs/jquery.min.js"></script> 
+<script src="../../../libs/jquery-weui.min.js"></script> 
+<script src="../../../js/wx_common.js"></script> 
+<script type="text/javascript" src="../../../js/rcpt/main.js"></script> 
+<script th:inline="text">
+    $(function(){
+        $('#view').click(function () {
+            location.href = '../credit_detail/' + [[${userId}]] + pageExt;
+        });
+    });
+</script>
+</body>
+</html>

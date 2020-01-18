@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../../css/wx_main.css"/>
+    <link rel="stylesheet" href="../../../css/wx/passwordbox.css"/>
+    <link href="../../../css/page.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css"/>
+    <style>
+        .weui-label {
+            width: 200px;
+        }
+
+        .weui-input {
+            text-align: right;
+        }
+
+        .weui-btn {
+            width: 80%;
+        }
+
+        .weui-btn-area {
+            width: 100%;
+            text-align: center;
+            margin: 10px 15px 10px;
+        }
+        .weui-btn + .weui-btn {
+            margin-top: 0px;
+        }
+        .weui-cell .red {
+            color: red;
+        }
+    </style>
+
+    <script th:inline="text">
+        var userMobile = '[[${TX_USER.mobile}]]';
+    </script>
+</head>
+<body ontouchstart="" class="body_bg">
+<form id="txForm">
+    <div class="bank_set">
+        <ul>
+
+            <li>
+                <div class="bank_con">
+                    <span>借款金额</span>
+                    <font  th:text="${tx.amount + '元'}">2元</font>
+                </div>
+            </li>
+            <li>
+                <div class="bank_con">
+                    <span>利息</span>
+                    <font  th:text="${tx.interest + '元'}">2元</font>
+                </div>
+            </li>
+            <li>
+                <div class="bank_con">
+                    <span>还款方式</span>
+                    <font id="repaymentTypeLabel">现金</font>
+                    <b></b>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="borrow_height"></div>
+    <div class="borrow_bottom">
+        <input id="txId" th:value="${tx.txId}" type="hidden"/>
+        <input id="type" type="hidden" th:value="${type}"/>
+        <input id="repaymentType" value="4" type="hidden"/>
+        <div class="borrow_but"><a id="createRepayment" class="but_color_y">我已还款，告诉对方</a></div>
+    </div>
+</form>
+<div id="keyboardDIV">
+    <p id="set_text"></p>
+    <form id="password" >
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+    </form>
+    <p id="forget"><a href="javascript:goForgetPasswordPage();">忘记密码?</a></p>
+</div>
+<div id="password_mask"></div>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="../../../js/wx_common.js"></script>
+<script src="../../../js/wx/repayment_create.js"></script>
+<script src="../../../js/wx/passwordbox.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../../css/glabal.css">
+    <link rel="stylesheet" href="../../css/creditLine.css">
+    <link rel="stylesheet" href="../../css/PersonalCenter.css">
+    <link rel="stylesheet" href="../../css/Title.css">
+    <script type="text/javascript" src="../../js/my.js"></script>
+    <script type="text/javascript" src="../../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.SuperSlide.2.1.1.js"></script>
+</head>
+
+<body>
+    <div class="wrapper"style="background: #f8f8f8;">
+        <div class="Credit-part1">
+            <h3>宝信速贷</h3>
+            <div class="Credit-line">
+                <h3>待激活信用额度</h3>
+                <h1><span>￥</span>20000.00<span>元</span></h1>
+                <ul>
+                    <li>极速审批</li>
+                    <li>秒速到账</li>
+                    <li>超低利率</li>
+                </ul>
+            </div>
+        </div>
+       <div class="notice">
+			<div class="container">
+				<div class="txt"><i class="icon_v2 noticeIcon"></i>【系统通知】</div>
+				<div class="notice-items">
+					<ul id="miniNewsRegion">
+					
+						<li><a>尾号0626的右先生成功借款2000元</a></li>
+					
+						<li><a>尾号0731的左先生成功借款5000元</a></li>
+					
+						<li><a>尾号0289的黑先生成功借款1000元</a></li>
+					
+						<li><a>尾号0623的白先生成功借款8000元</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+        <div style="background: #fff;">
+        	<div class="Loan-part2">
+            <div class="Loan-money">
+                <ul>
+                    <li><strong>借款金额</strong><span class="span2">信用额度￥20000.00元</span></li>
+                    <li class="progressBar">
+                        <div class="progressRed"></div>
+                    </li>
+                    <li class="pgsdispaly">
+                        <span class="pg-1">1000元</span>
+                        <span>20,000元</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="Loan-money">
+                <ul style="padding-bottom: 0.2rem;">
+                	<li><strong>借款天数</strong></li>
+                    
+                    <li class="progressBar">
+                        <div class="progressRed"></div>
+                    </li>
+                    <li class="pgsdispaly">
+                        <span class="pg-1">7天</span>
+                        <span>14天</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        <a href="Authentication-IDcard.html">
+            <div class="nextBtn" style="padding-bottom: 0.5rem;">
+                <button>立即借款</button>
+            </div>
+        </a>
+        <div class="footer">
+			<ul>
+				<li>
+					<img src="../../img/ac-8-Light.png"/>
+					<p>借款</p>
+				</li>
+				<a href="../PersonalCenter/PersonalCenter.html">
+                <li>
+                    <img src="../../img/ac-7-gray.png"/>
+                    <p>我的</p>
+                </li>
+                </a>
+			</ul>
+	    </div>
+    </div>
+    <script type="text/javascript">
+		jQuery(".notice").slide({
+			mainCell : "#miniNewsRegion",
+			effect : "topLoop",
+			delayTime : 500,
+			autoPlay : true,
+		});
+
+	</script>
+</body>
+
+</html>

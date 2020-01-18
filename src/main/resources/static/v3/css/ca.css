@@ -1,0 +1,317 @@
+@charset "utf-8";
+.ca {
+	margin: 0 0 88px 0;
+}
+.ca .banner {
+	width: 100%;
+	height: 168px;
+	background-color: #fff;
+	position: relative;
+}
+.ca .banner img {
+	width: 100%;
+	display: block;
+}
+.ca .step {
+	padding: 25px 0 0;
+	background-color: #fff;
+	position: relative;
+}
+.ca .step ul li i {
+	width: 20px;
+	height: 20px;
+	margin: 0 auto;
+	border-color: rgb(171, 171, 171);
+	display: inline-block;
+	background-color: #fff;
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	position: relative;
+	z-index: 2;
+}
+.ca .step ul li.runTo i {
+	border-color: #0063ff;
+}
+.ca .step ul li P {
+	line-height: 32px;
+	font-size: 14px;
+	color: #666;
+}
+.ca .step ul li.runTo p {
+	color: #0063ff;
+}
+.ca .step:after {
+	height: 2px;
+	top: 35px;
+	left: 0;
+	right: 0;
+	display: block;
+	background-color: #eee;
+	position: absolute;
+	content: '';
+	z-index: 1;
+}
+.ca .form .form-group {
+	background-color: #fff;
+}
+.ca .form .form-group ul li {
+	margin: 0 0 0 20px;
+	padding: 10px 20px 10px 0;
+	background-color: #fff;
+	border-color: rgb(238, 238, 238);
+	border-width: 0 0 1px;
+	border-style: solid;
+}
+.ca .form .form-group ul li label {
+	width: 88px;
+	font-size: 14px;
+}
+.ca .form .form-group ul li input {
+	font-size: 14px;
+	padding: 0;
+	background-image: none;
+}
+.ca .form .form-group ul li select {
+	padding: 0 20px;
+	font-size: 14px;
+	border-width: 0;
+	border-color: #ececec;
+	background-color: #fff;
+	/*direction: rtl;*/
+	-webkit-appearance: none;
+	appearance: none;
+	outline: none;
+}
+.ca .form .form-group ul li select option {
+/*direction: ltr;*/
+}
+.ca .form .title {
+	padding: 20px 20px 10px;
+	font-size: 16px;
+	color: #999;
+}
+.addLinkman, .elevate a, .stretch{
+	height: 44px;
+	line-height: 44px;
+	margin: 20px auto;
+	font-size: 14px;
+	color: #2178ff;
+	padding: 0 20px;
+	text-align: center;
+	display: block;
+	background-color: #cee5ff;
+	position: relative;
+}
+.addLinkman .delLinkman {
+	width: 44px;
+	height: 44px;
+	top: 0;
+	right: 0px;
+	position: absolute;
+}
+.addLinkman .delLinkman i {
+	font-size: 18px;
+	color: #2178ff;
+}
+.navList {
+	margin: 0 10px;
+	background-color: #fff;
+}
+.navList ul li {
+	margin: 0 10px;
+	padding: 15px 0 15px 40px;
+	border-color: #eee;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	background-position: 0 center;
+	background-repeat: no-repeat;
+	background-size: 30px;
+}
+.navList ul li:last-child {
+	border-width: 0;
+}
+.navList ul li.ba01 {
+	background-image: url('../img/icon/ba01.svg');
+}
+.navList ul li.ba01s {
+	background-image: url('../img/icon/ba01s.svg');
+}
+.navList ul li.ba02 {
+	background-image: url('../img/icon/ba02.svg');
+}
+.navList ul li.ba02s {
+	background-image: url('../img/icon/ba02s.svg');
+}
+.navList ul li.ba03 {
+	background-image: url('../img/icon/ba03.svg');
+}
+.navList ul li.ba03s {
+	background-image: url('../img/icon/ba03s.svg');
+}
+.navList ul li.ba04 {
+	background-image: url('../img/icon/ba04.svg');
+}
+.navList ul li.ba04s {
+	background-image: url('../img/icon/ba04s.svg');
+}
+.navList ul li.ba05 {
+	background-image: url('../img/icon/ba05.svg');
+}
+.navList ul li.ba05s {
+	background-image: url('../img/icon/ba05s.svg');
+}
+.navList ul li.ba06 {
+	background-image: url('../img/icon/ba06.svg');
+}
+.navList ul li.ba06s {
+	background-image: url('../img/icon/ba06s.svg');
+}
+.navList ul li.ba07 {
+	background-image: url('../img/icon/ba07.svg');
+}
+.navList ul li.ba07s {
+	background-image: url('../img/icon/ba07s.svg');
+}
+.navList ul li.ba08 {
+	background-image: url('../img/icon/ba08.svg');
+}
+.navList ul li.ba08s {
+	background-image: url('../img/icon/ba08s.svg');
+}
+.navList ul li.ba09 {
+	background-image: url('../img/icon/ba09.svg');
+}
+.navList ul li.ba09s {
+	background-image: url('../img/icon/ba09s.svg');
+}
+.navList ul li.ba10 {
+	background-image: url('../img/icon/ba10.svg');
+}
+.navList ul li.ba10s {
+	background-image: url('../img/icon/ba10s.svg');
+}
+.navList ul li.ba11 {
+	background-image: url('../img/icon/ba11.svg');
+}
+.navList ul li.ba11s {
+	background-image: url('../img/icon/ba11s.svg');
+}
+.navList ul li.ba12 {
+	background-image: url('../img/icon/ba12.svg');
+}
+.navList ul li.ba12s {
+	background-image: url('../img/icon/ba12s.svg');
+}
+.navList ul li.ba13 {
+	background-image: url('../img/icon/ba13.svg');
+}
+.navList ul li.ba13s {
+	background-image: url('../img/icon/ba13s.svg');
+}
+.navList ul li.ba14 {
+	background-image: url('../img/icon/ba14.svg');
+}
+.navList ul li.ba14s {
+	background-image: url('../img/icon/ba14s.svg');
+}
+.navList ul li.ba15 {
+	background-image: url('../img/icon/ba15.svg');
+}
+.navList ul li.ba15s {
+	background-image: url('../img/icon/ba15s.svg');
+}
+.navList ul li .ba-cont {
+}
+.navList ul li h3 {
+	line-height: 26px;
+	font-size: 16px;
+	color: #333;
+}
+.navList ul li span {
+	font-size: 12px;
+	color: #999;
+	text-transform: uppercase;
+}
+.navList ul li .state {
+	font-size: 14px;
+	color: #999;
+}
+.navList ul li .passed {
+	color: #2078ff;
+}
+.uploading ul li {
+	margin: 10px 0 0;
+	padding: 0 10px;
+	background-color: #fff;
+}
+.uploading ul li>div {
+	height: 88px;
+	margin: 10px;
+	padding: 10px 0;
+	text-align: center;
+	background-color: #88dbec;
+	border-radius: 7px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+}
+.uploading ul li .upBtn {
+	background-color: #ebfcff;
+}
+.uploading ul li .upBtn i {
+	font-size: 30px;
+	color: #c9dbde;
+}
+.uploading ul li .upBtn h3 {
+	margin: 0 0 6px;
+	font-size: 14px;
+	color: #666;
+}
+.uploading ul li .upBtn p {
+	font-size: 14px;
+	color: #999;
+}
+.uploading ul li .preview {
+	background-color: #75a7f5;
+	background-size: 70%;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+.uploading ul li.front .preview {
+	background-image: url('../img/zm.png');
+}
+.uploading ul li.reverse .preview {
+	background-image: url('../img/fm.png');
+}
+.uploading ul li.inHand .preview {
+	background-image: url('../img/sc.png');
+}
+
+
+.element {
+	max-height: 113px;
+	overflow:hidden;
+	transition:max-height .3s;
+}
+:checked ~ .element {
+	max-height:666px;
+}
+input[type="checkbox"] {
+	position:absolute;
+	clip:rect(0 0 0 0);
+}
+:checked ~ .stretch .check-in {
+	display:none;
+}
+:checked ~ .stretch .check-out {
+	display:inline-block;
+}
+.check-out {
+	display:none;
+}
+.check-in,.check-out {
+	color:#34538b;
+	cursor:pointer;
+}

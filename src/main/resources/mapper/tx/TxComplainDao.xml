@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxComplainDao">
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxComplainEntity">
+		select * from tx_complain where complain_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxComplainEntity">
+		select c.* from tx_complain c
+        <if test="(keyword != null and keyword != '') or (borrowerIdNo != null and borrowerIdNo != '')">
+            join tx_base b on c.tx_id = b.tx_id and b.deleted = 0
+            join tx_user u on b.borrower_user_id = u.user_id
+        </if>
+        <where>
+            c.merchant_no = #{_merchantNo}
+            <if test="keyword != null and keyword != ''">
+                and (b.borrower_name like concat('%', #{keyword}, '%')
+                or u.mobile like concat('%', #{keyword},'%')
+                or u.id_no like concat('%',#{keyword},'%')
+                )
+            </if>
+            <if test="status != null and status != ''">
+                and c.status = #{status}
+            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by complain_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_complain 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxComplainEntity" useGeneratedKeys="true" keyProperty="complainId">
+		insert into tx_complain
+		(
+			merchant_no, 
+			tx_id, 
+			complain_type, 
+			remark, 
+			image_path, 
+			status, 
+			processor_id, 
+			processor_comment, 
+			create_time, 
+			update_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{txId}, 
+			#{complainType}, 
+			#{remark}, 
+			#{imagePath}, 
+			#{status}, 
+			#{processorId}, 
+			#{processorComment}, 
+			#{createTime}, 
+			#{updateTime}
+		)
+	</insert>
+
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxComplainEntity">
+		update tx_complain 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="txId != null">tx_id = #{txId}, </if>
+			<if test="complainType != null">complain_type = #{complainType}, </if>
+			<if test="remark != null">remark = #{remark}, </if>
+			<if test="imagePath != null">image_path = #{imagePath}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="processorId != null">processor_id = #{processorId}, </if>
+			<if test="processorComment != null">processor_comment = #{processorComment}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="updateTime != null">update_time = #{updateTime}</if>
+		</set>
+		where complain_id = #{complainId}
+	</update>
+
+	<delete id="delete">
+		delete from tx_complain where complain_id = #{value}
+	</delete>
+
+	<delete id="deleteBatch">
+		delete from tx_complain where complain_id in 
+		<foreach item="complainId" collection="array" open="(" separator="," close=")">
+			#{complainId}
+		</foreach>
+	</delete>
+
+	<select id="getLatestByTxId" resultType="io.grx.modules.tx.entity.TxComplainEntity">
+		select * from tx_complain where tx_id = #{value} order by complain_id desc limit 1
+	</select>
+</mapper>

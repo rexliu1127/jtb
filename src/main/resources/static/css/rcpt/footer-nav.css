@@ -1,0 +1,78 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/* CSS 底部导航 */
+/*底部信息开始*/
+.bottom-nav {
+	width: 100%;
+	max-width: 500px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	position: fixed;
+	background: #FFFFFF;
+	border-color: #E8E8E8;
+	border-width: 1px 0 0 0;
+	border-style: solid;
+	-moz-box-shadow: 0 0 9px 5px rgba(0,0,0,.1);
+	-webkit-box-shadow: 0 0 9px 5px rgba(0,0,0,.1);
+	box-shadow: 0 0 9px 5px rgba(0,0,0,.1);
+}
+.ulnav {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -o-box;
+	display: -ms-flexbox;
+	display: flex;
+	overflow: hidden;
+}
+.ulnav li {
+	-moz-box-flex: 1;
+	-webkit-box-flex: 1;
+	-o-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	text-align: center;
+}
+.ulnav li a {
+	display: block;
+	padding: 4px 0;
+	font-size: 12px;
+	color: #999;
+	text-decoration: none;
+}
+.ulnav .active a {
+	color: #358dff;
+}
+.ulnav li .icon {
+	background: url('../../img/footer-nav.svg') center top no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block;
+	margin: 7px auto 6px auto;
+}
+.ulnav li .menu1 {
+	background-position: 0 -51px;
+}
+.ulnav .active .menu1 {
+	background-position: 0 0;
+}
+.ulnav li .menu2 {
+	background-position: 0 -153px;
+}
+.ulnav .active .menu2 {
+	background-position: 0 -102px;
+}
+.ulnav li .menu3 {
+	background-position: 0 -254px;
+}
+.ulnav .active .menu3 {
+	background-position: 0 -203px;
+}
+.ulnav li .menu4 {
+	background-position: 0 -356px;
+}
+.ulnav .active .menu4 {
+	background-position: 0 -305px;
+}
+/*底部信息结束*/

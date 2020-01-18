@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../../css/wx_main.css"/>
+    <link rel="stylesheet" href="../../../css/wx/passwordbox.css"/>
+    <link rel="stylesheet" href="../../../css/page.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css"/>
+    <style>
+    </style>
+
+    <script th:inline="text">
+        var userMobile = '[[${TX_USER.mobile}]]';
+    </script>
+</head>
+<body ontouchstart="" class="body_bg">
+<form id="txForm">
+    <div class="bank_set">
+        <ul>
+
+            <li>
+                <div class="bank_con">
+                    <span>借款金额</span>
+                    <font  th:text="${tx.amount + '元'}">2元</font>
+                </div>
+            </li>
+            <li>
+                <div class="bank_con">
+                    <span>利率(%)</span>
+                    <font><input type="text" id="rate" th:value="${tx.rate}" placeholder="请选择年化利率" readonly="readonly"/></font>
+                </div>
+            </li>
+            <li>
+                <div class="bank_con">
+                    <span>原到期日</span>
+                    <font th:text="${#dates.format(tx.endDate, 'yyyy-MM-dd')}"></font>
+                </div>
+            </li>
+            <li>
+                <div class="bank_con">
+                    <span>展期至</span>
+                    <font><input type="text" id="newEndDate" th:value="${#dates.format(tx.endDate, 'yyyy-MM-dd')}" readonly="readonly"/></font>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="ckzq">
+        <p>展期历史：</p>
+        <div class="borrow_table">
+            <table>
+                <tr>
+                    <th>展期本金</th>
+                    <th>利率</th>
+                    <th>展期至</th>
+                    <th>状态</th>
+                </tr>
+                <tr th:each="te : ${extensionList}">
+                    <td th:text="${tx.amount + '元'}">100.00</td>
+                    <td th:text="${te.rate + '%'}">10%</td>
+                    <td th:text="${#dates.format(te.newEndDate, 'yyyy-MM-dd')}">2017-12-26</td>
+                    <td th:text="${te.status.displayName}">已生效</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="borrow_height"></div>
+    <div class="borrow_bottom">
+        <input id="txId" type="hidden" th:value="${tx.txId}"/>
+        <input id="beginDate" type="hidden" th:value="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}" />
+        <input id="endDate" type="hidden" th:value="${#dates.format(tx.endDate, 'yyyy-MM-dd')}" />
+        <div class="borrow_but"><a id="createExtension" class="but_color_y">提交展期</a></div>
+    </div>
+
+
+</form>
+
+<div id="keyboardDIV">
+    <p id="set_text"></p>
+    <form id="password" >
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+        <input readonly="readonly" class="pass" type="password" maxlength="1"/>
+    </form>
+    <p id="forget"><a href="javascript:goForgetPasswordPage();">忘记密码?</a></p>
+</div>
+<div id="password_mask"></div>
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css"/>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="../../../js/wx_common.js"></script>
+<script src="../../../js/wx/repayment_create_extension.js"></script>
+<script src="../../../js/wx/passwordbox.js"></script>
+</body>
+</html>

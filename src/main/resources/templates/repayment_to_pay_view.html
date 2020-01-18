@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../../../css/weui.css"/>
+    <link rel="stylesheet" href="../../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../../css/wx_main.css"/>
+    <link href="../../../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .button-sp-area {
+            width: 100%;
+            text-align: center;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .weui-btn {
+            width: 45%;
+            display: inline-block;
+            padding-left: 10px;
+        }
+
+    </style>
+    <script src="../../../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../../../js/wx_common.js"></script>
+</head>
+<body ontouchstart="" class="body_bg">
+<div class="body_contant">
+    <h1><span class="bo_ico1"></span>借款内容</h1>
+    <div class="borrow_content">
+        <ul>
+            <li>
+                <span>借款人</span><font th:text="${tx.borrowerName}">RINA</font>
+            </li>
+            <li>
+                <span>出借人</span><font th:text="${tx.lenderName}">LIN</font>
+            </li>
+            <li>
+                <span>借款金额</span><font th:inline="text">[[${tx.amount}]]元</font>
+            </li>
+            <li>
+                <span>出借方式</span><font>线下出借</font>
+            </li>
+            <li>
+                <span>还款方式</span><font>到期还本息</font>
+            </li>
+            <li>
+                <span>借款日期</span><font th:text="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}">2017-09-18</font>
+            </li>
+            <li>
+                <span>还款日期</span><font th:text="${#dates.format(tx.endDate, 'yyyy-MM-dd')}">2017-10-18</font>
+            </li>
+            <li>
+                <span>借款利率</span><font th:text="${tx.rate + '%'}">8</font>
+            </li>
+            <li>
+                <span>服务费</span><font th:text="${tx.feeAmount > 0 ? (tx.feeAmount + '元') : '限时免费'}">0元</font>
+            </li>
+            <li>
+                <span>借款用途</span><font th:text="${tx.usageType.displayName}">其他</font>
+            </li>
+            <li>
+                <span>补充说明</span><font th:text="${tx.remark}">无</font>
+            </li>
+            <li>
+                <span>订单骗号</span><font th:text="${tx.txUuid}">2017893844584758437</font>
+            </li>
+            <li>
+                <span>创建时间</span><font th:text="${#dates.format(tx.createTime, 'yyyy-MM-dd')}">2017-10-18</font>
+            </li>
+            <li>
+                <span>借款协议</span><font><a class="yellow" th:href="${'../../transaction/agreement?txId=' + tx.txId}">点击查看</a></font>
+            </li>
+        </ul>
+    </div>
+    <!--div class="borrow_pic_con">
+        <span>图片说明</span>
+        <div class="borrow_pic">
+            <dl>
+                <dd><img src="images/pic.jpg"/></dd>
+                <dd><img src="images/pic.jpg"/></dd>
+                <dd><img src="images/pic.jpg"/></dd>
+            </dl>
+
+        </div>
+    </div-->
+</div>
+<div class="borrow_height"></div>
+<div class="borrow_bottom">
+
+    <input id="txUuid" type="hidden" th:value="${tx.txUuid}"/>
+    <div class="borrow_but">
+        <a class="but_color_b" th:href="${'../extension/' + tx.txId}" id="viewExtension">查看展期</a>
+        <a class="but_color_y"
+           th:if="${tx.status != T(io.grx.modules.tx.enums.TxStatus).COMPLETED and (repayment == null or repayment.status != T(io.grx.modules.tx.enums.RepaymentStatus).NEW)}"
+           th:href="${'../create_page/' + tx.txId}" id="confirm" >去支付</a></div>
+</div>
+
+</body>
+</html>

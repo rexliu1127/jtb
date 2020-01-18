@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title></title>
+	    <link rel="stylesheet" href="../../css/glabal.css">
+	    <link rel="stylesheet" href="../../css/my.css">
+	    <script type="text/javascript" src="../../js/my.js"></script>
+	    <script type="text/javascript" src="../../js/jquery-3.3.1.min.js" ></script>
+	    <script type="text/javascript" src="../../js/ajax.js" ></script>
+	    <script type="text/javascript" src="../../js/url.js" ></script>
+	    <script>
+	    	
+	    function register(){
+	    	
+	    	//判断是否勾选同意书
+			var checkk = document.getElementById("tx-check").checked;
+			if(checkk ==false)
+			{
+				alert("请勾选同意书");
+				return;
+			}
+	    	
+	    	if(clkSQ()){
+	    		window.location.href="downloadPage.html"
+	    		//
+	    		
+//	    		Get(URL_LOGIN,function(data){
+	    			/*
+	    			if(data.code == "0"){
+	    				
+	    				//登录成功
+	    				
+	    			}else
+	    			{
+	    				alert(data.msg);
+	    			}
+	    			*/
+//	    		});
+	    	}	
+	    }
+	    </script>
+	</head>
+	<script type="text/javascript">
+	</script>
+	<body>
+		<div class="wrapper">
+			<div class="downLoad-regit">
+				<img src="../../img/regist.png">
+				<div style="width: 100%;">
+					
+				</div>
+				<div class="load-div" style="top: 58%;">
+					<div class="regit-input">
+						<ul>
+							<li>
+								<input type="text" placeholder="请输入手机号" id="text-tel"/>
+							</li>
+							<li>
+								<input type="text" placeholder="请输入手机验证码" id="txt-yzm"/>
+								<span class="span-btn">
+									<button class="btn-before" onclick="clksend(this)">获取验证码</button>
+								</span>
+							</li>
+						</ul>
+						<p class="p-agree"><input type="checkbox" checked="checked" id="tx-check"/>注册即同意<span>《宝信速贷用户协议》</span></p>
+						<div class="regist-btn">
+							<button onclick="register()"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

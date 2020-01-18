@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="../css/weui.css"/>
+    <link rel="stylesheet" href="../css/wx_common.css"/>
+    <link rel="stylesheet" href="../css/wx_main.css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .member_money_sum {
+            background-color: #99DBF0;
+        }
+
+        .member_money_sum li {
+            text-align: center;
+            padding: 15px 0 10px;
+            border-bottom-color: #fff;
+            width: 33%;
+        }
+
+        .member_money_sum li span {
+            color: #fff;
+        }
+        #css_table {
+            display:table;
+            width: 100%;
+            text-align: left;
+            vertical-align: middle;
+            background-color: #ececec;
+        }
+
+        #css_table ul{
+            background-color: #ffffff;
+            height: 55px;
+            margin-top: 10px;
+            padding: 10px 6% 10px 6%;
+            display: block;
+        }
+
+        #css_table li{
+            float: left;
+            width: 50%;
+            line-height: 25px;
+            display: inline-block;
+        }
+
+        #css_table .right{
+            text-align: right;
+            width: 50%;
+        }
+
+        .css_tr {
+            display: table-row;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .css_td {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            border-top: 1px solid #D7D6DC;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        .css_tr .img {
+            width: 50px;
+        }
+
+        .css_tr img {
+            width: 60%;
+            margin-left: 15px;
+        }
+
+        .meney_con a {
+            display: inline-block; width: 90%;
+        }
+
+    </style>
+</head>
+<body ontouchstart="" class="body_bg">
+<div class="money_con">
+    <ul>
+        <li>
+            <div class="sum">
+                <p>待还总额（元）</p>
+                <h1 th:text="${#numbers.formatDecimal(allPendingToPay,1,2)}">0.00</h1>
+            </div>
+        </li>
+        <li>
+            <div class="sum">
+                <p>7天待还</p>
+                <h1 th:text="${#numbers.formatDecimal(sevenDaysPendingToPay,1,2)}">0.00</h1>
+            </div>
+        </li>
+        <li>
+            <div class="sum">
+                <p>30天待还</p>
+                <h1 th:text="${#numbers.formatDecimal(thirtyDaysPendingToPay,1,2)}">0.00</h1>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="weui-search-bar" id="searchBar">
+    <form class="weui-search-bar__form" id="searchForm">
+        <div class="weui-search-bar__box">
+            <i class="weui-icon-search"></i>
+            <input name="searchValue" type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索姓名" th:value="${searchValue}" required="required"/>
+            <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+        </div>
+        <label class="weui-search-bar__label" id="searchText">
+            <i class="weui-icon-search"></i>
+            <span>搜索姓名</span>
+        </label>
+    </form>
+    <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+</div>
+<form id="txForm">
+<div class="money_list">
+    <ul id="tx_list">
+        <!--li>
+            <div class="meney_con">
+                <div class="meney_check">
+                    <input type="radio" name="selectTx" class="select_tx" id="sel_6"/>
+                </div>
+                <a style="display: inline-block; width: 90%;">
+                <div class="meney_l">
+                    <h1 id="amount_6">1018.08元</h1>
+                    <p>张三 - 租房</p>
+                </div>
+                <div class="meney_r">剩余0天</div>
+                </a>
+            </div>
+        </li-->
+    </ul>
+</div>
+<div id="emptyDiv" class="weui-panel" style="display: none;">
+    <div class="weui-loadmore weui-loadmore_line">
+        <span class="weui-loadmore__tips">暂无数据</span>
+    </div>
+    <div class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+        <span class="weui-loadmore__tips"></span>
+    </div>
+</div>
+
+<div class="borrow_height"></div>
+<div class="borrow_bottom">
+    <div class="bottom_check"><input type="radio" id="selectedTxId" checked="checked" value=""/>待支付<span class="yellow" id="selectedAmount">0.00</span></div>
+    <div class="borrow_but"><a class="but_color_y" id="pay">去支付</a></div>
+</div>
+</form>
+<script src="../libs/zepto.min.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+<script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+<script src="../js/wx_common.js"></script>
+<script src="../js/wx/repayment_to_pay.js?t=001"></script>
+</body>
+</html>

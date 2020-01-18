@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.min.css"/>
+    <style>
+    .tabCNT table {
+        width: 100%;
+        background: #fff;
+        border-top: 1px solid #eee;
+        border-collapse: collapse;
+        border-spacing: 0;
+        line-height: 30px;
+        text-align: center;
+    }
+
+    .tabCNT tr {
+        border-top: 1px solid #eee;
+        border-collapse: collapse;
+    }
+
+    .tabCNT tr:nth-child(even) {
+        background-color: #eee;
+    }
+    </style>
+    <title>我的团队</title>
+</head>
+<body ontouchstart="">
+
+<div class="mainAPP">   
+    <main>
+        <!-- all your content here -->
+        <div class="account">
+
+            <div class="area02">
+                <div class="lendLoan-cont">
+                    <div class="tabMenu clear">
+                        <div class="card01 fl choose" onclick="changeMenu(1);">二级推荐</div>
+                        <div class="card02 fl" onclick="changeMenu(2);">三级推荐</div>
+                    </div>
+                    <div class="tabCNT">
+                        <div class="tabCNT01">
+                            <div class="noData">
+                            <h4>暂无数据</h4>
+                            <span>No Data</span>
+                            </div>
+                            <table id="dataTable" style="display: none;">
+                                <thead>
+                                    <th>姓名</th>
+                                    <th>注册时间</th>
+                                    <th>借条数</th>
+                                </thead>
+                                <tbody>
+                                    <!--tr>
+                                        <td>黄**</td>
+                                        <td>2017-01-01</td>
+                                        <td>6</td>
+                                    </tr-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../libs/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../js/rcpt/main.js"></script>
+<script type="text/javascript" src="../../js/rcpt/team.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

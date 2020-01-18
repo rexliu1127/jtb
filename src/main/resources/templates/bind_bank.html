@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../css/weui.css"/>
+    <link rel="stylesheet" href="../css/wx_common.css"/>
+    <link rel="stylesheet" href="../css/wx_main.css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .weui-btn {
+            width: 80%;
+        }
+
+        .weui-btn-area {
+            width: 100%;
+            text-align: center;
+            margin: 10px 15px 10px;
+        }
+    </style>
+    <script src="../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../js/wx_common.js"></script>
+    <script src="../js/wx/bind_bank.js"></script>
+    <script th:inline="text">
+        var bindedUser = [[${!#strings.isEmpty(TX_USER.name)}]];
+    </script>
+</head>
+<body ontouchstart="">
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+
+<form id="txForm">
+    <div class="container" id="container">
+        <div class="weui-tab" id="mainPannel">
+            <div class="weui-tab__panel">
+
+                <div class="weui-cells__title">注意: 请避免绑定<span class="red">信用卡</span>或<span class="red">结算卡</span></div>
+                <div id="form">
+                    <div class="weui-cells weui-cells_form mt15">
+                        <div class="weui-cell">
+                            <div class="weui-cell__bd">
+                                <input id="name" class="weui-input" type="text" required placeholder="请输入持卡人姓名" emptyTips="请输入持卡人姓名" />
+                            </div>
+                            <div class="weui-cell__ft">
+                                <i class="weui-icon-warn"></i>
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__bd">
+                                <input id="idNo" class="weui-input" type="text" required pattern="REG_IDNUM" maxlength="18" placeholder="请输入身份证号码" emptyTips="请输入身份证号码" notMatchTips="请输入正确的身份证号码"/>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <i class="weui-icon-warn"></i>
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__bd">
+                                <input id="bankAccount" class="weui-input" type="text" required pattern="REG_BANKNUM" maxlength="20" placeholder="请输入银行卡号" emptyTips="请输入银行卡号" notMatchTips="请输入正确的银行卡号"/>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <i class="weui-icon-warn"></i>
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__bd">
+                                <input id="mobile" class="weui-input" type="tel" required pattern="^\d{11}$" maxlength="11" placeholder="务必输入银行预留手机号" emptyTips="银行预留手机号" notMatchTips="请输入正确的手机号"/>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <i class="weui-icon-warn"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="edit_password" id="verifyCodePannel" style="display: none;">
+            <p id="verifyCodeTitle">请获取手机验证码</p>
+            <div class="edit_con">
+                <span>验证码</span>
+                <input type="text" id="verifyCode" placeholder="输入你收到的手机验证码"/>
+                <div class="send_yzm"><a id="getCode">获取验证码</a></div>
+            </div>
+            <div class="login_box"><div class="but"><a id="nextStep" href="javascript:">下一步</a></div></div>
+        </div>
+    </div>
+</form>
+
+<div class="borrow_height"></div>
+<div class="borrow_bottom">
+    <div class="borrow_but"><a id="formSubmitBtn" class="but_color_y">确定绑卡</a></div>
+</div>
+
+<input id="returnUrl" type="hidden" th:value="${returnUrl}" />
+<input id="txUserName" type="hidden" th:value="${txUserName}" />
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //your code here
+    });
+
+</script>
+
+</body>
+</html>

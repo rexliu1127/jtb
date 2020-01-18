@@ -1,0 +1,264 @@
+﻿
+/*服务中心*/
+.service-cont{width: 100%;height:auto;}
+.service-cont >h3
+{
+    width:95px;
+    margin: auto;
+    padding:15px 15px;
+    font-size: 18px;
+    text-align: center;
+    color: #47b5be;
+    border-bottom: 3px solid #47B5BE;
+    letter-spacing: 2px;
+}
+.service-cont .FAQ{
+    width: 100%;
+    margin: auto;
+    height: auto;
+    background: #fff;
+    margin-top: 20px;
+}
+.service-cont .FAQ >h4{
+    line-height: 30px;
+    text-indent: 1em;
+    font-size: 16px;
+    padding-top: 15px
+}
+.service-cont .FAQ >p{
+    width: 93%;
+    margin: auto;
+    line-height: 22px;
+    padding: 6px 0;
+}
+
+/*系统设置*/
+.systemSet{
+    width: 95%;
+    height: auto;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    margin-top: 0.2rem;
+}
+.systemSet ul li{
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+    border-bottom: 1px solid #ececec;
+    text-indent: 1em;font-size: 0.3rem;
+    position: relative;
+}
+.systemSet ul li>span{
+    display: inline-block;
+    padding-right: 0.3rem;
+    color: #666;
+    position: absolute;
+    right: 0;
+    top: 0
+}
+.systemSet ul li>span>img{
+
+    width: 0.15rem;
+    height: 0.25rem;
+}
+
+/* 信息认证 */
+.Authen-input{
+    width: 100%;
+    height: auto;
+}
+.Authen-input .all-inp{
+    width: 100%;
+    height: 65px;
+    border-bottom: 1px solid #ececec;
+}
+.Authen-input .all-inp ul li{
+    width: auto;
+    float: left;
+    height: 100%;
+    line-height: 65px;
+    font-size: 0.3rem;
+}
+.Authen-input .all-inp ul li:first-child{
+    width: 38%;
+    text-indent: 1em;
+}
+.Authen-input .all-inp ul li:nth-child(2){
+    width:38%;
+    float: right;
+    margin-right: 15px;
+    text-align: right
+}
+.Authen-input .all-inp .uploadPhoto
+{
+    width: 40px!important;
+    height: 20px;
+    border: 1px solid #999;
+    margin-top: 25px;
+    line-height: 20px;
+    border-radius: 4px;
+    color: #999;
+}
+
+.Authen-input .all-inp ul li >input{
+    text-align: right;
+    width: 100%;
+    height: 70%;
+    background: none;
+}
+.Authen-input .all-inp ul li >input::-webkit-input-placeholder{color: #999;}
+
+/*意见反馈*/
+.feedBack{
+    width: 100%;
+    height: auto;
+    background: #fff;
+    padding-bottom: 10px
+}
+.feedBack ul{
+    width: 100%;
+    height: 65px;
+    border-bottom: 1px solid #ececec;
+}
+.feedBack ul li{
+    float: left;
+    line-height: 65px;
+    font-size: 16px;
+}
+.feedBack ul li:first-child{
+    width: 30%;
+    text-indent: 1em;
+}
+.feedBack ul li:nth-child(2){
+    width: 55%;
+    padding-left: 15px;
+}
+.feedBack ul li >select{
+    width: 100%;
+    height: 30px;
+    background: #fff;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    background: url("http://images.cnblogs.com/cnblogs_com/webqiand/636997/o_select.png") no-repeat scroll right center transparent;
+}
+.feedBack ul li >input{width: 100%;}
+.bottomNone{border-bottom: none!important}
+.areaStyle{height: 140px!important;}
+.liStyle{width: 100%!important;height: 100%!important;}
+.liStyle >textarea{background: #f5f5f5;border: none;width:90%;height: 90%;}
+
+/*身份证认证*/
+.Authen-input .IDcard{height: 1.45rem;background: #fff;}
+.Authen-input .all-inp ul li>img{width: 1.3rem;height: 1rem;margin-top: 0.22rem;}
+.liHeight{line-height: 1.45rem!important}
+
+/*宝信速贷个人中心*/
+.totalAmount{
+    width: 100%;
+    height: auto;
+    background: #fff
+}
+.totalAmount .personCard{
+    width: 90%;
+    height: auto;
+    margin:auto;
+    min-height: 165px;
+    position: relative;
+    padding: 20px 0
+}
+.totalAmount .personCard >img{
+    width: 100%;
+    height: 100%;
+}
+.quota{
+    position: absolute;
+    top: 0;
+    left: 0.3rem;
+    width: 80%;
+    height: 90%;
+}
+.quota>p{color: #fff;}
+.quota>p:first-child{
+    font-size: 0.3rem;
+    line-height: 40px;
+    padding-top: 0.7rem
+}
+.quota>p:nth-child(2){
+    font-size: 0.6rem;
+    letter-spacing: 0.5px
+}
+.quota>p>span{font-size: 18px}
+.quota>p:last-child{
+    line-height: 35px;
+    position: absolute;
+    left: 0;
+    bottom: 0.3rem;
+    color: #ADC8FA;
+}
+.specialLine{
+    width: 60%;
+    height: 1px;
+    background: #ADC8FA;
+    position: absolute;
+    left: 0;
+    bottom: 0.95rem}
+/*.quota>p:last-child::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0px;
+    right: -0.4rem;
+    height:1px;
+    background-color: #ccc;
+}*/
+.personList{
+    width: 100%;
+    height: auto;
+    background: #fff;
+    margin-top:15px
+}
+.personList .listSub{
+    width: 90%;
+    height: auto;
+    margin: auto;
+    padding-top: 2px;
+    padding-bottom: 20px;
+}
+.personList .listSub ul{
+    width: 100%;
+    height: 0.8rem;
+    background: #fff;
+    border-radius: 4px;
+    margin: 0.1rem 0.1rem;
+    border-bottom: 1px solid #ececec;
+    padding: 0.1rem 0
+}
+.personList .listSub ul li{
+    width: auto;
+    float: left;
+    height: 100%;
+    line-height: 0.8rem;
+    padding: 0 0.1rem;
+    cursor: pointer;
+    font-size: 0.3rem;
+}
+.personList .listSub ul li >img{
+    margin-top: 0.2rem;
+    width: 0.4rem;
+    height: 0.45rem;
+}
+.personList .listSub .centrtCircle{
+    float: right;
+    width: 0.15rem!important;
+    height: 0.25rem;
+    background: #ECECEC;
+    background: url(../../../img/auth/v2/ac-6.png) no-repeat;
+    padding: 0;
+    margin: 0.24rem 0.1rem;
+    background-size: contain
+}
+
+/*认证中心*/
+.personList >h3{width: 87%;margin: auto;font-size: 0.35rem;letter-spacing: 2px}

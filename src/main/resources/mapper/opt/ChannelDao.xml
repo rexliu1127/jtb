@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.opt.dao.ChannelDao">
+    <cache />
+
+    <select id="queryObject" resultType="io.grx.modules.opt.entity.ChannelEntity">
+        select * from channel where channel_id = #{value}
+    </select>
+
+    <select id="queryList" resultType="io.grx.modules.opt.entity.ChannelEntity">
+        select c.*, (select d.name from sys_dept d where d.dept_id = c.dept_id) deptName, su.name owner_name from channel c
+        left join sys_user su on c.owner_user_id = su.user_id
+        <where>
+            c.merchant_no = #{_merchantNo}
+            <if test="_channelIdList != null">
+                and c.channel_id in
+                <foreach item="channelId" collection="_channelIdList" open="(" separator="," close=")">
+                    #{channelId}
+                </foreach>
+            </if>
+            <!--  数据过滤  -->
+            ${filterSql}
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by channel_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{limit} offset #{offset}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(*) from channel c
+        <where>
+            c.merchant_no = #{_merchantNo}
+            <if test="_channelIdList != null">
+                and c.channel_id in
+                <foreach item="channelId" collection="_channelIdList" open="(" separator="," close=")">
+                    #{channelId}
+                </foreach>
+            </if>
+            <!--  数据过滤  -->
+            ${filterSql}
+        </where>
+    </select>
+
+    <insert id="save" parameterType="io.grx.modules.opt.entity.ChannelEntity" useGeneratedKeys="true" keyProperty="channelId">
+        insert into channel
+        (
+            merchant_no,
+            name,
+            channel_key,
+            dept_id,
+            image_path,
+            owner_user_id,
+            auditor_user_id,
+            create_user_id,
+            status,
+            create_time,
+            logo_path,
+            product_name,
+            app_money_list
+        )
+        values
+        (
+            #{merchantNo},
+            #{name},
+            #{channelKey},
+            #{deptId},
+            #{imagePath},
+            #{ownerUserId},
+            #{auditorUserId},
+            #{createUserId},
+            #{status},
+            #{createTime},
+            #{logoPath},
+            #{productName},
+            #{appMoneyList}
+        )
+    </insert>
+
+    <update id="update" parameterType="io.grx.modules.opt.entity.ChannelEntity">
+        update channel
+        <set>
+            <if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+            <if test="name != null">name = #{name}, </if>
+            <if test="channelKey != null">channel_key = #{channelKey}, </if>
+            <if test="deptId != null">dept_id = #{deptId}, </if>
+            <if test="imagePath != null">image_path = #{imagePath}, </if>
+            <if test="logoPath != null">logo_path = #{logoPath}, </if>
+            <if test="productName != null">product_name = #{productName}, </if>
+            <if test="ownerUserId != null">owner_user_id = #{ownerUserId}, </if>
+            auditor_user_id = #{auditorUserId},
+            <if test="createUserId != null">create_user_id = #{createUserId}, </if>
+            <if test="status != null">status = #{status}, </if>
+            <if test="appMoneyList != null">app_money_list = #{appMoneyList}, </if>
+            <if test="createTime != null">create_time = #{createTime}</if>
+        </set>
+        where channel_id = #{channelId}
+    </update>
+
+    <delete id="delete">
+        delete from channel where channel_id = #{value}
+    </delete>
+
+    <delete id="deleteBatch">
+        delete from channel where channel_id in
+        <foreach item="channelId" collection="array" open="(" separator="," close=")">
+            #{channelId}
+        </foreach>
+        ;
+        delete from sys_channel_user where channel_id in
+        <foreach item="channelId" collection="array" open="(" separator="," close=")">
+            #{channelId}
+        </foreach>
+    </delete>
+
+    <select id="queryByKey" resultType="io.grx.modules.opt.entity.ChannelEntity">
+        select * from channel where channel_key = #{value}
+    </select>
+
+    <select id="queryMerchantDefaultChannel" resultType="io.grx.modules.opt.entity.ChannelEntity">
+        select * from channel where merchant_no = #{value} order by channel_id limit 1
+    </select>
+
+    <select id="isDeptHasChannel" resultType="boolean">
+        select count(*) from (select 1 from channel where dept_id = #{value} limit 1) t;
+    </select>
+    
+    <select id="queryChannelFlowSpreadList" resultType="java.util.Map">
+    	select * from (
+	    	SELECT 
+				DATE_FORMAT(q.create_time,'%Y-%m-%d') AS _date,
+				c.name AS channel_name,
+				COUNT(q.request_id) AS _count
+			FROM channel c,auth_request q
+			WHERE q.channel_id = c.channel_id 
+			and c.merchant_no = #{flowMerchantNo}
+			<if test="channelId != null and channelId != ''">
+				AND c.channel_id = #{channelId}
+			</if>
+			<if test="applyStartDate != null and applyStartDate.trim() != ''">
+				AND DATE_FORMAT(q.create_time,'%Y-%m-%d') &gt;= #{applyStartDate}
+			</if>
+			<if test="applyEndDate != null and applyEndDate != ''">
+				AND DATE_FORMAT(q.create_time,'%Y-%m-%d') &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+			</if>
+			GROUP BY c.channel_id,DATE_FORMAT(q.create_time,'%Y-%m-%d')
+			ORDER BY DATE_FORMAT(q.create_time,'%Y-%m-%d') DESC
+		) fx
+		<if test="offset != null and limit != null">
+            limit #{limit} offset #{offset}
+        </if>
+    </select>
+    
+    <select id="queryFlowChannelList" resultType="io.grx.modules.opt.entity.ChannelEntity">
+    	select * from channel where merchant_no = #{merchantNo}
+    </select>
+    
+    <select id="queryChannelFlowSpreadListTotal" resultType="int">
+    	SELECT COUNT(1) FROM (
+			SELECT 
+			DATE_FORMAT(q.create_time,'%Y-%m-%d') AS _date,
+			c.name AS channel_name,
+			COUNT(q.request_id) AS _count
+		FROM channel c,auth_request q
+		WHERE q.channel_id = c.channel_id 
+		and c.merchant_no =  #{flowMerchantNo}
+		<if test="channelId != null and channelId != ''">
+			AND c.channel_id = #{channelId}
+		</if>
+		<if test="applyStartDate != null and applyStartDate.trim() != ''">
+			AND DATE_FORMAT(q.create_time,'%Y-%m-%d') &gt;= #{applyStartDate}
+		</if>
+		<if test="applyEndDate != null and applyEndDate != ''">
+			AND DATE_FORMAT(q.create_time,'%Y-%m-%d') &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+		</if>
+		GROUP BY c.channel_id,DATE_FORMAT(q.create_time,'%Y-%m-%d')) AS c
+    </select>
+
+	<select id="queryMerchantChannelStatis"  resultType="java.util.Map">
+    	select * from (
+			select 
+			 m.merchant_no,m.name,DATE_FORMAT(r.create_time,'%Y-%m-%d') as create_date,
+			 count(1) as register_count,
+			 count(r.status <![CDATA[>]]>-1 or null) as apply_count,
+			 count(r.status <![CDATA[>]]>1 or null ) as audit_count
+			from sys_merchant m,auth_request r
+			where m.merchant_no = r.merchant_no
+			<if test="merchant_no!=null and merchant_no.trim()!=''">
+				and m.merchant_no = #{merchant_no}
+			</if>
+			<if test="applyStartDate != null and applyStartDate.trim() != ''">
+                and DATE_FORMAT(r.create_time,'%Y-%m-%d') &gt;= #{applyStartDate}
+            </if>
+            <if test="applyEndDate != null and applyEndDate.trim() != ''">
+                and DATE_FORMAT(r.create_time,'%Y-%m-%d') &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+            </if>
+			group by date_format(r.create_time,'%Y-%m-%d'),m.merchant_no
+			order by DATE_FORMAT(r.create_time,'%Y-%m-%d') desc
+		) f
+		<if test="offset != null and limit != null">
+            limit #{limit} offset #{offset}
+        </if>
+    </select>
+    
+    <select id="queryMerchantChannelStatisCount"  resultType="int">
+    	SELECT ifnull(COUNT(1),0) FROM (
+		SELECT 
+		 m.merchant_no
+		FROM sys_merchant m,auth_request r
+		WHERE m.merchant_no = r.merchant_no
+		<if test="merchant_no!=null and merchant_no.trim()!=''">
+			and m.merchant_no = #{merchant_no}
+		</if>
+		<if test="applyStartDate != null and applyStartDate.trim() != ''">
+            and DATE_FORMAT(r.create_time,'%Y-%m-%d') &gt;= #{applyStartDate}
+        </if>
+        <if test="applyEndDate != null and applyEndDate.trim() != ''">
+            and DATE_FORMAT(r.create_time,'%Y-%m-%d') &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+        </if>
+		GROUP BY DATE_FORMAT(r.create_time,'%Y-%m-%d'),m.merchant_no
+		ORDER BY DATE_FORMAT(r.create_time,'%Y-%m-%d') DESC
+		) f
+    </select>
+
+</mapper>

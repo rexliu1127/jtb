@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../css/rcpt/account.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/rcpt/paypsw.css"/>
+    <link rel="stylesheet" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.min.css"/>
+    <style>
+        #mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 550;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #maskContent {
+            width: 38%;
+            margin-left: 30%;
+            margin-top: 20%;
+
+        }
+
+        #maskContent p {
+            color: white;
+            font-size: 16px;
+        }
+
+        #qrCode {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        #creditLink {
+            margin-right: 10px;
+        }
+    </style>
+    <title></title>
+
+    <script th:inline="text">
+        var bindedUser = [[${!#strings.isEmpty(TX_USER.name)}]];
+        var createdByBorrower = [[${tx.createUserId == tx.borrowerUserId}]];
+        var createdByLender = [[${tx.createUserId == tx.lenderUserId}]];
+        var borrowerHasOverdueRecord = [[${borrowerHasOverdueRecord}]];
+        var userSigned = [[${!#strings.isEmpty(TX_USER.signImgPath)}]];
+        var hasPassword = [[${hasPassword}]];
+    </script>
+</head>
+<body>
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>确认借条</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="iousDetails">
+            <div class="iousDetails-title radius7700PX"><h3>借款内容</h3></div>
+
+            <div class="iousDetails-cont">
+
+                <div class="bc01">
+                    <h3>借款内容</h3>
+                    <table border="0">
+                        <tr>
+                            <td><span>借款人</span></td>
+                            <td><strong th:text="${tx.borrowerName}">张先生</strong>
+                                <a id="creditLink"
+                                   th:href="${'../member/credit_detail_borrower/' + tx.borrowerUserId + '.html?txId=' + tx.txId}">查看信用</a></td>
+                        </tr>
+                        <tr>
+                            <td><span>出借人</span></td>
+                            <td><strong th:text="${tx.lenderName}">吴先生</strong>
+                                <a id="myLendingLink"
+                                   th:href="${'../lender_sum.html'}">我的出借</a></td>
+                        </tr>
+                        <tr>
+                            <td><span>借款金额</span></td>
+                            <td><strong th:inline="text">[[${tx.amount}]]元</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>借款日期</span></td>
+                            <td><strong th:text="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}">2018.03.13</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>还款日期</span></td>
+                            <td><strong th:text="${#dates.format(tx.endDate, 'yyyy-MM-dd')}">2018.05.13</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>借款利率</span></td>
+                            <td><strong th:inline="text">[[${tx.rate}]]%</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>借款用途</span></td>
+                            <td><strong th:text="${tx.usageType.displayName}">医 疗</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>补充说明</span></td>
+                            <td><strong th:text="${tx.remark}"> </strong></td>
+                        </tr>
+                        <tr >
+                            <td><span>服务费</span></td>
+                            <td><strong th:text="${tx.feeAmount > 0 ? (tx.feeAmount + '元') : '限时免费'}"> </strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>借款协议</span></td>
+                            <td><a th:href="${'../transaction/agreement.html?txId=' + tx.txId}">点击查看</a></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="bc02">
+                    <h3>更多信息</h3>
+                    <table border="0">
+                        <tr>
+                            <td><span>订单编号</span></td>
+                            <td><strong th:text="${tx.txUuid}">20180972837384748494947</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>创建时间</span></td>
+                            <td><strong th:text="${#dates.format(tx.createTime, 'yyyy-MM-dd')}">2018.03.13</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>订单状态</span></td>
+                            <td><strong class="orange" th:text="${tx.status.displayName}">待确定</strong></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="bc03 clear" >
+                    <div id="canncel" class="iousDetails-del-btn fl btn">驳 回</div>
+                    <div id="confirm" class="iousDetails-send-btn fr btn">确 定</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+</div>
+
+
+<input type="hidden" id="amount" th:value="${tx.amount}"/>
+<input type="hidden" id="feeAmount" th:value="${tx.feeAmount}"/>
+<input type="hidden" id="rate" th:value="${tx.rate}"/>
+<input type="hidden" id="usage" th:value="${tx.usageType.displayName}"/>
+<input id="txUuid" type="hidden" th:value="${tx.txUuid}"/>
+<input id="txId" type="hidden" th:value="${tx.txId}"/>
+
+<div id="mask">
+    <div id="maskContent">
+        <p>发送给微信好友或朋友圈或者让对方扫一扫二维码</p>
+        <img id="qrCode"/>
+        <p>点击屏幕返回首页</p>
+    </div>
+</div>
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../libs/jquery-weui.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../js/rcpt/main.js"></script>
+<script src="../../js/rcpt/confirm_transaction.js"></script>
+
+
+<script type="text/javascript" th:if="${!#strings.isEmpty(TX_USER.name) AND !(TX_USER.name == tx.borrowerName || TX_USER.name == tx.lenderName)}">
+    $('#navDiv').hide();
+    alert('该借条姓名与您的姓名不匹配!');
+    location.href = baseURL + 'rcpt/index.html';
+</script>
+
+<script type="text/javascript" th:if="${tx.createUserId == TX_USER.userId}">
+    $('#qrCode').attr('src', baseURL + 'rcpt/confirm_transaction_code/' + $('#txUuid').val() + '.png');
+    $('#mask').show();
+    $('#navDiv').hide();
+
+    $('#mask').on('click', function () {
+        $('#mask').hide();
+        location.href = baseURL + 'rcpt/index.html';
+    });
+</script>
+<script th:inline="text">
+    var signature = '[[${signature}]]';
+    var appId = '[[${appId}]]';
+    var url = '[[${url}]]';
+    var jsapi_ticket = '[[${jsapi_ticket}]]';
+    var nonceStr = '[[${nonceStr}]]';
+    var timestamp = [[${timestamp}]];
+
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: appId, // 必填，公众号的唯一标识
+        timestamp: timestamp, // 必填，生成签名的时间戳
+        nonceStr: nonceStr, // 必填，生成签名的随机串
+        signature: signature,// 必填，签名，见附录1
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareAppMessage'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    wx.ready(function () {
+        wx.onMenuShareAppMessage({
+            title: '我在' + siteName + '给你打了一张借条, 快来确认吧~', // 分享标题
+            desc: '金额:' + $('#amount').val() + "元, 利率:" + $('#rate').val() + "%, 用途:" + $('#usage').val(), // 分享描述
+            link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: location.href.substr(0, location.href.indexOf(baseURL)) + baseURL + 'images/logo_mini.png' // 分享图标
+        });
+    });
+
+</script>
+</body>
+</html>

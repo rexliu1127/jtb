@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../../css/rcpt/account.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/rcpt/paypsw.css"/>
+    <link rel="stylesheet" href="../../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../../css/jquery-weui.min.css"/>
+    <style>
+        .tabCNT .repayAmount em {
+            padding: 2px 4px;
+            font-size: 12px;
+            font-weight: 400;
+            border-color: #ff4f4f;
+            border-width: 1px;
+            border-style: solid;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>查看展期</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="plan">
+
+            <div class="area01">
+                <div class="plan-cont">
+                    <ul>
+                        <li class="planTheme">
+                            <a href="#" class="display">
+                                <div class="flex1">
+                                    <h2 th:text="${tx.usageType.displayName}">装修</h2>
+                                    <p><span th:text="${'借款人：' + tx.borrowerName}">借款人：吴先生</span>
+                                        <span th:text="${'出借人：' + tx.lenderName}">出借人： 张先生</span></p>
+                                </div>
+                                <div class="more linecons-GT"></div>
+                            </a>
+                        </li>
+
+                        <li class="planDetail display">
+
+                            <div class="flex1">
+                                <span>借款金额 (元)</span>
+                                <p th:text="${tx.amount}">1,000.00</p>
+                            </div>
+
+                            <div class="flex1">
+                                <span>利 率</span>
+                                <p th:text="${tx.rate + '%'}">12%</p>
+                            </div>
+
+                            <div class="flex1">
+                                <span>开始日期</span>
+                                <p th:text="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}">无</p>
+                            </div>
+
+                            <div class="flex1">
+                                <span>结束日期</span>
+                                <p th:text="${#dates.format(tx.endDate, 'yyyy-MM-dd')}">无</p>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="area02">
+                <div class="planRecord">
+                    <div class="tabMenu clear">
+                        <div class="card01 fl choose">
+                            <h3>展期历史</h3>
+                        </div>
+                    </div>
+                    <div class="tabCNT">
+                        <div class="tabCNT01" style="display: block;">
+
+                            <div class="plan-list">
+                                <div class="noData" th:if="${extensionList.isEmpty()}">
+                                    <h4>暂无数据</h4>
+                                    <span>No Data</span>
+                                </div>
+                                <ul th:if="${!extensionList.isEmpty()}">
+                                    <li th:each="te : ${extensionList}">
+                                        <label class="display">
+                                            <div class="repaycheckbox">
+                                            </div>
+                                            <div class="recordBorrower flex1">
+                                                <h3 th:text="${#dates.format(te.newEndDate, 'yyyy-MM-dd')}">2018.03.17</h3>
+                                                <span th:text="${'原到期日: ' + #dates.format(te.oldEndDate, 'yyyy-MM-dd')}">还款日期：2018.03.17</span>
+                                            </div>
+
+                                            <div class="recordEarn">
+                                                <h3 th:text="${te.extendAmount + '元'}">100.00元</h3>
+                                                <span th:text="${te.status.displayName}">已生效</span>
+                                            </div>
+                                            <div class="more"></div>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="tabBTN">
+        <div class="tabBTN02">
+            <div class="fixed-btn slideInUp shadow display">
+                <div class="reportBTN flex1" id="cancelExtension"
+                     th:if="${tx.lenderUserId == TX_USER.userId and txExtension != null AND txExtension != null AND (txExtension.status == T(io.grx.modules.tx.enums.ExtensionStatus).NEW) }">取消展期</div>
+                <div class="chargeBTN flex1" id="confirmExtension"
+                     th:if="${tx.borrowerUserId == TX_USER.userId AND txExtension != null AND (txExtension.status == T(io.grx.modules.tx.enums.ExtensionStatus).NEW) }">确认展期</div>
+                <div class="rollOverBTN flex1" id="rejectExtension"
+                     th:if="${tx.borrowerUserId == TX_USER.userId AND txExtension != null AND (txExtension.status == T(io.grx.modules.tx.enums.ExtensionStatus).NEW) }">拒绝展期</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input id="txId" type="hidden" th:if="${txExtension != null}" th:value="${txExtension.txId}" />
+<input id="extensionId" type="hidden" th:if="${txExtension != null}" th:value="${txExtension.extensionId}" />
+<input id="extensionFee" type="hidden" th:if="${txExtension != null}" th:value="${txExtension.feeAmount}"/>
+<script src="../../../libs/jquery.min.js"></script>
+<script src="../../../libs/jquery-weui.min.js"></script>
+<script src="../../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../../js/rcpt/main.js"></script>
+<script src="../../../js/rcpt/repayment_extension.js"></script>
+</body>
+</html>

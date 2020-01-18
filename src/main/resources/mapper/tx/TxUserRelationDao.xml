@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxUserRelationDao">
+	<cache />
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.tx.entity.TxUserRelationEntity" id="txUserRelationMap">
+        <result property="relationId" column="relation_id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="userId" column="user_id"/>
+        <result property="friendUserId" column="friend_user_id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxUserRelationEntity">
+		select * from tx_user_relation where relation_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxUserRelationEntity">
+		select * from tx_user_relation
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by relation_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_user_relation 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxUserRelationEntity" useGeneratedKeys="true" keyProperty="relationId">
+		insert into tx_user_relation
+		(
+			merchant_no, 
+			user_id, 
+			friend_user_id, 
+			create_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{userId}, 
+			#{friendUserId}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxUserRelationEntity">
+		update tx_user_relation 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="userId != null">user_id = #{userId}, </if>
+			<if test="friendUserId != null">friend_user_id = #{friendUserId}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where relation_id = #{relationId}
+	</update>
+	
+	<delete id="delete">
+		delete from tx_user_relation where relation_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_user_relation where relation_id in 
+		<foreach item="relationId" collection="array" open="(" separator="," close=")">
+			#{relationId}
+		</foreach>
+	</delete>
+
+	<select id="hasRelation" resultType="int">
+		select count(*) from tx_user_relation where user_id = #{userId} and friend_user_id = #{friendUserId}
+	</select>
+
+	<select id="getFriendTotal" resultType="int">
+		select count(*) from tx_user_relation where user_id = #{userId};
+	</select>
+
+</mapper>

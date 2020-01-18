@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <title>综合报告-米 兜</title>
+  <meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+  <link rel="apple-touch-icon" href="../images/logo.png">
+  <meta name="apple-mobile-web-app-title" content="Flatkit">
+  <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" sizes="196x196" href="../../img/newImage/logo.png">
+  <link rel="stylesheet" type="text/css" href="../../css/newCss/base.css">
+  <link rel="stylesheet" type="text/css" href="../../css/newCss/forms.css">
+  <link rel="stylesheet" type="text/css" href="../../css/newCss/font.css">
+  <link rel="stylesheet" type="text/css" href="../../css/newCss/layout.css">
+  <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="../../css/newCss/report.css">
+  <!-- jQuery -->
+  <script type="text/javascript" src="../../js/newJs/jquery-2.1.1.js"></script>
+  <script src="../../plugins/layer/layer.js"></script>
+  <script src="../../libs/bootstrap.min.js"></script>
+  <script src="../../libs/vue.min.js"></script>
+  <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+  <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+  <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+  <script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" class="container" v-cloak>
+  <div id="loadBOX">
+    <div class="otherWay dialog">
+      <div class="dialog-box">
+        <div class="dialog-cont">
+          <div class="control">
+            <h3 class="title">处理申请表单</h3>
+            <form id="fromID">
+              <ul class="clear">
+                <li>
+                  <label>状 态</label>
+                  <div class="select">
+                    <select id="statusSelect" v-model="audit.status" class="select-Box">
+                      <option value="1">审核中</option>
+                      <option value="2">已放款</option>
+                      <option value="3">拒绝受理</option>
+                      <option value="4">已结清</option>
+                      <option value="5">逾期</option>
+                      <option value="6">失联</option>
+                      <option value="7">已取消</option>
+                    </select>
+                  </div>
+                </li>
+                <li>
+                  <label>审核备注(用户)</label>
+                  <textarea class="commentUser" v-model="audit.userRemark" maxlength="200" required></textarea>
+                </li>
+                <li>
+                  <label>审核备注(内部)</label>
+                  <textarea class="commentWorker" v-model="audit.adminRemark" maxlength="200" required></textarea>
+                </li>
+                <li class="clear"> <a class="cancel btn gray fl" onclick="hid()">取 消</a> <a class="confirm btn info fl" onclick="commitBtn()">确 定</a> </li>
+              </ul>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--打借条 -->
+    <div class="iou dialog">
+      <div class="dialog-box">
+        <div class="dialog-cont">
+          <div class="control">
+            <h3 class="title">打借条</h3>
+            <form id="" action="">
+              <ul class="clear">
+                <li>
+                  <label>出借人</label>
+                  <div class="select">
+                    <select v-model="transactionEvt.txlenderID" class="select-Box">
+                      <option :value="null" disabled hidden>无指定出借人</option>
+                      <option v-for="option in txlenderList" v-bind:value="option.id">
+                        {{ option.name }}({{ option.mobile }})
+                      </option>
+                    </select>
+                  </div>
+                </li>
+                <li>
+                  <label>借款日期</label>
+                  <input type="text" class="borrowingDate input-Box" id="beginDateRange" placeholder="借款日期">
+                </li>
+                <li>
+                  <label>还款日期</label>
+                  <input type="text" class="repayDate input-Box" id="repayDateRange" placeholder="还款日期">
+                </li>
+                <li>
+                  <label>借款金额</label>
+                  <input type="text" class="repayDate input-Box" v-model="transactionEvt.amount"   placeholder="借款金额">
+                </li>
+                <li>
+                  <label>年利化率</label>
+                  <div class="select">
+                    <select  v-model="transactionEvt.rate" class="select-Box">
+                      <option value="24">24%</option>
+                      <option value="23">23%</option>
+                      <option value="22">22%</option>
+                      <option value="21">21%</option>
+                      <option value="20">20%</option>
+                      <option value="19">19%</option>
+                      <option value="18">18%</option>
+                      <option value="17">17%</option>
+                      <option value="16">16%</option>
+                      <option value="15">15%</option>
+                      <option value="14">14%</option>
+                      <option value="13">13%</option>
+                      <option value="12">12%</option>
+                      <option value="11">11%</option>
+                      <option value="10">10%</option>
+                      <option value="9">9%</option>
+                      <option value="8">8%</option>
+                      <option value="7">7%</option>
+                      <option value="6">6%</option>
+                      <option value="5">5%</option>
+                      <option value="4">4%</option>
+                      <option value="3">3%</option>
+                      <option value="2">2%</option>
+                      <option value="1">1%</option>
+                    </select>
+                  </div>
+                </li>
+                <li>
+                  <label>用 途</label>
+                  <div class="select">
+                    <select  v-model="transactionEvt.usageType" class="select-Box">
+                      <option value="1">个体经营</option>
+                      <option value="2">消费</option>
+                      <option value="3">助学</option>
+                      <option value="4">创业</option>
+                      <option value="5">租房</option>
+                      <option value="6">旅游</option>
+                      <option value="7">装修</option>
+                      <option value="8">医疗</option>
+                      <option value="0">其它</option>
+                    </select>
+                  </div>
+                </li>
+                <li class="clear"> <a class="cancel btn gray fl" onclick="hid()">取 消</a> <a class="confirm btn info fl" onclick="savetransaction()">确 定</a> </li>
+              </ul>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="report">
+    <div class="main">
+      <div class="menu">
+        <div class="reportheader clear">
+          <div class="name fl">
+            <h3>{{request.name}}</h3>
+          </div>
+          <div class="state fl">
+            <i v-if="request.status.value == 0" class="label info">{{request.status.displayName}}</i>
+            <i v-if="request.status.value == 1" class="label warning">{{request.status.displayName}}</i>
+            <i v-if="request.status.value == 2 || request.status.value == 4" class="label success">{{request.status.displayName}}</i>
+            <i v-if="request.status.value == 3 || request.status.value == 5 || request.status.value == 6 || request.status.value == 7" class="label danger">{{request.status.displayName}}</i>
+
+            <i v-if="count <= 1" class="label success">首次申请</i> <i v-if="count > 1" class="label warning">第{{count}}次申请</i>
+          </div>
+          <div class="control fr"> <a v-if="hasPermission('auth:request:process')" class="reject danger btn" onclick="refuseBtn();">拒 绝</a> <a v-if="hasPermission('auth:request:process')" class="iouBTN blue btn" onclick="iouBTNClick();">借 条</a> <a v-if="hasPermission('auth:request:process')" class="otherBTN gray btn" onclick="otherBtnClick();">其 它</a></div>
+        </div>
+        <div class="optionMenu">
+          <ul class="d-flex clear">
+            <li class="flex-1"><a onclick="loadRequestDetails();">申请详情</a></li>
+            <li class="flex-1 active"><a onclick="loadComprehensiveDetails();">综合报告</a></li>
+            <li class="flex-1"><a onclick="loadBqsMnoReport();">运营商报告</a></li>
+            <li class="flex-1"><a onclick="loadMobileDetails();">通话详情</a></li>
+            <li class="flex-1 "><a  onclick="loadYouDunDetails();" >多头报告</a></li>
+            <li class="flex-1 "><a onclick="loadJietiaoDetails();">借条报告</a></li>
+            <li class="flex-1"><a onclick="loadMidouDetails();">米兜报告</a></li>
+            <li class="flex-1 "><a onclick="loadTaobaoAlipayDetails();">电商报告</a></li>
+            <li class="flex-1 "><a  onclick="loadContactInfoDetails();">通讯录</a></li>
+            <li class="flex-1 "><a onclick="loadHistoryDetails();">跟踪信息</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="cont">
+        <div class="opt03" id="nullHtml" style="display: none">
+          {{errMsg}}
+        </div>
+        <div class="opt02" id="bodyHtml" >
+          <div class="c01">
+            <div class="title">
+              <h5>综合评估</h5>
+            </div>
+            <div class="assess clear">
+              <div class="userFaith">
+                <canvas id="creditValues" width="300" height="220"></canvas>
+              </div>
+              <div class="queryStatus">
+
+                <table class="footable">
+
+                  <tbody>
+                  <tr>
+                    <th scope="row"><p>身份信息验证</th>
+                    <td>
+                        <p v-if="mobileVo.idCardCheck=== '1' || mobileVo.idCardCheck=== '2'">查询成功</p>
+                        <p class="error" v-if="mobileVo.idCardCheck=== '3' ">疑似风险</p>
+                        <p v-if="mobileVo.idCardCheck=== '4' || mobileVo.idCardCheck=== '5'">无法判断</p>
+                    </td>
+                    <!--<td>
+                        <a href="#" v-if="mobileVo.bqsHighRiskList=== 1">查 看 </a>
+                    </td>-->
+                  </tr>
+                  <tr>
+                    <th scope="row"><p>运营商信息</p></th>
+                    <td>
+                      <p v-if="mobileVo.mnoBaseInfoRiskList=== 0">查询成功</p>
+                      <p class="error" v-if="mobileVo.mnoBaseInfoRiskList=== 1">疑似风险</p>
+                      <p v-if="mobileVo.mnoBaseInfoRiskList=== 2">无法判断</p>
+                    </td>
+                   <!-- <td><a href="#" v-if="mobileVo.mnoBaseInfoRiskList=== 1">查 看</a></td>-->
+                  </tr>
+                  <tr>
+                    <th scope="row"><p>通讯录信息</p></th>
+                    <td>
+                      <p v-if="mobileVo.mobileRiskList=== 0">查询成功</p>
+                      <p class="error" v-if="mobileVo.mobileRiskList=== 1">疑似风险</p>
+                      <p v-if="mobileVo.mobileRiskList=== 2">获取失败</p>
+                    </td>
+                 <!--   <td><a href="#" v-if="mobileVo.mobileRiskList=== 1">查 看</a></td>-->
+                  </tr>
+                  <tr>
+                    <th scope="row"><p>多头借贷风险</p></th>
+                    <td>
+                      <p v-if="mobileVo.duotouRiskList=== 0">查询成功</p>
+                      <p class="error" v-if="mobileVo.duotouRiskList=== 1">疑似风险</p>
+                      <p v-if="mobileVo.duotouRiskList=== 2">获取失败</p>
+                    </td>
+                   <!-- <td><a href="#" v-if="mobileVo.duotouRiskList=== 1">查 看</a></td>-->
+                  </tr>
+                  <tr>
+                    <th scope="row"><p>借条平台信息</p></th>
+                    <td>
+                      <p v-if="mobileVo.jietiaoRiskList=== 0">查询成功</p>
+                      <p class="error" v-if="mobileVo.jietiaoRiskList=== 1">疑似风险</p>
+                      <p v-if="mobileVo.jietiaoRiskList=== 2">获取失败</p>
+                    </td>
+                   <!-- <td><a href="#" v-if="mobileVo.jietiaoRiskList=== 1">查 看</a></td>-->
+                  </tr>
+                  <tr>
+                    <th scope="row"><p>社交健康度</p></th>
+                    <td>
+                      <p v-if="mobileVo.socialRiskList=== 0">查询成功</p>
+                      <p class="error" v-if="mobileVo.socialRiskList=== 1">疑似风险</p>
+                      <p v-if="mobileVo.socialRiskList=== 2">获取失败</p>
+                    </td>
+                    <!--<td><a href="#" v-if="mobileVo.socialRiskList=== 1">查 看</a></td>-->
+                  </tr>
+
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+       <div class="h40"></div>
+          <div class="c02">
+            <div class="title">
+              <h5>身份信息</h5>
+            </div>
+            <div class="identity">
+              <ul class="clear">
+                <li> <span>姓 名</span>
+                  <p>{{authUserVO.name}}</p>
+                </li>
+                <li> <span>身份证号</span>
+                  <p>{{authUserVO.idNo}}</p>
+                </li>
+                <li> <span>手机号码</span>
+                  <p>{{authUserVO.mobile}}</p>
+                </li>
+                <li> <span>性别 / 年龄  / 户籍地</span>
+                  <p>{{mobileVo.gender}} / {{mobileVo.age}} / {{mobileVo.birthAddress}}</p>
+                </li>
+                <li> <span>申请时间</span>
+                  <p id="appTime">{{request.createTime}}</p>
+                </li>
+                <li> <span>淘宝芝麻信用分数</span>
+                  <p  v-if="authUserVO.taobaoSesamePoints==='' || authUserVO.taobaoSesamePoints===null">-</p>
+                  <p  v-else>{{authUserVO.taobaoSesamePoints}}</p>
+                </li>
+                <li> <span>信贷行业-P2P黑名单</span>
+                  <p v-if="mobileVo.p2pRiskGrade==='' || mobileVo.p2pRiskGrade===null"><i class="label success">查询正常</i></p>
+                  <p v-else ><i class="label warning" >{{mobileVo.p2pRiskGrade}}</i></p>
+
+                </li>
+                <li> <span>多头名单</span>
+                  <p v-if="mobileVo.duotouRiskGrade===''|| mobileVo.duotouRiskGrade===null " ><i class="label success">查询正常</i></p>
+                  <p v-else ><i class="label warning" >{{mobileVo.duotouRiskGrade}}</i></p>
+                </li>
+                <li> <span>法院失信名单</span>
+                  <p v-if="mobileVo.courtRiskGrade===''|| mobileVo.courtRiskGrade===null"><i class="label success">查询正常</i></p>
+                  <p v-else  ><i class="label warning" >{{mobileVo.courtRiskGrade}}</i></p>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+           <div class="h40"></div>
+            <div class="c03">
+              <div class="title">
+                <h5>运营商信息</h5>
+              </div>
+              <div class="operator">
+                <ul class="clear">
+                  <li> <span>手机号</span>
+                    <p>{{mobileVo.mobile}} </p>
+                  </li>
+                  <li> <span>实名信息</span>
+                    <p v-if="mobileVo.nameCheck=== '1' "><i class="label success">实名认证</i></p>
+                    <p v-else>未认证</p>
+                  </li>
+                   <li> <span>入网时间</span>
+                     <p> {{mobileVo.regTime}} </p>
+                   </li>
+
+                   <li> <span>夜间通话占比</span>
+                     <p>{{mobileVo.monthlyAvgSecondsRatio}}</p>
+                   </li>
+
+                   <li> <span>互通电话数量</span>
+                     <p>{{mobileVo.bothCallCnt}}  <i class="label warning" v-if="mobileVo.bothCallCnt <= 5 ">高风险</i><i class="label warning" v-if="mobileVo.bothCallCnt >5 && mobileVo.bothCallCnt <= 15 ">中风险</i>
+                     </p>
+                   </li>
+                  <li>
+                   <span>话费可用余额</span>
+                    <p>{{mobileVo.curBalance}}</p>
+                  </li>
+                  <li> <span>公安通话次数</span>
+                   <p>{{mobileVo.callCount110}}  <i class="label warning" v-if="mobileVo.callCount110 > 8 ">高风险</i></p>
+                 </li>
+
+                 <li> <span>互金公司通话次数</span>
+                   <p>{{mobileVo.callCount008}}</p>
+                 </li>
+
+                 <li> <span>贷款通话次数</span>
+                   <p>{{mobileVo.callCount005}}  <i class="label warning" v-if="mobileVo.callCount005 > 8 ">疑似风险</i> </p>
+                 </li>
+                  <li> <span>紧急联系人</span>
+                    <p>{{mobileVo.emergencyCallCount}}  <i class="label warning" v-if="mobileVo.emergencyCallCount < 2 ">高风险</i>
+                    </p>
+                  </li>
+                 <li> <span>号码静默情况</span>
+                   <p>{{mobileVo.maxInterval}}天  <i class="label warning" v-if="mobileVo.maxInterval > 5 ">高风险</i></p>
+                 </li>
+
+                </ul>
+              </div>
+            </div>
+            <div class="h40"></div>
+            <div class="c04">
+              <div class="title">
+                <h5>通讯录风险</h5>
+              </div>
+              <div class="operator">
+                <ul class="clear">
+                  <li> <span>通讯录有无</span>
+                    <p>{{mobileVo.maillist}}  <i class="label success" v-if="mobileVo.maillist === '有'">查询正常</i><i class="label warning" v-if="mobileVo.maillist === '无'">高风险</i>  </p>
+                  </li>
+                  <li> <span>有效联系人数</span>
+                    <p>{{mobileVo.contactsClass1Cnt}}  <i class="label success" v-if="mobileVo.contactsClass1Cnt >= 15">查询正常</i><i class="label warning" v-if="mobileVo.contactsClass1Cnt < 15">高风险</i>
+                    </p>
+                  </li>
+                  <li> <span>通讯录借贷标签</span>
+                    <p>{{mobileVo.cateCnt}}  <i class="label success" v-if="mobileVo.cateCnt <10 ">查询正常</i><i class="label warning" v-if="mobileVo.cateCnt >=10 ">高风险</i></p>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+            <div class="h40"></div>
+            <div class="c05">
+              <div class="title">
+                <h5>多头借贷风险</h5>
+              </div>
+              <div class="operator">
+                <ul class="clear">
+                  <li> <span>有盾贷前模型</span>
+                    <p>{{youduInfoVO.riskEvaluation}}</p>
+                  </li>
+                  <li> <span>关联用户数</span>
+                    <p>{{youduInfoVO.linkUserCount}}  <i class="label success" v-if="mobileVo.linkUserCount < 2 ">查询正常</i><i class="label warning" v-if="mobileVo.linkUserCount >= 2 ">高风险</i></p>
+                  </li>
+                  <li> <span>使用设备数</span>
+                    <p>{{youduInfoVO.linkDeviceCount}}  <i class="label success" v-if="mobileVo.linkDeviceCount < 2 ">查询正常</i><i class="label warning" v-if="mobileVo.linkDeviceCount >= 2 ">高风险</i></p>
+                  </li>
+                  <li> <span>总借款平台数</span>
+                    <p>{{youduInfoVO.actualoanPlatformCount}}  <i class="label success" v-if="mobileVo.actualoanPlatformCount < 10 ">查询正常</i><i class="label warning" v-if="mobileVo.actualoanPlatformCount >= 10 ">高风险</i></p>
+                  </li>
+                  <li> <span>总还款平台数</span>
+                    <p>{{youduInfoVO.repaymentPlatformCount}}  <i class="label success" v-if="mobileVo.repaymentPlatformCount < 10 ">查询正常</i><i class="label warning" v-if="mobileVo.repaymentPlatformCount >= 10 ">高风险</i></p>
+                  </li>
+                  <li> <span>还款笔数</span>
+                    <p>{{youduInfoVO.repaymentTimesCount}}  <i class="label success">查询正常</i></p>
+                  </li>
+                  <li> <span>是否多头申请</span>
+
+                    <p v-if="mobileVo.partnerCount >= 20 ">是  <i class="label warning">高风险</i></p>
+                    <p v-else>否  <i class="label success">查询正常</i></p>
+
+                  </li>
+                  <li> <span>手机号关联身份证个数</span>
+                    <p v-if="mobileVo.idcCount > 1 ">{{mobileVo.idcCount}}  <i class="label warning">高风险</i></p>
+                    <p v-else>{{mobileVo.idcCount}}  <i class="label success">查询正常</i></p>
+                  </li>
+                  <li> <span>身份证关联手机号个数</span>
+                    <p v-if="mobileVo.phoneCount > 5 ">{{mobileVo.phoneCount}}  <i class="label warning">高风险</i></p>
+                    <p v-else>{{mobileVo.phoneCount}}  <i class="label success">查询正常</i></p>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+
+            <div class="h40"></div>
+            <div class="c08">
+              <div class="title">
+                <h5>借条平台风险</h5>
+              </div>
+              <div class="operator">
+                <ul class="clear">
+                  <li> <span>借条平台有无逾期</span>
+                    <p v-if="jietiaoVO.overdueFlag == true "> 有  <i class="label warning">高风险</i></p>
+                    <p v-else>无  <i class="label success">查询正常</i></p>
+                  </li>
+                  <li> <span>5大借条平台申请数</span>
+                    <p>{{jietiaoVO.appAllCount}}  <i class="label success">查询正常</i></p>
+                  </li>
+                  <li> <span>联系人申请关联</span>
+                    <p>无  <i class="label success">查询正常</i></p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="h40"></div>
+
+          <div class="c04">
+            <div class="title">
+              <h5>社交健康度</h5>
+            </div>
+            <div class="operator">
+              <ul class="clear">
+                <li> <span>身份证号命中黑名单</span>
+                  <p>{{mobileVo.cardhitCount}} <i class="label success" v-if="mobileVo.cardhitCount < 1 ">查询正常</i> <i class="label warning" v-if="mobileVo.cardhitCount > 1 ">高风险</i>  </p>
+                </li>
+                <li> <span>电话号码命中黑名单</span>
+                  <p>{{mobileVo.phoneHitCount}}  <i class="label success" v-if="mobileVo.phoneHitCount < 1 ">查询正常</i> <i class="label warning" v-if="mobileVo.phoneHitCount > 1 ">高风险</i>
+                  </p>
+                </li>
+                <li> <span>本人逾期数</span>
+                  <p>{{mobileVo.blacklistCnt}}  <i class="label success" v-if="mobileVo.blacklistCnt < 1 ">查询正常</i><i class="label warning" v-if="mobileVo.blacklistCnt >=1 ">高风险</i></p>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+
+<script src="../../js/newJs/common.js"></script>
+
+<script src="../../js/newJs/UserFaith.js"></script>
+<script type="text/javascript">
+/*
+
+    window.onload = function(){
+
+        Meter.setOptions({
+            element: 'creditValues',
+            centerPoint: {
+                x: 150,
+                y: 150
+            },
+            radius: 150,
+            data: {
+                value: 710,
+                title: '信用{t}',
+                subTitle: '评估时间：2019.02.22',
+                area: [{
+                    min: 350, max: 550, text: '较差'
+                },{
+                    min: 550, max: 600, text: '中等'
+                },{
+                    min: 600, max: 650, text: '良好'
+                },{
+                    min: 650, max: 700, text: '优秀'
+                },{
+                    min: 700, max: 950, text: '极好'
+                }]
+            }
+        }).init();
+    }*/
+</script>
+
+<!-- 进度 -->
+<script type="text/javascript" src="../../js/newJs/pace.min.js"></script>
+
+<script src="../../libs/viewer.min.js"></script>
+<script src="../../js/modules/auth/midou_comprehensive.js"></script>
+<script src="../../js/modules/auth/report_common.js"></script>
+<script src="../../libs/moment.min.js"></script>
+<script src="../../libs/daterangepicker.js"></script>
+</html>
+

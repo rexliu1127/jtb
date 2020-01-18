@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.sys.dao.SysFunDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.sys.entity.SysFunEntity" id="sysFunMap">
+        <result property="id" column="id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="remainingSum" column="remaining_sum"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isrist" column="isrist"/>
+        <result property="merchantName" column="merchant_name"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.sys.entity.SysFunEntity">
+		select * from sys_fun where id = #{value}
+	</select>
+
+	<select id="queryinfo" resultType="io.grx.modules.sys.entity.SysFunEntity">
+		select * from sys_fun where merchant_no = #{merchant_no}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.sys.entity.SysFunEntity">
+		select * from sys_fun
+		<where>
+			<if test="merchantname != null and merchantname != ''">
+				merchant_name like concat('%',#{merchantname},'%')
+			</if>
+			<if test="merchantNo != null and merchantNo != ''">
+				merchant_no like concat('%',#{merchantNo},'%')
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from sys_fun
+		<where>
+			<if test="merchantname != null and merchantname != ''">
+				merchant_name like concat('%',#{merchantname},'%')
+			</if>
+			<if test="merchantNo != null and merchantNo != ''">
+				merchant_no like concat('%',#{merchantNo},'%')
+			</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.sys.entity.SysFunEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_fun
+		(
+			merchant_no, 
+			total_amount, 
+			remaining_sum, 
+			create_time, 
+			isrist, 
+			merchant_name
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{totalAmount}, 
+			#{remainingSum}, 
+			#{createTime}, 
+			#{isrist}, 
+			#{merchantName}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.sys.entity.SysFunEntity">
+		update sys_fun 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="totalAmount != null">total_amount = #{totalAmount}, </if>
+			<if test="remainingSum != null">remaining_sum = #{remainingSum}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="isrist != null">isrist = #{isrist}, </if>
+			<if test="merchantName != null">merchant_name = #{merchantName}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sys_fun where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from sys_fun where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<delete id="updateRistBatch">
+		update sys_fun set isrist = 0  where id in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

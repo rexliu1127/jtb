@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.min.css"/>
+    <style>
+        .content {
+            padding: 15px 15px 15px 15px;
+            text-align: left;
+            text-indent: 30px;
+        }
+
+    </style>
+</head>
+<body ontouchstart="" class="body_bg">
+<div class="mainAPP wholeHigh">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>登 录</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="login">
+            <div class="area01">
+                <div class="typeX">
+                    <div class="login-logo">
+                        <img src="../../images/logo.png"/>
+                    </div>
+
+                    <hr />
+                    <p class="content" th:inline="text">
+                        [[${@environment.getProperty('site.name')}]]平台是借款合同签署、保全平台，该平台签署的合同与纸质
+                        合同具有同等法律效应。借贷双方均可在该平台发起签署合同请求，双方确认
+                        之后合同生效。
+                    </p>
+                    <h3>温馨提示：</h3>
+                    <p class="content" th:inline="text">
+                        [[${@environment.getProperty('site.name')}]]平台非借贷平台，任何以[[${@environment.getProperty('site.name')}]]名义出借、催款的信息均为诈
+                        骗。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+
+<input id="userId" type="hidden" th:value="${TX_USER.userId}"/>
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../libs/jquery-weui.min.js"></script>
+<script src="../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../js/rcpt/main.js"></script>
+</html>

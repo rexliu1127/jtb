@@ -1,0 +1,236 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+img {
+  display: block; }
+input {
+  outline: none;
+  border: none; }
+.newHead {
+  width: 100%;
+  padding: 0.05rem 0 0.15rem 0.3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+  .newHead img {
+    width: 0.2rem;
+    height: 0.2rem; }
+  .newHead .newHeadHtml {
+    color: #42485B;
+    font-family: Microsoft YaHei;
+    font-size: 0.14rem;
+    font-weight: 700;
+    padding-left: 0.08rem; }
+
+.myTabContent01 {
+  width: 100%;
+  height: 100%; }
+  .myTabContent01 .newContent {
+    width: 100%;
+    height: 10rem;
+    padding: 0 0.3rem 0 0.3rem;
+    overflow-y: auto; }
+
+.basic {
+  width: 100%;
+  height: 4rem;
+  padding: 0.3rem 0 0.3rem 0; }
+  .basic .news {
+    border: 0.01rem solid #ECECED;
+    border-radius: 0.05rem;
+    width: 100%;
+    height: 100%; }
+  .basic .news:hover {
+    box-shadow: 0px 0.01rem 0.06rem 0px rgba(0, 0, 0, 0.12); }
+
+.nweBody {
+  padding: 0 0.3rem 0.05rem 0.3rem;
+  font-size: 0.12rem; }
+  .nweBody .nweBody1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center; }
+    .nweBody .nweBody1 .nweBody_content {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding-bottom: 0.1rem; }
+      .nweBody .nweBody1 .nweBody_content div:nth-child(1) {
+        display: flex;
+        align-items: center;
+        font-size: 0.12rem;
+        font-weight: 600;
+        color: #333333de;
+        min-width: 1.2rem;
+        padding-left: 0.1rem;
+        height: 100%;
+        padding: 0.05rem 0.05rem 0.05rem 0.05rem;
+        background-color: #F2F2F2; }
+        .nweBody .nweBody1 .nweBody_content div:nth-child(1) span:nth-child(1) {
+          height: 0.26rem;
+          line-height: 0.26rem; }
+      .nweBody .nweBody1 .nweBody_content span:nth-child(2) {
+        margin: 0 0.1rem 0 0.1rem;
+        display: flex;
+        align-items: center;
+        color: #464241;
+        font-size: 0.13rem;
+        white-space: normal; }
+      .nweBody .nweBody1 .nweBody_content div:nth-child(3) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #5CB85C;
+        width: 0.4rem;
+        heigth: 0.05rem;
+        border: 0.01rem solid #5cb85c;
+        border-radius: 0.03rem; }
+
+.ComprehensiveReport {
+  padding: 0rem 0.3rem 0.1rem 0.3rem;
+  width: 100%;
+  position: absolute;
+  left: -0.1rem;
+}
+  .ComprehensiveReport .comprehensiveReport_Head {
+    width: 100%;
+    height: 1.49rem;
+    display: flex;
+    justify-content: center; }
+    .ComprehensiveReport .comprehensiveReport_Head img {
+      width: 3rem;
+      height: 0.6rem;
+      margin-top: 0.48rem; }
+  .ComprehensiveReport .identityInformation {
+    width: 100%;
+    border: 0.01rem solid #ECECED;
+    padding-left:0.1rem;
+    border-radius: 0.05rem;
+    width: 100%;}
+  .ComprehensiveReport .identityInformation:hover {
+    box-shadow: 0px 0.01rem 0.06rem 0px rgba(0, 0, 0, 0.12); }
+  .ComprehensiveReport .operatorRisk {
+    width: 100%;
+    height: auto;
+    padding: 0 0 0 0.1rem;
+    border: 0.01rem solid #ECECED;
+    border-radius: 0.05rem;
+    margin: 0.05rem 0 0.05rem 0;
+  }
+  .ComprehensiveReport .operatorRisk:hover {
+    box-shadow: 0px 0.01rem 0.06rem 0px rgba(0, 0, 0, 0.12); }
+  .ComprehensiveReport .theAddressBookRisk {
+    width: 100%;
+    height: auto;
+    padding: 0 0 0 0.1rem;
+    border: 0.01rem solid #ECECED;
+    border-radius: 0.05rem; }
+  .ComprehensiveReport .theAddressBookRisk:hover {
+    box-shadow: 0px 0.01rem 0.06rem 0px rgba(0, 0, 0, 0.12); }
+  .ComprehensiveReport .huntingLoanRisk {
+    width: 100%;
+    height: auto;
+    padding: 0 0 0 0.1rem;
+    border: 0.01rem solid #ECECED;
+    border-radius: 0.05rem;
+    margin: 0.05rem 0 0.05rem 0; }
+  .ComprehensiveReport .huntingLoanRisk:hover {
+    box-shadow: 0px 0.01rem 0.06rem 0px rgba(0, 0, 0, 0.12); }
+  .ComprehensiveReport .iOweYouRisk {
+    width: 100%;
+    height: auto;
+    padding: 0 0 0 0.1rem;
+    border: 0.01rem solid #ECECED;
+    border-radius: 0.05rem;
+    margin-bottom: 1rem; }
+  .ComprehensiveReport .iOweYouRisk:hover {
+    box-shadow: 0px 0.01rem 0.06rem 0px rgba(0, 0, 0, 0.12); }
+
+.addressList {
+  padding: 0.5rem 0.3rem 0 0.3rem;
+  width: 100%;
+  height: auto; }
+  .addressList .emergencyContact {
+    border: 0.01rem solid #ECECED;
+    border-radius: 0.05rem; }
+  .addressList .emergencyContact:hover {
+    box-shadow: 0px 0.01rem 0.06rem 0px rgba(0, 0, 0, 0.12); }
+  .addressList .search {
+    height: 1rem;
+    display: flex;
+    align-items: center; }
+    .addressList .search input:nth-child(1) {
+      font-size: 0.13rem;
+      color: #AAAAAA;
+      border: 0.01rem solid #f2af0e;
+      border-radius: 3px;
+      height: 0.3rem;
+      width: 4rem;
+      padding-left: 0.38rem; }
+    .addressList .search input:nth-child(2) {
+      border: 0.01rem solid #f2af0e;
+      border-radius: 0.05rem;
+      height: 0.3rem;
+      width: 0.6rem;
+      margin-left: 0.2rem;
+      background-color: #f2af0e;
+      color: white;
+      font: 600 0.13rem MicrosoftYaHei; }
+    .addressList .search img:nth-child(3) {
+      position: absolute;
+      left: 0.45rem; }
+
+.address .addressBody {
+  border-right: 0.01rem solid #ECECED;
+  border-bottom: 0.01rem solid #ECECED;
+  border-left: 0.01rem solid #ECECED; }
+  .address .addressBody .addressHead {
+    width: 100%;
+    height: 0.3rem;
+    display: flex; }
+    .address .addressBody .addressHead div {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #F2F2F2;
+      color: #333333;
+      font-size: 0.12rem;
+      font-weight: 600; }
+    .address .addressBody .addressHead span {
+      background-color: #ECECED;
+      width: 0.01rem;
+      height: 3.3rem; }
+  .address .addressBody .addressItems {
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start; }
+    .address .addressBody .addressItems .addressItem:nth-child(2n) {
+      background-color: #FAFAFA; }
+    .address .addressBody .addressItems .addressItem {
+      width: 33.3%;
+      height: 0.3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      color: #888888;
+      font-size: 0.12rem; }
+    .address .addressBody .addressItems .addressItem:hover {
+      background-color: #ffeac0; }
+    .address .addressBody .addressItems .addressItem:nth-child(n+10):nth-child(n-20) {
+      position: relative;
+      left: -1rem; }
+.address #pagination {
+  position: absolute;
+  right: 0.3rem;
+  margin-top: 0.3rem; }
+
+/*# sourceMappingURL=index.css.map */

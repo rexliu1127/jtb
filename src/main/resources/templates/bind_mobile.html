@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../css/weui.css"/>
+    <link rel="stylesheet" href="../css/wx_common.css"/>
+    <link rel="stylesheet" href="../css/wx_main.css"/>
+    <script src="../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../js/wx_common.js"></script>
+    <script src="../js/wx/bind_mobile.js"></script>
+    <style>
+        .container {
+            text-align: center;
+            margin-left: auto;
+            margin-left: auto;
+        }
+        .weui-cells__title, .weui-cells {
+            text-align: center;
+            display: block;
+        }
+        .weui-cells {
+            width: 68%;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: inherit;
+        }
+        .weui-cell {
+            background-color: #ffffff;
+        }
+        .form {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button.weui-vcode-btn,.weui-btn_primary {
+            background-color: #66ccff;
+            color: #ffffff;
+        }
+        .weui-btn_primary {
+            width: 50%;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+
+<div class="container" id="container">
+    <div class="weui-cells__title">
+        <img src="../images/logo.jpg" class="round-img" style="width: 33%;" />
+    </div>
+
+    <div id="form" class="form">
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <input id="mobile" class="weui-input" type="tel" required="required" pattern="^\d{11}$" maxlength="11"
+                           placeholder="输入你现在的手机号" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号"/>
+                </div>
+                <div class="weui-cell__ft">
+                    <i class="weui-icon-warn"></i>
+                </div>
+            </div>
+        </div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell weui-cell_vcode">
+                <div class="weui-cell__bd">
+                    <input id="verificationCode" class="weui-input" type="number" required="required" pattern="REG_VCODE"
+                           placeholder="输入你收到的手机验证码" emptyTips="请输入手机验证码" notMatchTips="请输入正确的手机验证码"/>
+                </div>
+                <div class="weui-cell__ft">
+                    <i class="weui-icon-warn"></i>
+                    <button class="weui-vcode-btn">获取验证码</button>
+                </div>
+            </div>
+        </div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-btn-area">
+                <a id="formSubmitBtn" href="javascript:" class="weui-btn weui-btn_primary">登录</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //your code here
+    });
+
+</script>
+
+</body>
+</html>

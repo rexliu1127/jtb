@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../css/rcpt/account.css"/>
+    <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/jquery-weui.min.css"/>
+    <title></title>
+    <script th:inline="text">
+        var needCaptcha = [[${needCaptcha}]];
+        var captcha = '';
+    </script>
+</head>
+<body ontouchstart="">
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>更换手机</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="login">
+            <div class="area01">
+            	<div class="titleLabel">
+                    <h2>更换手机号</h2>
+                    <span>重要的操作可以通过手机验证本人身份，维护安全</span>
+                    </div>
+                <div class="typeX">
+                    <form action="#" method="post">
+                        <ul>
+                            <li class="display">                                
+                                <div class="form-box flex1">
+                                    <input id="mobile" class="phone form" type="text" maxlength="23" autocomplete="off" require="required" placeholder="输入你新的手机号码"/>
+                                </div>
+                            </li>
+                            <li class="display">                                
+                                <div class="form-box flex1">
+                                    <input  id="verifyCode" class="checkCode form" type="text" maxlength="6" autocomplete="off" require="required" placeholder="请输入验证码"/>
+                                </div>
+                                <div class="send"> <a id="getCode">获取验证码 </a></div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <div style="margin-left: 5%; margin-right: 5%; padding-top: 10px;">
+                    <div class="l-captcha" th:if="${needCaptcha}" th:attr="data-site-key=${captchaKey}" data-width="100%"
+                         data-callback="captchaResponse"></div>
+                </div>
+                <a id="loginBtn" type="button" class="btn btnstyle01 radius3PX">确认绑定</a>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- body 最后 -->
+<script src="../libs/jquery.min.js"></script>
+<script src="../libs/jquery-weui.min.js"></script>
+<script src="//captcha.luosimao.com/static/dist/api.js"></script>
+<script src="../js/wx_common.js"></script>
+<script type="text/javascript" src="../js/rcpt/main.js"></script> <!-- Resource jQuery -->
+<script src="../js/rcpt/change_mobile.js"></script>
+</body>
+</html>

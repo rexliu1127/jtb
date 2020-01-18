@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthRecommendDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.auth.entity.AuthRecommendEntity" id="authRecommendMap">
+        <result property="id" column="id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="mobile" column="mobile"/>
+        <result property="fromUserId" column="from_user_id"/>
+        <result property="toUserId" column="to_user_id"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.auth.entity.AuthRecommendEntity">
+		select * from auth_recommend where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.auth.entity.AuthRecommendEntity">
+		select * from auth_recommend
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from auth_recommend 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.auth.entity.AuthRecommendEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into auth_recommend
+		(
+			merchant_no, 
+			mobile, 
+			from_user_id, 
+			to_user_id, 
+			create_user_id, 
+			create_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{mobile}, 
+			#{fromUserId}, 
+			#{toUserId}, 
+			#{createUserId}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.AuthRecommendEntity">
+		update auth_recommend 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="mobile != null">mobile = #{mobile}, </if>
+			<if test="fromUserId != null">from_user_id = #{fromUserId}, </if>
+			<if test="toUserId != null">to_user_id = #{toUserId}, </if>
+			<if test="createUserId != null">create_user_id = #{createUserId}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from auth_recommend where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from auth_recommend where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" href="../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../css/wx_main.css"/>
+    <link href="../../css/page.css" rel="stylesheet" type="text/css"/>
+    <script src="../../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../../js/wx_common.js"></script>
+    <script src="../../js/wx/setup.js"></script>
+    <script th:inline="text">
+        var bindedUser = [[${!#strings.isEmpty(TX_USER.name)}]];
+        var userMobile = '[[${TX_USER.mobile}]]';
+    </script>
+</head>
+<body ontouchstart="" class="body_bg">
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+
+<div class="container" id="container"></div>
+
+<div class="weui-panel" id="mainPannel">
+    <div class="weui-panel__bd">
+        <div class="weui-media-box weui-media-box_small-appmsg">
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="../change_mobile_page">
+                    <div class="weui-cell__bd">
+                        <p>更换手机号码</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="../verify_sms_page?type=password&amp;forwardUrl=wx/set_password_page">
+                    <div class="weui-cell__bd">
+                        <p>修改交易密码</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+            <div class="weui-cells" th:if="${!#strings.isEmpty(TX_USER.wechatId)}">
+                <a class="weui-cell weui-cell_access" id="unbindWechatBtn" href="javascript:unbindWechat();">
+                    <div class="weui-cell__bd">
+                        <p>注销微信绑定</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+            <div style="height: 20px;"/>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>常见问题</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>版本介绍</p>
+                    </div>
+                    <div class="weui-cell__ft">V1.0.0</div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="about">
+                    <div class="weui-cell__bd">
+                        <p>关于</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

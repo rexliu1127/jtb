@@ -1,0 +1,29 @@
+@charset "utf-8";
+/* CSS 列表 */
+.setCA {
+	margin: 0 10px 88px;
+	background-color: #fff;
+}
+.setCA .set {
+	margin: 0 0 10px;
+	padding: 10px 20px;
+}
+.setCA .set h4 {
+	font-size: 16px;
+	font-weight: 500;
+	color: #999;
+}
+.setCA .set span.effect {
+	font-size: 12px;
+	color: #b1b1b1;
+}
+.setCA .set ul li {
+	margin: 10px 10px 0 0;
+	float: left;
+}
+.setCA .btn {
+	width: 188px;
+	margin: 50px 20px;
+	padding: 10px 16px;
+	background-color: #ff3d15;
+}

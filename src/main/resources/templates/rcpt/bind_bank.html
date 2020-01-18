@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="format-detection" content="email=no"/>
+  <meta name="format-detection" content="address=no"/>
+  <meta name="format-detection" content="date=no"/>
+  <!-- CSS reset -->
+  <link rel="stylesheet" href="../css/rcpt/reset.css"/>
+  <!-- Resource fontsIcon -->
+  <link rel="stylesheet" href="../css/rcpt/fontsIcon.css"/>
+  <!-- Resource nav -->
+  <link rel="stylesheet" href="../css/rcpt/nav.css"/>
+  <!-- Resource style -->
+  <link rel="stylesheet" href="../css/rcpt/style.css"/>
+  <!-- Resource credit -->
+  <link rel="stylesheet" href="../css/rcpt/account.css"/>
+  <!-- CSS FOOTER-NAV -->
+  <link rel="stylesheet" type="text/css" href="../css/rcpt/footer-nav.css"/>
+  <link rel="stylesheet" href="../css/weui.min.css"/>
+  <link rel="stylesheet" href="../css/jquery-weui.min.css"/>
+  <title></title>
+  <script th:inline="text">
+      var bindedUser = [[${!#strings.isEmpty(TX_USER.name)}]];
+      var needCaptcha = [[${needCaptcha}]];
+      var captcha = '';
+  </script>
+</head>
+<body>
+<div class="mainAPP"> 
+  <!-- .cd-header -->
+  <header class="cd-header clear">
+    <div class="cd-3d-nav-trigger">Menu<span></span></div>
+    <h2>绑定银行卡</h2>
+  </header>
+  <main> 
+    <!-- all your content here -->
+    <div class="bindingBANK">
+      <div class="area01">
+        <div class="typeX">
+          <form action="#" method="post">
+            <ul>
+              <li class="display">
+                
+                <div class="form-box flex1">
+                  <input id="name" class="userName form" type="text" maxlength="6" autocomplete="off" required="required" placeholder="请输入持卡人名称"/>
+                </div>
+              </li>
+              <li class="display">
+                
+                <div class="form-box flex1">
+                  <input id="idNo" class="IDcard form" type="text" maxlength="30" autocomplete="off" required="required" placeholder="请输入身份证号码"/>
+                </div>
+              </li>
+              <li class="display">
+                
+                <div class="form-box flex1">
+                  <input id="bankAccount" class="bankNumber form fourForm" type="tel" maxlength="30" autocomplete="off" required="required" placeholder="请输入银行卡号"/>
+                </div>
+              </li>
+              <li class="display">
+                
+                <div class="form-box flex1">
+                  <input id="mobile" class="phone form" type="tel" maxlength="13" autocomplete="off" required="required" placeholder="请输入手机号码"/>
+                </div>
+              </li>
+              <li class="display">
+                
+                <div class="form-box flex1">
+                  <input id="verifyCode" class="checkCode form" type="tel" maxlength="6" autocomplete="off" required="required" placeholder="请输入验证码"/>
+                </div>
+                <div class="send"><a id="getCode">获取验证码</a></div>
+              </li>
+            </ul>
+          </form>
+        </div>
+
+        <div style="margin-left: 5%; margin-right: 5%; padding-top: 10px;">
+          <div class="l-captcha" th:if="${needCaptcha}" th:attr="data-site-key=${captchaKey}" data-width="100%"
+               data-callback="captchaResponse"></div>
+        </div>
+        <div class="note"><span><i class="linecons-guide"></i>注意：请避免绑定<em class="blue">信用卡</em>或<em class="blue">结算卡</em></span></div>
+        <button id="submit" type="button" class="btn btnstyle01 radius3PX">确定绑卡</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<input id="returnUrl" type="hidden" th:value="${returnUrl}" />
+<input id="txUserName" type="hidden" th:value="${txUserName}" />
+
+<script src="../libs/jquery.min.js"></script>
+<script src="../libs/jquery-weui.min.js"></script>
+<script src="//captcha.luosimao.com/static/dist/api.js"></script>
+<script src="../js/wx_common.js"></script>
+<script type="text/javascript" src="../js/rcpt/main.js"></script>
+<script type="text/javascript" src="../js/rcpt/bind_bank.js?t=2"></script>
+
+</body>
+
+
+
+
+<script type="text/javascript">
+/*<![CDATA[*/
+  !function () {
+    $('.fourForm').on('keyup mouseout input',function(){
+      var $this = $(this),
+        v = $this.val();
+        v = v.replace(/\s/g,'').replace(/[^\d]/g,'').replace(/(\d{4})(?=\d)/g,'$1 ');
+        $this.val(v);
+    });
+  }();
+/*]]>*/
+</script>
+
+
+</html>

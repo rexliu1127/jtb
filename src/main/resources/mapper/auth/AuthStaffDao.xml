@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthStaffDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.auth.entity.AuthStaffEntity" id="authStaffMap">
+        <result property="staffId" column="staff_id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="staffType" column="staff_type"/>
+        <result property="staffNo" column="staff_no"/>
+        <result property="staffBarcode" column="staff_barcode"/>
+        <result property="processorId" column="processor_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.auth.entity.AuthStaffEntity">
+		select *, (select name from sys_user where user_id = processor_id) processor_name from auth_staff where staff_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.auth.entity.AuthStaffEntity">
+		select * from auth_staff
+		<where>
+			merchant_no = #{_merchantNo}
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by staff_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from auth_staff
+		<where>
+			merchant_no = #{_merchantNo}
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.auth.entity.AuthStaffEntity" useGeneratedKeys="true" keyProperty="staffId">
+		insert into auth_staff
+		(
+			merchant_no, 
+			staff_type, 
+			staff_no, 
+			staff_barcode, 
+			processor_id, 
+			create_time, 
+			update_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{staffType}, 
+			#{staffNo}, 
+			#{staffBarcode}, 
+			#{processorId}, 
+			#{createTime}, 
+			#{updateTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.AuthStaffEntity">
+		update auth_staff 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="staffType != null">staff_type = #{staffType}, </if>
+			<if test="staffNo != null">staff_no = #{staffNo}, </if>
+			<if test="staffBarcode != null">staff_barcode = #{staffBarcode}, </if>
+			<if test="processorId != null">processor_id = #{processorId}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="updateTime != null">update_time = #{updateTime}</if>
+		</set>
+		where staff_id = #{staffId}
+	</update>
+	
+	<delete id="delete">
+		delete from auth_staff where staff_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from auth_staff where staff_id in 
+		<foreach item="staffId" collection="array" open="(" separator="," close=")">
+			#{staffId}
+		</foreach>
+	</delete>
+
+	<select id="queryByProcessorId" resultType="io.grx.modules.auth.entity.AuthStaffEntity">
+		select * from auth_staff where processor_id = #{processorId} and merchant_no = #{_merchantNo}
+	</select>
+</mapper>

@@ -1,0 +1,192 @@
+@charset "utf-8";
+/* -------------------------------- */
+/*--监管卡--*/
+.depository {
+}
+/*--储蓄卡--*/
+.savings {
+	float: left;
+	width: calc(100% - 100px);
+}
+/*--建设银行--*/
+.ccb {
+	background: #bfdcff;
+	background: -webkit-linear-gradient(left, #bfdcff, #65a4ff);
+	background: -o-linear-gradient(left, #bfdcff, #65a4ff);
+	background: -ms-linear-gradient(left, #bfdcff, #65a4ff);
+}
+/*--中国银行--*/
+.boc {
+	background: #ff8188;
+	background: -webkit-linear-gradient(left, #fdcbcd, #ff757d);
+	background: -o-linear-gradient(left, #fdcbcd, #ff757d);
+	background: -ms-linear-gradient(left, #fdcbcd, #ff757d);
+}
+/*--农业银行--*/
+.abc {
+	background: #7da99a;
+	background: -webkit-linear-gradient(left, #92ccbf, #0f9579);
+	background: -o-linear-gradient(left, #92ccbf, #0f9579);
+	background: -ms-linear-gradient(left, #92ccbf, #0f9579);
+}
+/*--工商银行--*/
+.icbc {
+	background: #ef414e;
+	background: -webkit-linear-gradient(left, #ffabb1, #e60113);
+	background: -o-linear-gradient(left, #ffabb1, #e60113);
+	background: -ms-linear-gradient(left, #ffabb1, #e60113);
+}
+/*--交通银行--*/
+.bcm {
+	background: #1d2088;
+	background: -webkit-linear-gradient(left, #a9acfd, #3439dc);
+	background: -o-linear-gradient(left, #a9acfd, #3439dc);
+	background: -ms-linear-gradient(left, #a9acfd, #3439dc);
+}
+/*--邮政储蓄银行--*/
+.cpbc {
+	background: #0e784f;
+	background: -webkit-linear-gradient(left, #acdac8, #0e784f);
+	background: -o-linear-gradient(left, #acdac8, #0e784f);
+	background: -ms-linear-gradient(left, #acdac8, #0e784f);
+}
+/*--招商银行--*/
+.cmb {
+	background: #e60012;
+	background: -webkit-linear-gradient(left, #ffd7da, #e60012);
+	background: -o-linear-gradient(left, #ffd7da, #e60012);
+	background: -ms-linear-gradient(left, #ffd7da, #e60012);
+}
+/*--民生银行--*/
+.cmbc {
+	background: #d1f7c3;
+	background: -webkit-linear-gradient(left, #d1f7c3, #61c0e4);
+	background: -o-linear-gradient(left, #d1f7c3, #61c0e4);
+	background: -ms-linear-gradient(left, #d1f7c3, #61c0e4);
+}
+/*--兴业银行--*/
+.cib {
+	background: #71aaec;
+	background: -webkit-linear-gradient(left, #71aaec, #2f7fd6);
+	background: -o-linear-gradient(left, #71aaec, #2f7fd6);
+	background: -ms-linear-gradient(left, #71aaec, #2f7fd6);
+}
+/*--光大银行--*/
+.ceb {
+	background: #a67d53;
+	background: -webkit-linear-gradient(left, #9e702b, #a67d53);
+	background: -o-linear-gradient(left, #9e702b, #a67d53);
+	background: -ms-linear-gradient(left, #9e702b, #a67d53);
+}
+/*--中信银行--*/
+.cncb {
+	background: #f39298;
+	background: -webkit-linear-gradient(left, #f39298, #e0444f);
+	background: -o-linear-gradient(left, #f39298, #e0444f);
+	background: -ms-linear-gradient(left, #f39298, #e0444f);
+}
+/*--广发银行--*/
+.cgb {
+	background: #ffd7da;
+	background: -webkit-linear-gradient(left, #ffd7da, #e60012);
+	background: -o-linear-gradient(left, #ffd7da, #e60012);
+	background: -ms-linear-gradient(left, #ffd7da, #e60012);
+}
+/*--华夏银行--*/
+.hxb {
+	background: #c3c3c3;
+	background: -webkit-linear-gradient(left, #c3c3c3, #f54c59);
+	background: -o-linear-gradient(left, #c3c3c3, #f54c59);
+	background: -ms-linear-gradient(left, #c3c3c3, #f54c59);
+}
+/*--平安银行--*/
+.pnb {
+	background: #ffd6be;
+	background: -webkit-linear-gradient(left, #ffd6be, #ea5504);
+	background: -o-linear-gradient(left, #ffd6be, #ea5504);
+	background: -ms-linear-gradient(left, #ffd6be, #ea5504);
+}
+/*--浦发银行--*/
+.spd {
+	background: #98bbf5;
+	background: -webkit-linear-gradient(left, #98bbf5, #1d3660);
+	background: -o-linear-gradient(left, #98bbf5, #1d3660);
+	background: -ms-linear-gradient(left, #98bbf5, #1d3660);
+}
+/*--上海银行--*/
+.bos {
+	background: #a4c1f2;
+	background: -webkit-linear-gradient(left, #a4c1f2, #164494);
+	background: -o-linear-gradient(left, #a4c1f2, #164494);
+	background: -ms-linear-gradient(left, #a4c1f2, #164494);
+}
+/*--上海农商银行--*/
+.shrcb {
+	background: #eecea1;
+	background: -webkit-linear-gradient(left, #eecea1, #225dc1);
+	background: -o-linear-gradient(left, #eecea1, #225dc1);
+	background: -ms-linear-gradient(left, #eecea1, #225dc1);
+}
+/*--深圳发展银行--*/
+.sdb {
+	background: #a0cae2;
+	background: -webkit-linear-gradient(left, #a0cae2, #0081cc);
+	background: -o-linear-gradient(left, #a0cae2, #0081cc);
+	background: -ms-linear-gradient(left, #a0cae2, #0081cc);
+}
+/*--深圳农商银行--*/
+.szrcb {
+	background: #b1cde2;
+	background: -webkit-linear-gradient(left, #b1cde2, #2476b5);
+	background: -o-linear-gradient(left, #b1cde2, #2476b5);
+	background: -ms-linear-gradient(left, #b1cde2, #2476b5);
+}
+/*--北京银行--*/
+.bob {
+	background: #ceaae4;
+	background: -webkit-linear-gradient(left, #ceaae4, #e41f1f);
+	background: -o-linear-gradient(left, #ceaae4, #e41f1f);
+	background: -ms-linear-gradient(left, #ceaae4, #e60012);
+}
+/*--北京农商银行--*/
+.bjrcb {
+	background: #ffd7da;
+	background: -webkit-linear-gradient(left, #ffd7da, #e60012);
+	background: -o-linear-gradient(left, #ffd7da, #e60012);
+	background: -ms-linear-gradient(left, #ffd7da, #e60012);
+}
+/*--天津银行--*/
+.tccb {
+	background: #88b4dc;
+	background: -webkit-linear-gradient(left, #88b4dc, #005bac);
+	background: -o-linear-gradient(left, #88b4dc, #005bac);
+	background: -ms-linear-gradient(left, #88b4dc, #005bac);
+}
+/*--宁波银行--*/
+.nbcb {
+	background: #fbeed9;
+	background: -webkit-linear-gradient(left, #fbeed9, #f39900);
+	background: -o-linear-gradient(left, #fbeed9, #f39900);
+	background: -ms-linear-gradient(left, #fbeed9, #f39900);
+}
+/*--江苏银行--*/
+.bjs {
+	background: #f3da9d;
+	background: -webkit-linear-gradient(left, #f3da9d, #89c0f1);
+	background: -o-linear-gradient(left, #f3da9d, #89c0f1);
+	background: -ms-linear-gradient(left, #f3da9d, #89c0f1);
+}
+/*--江西银行--*/
+.jxb {
+	background: #bfdcff;
+	background: -webkit-linear-gradient(left, #93c9f4, #55e9e6);
+	background: -o-linear-gradient(left, #bfdcff, #65a4ff);
+	background: -ms-linear-gradient(left, #bfdcff, #65a4ff);
+}
+/*--渤海银行--*/
+.cbhb {
+	background: #79a8c3;
+	background: -webkit-linear-gradient(left, #d5ffaf, #79b0f1, #2880e6);
+	background: -o-linear-gradient(left, #d5ffaf, #79b0f1, #2880e6);
+	background: -ms-linear-gradient(left, #d5ffaf, #79b0f1, #2880e6);
+}

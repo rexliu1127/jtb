@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/jquery-weui.min.css"/>
+    <title>人个中心</title>
+    <style type="text/css">
+		.userLetter .ul02 {
+			padding: 20px 0;
+		}
+
+        .flex1 h3 {
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>个人中心</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+
+        <div class="userLetter account">
+            <div class="area01 gradient01">
+                <div class="acc-cont">
+                    <ul class="display">
+                        <li class="flex2">
+                            <a class="display">
+                                <div class="aPHO radius50P">
+                                    <img th:if="${!#strings.isEmpty(user.headImgUrl)}"
+                                         th:src="${user.headImgUrl}" alt=""/>
+                                    <img th:if="${#strings.isEmpty(user.headImgUrl)}"
+                                         src="../img/accoubt/photo.svg" alt=""/>
+                                </div>
+                                <div class="aID flex1">
+                                    <h3 th:text="${#strings.isEmpty(user.name) ? (#strings.isEmpty(user.nickName) ? '未实名认证' : user.nickName) : user.name}">15019430196</h3>
+                                    <p th:if="${!#strings.isEmpty(user.mobile)}" th:text="${#strings.substring(user.mobile, 0, 3) + '****' + #strings.substring(user.mobile, 7, 11)}">18001200128</p>
+                                    <p th:if="${#strings.isEmpty(user.mobile)}">未实名认证</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="flex1">
+                            <a class="display">
+                                <div th:if="${balance != null}" class="aMoney flex1"><span>余额 (元)</span>
+                                    <h3 th:text="${#numbers.formatDecimal(balance, 1,2)}">0.00</h3>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ul02 radius3PX">
+                <ul class="display">
+                    <li class="flex1">
+                        <h3 th:text="${teamMemberCount}">20</h3>
+                        <span>团队人数</span>
+                    </li>
+                    <li class="flex1">
+                        <h3 class="red" th:text="${userReward}">100.20</h3>
+                        <span>已赚佣金</span>
+                    </li>
+                    <li class="flex1">
+                        <h3 class="red" th:text="${userWithdrawal}">100.00</h3>
+                        <span>已提现</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="ul03">
+                <ul>
+                    <li class="display" onclick="location.href='member/friend.html';">
+                        <div class="u02 flex1">
+                            <h3>好 友</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                    <li class="display" onclick="location.href='member/setup.html';">
+                        <div class="u03 flex1">
+                            <h3>设 置</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                    <li class="display" onclick="goCreditPage()">
+                        <div class="u04 flex1">
+                            <h3>信 用</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                    <!--li class="display">
+                  <div class="u05 flex1">
+                        <h3>银行卡</h3>
+                      </div>
+                  <div><i class="linecons-GT fr"></i></div>
+                </li-->
+                </ul>
+            </div>
+            <div class="ul03">
+                <ul>
+                    <li class="display" onclick="location.href='member/invite_code.html';">
+                        <div class="u06 flex1">
+                            <h3>邀请好友</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                    <li class="display" onclick="location.href='member/team.html';">
+                        <div class="u07 flex1">
+                            <h3>我的团队</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                    <li class="display" onclick="location.href='member/reward.html';">
+                        <div class="u08 flex1">
+                            <h3>我的奖励</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                    <li class="display" onclick="location.href='member/my_withdrawal.html';">
+                        <div class="u09 flex1">
+                            <h3>我的提现</h3>
+                        </div>
+                        <div><i class="linecons-GT fr"></i></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="../libs/jquery.min.js"></script>
+<script src="../libs/jquery-weui.min.js"></script>
+<script src="../js/wx_common.js"></script>
+<script type="text/javascript" src="../js/rcpt/main.js"></script>
+<script th:inline="text">
+    function goCreditPage() {
+        location.href = baseURL + 'rcpt/member/credit/' + [[${TX_USER.userId}]] + pageExt;
+    }
+
+</script>
+</body>
+</html>

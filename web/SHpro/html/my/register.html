@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title></title>
+	    <link rel="stylesheet" href="../../css/SHglabal.css">
+	    <link rel="stylesheet" href="../../css/SHmy.css">
+	    <script type="text/javascript" src="../../js/SHmy.js"></script>
+	    <script>
+	    	
+	    function register(){
+	    	//判断是否勾选同意书
+			var checkk = document.getElementById("tx-check").checked;
+			if(checkk ==false)
+			{
+				alert("请勾选同意书");
+				return;
+			}
+	    	
+	    	if(clkSQ()){
+	    		
+	    		window.location.href="downloadPage.html"
+	    	}
+	    }
+	    	
+	    </script>
+	</head>
+	<script type="text/javascript">
+	</script>
+	<body>
+		<div class="wrapper">
+			<div class="downLoad-regit">
+				<img src="../../img/shpro/rg-1.png">
+				<div class="load-div" style="top: 49%;">
+					<div class="regit-input">
+						<ul>
+							<li style="width: 100%;">
+								<input type="text" placeholder="输入手机号" id="text-tel"/>
+							</li>
+						</ul>
+						<ul>
+							<li style="width: 57%;">
+								<input type="text" placeholder="输入验证码" id="txt-yzm"/>
+							</li>
+							<li style="float: right;padding: 0 5px;background: none;width: 36%;">
+								<button class="btn-before" onclick="clksend(this,'register')">获取验证码</button>
+							</li>
+						</ul>
+						<p class="p-agree"><input type="checkbox" checked="checked" id="tx-check"/>注册即同意<span>《宝信速贷用户协议》</span></p>
+						<div class="regist-btn">
+							<button onclick="register()">立即申请</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,392 @@
+@charset "utf-8";
+/* CSS 表单 */
+input:-webkit-autofill, select:-webkit-autofill {
+ -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+input[type="text"], input[type="password"], input[type="tel"], input[type="url"], input[type="email"], input[type="number"], textarea, select {
+	outline-color: invert;
+	outline-style: none;
+	outline-width: 0px;
+	text-shadow: none;
+	-webkit-appearance: none;
+	-webkit-user-select: text;
+	outline-color: transparent;
+	box-shadow: none;
+}
+.btn {
+	display: inline-block;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-ms-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-transition: all 0.4s ease-in;
+	-ms-transition: all 0.4s ease-in;
+	transition: all 0.4s ease-in;
+}
+.btn-orange {
+	background: -webkit-linear-gradient(left, #ff9841, #ed6d00);
+	background: -o-linear-gradient(left, #ff9841, #ed6d00);
+	background: -ms-linear-gradient(left, #ff9841, #ed6d00);
+	color: #fff;
+}
+.btn-orange:hover {
+	background: -webkit-linear-gradient(left, #ff9841, #ff8116);
+	background: -o-linear-gradient(left, #ff9841, #ff8116);
+	background: -ms-linear-gradient(left, #ff9841, #ff8116);
+	color: #fff;
+}
+.btn-orange-box {
+	border: 1px solid #ff6825;
+	color: #ff6825;
+}
+.btn-orange-box:hover {
+	background-color: #ff6200;
+	color: #fff;
+}
+/*--表单--*/
+table {
+	width: 100%;
+	border-collapse: collapse;
+	background-color: transparent;
+}
+th {
+	text-align: left;
+	font-weight: 600;
+}
+td, th {
+	padding: 1rem;
+	vertical-align: top;
+}
+thead > tr > th {
+	padding: 16px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: -moz-none;
+	-ms-user-select: none;
+	user-select: none;
+}
+tbody > tr > td {
+	border-top: 1px solid rgba(233, 233, 233, 0.62);
+}
+/*----*/
+label {
+	display: inline-block;
+	max-width: 100%;
+	margin-bottom: 5px;
+	font-weight: 600;
+	color: #999;
+	font-size: 16px;
+}
+/*----*/
+button[disabled] {
+	background-color: #e4e4e4 !important;
+	border: 3px solid #d2d2d2 !important;
+	cursor: no-drop;
+}
+/*----*/
+.checkbox {
+	padding-left: 20px;
+}
+.checkbox label {
+	line-height: 20px;
+	margin-bottom: 0;
+	padding-left: 5px;
+	font-weight: 400;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+}
+.checkbox label::before {
+	width: 16px;
+	height: 16px;
+	left: 0;
+	margin-left: -20px;
+	display: inline-block;
+	position: absolute;
+	transition: .3s ease-in-out;
+	-o-transition: .3s ease-in-out;
+	-webkit-transition: .3s ease-in-out;
+	background-color: #fff;
+	border-radius: 1px;
+	border: 1px solid rgba(120, 130, 140, 0.38);
+	content: "";
+	outline: 0!important;
+}
+.checkbox input[type=checkbox] {
+	display: none;
+	cursor: pointer;
+	opacity: 0;
+	z-index: 1;
+	outline: 0!important;
+}
+.checkbox input[type=checkbox]:checked+label::after {
+	content: "\f00c";
+	font-family: FontAwesome;
+}
+.checkbox label::after {
+	width: 16px;
+	height: 16px;
+	line-height: 16px;
+	top: 0;
+	left: 0;
+	margin-left: -20px;
+	padding-left: 3px;
+	padding-top: 1px;
+	color: #313131;
+	display: inline-block;
+	font-size: 11px;
+	position: absolute;
+}
+.checkbox-info input[type=checkbox]:checked+label::before {
+	background-color: #579e4a;
+	border-color: #70b563;
+}
+.checkbox-info input[type=checkbox]:checked+label::after {
+	color: #fff;
+}
+.checkbox-primary input[type=checkbox]:checked+label::before {
+	background-color: #ed6d00;
+	border-color: #ed6d00;
+}
+.checkbox-primary input[type=checkbox]:checked+label::after {
+	color: #fff;
+}
+/*----*/
+::-webkit-input-placeholder { /* WebKit browsers */
+font-size:16px;
+font-weight:500;
+color:#ccc;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+font-size:16px;
+font-weight:400;
+color:#ccc;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+font-size:16px;
+font-weight:400;
+color:#ccc;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+font-size: 16px;
+font-weight:400;
+color:#ccc;
+}
+/*----*/
+input, select {
+	outline: none;
+}
+select {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	background-image: url("../images/arrow.png");
+	background-repeat: no-repeat;
+	background-position: 98% center;
+	background-color: #fff;
+}
+button {
+	border: 1px solid transparent;
+}
+button:focus {
+	outline: 0;
+}
+.input-group {
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	width: 100%;
+}
+.input-Box, .textarea-Box, .select-Box {
+	width: 100%;
+	height: 46px;
+	line-height: 1.42857143;
+	padding: 6px 12px;
+	font-size: 14px;
+	color: #555;
+	display: block;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #d9d9d9;
+	border-radius: 4px;
+	box-shadow: none;
+}
+.textarea-Box {
+	max-width: 100%;
+	height: 260px;
+}
+.input-Box:focus, .textarea-Box:focus {
+	border: 1px solid #d9d9d9;
+	-moz-box-shadow: inset 0 0 10px #CCC;
+	-webkit-box-shadow: inset 0 0 10px #CCC;
+	box-shadow: inset 0 0 10px #CCC;
+}
+.no-focus:focus {
+	border: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+input:disabled {
+	background: #fff5ec;
+	border-width: 0;
+}
+/*--table--*/
+tbody tr:nth-child(1) {
+	opacity: 1;
+	-webkit-animation-delay: 0.00s !important;
+	animation-delay: 0.00s !important;
+}
+tbody tr:nth-child(2) {
+	opacity: 1;
+	-webkit-animation-delay: 0.10s !important;
+	animation-delay: 0.10s !important;
+}
+tbody tr:nth-child(3) {
+	opacity: 1;
+	-webkit-animation-delay: 0.20s !important;
+	animation-delay: 0.20s !important;
+}
+tbody tr:nth-child(4) {
+	opacity: 1;
+	-webkit-animation-delay: 0.30s !important;
+	animation-delay: 0.30s !important;
+}
+tbody tr:nth-child(5) {
+	opacity: 1;
+	-webkit-animation-delay: 0.40s !important;
+	animation-delay: 0.40s !important;
+}
+tbody tr:nth-child(6) {
+	opacity: 1;
+	-webkit-animation-delay: 0.50s !important;
+	animation-delay: 0.50s !important;
+}
+tbody tr:nth-child(7) {
+	opacity: 1;
+	-webkit-animation-delay: 0.60s !important;
+	animation-delay: 0.60s !important;
+}
+tbody tr:nth-child(8) {
+	opacity: 1;
+	-webkit-animation-delay: 0.70s !important;
+	animation-delay: 0.70s !important;
+}
+tbody tr:nth-child(9) {
+	opacity: 1;
+	-webkit-animation-delay: 0.80s !important;
+	animation-delay: 0.80s !important;
+}
+tbody tr:nth-child(10) {
+	opacity: 1;
+	-webkit-animation-delay: 0.90s !important;
+	animation-delay: 0.90s !important;
+}
+/*--渐变色--*/
+.lieven {
+	background-color: rgb(248, 252, 255) !important;
+}
+/*--输入放大--*/
+.js-max-input {
+	border: solid 1px #ffd2b2;
+	position: relative;
+	background: #fffae5;
+	padding: 0 10px 0 10px;
+	font-size: 30px;
+	color: #ff4400;
+	z-index: 6;
+}
+/*--下拉选项--*/
+.arrow {
+	width: 50px;
+	height: 100%;
+	top: 0;
+	right: 0px;
+	border-style: solid;
+	border-color: #d9d9d9;
+	position: absolute;
+	cursor: pointer;
+	z-index: 9;
+	border-width: 2px 2px 2px 0;
+}
+.arrow i {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	display: block;
+	background-image: url('../images/arrow.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	-webkit-transition: all 0.2s ease-in;
+	-ms-transition: all 0.2s ease-in;
+	transition: all 0.2s ease-in;
+}
+.upward i {
+	transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+}
+.companyListBody {
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+}
+.company-list {
+	width: 100%;
+	max-height: 460px;
+	padding-left: 8px;
+	overflow: auto;
+	border: 2px solid #d9d9d9;
+	border-top: 0px;
+	background: #fff;
+	position: absolute;
+	z-index: 1;
+}
+.company-list ul li {
+	padding: 10px;
+	border-width: 0 0 1px 0;
+	border-style: dashed;
+	border-color: #d5d5d5;
+}
+.company-list ul li:last-child {
+	border-width: 0;
+}
+.company-list ul li a {
+	width: 100%;
+	display: block;
+	color: #666;
+	font-size: 12px;
+}
+.topUpclass {
+	width: 800px;
+	margin: 0 auto;
+}
+.topUpclass ul li {
+	margin: 5px 0;
+	padding: 5px 0;
+}
+.company {
+	padding: 0 50px 0 0;
+	position: relative;
+}

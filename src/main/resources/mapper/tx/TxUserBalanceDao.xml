@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxUserBalanceDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.tx.entity.TxUserBalanceEntity" id="txUserBalanceMap">
+        <result property="userId" column="user_id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="balance" column="balance"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxUserBalanceEntity">
+		select * from tx_user_balance where user_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxUserBalanceEntity">
+		select * from tx_user_balance
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by user_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_user_balance 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxUserBalanceEntity">
+		insert into tx_user_balance
+		(
+			user_id, 
+			merchant_no, 
+			balance
+		)
+		values
+		(
+			#{userId}, 
+			#{merchantNo}, 
+			#{balance}
+		)
+	</insert>
+
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxUserBalanceEntity">
+		update tx_user_balance 
+		<set>
+			<if test="balance != null">balance = #{balance}</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+
+	<delete id="delete">
+		delete from tx_user_balance where user_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_user_balance where user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+
+	<select id="getAndLock" resultType="io.grx.modules.tx.entity.TxUserBalanceEntity">
+		select * from tx_user_balance where user_id = #{value} for update
+	</select>
+</mapper>

@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../css/wx_main.css"/>
+    <link href="../../css/page.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css"/>
+    <style>
+        .plan_sum {
+            background-color: #f19f00;
+            color: white;
+        }
+
+        .plan_sum span,p {
+            color: white;
+        }
+
+
+        .plan_sum ul {
+            width: 100%;
+            padding-left: 10px;
+        }
+
+        .plan_sum li {
+            width: 33%;
+            float: left;
+            text-align: left !important;
+        }
+
+        #css_table {
+            display: table;
+            width: 100%;
+            text-align: left;
+            vertical-align: middle;
+            background-color: #fff;
+        }
+
+        #css_table .head {
+        }
+
+        #css_table ul {
+            background-color: #ffffff;
+            height: 55px;
+            margin-top: 10px;
+            padding: 10px 6% 10px 6%;
+            display: block;
+        }
+
+        #css_table li {
+            float: left;
+            width: 50%;
+            line-height: 25px;
+            display: inline-block;
+        }
+
+        #css_table .right {
+            text-align: right;
+            width: 50%;
+        }
+
+        .css_tr {
+            display: table-row;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .css_td {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            border-top: 1px solid #D7D6DC;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .css_tr .img {
+            width: 50px;
+        }
+
+        .css_tr img {
+            width: 60%;
+            margin-left: 15px;
+        }
+
+        .weui-cell li {
+            width: 30%;
+            text-align: center;
+        }
+
+        .weui-cell a {
+            display: inline-block;
+        }
+
+        .css_td a {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+    <script src="../../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.3/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../../js/wx_common.js"></script>
+    <script src="../../js/wx/main.js"></script>
+</head>
+<body ontouchstart="">
+<div class="container" id="container">
+    <div class="weui-tab">
+        <div class="weui-tab__panel">
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access js_item plan_sum" th:href="${'../repayment/to_pay_view/' + txRepay.txId}">
+                    <div class="weui-cell__bd" style="padding-left: 10px; line-height: 30px;">
+                        <p><span th:text="${txRepay.usageTypeLabel}">张三</span></p>
+                        <p><span>借款人: </span><span th:text="${txRepay.borrowerName}">张三</span>&nbsp;&nbsp; <span>出借人:</span> <span th:text="${txRepay.lenderName}">张三</span></p>
+                    </div>
+                    <div class="weui-cell__ft"></div>
+                </a>
+                <a class="weui-cell weui-cell_access js_item weui-cell-head plan_sum" th:href="${'../repayment/to_pay_view/' + txRepay.txId}">
+                    <ul class="clearfix">
+                        <li>
+                            <span>借款金额</span><br/><span th:text="${txRepay.amount + '元'}">100元</span>
+                        </li>
+                        <li>
+                            <span>年利率</span>
+                            <br/><span th:text="${txRepay.rate + '%'}">8%</span>
+                        </li>
+                    </ul>
+                </a>
+            </div>
+            <div class="weui-tab mt15" id="tab">
+                <div class="weui-navbar">
+                    <div class="weui-navbar__item" style="background-color: #fff">还款计划</div>
+                    <div class="weui-navbar__item" style="background-color: #fff">还款记录</div>
+                </div>
+                <div class="weui-tab__panel mt15">
+                    <div class="weui-tab__content">
+                        <div class="weui-panel">
+                            <div class="weui-panel__bd">
+                                <div class="weui-media-box weui-media-box_small-appmsg">
+                                    <div class="weui-cells">
+                                        <a class="weui-cell weui-cell_access entry-body"
+                                           th:href="${'../repayment/to_pay_view/' + txRepay.txId}">
+                                            <ul class="clearfix">
+                                                <li>
+                                                    待还金额<br/><span class="yellow" th:text="${#numbers.formatDecimal(txRepay.amount + txRepay.interest, 1,2) + '元'}">100元</span>
+                                                </li>
+                                                <li>
+                                                    <span th:text="${(txRepay.daysToPay > 0 ? ('剩余' + txRepay.daysToPay) : ('逾期' + (0 - txRepay.daysToPay))) + '天'}"></span>
+                                                    <br/><span th:text="${txRepay.endDate}">2017-12-31</span>
+                                                </li>
+                                                <li>
+                                                    <span class="red-status" th:if="${txRepay.extensionStatus == 1}"
+                                                          th:text="${txRepay.extensionStatusLabel}">展期待确认</span>
+                                                    <span class="green-status" th:if="${txRepay.repaymentStatus == 1 or txRepay.repaymentStatus == 2}"
+                                                          th:text="${txRepay.repaymentStatusLabel}">还款待确认</span>
+                                                    <span class="red-status" th:if="${txRepay.repaymentStatus == 3 or txRepay.repaymentStatus == 4}"
+                                                          th:text="${txRepay.repaymentStatusLabel}">还款被拒绝</span>
+                                                    <br/>
+                                                </li>
+                                            </ul>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui-tab__content">
+                        <div class="weui-panel">
+                            <div class="weui-panel__bd">
+                                <div class="css_table" id="css_table">
+                                    <div class="css_tr head">
+                                        <div class="css_td">还款日期</div>
+                                        <div class="css_td">出借人姓名</div>
+                                        <div class="css_td">还款金额</div>
+                                        <div class="css_td">状态</div>
+                                    </div>
+                                    <div class="css_tr" th:each="tr,iter : ${repaymentList}">
+                                        <div class="css_td" th:text="${#strings.isEmpty(tr.actualEndDate) ? tr.endDate : tr.actualEndDate}">2017-01-01</div>
+                                        <div class="css_td" th:text="${tr.lenderName}">张三</div>
+                                        <div class="css_td" th:text="${#numbers.formatDecimal(tr.amount + tr.interest,1,2)}">1000</div>
+                                        <div class="css_td" th:text="${tr.repaymentStatusLabel}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weui-panel" th:if="${repaymentList.isEmpty()}">
+                            <div class="weui-loadmore weui-loadmore_line">
+                                <span class="weui-loadmore__tips">暂无数据</span>
+                            </div>
+                            <div class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+                                <span class="weui-loadmore__tips"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui-tabbar">
+        </div>
+    </div>
+</div>
+
+<div class="borrow_height"></div>
+<div class="borrow_bottom">
+    <div class="borrow_but">
+        <a class="but_color_y" th:href="${'../repayment/extension/' + txRepay.txId}">查看展期</a>
+    </div>
+</div>
+</body>
+</html>

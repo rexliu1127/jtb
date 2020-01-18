@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxBaseDao">
+    <cache />
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+		select * from tx_base where tx_id = #{value} and deleted = 0
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+		select * from tx_base tb
+        <if test="(borrowerValue != null and borrowerValue != '') or (borrowerIdNo != null and borrowerIdNo != '')">
+            left join tx_user borrower on tb.borrower_user_id = borrower.user_id
+        </if>
+        <if test="(lenderValue != null and lenderValue != '') or (lenderIdNo != null and lenderIdNo != '')">
+            left join tx_user lender on tb.lender_user_id = lender.user_id
+        </if>
+        <where>
+            tb.deleted = 0
+            <if test="lenderMobiles != null">
+                and tb.lender_user_id in (
+                    select user_id from tx_user where mobile in
+                    <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                        #{mobile}
+                    </foreach>
+                )
+            </if>
+            <if test="borrowerValue != null and borrowerValue != ''">
+                and (tb.borrower_name like concat('%', #{borrowerValue}, '%')
+                or borrower.mobile like concat('%', #{borrowerValue},'%')
+                or borrower.id_no like concat('%',#{borrowerValue},'%')
+                )
+            </if>
+            <if test="lenderValue != null and lenderValue != ''">
+                and (tb.lender_name like concat('%', #{lenderValue}, '%')
+                or lender.mobile like concat('%', #{lenderValue}, '%')
+                or lender.id_no like concat('%', #{lenderValue}, '%')
+                )
+            </if>
+            <if test="borrowerIdNo != null and borrowerIdNo != ''">
+                and borrower.id_no = #{borrowerIdNo}
+            </if>
+            <if test="lenderIdNo != null and lenderIdNo != ''">
+                and lender.id_no = #{lenderIdNo}
+            </if>
+            <if test="status != null and status != ''">
+                and tb.status = #{status}
+            </if>
+            <if test="repayDateStart != null and repayDateStart != ''">
+                and tb.repay_date >= #{repayDateStart}
+            </if>
+            <if test="repayDateEnd != null and repayDateEnd != ''">
+                and tb.repay_date &lt; date_add(#{repayDateEnd}, interval 1 day)
+            </if>
+            <if test="beginDateStart != null and beginDateStart != ''">
+                and tb.begin_date >= #{beginDateStart}
+            </if>
+            <if test="beginDateEnd != null and beginDateEnd != ''">
+                and tb.begin_date &lt; date_add(#{beginDateEnd}, interval 1 day)
+            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by tx_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_base tb
+        <if test="(borrowerValue != null and borrowerValue != '') or (borrowerIdNo != null and borrowerIdNo != '')">
+            left join tx_user borrower on tb.borrower_user_id = borrower.user_id
+        </if>
+        <if test="(lenderValue != null and lenderValue != '') or (lenderIdNo != null and lenderIdNo != '')">
+            left join tx_user lender on tb.lender_user_id = lender.user_id
+        </if>
+        <where>
+            tb.deleted = 0
+            <if test="lenderMobiles != null">
+                and tb.lender_user_id in (
+                select user_id from tx_user where mobile in
+                <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                    #{mobile}
+                </foreach>
+                )
+            </if>
+            <if test="borrowerValue != null and borrowerValue != ''">
+                and (tb.borrower_name like concat('%', #{borrowerValue}, '%')
+                or borrower.mobile like concat('%', #{borrowerValue},'%')
+                or borrower.id_no like concat('%',#{borrowerValue},'%')
+                )
+            </if>
+            <if test="lenderValue != null and lenderValue != ''">
+                and (tb.lender_name like concat('%', #{lenderValue}, '%')
+                or lender.mobile like concat('%', #{lenderValue}, '%')
+                or lender.id_no like concat('%', #{lenderValue}, '%')
+                )
+            </if>
+            <if test="borrowerIdNo != null and borrowerIdNo != ''">
+                and borrower.id_no = #{borrowerIdNo}
+            </if>
+            <if test="lenderIdNo != null and lenderIdNo != ''">
+                and lender.id_no = #{lenderIdNo}
+            </if>
+            <if test="status != null and status != ''">
+                and tb.status = #{status}
+            </if>
+            <if test="repayDateStart != null and repayDateStart != ''">
+                and tb.repay_date >= #{repayDateStart}
+            </if>
+            <if test="repayDateEnd != null and repayDateEnd != ''">
+                and tb.repay_date &lt; date_add(#{repayDateEnd}, interval 1 day)
+            </if>
+            <if test="beginDateStart != null and beginDateStart != ''">
+                and tb.begin_date >= #{beginDateStart}
+            </if>
+            <if test="beginDateEnd != null and beginDateEnd != ''">
+                and tb.begin_date &lt; date_add(#{beginDateEnd}, interval 1 day)
+            </if>
+        </where>
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxBaseEntity" useGeneratedKeys="true" keyProperty="txId">
+		insert into tx_base
+		(
+			tx_uuid, 
+			merchant_no, 
+			amount,
+			outstanding_amount,
+			begin_date, 
+			end_date, 
+			rate, 
+			interest,
+			outstanding_interest,
+			fee_amount, 
+			remark, 
+			usage_type, 
+			usage_remark, 
+			borrower_name, 
+			lender_name,
+            borrower_sign_img_path,
+            lender_sign_img_path,
+            borrower_user_id,
+			lender_user_id, 
+			create_user_id, 
+			status, 
+			create_time,
+            update_time,
+            overdue_date,
+            repay_date
+		)
+		values
+		(
+			#{txUuid}, 
+			#{merchantNo}, 
+			#{amount},
+			#{outstandingAmount},
+			#{beginDate}, 
+			#{endDate}, 
+			#{rate}, 
+			#{interest},
+			#{outstandingInterest},
+			#{feeAmount}, 
+			#{remark}, 
+			#{usageType}, 
+			#{usageRemark}, 
+			#{borrowerName}, 
+			#{lenderName},
+            #{borrowerSignImgPath},
+            #{lenderSignImgPath},
+            #{borrowerUserId},
+			#{lenderUserId}, 
+			#{createUserId}, 
+			#{status},
+			#{createTime},
+            #{updateTime},
+            #{overdueDate},
+            #{repayDate}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxBaseEntity">
+		update tx_base 
+		<set>
+			<if test="txUuid != null">tx_uuid = #{txUuid}, </if>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="amount != null">amount = #{amount}, </if>
+            <if test="outstandingAmount != null">outstanding_amount = #{outstandingAmount}, </if>
+			<if test="beginDate != null">begin_date = #{beginDate}, </if>
+			<if test="endDate != null">end_date = #{endDate}, </if>
+			<if test="rate != null">rate = #{rate}, </if>
+			<if test="interest != null">interest = #{interest}, </if>
+            <if test="outstandingInterest != null">outstanding_interest = #{outstandingInterest}, </if>
+			<if test="feeAmount != null">fee_amount = #{feeAmount}, </if>
+			<if test="remark != null">remark = #{remark}, </if>
+			<if test="usageType != null">usage_type = #{usageType}, </if>
+			<if test="usageRemark != null">usage_remark = #{usageRemark}, </if>
+			<if test="borrowerName != null">borrower_name = #{borrowerName}, </if>
+			<if test="lenderName != null">lender_name = #{lenderName}, </if>
+            <if test="borrowerSignImgPath != null">borrower_sign_img_path = #{borrowerSignImgPath}, </if>
+            <if test="lenderSignImgPath != null">lender_sign_img_path = #{lenderSignImgPath}, </if>
+			<if test="borrowerUserId != null">borrower_user_id = #{borrowerUserId}, </if>
+			<if test="lenderUserId != null">lender_user_id = #{lenderUserId}, </if>
+			<if test="createUserId != null">create_user_id = #{createUserId}, </if>
+			<if test="status != null">status = #{status}, </if>
+            <if test="overdueDate != null">overdue_date = #{overdueDate}, </if>
+            repay_date = #{repayDate},
+			<if test="createTime != null">create_time = #{createTime}, </if>
+            <if test="updateTime != null">update_time = #{updateTime} </if>
+		</set>
+		where tx_id = #{txId}
+	</update>
+
+	<delete id="delete">
+		update tx_base set deleted = 1, update_time = CURRENT_TIMESTAMP where tx_id = #{value}
+	</delete>
+
+	<delete id="deleteBatch">
+        update tx_base set deleted = 1, update_time = CURRENT_TIMESTAMP where tx_id in
+		<foreach item="txId" collection="array" open="(" separator="," close=")">
+			#{txId}
+		</foreach>
+	</delete>
+
+
+    <select id="queryByUuid" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        select * from tx_base where tx_uuid = #{value}
+    </select>
+
+    <select id="getBorrowingList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        select * from tx_base
+        where borrower_user_id = #{userId} and status in (2, 4) and deleted = 0
+        <if test="userName != null and userName != ''">
+            and lender_name like concat('%', #{userName}, '%')
+        </if>
+        order by end_date asc
+    </select>
+
+    <select id="getLendingList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        select * from tx_base
+        where lender_user_id = #{userId} and status in (2, 4) and deleted = 0
+        <if test="userName != null and userName != ''">
+            and borrower_name like concat('%', #{userName}, '%')
+        </if>
+		order by end_date asc
+    </select>
+
+    <select id="getPendingToConfirmList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        select * from tx_base
+        where (borrower_user_id = #{userId} or create_user_id = #{userId}) and status in (1, 5, 6) and deleted = 0
+		order by create_time asc
+    </select>
+
+    <select id="getPendingToConfirmBorrowingList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        select * from tx_base
+        where borrower_user_id = #{userId} and status in (1, 5, 6) and deleted = 0
+        order by create_time asc
+    </select>
+
+    <select id="getPendingToConfirmLendingList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        select * from tx_base
+        where lender_user_id = #{userId} and status in (1, 5, 6) and deleted = 0
+        order by create_time asc
+    </select>
+
+    <select id="sumBorrowedWithoutInterest" resultType="long">
+        select COALESCE(sum(amount),0) from tx_base where borrower_user_id = #{userId} and status in (2,3,4) and deleted = 0
+    </select>
+
+    <select id="sumBorrowedCount" resultType="long">
+        select count(1) from tx_base where borrower_user_id = #{userId} and status in (2,3,4) and deleted = 0
+    </select>
+
+    <select id="sumBorrowInterest" resultType="double">
+        select COALESCE(sum(interest),0) from tx_base where borrower_user_id = #{userId} and status in (2,3,4) and deleted = 0
+    </select>
+
+
+    <select id="sumLendedWithoutInterest" resultType="long">
+        select COALESCE(sum(amount),0) from tx_base where lender_user_id = #{userId} and status in (2,3,4) and deleted = 0
+    </select>
+
+    <select id="sumLendedCount" resultType="long">
+        select count(1) from tx_base where lender_user_id = #{userId} and status in (2,3,4) and deleted = 0
+    </select>
+
+    <select id="sumLendedInterest" resultType="double">
+        select COALESCE(sum(interest),0) from tx_base where lender_user_id = #{userId} and status in (2,3,4) and deleted = 0
+    </select>
+
+    <select id="sumBorrowingWithInterest" resultType="double">
+        select COALESCE(sum(outstanding_amount + outstanding_interest),0) from tx_base where borrower_user_id = #{userId} and status IN (2,4) and
+        deleted = 0
+    </select>
+
+    <select id="sumLendingWithInterest" resultType="double">
+        select COALESCE(sum(outstanding_amount + outstanding_interest),0) from tx_base where lender_user_id = #{userId} and status IN (2, 4) and deleted = 0
+    </select>
+
+	<select id="queryBorrowedList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+		select * from tx_base where borrower_user_id = #{userId} and status in (2,3,4) and deleted = 0
+		<if test="userName != null and userName != ''">
+			and lender_name like concat('%',#{userName},'%')
+        </if>
+        <if test="overdue">
+            and overdue_date is not null
+        </if>
+		order by begin_date desc
+	</select>
+	<select id="queryLendedList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+		select * from tx_base where lender_user_id = #{userId} and status in (2,3,4) and deleted = 0
+		<if test="userName != null and userName != ''">
+			and tx_base.borrower_name like concat('%',#{userName},'%')
+		</if>
+		order by begin_date desc
+	</select>
+
+    <select id="queryBorrowerInformationList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        select * from tx_base where borrower_user_id = #{borrowerUserId} and status in (2,3,4) and deleted = 0
+        order by begin_date desc
+    </select>
+
+    <select id="sumPendingRepayWithoutInterest" resultType="long">
+        select COALESCE(sum(amount),0) from tx_base where lender_user_id = #{userId} and status IN (2,4) and deleted = 0
+        <if test="days > -1">
+            and tx_base.end_date &lt;= date_add(curdate(), INTERVAL #{days} day)
+        </if>
+    </select>
+
+    <select id="sumPendingToPayWithoutInterest" resultType="long">
+        select COALESCE(sum(amount),0) from tx_base where borrower_user_id = #{userId} and status IN (2,4) and deleted = 0
+        <if test="days > -1">
+            and tx_base.end_date &lt;= date_add(curdate(), INTERVAL #{days} day)
+        </if>
+    </select>
+
+    <select id="sumPendingRepayWithInterest" resultType="double">
+        select COALESCE(sum(outstanding_amount + outstanding_interest),0) from tx_base where lender_user_id = #{userId} and status IN (2,4) and deleted = 0
+        <if test="days > -1">
+            and tx_base.end_date &lt;= date_add(curdate(), INTERVAL #{days} day)
+        </if>
+    </select>
+
+    <select id="sumPendingToPayWithInterest" resultType="double">
+        select COALESCE(sum(outstanding_amount + outstanding_interest),0) from tx_base where borrower_user_id = #{userId} and status IN
+        (2,4) and
+        deleted = 0
+        <if test="days > -1">
+            and tx_base.end_date &lt;= date_add(curdate(), INTERVAL #{days} day)
+        </if>
+    </select>
+
+    <select id="queryPendingToPayList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        select * from tx_base tx
+        <if test="isLetter">
+            join tx_user u on tx.lender_user_id = u.user_id
+        </if>
+        where tx.borrower_user_id = #{userId} and tx.status in (2,4) and deleted = 0
+        <!--and end_date &lt;= date_add(curdate(), INTERVAL 30 day)-->
+        <if test="!isLetter and userName != null and userName != ''">
+            and tx.lender_name like concat('%',#{userName},'%')
+        </if>
+        <if test="isLetter and userName != null and userName != ''">
+            and u.name_pinyin like concat('%',#{userName},'%')
+        </if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by end_date ASC
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryPendingRepayList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        select * from tx_base tx
+        <if test="isLetter">
+            join tx_user u on tx.borrower_user_id = u.user_id
+        </if>
+        where tx.lender_user_id = #{userId} and tx.status in (2,4) and deleted = 0
+        <!--and end_date &lt;= date_add(curdate(), INTERVAL 30 day)-->
+        <if test="!isLetter and userName != null and userName != ''">
+            and tx.borrower_name like concat('%',#{userName},'%')
+        </if>
+        <if test="isLetter and userName != null and userName != ''">
+            and u.name_pinyin like concat('%',#{userName},'%')
+        </if>
+
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by end_date ASC
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryBorrowerSummary" resultType="io.grx.wx.dto.TxSummaryDto">
+        select COALESCE(sum(tb.amount),0) amount,
+        count(tb.tx_id) count,
+        count(distinct lender_user_id) user_count,
+        COALESCE(sum(if (tb.begin_date = tb.repay_date, 1, 0)),0) in_day_transaction,
+        COALESCE(sum(if (tb.status in (2,4), tb.amount, 0)), 0) current_amount
+        from tx_base tb
+        where tb.borrower_user_id = #{userId} and tb.status in (2,3,4) and tb.deleted = 0
+    </select>
+
+    <select id="queryLenderSummary" resultType="io.grx.wx.dto.TxSummaryDto">
+        select COALESCE(sum(tb.amount),0) amount,
+        count(tb.tx_id) count,
+        count(distinct borrower_name) user_count,
+        COALESCE(sum(if (tb.begin_date = tb.repay_date, 1, 0)),0) in_day_transaction,
+        COALESCE(sum(if (tb.status in (2,4), tb.amount, 0)), 0) current_amount
+        from tx_base tb
+        where tb.lender_user_id = #{userId} and tb.status in (2,3,4) and tb.deleted = 0
+    </select>
+
+    <select id="queryOverdueSummary" resultType="io.grx.wx.dto.TxOverdueSummaryDto">
+        SELECT coalesce(sum(r.planned_amount), 0) amount,
+        count(1) count,
+        coalesce(sum(if(r.end_date &lt; date_add(COALESCE(r.repay_date, curdate()), INTERVAL -7 DAY), planned_amount, 0)), 0)
+        more_than_seven_day_amount,
+        count(if(r.end_date &lt; date_add(COALESCE(r.repay_date, curdate()), INTERVAL -7 DAY), planned_amount, null))
+        more_than_seven_day_count,
+        coalesce(sum(if (r.repay_date is null, planned_amount, 0)), 0) current_amount,
+        count(if (r.repay_date is null, planned_amount, null)) current_count
+        from tx_repay_plan r join tx_base tb on r.tx_id = tb.tx_id
+        where tb.borrower_user_id =  #{userId} and (tb.status = 4 or (tb.status = 2 and tb.end_date &lt; CURRENT_DATE) or tb.repay_date > tb.end_date)
+    </select>
+
+    <select id="sumPendingToPay" resultType="long">
+        select COALESCE(sum(amount + interest),0) from tx_base where borrower_user_id = #{userId}
+         and status in (2,4) and deleted = 0
+    </select>
+
+    <select id="sumPaid" resultType="double">
+        select COALESCE(sum(amount + interest),0) from tx_base where borrower_user_id = #{userId} and status in (3) and deleted = 0
+    </select>
+
+    <select id="sumPendingRepay" resultType="long">
+        select COALESCE(sum(amount + interest),0) from tx_base where lender_user_id = #{userId} and status in (2,4) and deleted = 0
+    </select>
+
+    <select id="sumRepaid" resultType="double">
+        select COALESCE(sum(amount + interest),0) from tx_base where lender_user_id = #{userId} and status in (3) and deleted = 0
+    </select>
+
+    <select id="getNewTxSeqNo" resultType="int">
+        select nextval('seq_tx_uuid')
+    </select>
+
+    <select id="getExpiredPendingList" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        select * from tx_base
+        where status in  (1, 6) and create_time &lt; date_add(current_timestamp(), INTERVAL -7 day) and deleted = 0
+        order by create_time asc
+    </select>
+
+    <update id="updateOverdueTx">
+        update tx_base set status = 4, overdue_date = end_date
+        where status = 2 and end_date &lt; current_date() and deleted = 0
+    </update>
+
+    <select id="getBorrowerSummary" resultType="io.grx.wx.dto.TxBorrowerSummary">
+        select min(tu.name) name, tu.id_no,
+        coalesce(sum(tb.amount), 0) total_borrowed_amount,
+        coalesce(sum(case WHEN tb.status = 3 then tb.amount end),0) total_repaid_amount,
+        count(1) total_borrowed_count,
+        count(DISTINCT tu2.id_no) total_lender_count,
+        count(case when status in (2,4) and end_date &lt; current_date then 1 end) current_overdue_count,
+        coalesce(sum(case when status in (2,4) and end_date &lt; current_date then tb.amount end), 0) current_overdue_amount
+        from tx_base tb join tx_user tu on tb.borrower_user_id = tu.user_id
+        join tx_user tu2 on tb.lender_user_id = tu2.user_id
+        where status in (2,3,4) and tb.deleted = 0
+        <if test="idNo != null and idNo != ''">
+            and tu.id_no = #{idNo}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            and tu.mobile = #{mobile}
+        </if>
+        GROUP BY tu.id_no
+    </select>
+
+    <select id="hasOverdueRecord" resultType="boolean">
+        select count(1) from tx_base tb where tb.borrower_user_id = #{userId} and tb.deleted = 0
+        and (tb.status = 4 or exists (select 1 from tx_extension te where te.tx_id = tb.tx_id and
+          date(te.create_time) > te.old_end_date))
+        LIMIT 1
+    </select>
+
+    <select id="getBorrowerSummaryByUserId" resultType="io.grx.wx.dto.TxBorrowerSummary">
+        select min(tu.name) name, tu.id_no,
+        coalesce(sum(tb.amount), 0) total_borrowed_amount,
+        coalesce(sum(case WHEN tb.status = 3 then tb.amount end),0) total_repaid_amount,
+        count(1) total_borrowed_count,
+        count(DISTINCT tu2.id_no) total_lender_count,
+        count(case when status in (2,4) and end_date &lt; current_date then 1 end) current_overdue_count,
+        coalesce(sum(case when status in (2,4) and end_date &lt; current_date then tb.amount end), 0) current_overdue_amount
+        from tx_base tb join tx_user tu on tb.borrower_user_id = tu.user_id
+        join tx_user tu2 on tb.lender_user_id = tu2.user_id
+        where status in (2,3,4) and deleted = 0
+        and tu.user_id = #{userId}
+    </select>
+
+    <select id="queryTodaySummary" resultType="io.grx.modules.tx.dto.TxBaseSummary">
+        select
+        (select count(1) from tx_base tb where tb.status in (2,3,4) and tb.create_time >= #{today} and tb.create_time &lt; date_add(#{today}, interval 1 day)
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_tx_count,
+        (select count(1) from tx_extension te join tx_base tb on te.tx_id = tb.tx_id where te.status = 2 and te.create_time >= #{today} and te.create_time &lt; date_add(#{today}, interval 1 day)
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_ex_count,
+        (select coalesce(sum(tb.amount),0) from tx_base tb where tb.status in (2,3,4) and tb.create_time >= #{today} and tb.create_time &lt; date_add(#{today}, interval 1 day)
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_borrowed_amount,
+        (select coalesce(sum(te.extend_amount),0) from tx_extension te join tx_base tb on te.tx_id = tb.tx_id where te.status = 2 and te.create_time >= #{today} and te.create_time &lt; date_add(#{today}, interval 1 day)
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_extended_amount,
+        (select coalesce(sum(case when tr.repay_date is not null then tr.actual_amount when tr.repay_date is not null then tr.planned_amount else 0 end),0) from tx_repay_plan tr join tx_base tb on tr.tx_id = tb.tx_id where tb.deleted = 0 and (tr.repay_date = #{today} or (tr.repay_date is null and tb.repay_date = #{today}))
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_repaid_amount,
+        (select coalesce(sum(tr.planned_amount),0) from tx_repay_plan tr join tx_base tb on tr.tx_id = tb.tx_id where tb.deleted = 0 and tb.status = 4 and tr.end_date = date_add(#{today}, interval -1 day) and tr.repay_date is null
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_overdue_amount
+    </select>
+
+    <select id="queryHistorySummary" resultType="io.grx.modules.tx.dto.TxBaseSummary">
+        select
+        (select count(1) from tx_base tb where tb.deleted = 0 and tb.status in (2,3,4)
+        <if test="startDate != null and startDate != ''">
+            and tb.create_time >= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and tb.create_time &lt; date_add(#{endDate}, interval 1 day)
+        </if>
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_tx_count,
+        (select count(1) from tx_extension te join tx_base tb on te.tx_id = tb.tx_id where tb.deleted = 0 and te.status = 2
+        <if test="startDate != null and startDate != ''">
+            and te.create_time >= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and te.create_time &lt; date_add(#{endDate}, interval 1 day)
+        </if>
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_ex_count,
+        (select coalesce(sum(tb.amount),0) from tx_base tb where tb.deleted = 0 and tb.status in (2,3,4)
+        <if test="startDate != null and startDate != ''">
+            and tb.create_time >= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and tb.create_time &lt; date_add(#{endDate}, interval 1 day)
+        </if>
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_borrowed_amount,
+        (select coalesce(sum(te.extend_amount),0) from tx_extension te join tx_base tb on te.tx_id = tb.tx_id where tb.deleted = 0 and te.status = 2
+        <if test="startDate != null and startDate != ''">
+            and te.create_time >= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and te.create_time &lt; date_add(#{endDate}, interval 1 day)
+        </if>
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_extended_amount,
+        (select coalesce(sum(tr.actual_amount),0) from tx_repay_plan tr join tx_base tb on tr.tx_id = tb.tx_id where tb.deleted = 0 and tr.repay_date is not null
+        <if test="startDate != null and startDate != ''">
+            and tr.repay_date >= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and tr.repay_date &lt; date_add(#{endDate}, interval 1 day)
+        </if>
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_repaid_amount,
+        (select coalesce(sum(case when tr.repay_date is not null then tr.actual_amount when tr.repay_date is not null then tr.planned_amount else 0 end),0) from tx_repay_plan tr join tx_base tb on tr.tx_id = tb.tx_id where tb.deleted = 0 and (tr.end_date &lt; tr.repay_date or (tr.repay_date is null and tb.end_date &lt; tb.repay_date))
+        <if test="startDate != null and startDate != ''">
+            and tr.end_date >= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and tr.end_date &lt; date_add(#{endDate}, interval 1 day)
+        </if>
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        ) total_overdue_amount
+    </select>
+
+    <select id="queryMonthSummary" resultType="io.grx.modules.tx.dto.TxMonthSummary">
+        select a.period, a.borrowed_amount, coalesce(b.repaid_amount, 0) repaid_amount
+        from
+        (select date_format(create_time, '%Y-%m') period, sum(amount) borrowed_amount from tx_base tb where deleted = 0 and status in (2,3,4) and create_time > date_add(current_date, interval -13 month)
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        group by 1) a
+        join
+        (select date_format(tr.repay_date, '%Y-%m') period, sum(actual_amount) repaid_amount from tx_repay_plan tr join tx_base tb on tr.tx_id = tb.tx_id where tb.deleted = 0 and tr.repay_date > date_add(current_date, interval -13 month)
+        <if test="lenderMobiles != null">
+            and tb.lender_user_id in (
+            select user_id from tx_user where mobile in
+            <foreach item="mobile" collection="lenderMobiles" open="(" separator="," close=")">
+                #{mobile}
+            </foreach>
+            )
+        </if>
+        group by 1) b on a.period = b.period order by 1 limit 12
+    </select>
+
+    <select id="queryBaseListByIdNo" resultType="io.grx.modules.tx.entity.TxBaseEntity">
+        SELECT * FROM tx_base b WHERE  b.borrower_user_id IS NOT NULL AND b.lender_user_id IS NOT NULL AND b.deleted=0
+                                  AND b.borrower_user_id IN (SELECT user_id FROM  tx_user WHERE id_no=#{idNo}) ORDER BY b.create_time DESC
+    </select>
+</mapper>

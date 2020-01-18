@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthUserDao">
+	<cache />
+
+	<select id="queryObject" resultType="io.grx.modules.auth.entity.AuthUserEntity">
+		select * from auth_user where user_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.auth.entity.AuthUserEntity">
+		select u.* from auth_user u
+		left join channel c on c.channel_id = u.channel_id
+		<where>
+			<if test="_merchantNo != '00'">
+				and u.merchant_no = #{_merchantNo}
+			</if>
+			<if test="channelName != null and channelName.trim() != ''">
+				and c.name like concat('%', #{channelName}, '%')
+			</if>
+			<if test="applyStartDate != null and applyStartDate.trim() != ''">
+				and u.create_time &gt;= #{applyStartDate}
+			</if>
+			<if test="applyEndDate != null and applyEndDate.trim() != ''">
+				and u.create_time &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+			</if>
+			<if test="_channelIdList != null">
+				and u.channel_id in
+				<foreach item="channelId" collection="_channelIdList" open="(" separator="," close=")">
+					#{channelId}
+				</foreach>
+			</if>
+			<if test="name != null and name != ''">
+				and (u.name like concat('%', #{name}, '%')
+				or u.mobile like concat('%', #{name},'%')
+				or u.id_no like concat('%',#{name},'%')
+				)
+			</if>
+			<!--  数据过滤  -->
+			${filterSql}
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by user_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from auth_user u
+		left join channel c on c.channel_id = u.channel_id
+		<where>
+			<if test="_merchantNo != '00'">
+				and u.merchant_no = #{_merchantNo}
+			</if>
+			<if test="channelName != null and channelName.trim() != ''">
+				and c.name like concat('%', #{channelName}, '%')
+			</if>
+			<if test="applyStartDate != null and applyStartDate.trim() != ''">
+				and u.create_time &gt;= #{applyStartDate}
+			</if>
+			<if test="applyEndDate != null and applyEndDate.trim() != ''">
+				and u.create_time &lt; DATE_ADD(#{applyEndDate}, INTERVAL 1 DAY)
+			</if>
+			<if test="_channelIdList != null">
+				and u.channel_id in
+				<foreach item="channelId" collection="_channelIdList" open="(" separator="," close=")">
+					#{channelId}
+				</foreach>
+			</if>
+			<if test="name != null and name != ''">
+				and (u.name like concat('%', #{name}, '%')
+				or u.mobile like concat('%', #{name},'%')
+				or u.id_no like concat('%',#{name},'%')
+				)
+			</if>
+			<!--  数据过滤  -->
+			${filterSql}
+		</where>
+	</select>
+
+	<insert id="save" parameterType="io.grx.modules.auth.entity.AuthUserEntity" useGeneratedKeys="true" keyProperty="userId">
+		insert into auth_user
+		(
+			merchant_no, 
+			mobile,
+            channel_id,
+            name,
+			wechat_id,
+			head_image_url,
+			id_no, 
+			qq_no,
+			wechat_no,
+			company_name,
+			company_addr,
+			company_tel,
+			company_job,
+			salary,
+			sesame_points,
+			taobao_sesame_points,
+			mobile_pass, 
+			contact1_type, 
+			contact1_name, 
+			contact1_mobile, 
+			contact2_type, 
+			contact2_name, 
+			contact2_mobile,
+			contact3_type,
+			contact3_name,
+			contact3_mobile,
+			id_url_1, 
+			id_url_2, 
+			id_url_3,
+			machine_id,
+			auth_status,
+			auth_report_url,
+			auth_report_jsonurl,
+			auth_task_id,
+			create_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{mobile},
+            #{channelId},
+            #{name},
+			#{wechatId},
+			#{headImageUrl},
+			#{idNo},
+			#{qqNo},
+			#{wechatNo},
+			#{companyName},
+			#{companyAddr},
+			#{companyTel},
+			#{companyJob},
+			#{salary},
+			#{sesamePoints},
+			#{taobaoSesamePoints},
+			#{mobilePass}, 
+			#{contact1Type}, 
+			#{contact1Name}, 
+			#{contact1Mobile}, 
+			#{contact2Type}, 
+			#{contact2Name}, 
+			#{contact2Mobile},
+			#{contact3Type},
+			#{contact3Name},
+			#{contact3Mobile},
+			#{idUrl1}, 
+			#{idUrl2}, 
+			#{idUrl3},
+			#{machineId},
+			#{authStatus},
+			#{authReportUrl},
+			#{authReportJsonUrl},
+			#{authTaskId},
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.AuthUserEntity">
+		update auth_user 
+		<set>
+			<if test="merchantNo != null and merchantNo !='' ">merchant_no = #{merchantNo}, </if>
+			<if test="mobile != null">mobile = #{mobile}, </if>
+            <if test="channelId != null">channel_id = #{channelId}, </if>
+			<if test="name != null">name = #{name}, </if>
+			<if test="wechatId != null">wechat_id = #{wechatId}, </if>
+			<if test="headImageUrl != null">head_image_url = #{headImageUrl}, </if>
+			<if test="idNo != null">id_no = #{idNo}, </if>
+			<if test="qqNo != null">qq_no = #{qqNo}, </if>
+			<if test="wechatNo != null">wechat_no = #{wechatNo}, </if>
+			<if test="companyName != null">company_name = #{companyName}, </if>
+			<if test="companyAddr != null">company_addr = #{companyAddr}, </if>
+			<if test="companyTel != null">company_tel = #{companyTel}, </if>
+			<if test="companyJob != null">company_job = #{companyJob},</if>
+			<if test="salary != null">salary = #{salary},</if>
+			<if test="sesamePoints != null">sesame_points = #{sesamePoints},</if>
+			<if test="taobaoSesamePoints != null">taobao_sesame_points = #{taobaoSesamePoints},</if>
+			<if test="mobilePass != null">mobile_pass = #{mobilePass}, </if>
+			<if test="contact1Type != null">contact1_type = #{contact1Type}, </if>
+			<if test="contact1Name != null">contact1_name = #{contact1Name}, </if>
+			<if test="contact1Mobile != null">contact1_mobile = #{contact1Mobile}, </if>
+			<if test="contact2Type != null">contact2_type = #{contact2Type}, </if>
+			<if test="contact2Name != null">contact2_name = #{contact2Name}, </if>
+			<if test="contact2Mobile != null">contact2_mobile = #{contact2Mobile}, </if>
+			<if test="contact3Type != null">contact3_type = #{contact3Type}, </if>
+			<if test="contact3Name != null">contact3_name = #{contact3Name}, </if>
+			<if test="contact3Mobile != null">contact3_mobile = #{contact3Mobile}, </if>
+			<if test="idUrl1 != null">id_url_1 = #{idUrl1}, </if>
+			<if test="idUrl2 != null">id_url_2 = #{idUrl2}, </if>
+			<if test="idUrl3 != null">id_url_3 = #{idUrl3}, </if>
+			<if test="machineId != null">machine_id = #{machineId}, </if>
+			auth_status = #{authStatus},
+			<if test="authOperatorStatus != null">auth_operator_status = #{authOperatorStatus}, </if>
+			<if test="authReportUrl != null">auth_report_url = #{authReportUrl}, </if>
+			<if test="authReportJsonUrl != null">auth_report_jsonurl = #{authReportJsonUrl}, </if>
+			<if test="authTaskId != null">auth_task_id = #{authTaskId}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="delete">
+		delete from auth_user where user_id = #{value}
+	</delete>
+
+	<delete id="deleteBatch">
+		delete from auth_user where user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+
+	<select id="queryByMobile" resultType="io.grx.modules.auth.entity.AuthUserEntity">
+		select * from auth_user where mobile = #{mobile}
+
+		<if test="channelId != null and channelId > 0"> and channel_id = #{channelId} </if>
+
+	</select>
+
+
+	<select id="queryAuthTaskId" resultType="io.grx.modules.auth.entity.AuthUserEntity">
+		select * from auth_user where auth_task_id = #{taskId}
+	</select>
+
+	<select id="queryAuthByYiXiangReportTaskId" resultType="io.grx.modules.auth.entity.AuthUserEntity">
+		SELECT * FROM auth_user au LEFT JOIN yx_report yr ON au.user_id=yr.user_id
+		WHERE yr.task_id= #{taskId}
+	</select>
+
+
+	<select id="queryByMerchantNoAndMobile" resultType="io.grx.modules.auth.entity.AuthUserEntity">
+		select * from auth_user where mobile = #{mobile} and merchant_no = #{merchantNo}
+	</select>
+
+	<select id="queryAllChannelUsersByMobile" resultType="io.grx.modules.auth.entity.AuthUserEntity">
+		select * from auth_user where mobile = #{mobile} and merchant_no = #{_merchantNo}
+	</select>
+
+	<select id="queryStatList" resultType="io.grx.modules.auth.dto.AuthUserStatVO">
+		select su.user_id, min(su.name) name, min(su.username) username,
+		count(case when ar.status = 0 then 1 else null end) pending_count,
+		count(case when ar.status = 1 then 1 else null end) processing_count,
+		count(case when ar.status = 2 then 1 else null end) approved_count,
+		count(case when ar.status = 3 then 1 else null end) rejected_count,
+		count(case when ar.status = 4 then 1 else null end) completed_count,
+		count(case when ar.status = 5 then 1 else null end) overdue_count,
+		count(case when ar.status = 6 then 1 else null end) lost_count,
+		count(case when ar.status = 7 then 1 else null end) canceled_count,
+        count(ar.request_id) total_count
+		from auth_request ar join sys_user su on
+		<if test="userType == 1">
+			ar.assignee_id = su.user_id
+		</if>
+		<if test="userType == 0">
+			ar.processor_id = su.user_id
+		</if>
+        <where>
+            ar.merchant_no = #{_merchantNo}
+            <if test="name != null and name.trim() != ''">
+                au.name like contact('%', #{name}, '%')
+            </if>
+        </where>
+		group by su.user_id
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by su.user_id asc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+	<select id="queryStatTotal" resultType="int">
+		select count(DISTINCT su.user_id)
+		from auth_request ar join sys_user su on
+		<if test="userType == 1">
+			ar.assignee_id = su.user_id
+		</if>
+		<if test="userType == 0">
+			ar.processor_id = su.user_id
+		</if>
+		<where>
+			ar.merchant_no = #{_merchantNo}
+            <if test="name != null and name.trim() != ''">
+                au.name like contact('%', #{name}, '%')
+            </if>
+		</where>
+	</select>
+
+
+	<select id="queryRequestStat" resultType="io.grx.modules.auth.dto.AuthStatVO">
+		select
+		count(case when ar.status = 0 then 1 else null end) total_pending_count,
+		count(case when ar.status = 1 then 1 else null end) total_processing_count,
+		count(case when ar.status = 2 then 1 else null end) total_approved_count,
+		count(case when ar.status = 3 then 1 else null end) total_rejected_count,
+		count(case when ar.status = 4 then 1 else null end) total_completed_count,
+		count(case when ar.status = 5 then 1 else null end) total_overdue_count,
+		count(case when ar.status = 6 then 1 else null end) total_lost_count,
+		count(case when ar.status = 7 then 1 else null end) total_canceled_count,
+		count(ar.request_id) total_count
+		from auth_request ar
+		where ar.merchant_no = #{_merchantNo}
+	</select>
+
+</mapper>

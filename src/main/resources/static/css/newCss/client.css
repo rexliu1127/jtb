@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* CSS 客户名单 */
+/*----*/
+
+.client tbody tr td .thirdparty a{
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 -8px 3px 0;
+    text-align: center;
+    color: #fff;
+	font-size: 12px;
+    display: inline-block;
+    border-radius: 100%;
+    background-color: #ccc;
+}
+.client tbody tr td .thirdparty a.pass {
+    background-color: #0475ff;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../../css/rcpt/account.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/rcpt/paypsw.css"/>
+    <link rel="stylesheet" href="../../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../../css/jquery-weui.min.css"/>
+    <title></title>
+    <script th:inline="text">
+        var userMobile = '[[${TX_USER.mobile}]]';
+    </script>
+</head>
+<body>
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>还款确认</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="iousDetails">
+            <div class="iousDetails-cont">
+
+                <div class="bc01">
+                    <h3>借款内容</h3>
+                    <table border="0">
+                        <tr>
+                            <td><span>借款人</span></td>
+                            <td><strong th:text="${tx.borrowerName}">张先生</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>出借人</span></td>
+                            <td><strong th:text="${tx.lenderName}">吴先生</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>借款金额</span></td>
+                            <td><strong th:inline="text">[[${tx.amount}]]元</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>借款日期</span></td>
+                            <td><strong th:text="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}">2018.03.13</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>还款日期</span></td>
+                            <td><strong th:text="${#dates.format(tx.endDate, 'yyyy-MM-dd')}">2018.05.13</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>借款利率</span></td>
+                            <td><strong th:inline="text">[[${tx.rate}]]%</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>借款用途</span></td>
+                            <td><strong th:text="${tx.usageType.displayName}">医 疗</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>补充说明</span></td>
+                            <td><strong th:text="${remark}"> </strong></td>
+                        </tr>
+                        <tr th:if="${tx.borrowerUserId == TX_USER.userId}">
+                            <td><span>服务费</span></td>
+                            <td><strong th:text="${tx.feeAmount > 0 ? (tx.feeAmount + '元') : '限时免费'}"> </strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>借款协议</span></td>
+                            <td><a th:href="${'../../transaction/agreement.html?txId=' + tx.txId}">点击查看</a></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="bc02">
+                    <h3>更多信息</h3>
+                    <table border="0">
+                        <tr>
+                            <td><span>订单编号</span></td>
+                            <td><strong th:text="${tx.txUuid}">20180972837384748494947</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>创建时间</span></td>
+                            <td><strong th:text="${#dates.format(tx.createTime, 'yyyy-MM-dd')}">2018.03.13</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span>订单状态</span></td>
+                            <td><strong class="orange" th:text="${tx.status.displayName}">待确定</strong></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="bc03 clear"
+                     th:if="${tx.lenderUserId == TX_USER.userId and tx.repayDate == null and txRepayment != null AND (txRepayment.status == T(io.grx.modules.tx.enums.RepaymentStatus).NEW)}">
+                    <div id="canncel" class="iousDetails-del-btn fl btn">未收到还款
+                    </div>
+                    <div id="confirm" class="iousDetails-send-btn fr btn">已收到还款
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+</div>
+<input id="repaymentId" type="hidden" th:value="${txRepayment.repaymentId}" />
+<input id="txId" type="hidden" th:value="${tx.txId}" />
+<script src="../../../libs/jquery.min.js"></script>
+<script src="../../../libs/jquery-weui.min.js"></script>
+<script src="../../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../../js/rcpt/main.js"></script>
+<script src="../../../js/rcpt/view_repayment.js?t=1"></script>
+
+</body>
+</html>

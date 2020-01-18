@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../../../css/weui.css"/>
+    <link rel="stylesheet" href="../../../css/wx_common.css"/>
+    <link rel="stylesheet" href="../../../css/wx_main.css"/>
+    <link href="../../../css/page.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .css_table {
+            display: table;
+            width: 100%;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .table_title {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 10px;
+        }
+
+        .table_title img {
+            width: 30px;
+        }
+
+        .css_tr {
+            display: table-row;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .css_td {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            border-top: 1px solid #D7D6DC;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .css_tr .label {
+            width: 30%;
+            text-align: left;
+            padding-left: 10px;
+            word-wrap: break-word;
+        }
+
+        .css_tr img {
+            width: 60%;
+            margin-left: 15px;
+        }
+
+        .weui-btn-area a {
+            width: 30%;
+        }
+    </style>
+    <script src="../../../libs/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.2/weui.min.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="../../../js/wx_common.js"></script>
+</head>
+<body ontouchstart="" class="body_bg">
+<div class="vip_personal">
+    <div class="personal_photo">
+        <img th:if="${!#strings.isEmpty(user.headImgUrl)}" class="weui-media-box__thumb"
+             th:src="${user.headImgUrl}" alt=""/>
+        <img th:if="${#strings.isEmpty(user.headImgUrl)}" class="weui-media-box__thumb"
+             src="../../images/icon_guest.png" alt=""/>
+    </div>
+    <div class="personal_photo_xx"><h1 th:text="${#strings.isEmpty(user.name) ? user.nickName : user.name}">who are you?</h1>
+        <p th:if="${!#strings.isEmpty(user.mobile)}"
+           th:text="${#strings.substring(user.mobile, 0, 3) + '****' + #strings.substring(user.mobile, 7, 11)}">18001200128</p>
+        <p th:if="${#strings.isEmpty(user.mobile)}">未实名认证</p>
+    </div>
+</div>
+
+<div class="body_contant">
+    <h1><span class="bo_ico03"></span>借贷数据分析（数据来源米仓云服）</h1>
+    <div class="borrow_table">
+        <table>
+            <tr>
+                <td>借入总额</td>
+                <td th:text="${borrowerSummary.count + '次'}">2次</td>
+                <td th:text="${borrowerSummary.amount + '元'}">2.00元</td>
+                <td><a class="yellow" th:href="${'../credit_detail_borrower/' + userId + (txId != null ? ('?txId=' + txId) : '')}">点击查看</a></td>
+            </tr>
+            <tr>
+                <td>借出总额</td>
+                <td th:text="${lenderSummary.count + '次'}">2次</td>
+                <td th:text="${lenderSummary.amount + '元'}">2.00元</td>
+                <td><a class="yellow" th:href="${'../credit_detail_lender/' + userId + (txId != null ? ('?txId=' + txId) : '')}">点击查看</a></td>
+            </tr>
+            <tr>
+                <td>逾期总额</td>
+                <td th:text="${overdueSummary.count + '次'}">2次</td>
+                <td th:text="${overdueSummary.amount + '元'}">2.00元</td>
+                <td><a class="yellow" th:href="${'../credit_detail_overdue/' + userId + (txId != null ? ('?txId=' + txId) : '')}">点击查看</a></td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //your code here
+    });
+    $(function () {
+    });
+</script>
+
+</body>
+</html>

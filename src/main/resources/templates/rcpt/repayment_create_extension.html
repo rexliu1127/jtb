@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../../css/rcpt/account.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/rcpt/paypsw.css"/>
+    <link rel="stylesheet" href="../../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../../css/jquery-weui.min.css"/>
+    <title></title>
+    <script th:inline="text">
+        var userMobile = '[[${TX_USER.mobile}]]';
+    </script>
+</head>
+<body>
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>展 期</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+        <div class="bindingBANK">
+            <div class="area01">
+                <div class="typeX">
+                    <form action="#" method="post">
+                        <ul>
+                            <li class="display">
+                                <div class="form-topic">
+                                    <h3>借款金额</h3>
+                                </div>
+                                <div class="form-box flex1"><strong th:inline="text"><i>￥</i> [[${tx.amount}]]</strong></div>
+                            </li>
+                            <li class="display">
+                                <div class="form-topic">
+                                    <h3>利率</h3>
+                                </div>
+                                <div class="form-box flex1"><strong th:inline="text">[[${tx.rate}]]%</strong></div>
+                            </li>
+                            <li class="display">
+                                <div class="form-topic">
+                                    <h3>待还金额</h3>
+                                </div>
+                                <div class="form-box flex1"><strong th:inline="text"><i>￥</i> [[${tx.outstandingAmount}]]</strong></div>
+                            </li>
+                            <li class="display">
+                                <div class="form-topic">
+                                    <h3>原到期日</h3>
+                                </div>
+                                <div class="form-box flex1"><strong th:inline="text"> [[${#dates.format(tx.endDate, 'yyyy-MM-dd')}]]</strong></div>
+                            </li>
+                            <li class="display">
+                                <div class="form-topic">
+                                    <h3>展期金额</h3>
+                                </div>
+                                <div class="form-box flex1"><input type="number" id="extendAmount" class="form" th:value="${tx.outstandingAmount}" /></div>
+                            </li>
+                            <li class="display">
+                                <div class="form-topic">
+                                    <h3>展期至</h3>
+                                </div>
+                                <div class="form-box flex1"><input type="text" id="newEndDate" class="form" th:value="${#dates.format(tx.endDate, 'yyyy-MM-dd')}" readonly="readonly"/></div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <button type="button" id="createExtension" class="btn btnstyle01 radius3PX">提交展期</button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<input id="txId" type="hidden" th:value="${tx.txId}"/>
+<input id="rate" type="hidden" th:value="${tx.rate}"/>
+<input id="outstandingAmount" type="hidden" th:value="${tx.outstandingAmount}"/>
+<input id="beginDate" type="hidden" th:value="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}" />
+<input id="endDate" type="hidden" th:value="${#dates.format(tx.endDate, 'yyyy-MM-dd')}" />
+
+<script src="../../../libs/jquery.min.js"></script>
+<script src="../../../libs/jquery-weui.min.js"></script>
+<script src="../../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../../js/rcpt/main.js"></script>
+<script type="text/javascript" src="../../../js/rcpt/repayment_create_extension.js"></script>
+</body>
+</html>

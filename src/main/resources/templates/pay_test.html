@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="css/wx_common.css"/>
+    <link rel="stylesheet" href="css/wx_main.css"/>
+    <link rel="stylesheet" href="css/page.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css"/>
+    <style>
+        #logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items :center ;
+        }
+        #logo img {
+            width: 50%;
+        }
+    </style>
+    <script>
+        var payinfo =
+            {"appId":"wxda18d758438de540","timeStamp":"1518017652","signType":"MD5","package":"prepay_id=wx20180207233412ce611bce290901451152","nonceStr":"21928","paySign":"D38CE832A14862F9D93D8B7537E9B765"};
+
+        var onBridgeReady = function () {
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest', payinfo,
+                function (res) {
+                    switch (res.err_msg) {
+                        case 'get_brand_wcpay_request:cancel':
+                            $.toptip('取消支付', 'error');
+                            break;
+                        case 'get_brand_wcpay_request:fail':
+                            $.toptip('支付失败！（' + res.err_desc + '）', 'error');
+                            $.toptip(JSON.stringify(res), 'error');
+                            break;
+                        case 'get_brand_wcpay_request:ok':
+                            $.toptip('支付成功！', 'error');
+                            break;
+                        default:
+                            $.toptip(JSON.stringify(res), 'error');
+                            break;
+                    }
+                }
+            );
+        };
+
+        if (typeof WeixinJSBridge == "undefined") {
+            alert(2);
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            alert(1);
+            onBridgeReady();
+        }
+    </script>
+</head>
+<body ontouchstart="">
+<div class="logo"><img src="images/logo.jpg" style="max-width: 300px;"/></div>
+<div class="login_box">
+    <ul>
+        <li><div class="but"><a id="testBtn" href="javascript:" >测试1</a></div></li>
+        <li><div class="but"><a id="testBtn2" href="javascript:" >测试2</a></div></li>
+    </ul>
+
+</div>
+
+<input id="returnUrl" type="hidden" th:value="${returnUrl}"/>
+<input id="unionId" type="hidden" th:value="${unionId}"/>
+<input id="openId" type="hidden" th:value="${openId}"/>
+<input id="nickName" type="hidden" th:value="${nickName}"/>
+<input id="headImgUrl" type="hidden" th:value="${headImgUrl}"/>
+<!-- body 最后 -->
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="js/wx_common.js"></script>
+
+</body>
+</html>

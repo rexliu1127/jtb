@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxExtensionDao">
+	<cache />
+
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxExtensionEntity">
+		select * from tx_extension where extension_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxExtensionEntity">
+		select * from tx_extension
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by extension_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_extension 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxExtensionEntity" useGeneratedKeys="true" keyProperty="extensionId">
+		insert into tx_extension
+		(
+			merchant_no, 
+			tx_id,
+			extend_amount,
+            old_rate,
+			rate,
+            old_end_date,
+			new_end_date, 
+			status, 
+			create_time, 
+			update_time,
+			fee_amount
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{txId},
+			#{extendAmount},
+            #{oldRate},
+            #{rate},
+            #{oldEndDate},
+            #{newEndDate},
+			#{status}, 
+			#{createTime}, 
+			#{updateTime},
+			#{feeAmount}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxExtensionEntity">
+		update tx_extension 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="txId != null">tx_id = #{txId}, </if>
+			<if test="extendAmount != null">extend_amount = #{extendAmount}, </if>
+            <if test="oldRate != null">old_rate = #{oldRate}, </if>
+			<if test="rate != null">rate = #{rate}, </if>
+			<if test="feeAmount != null">fee_amount = #{feeAmount}, </if>
+            <if test="oldEndDate != null">old_end_date = #{oldEndDate}, </if>
+			<if test="newEndDate != null">new_end_date = #{newEndDate}, </if>
+			<if test="status != null">status = #{status}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="updateTime != null">update_time = #{updateTime}</if>
+		</set>
+		where extension_id = #{extensionId}
+	</update>
+	
+	<delete id="delete">
+		delete from tx_extension where extension_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_extension where extension_id in 
+		<foreach item="extensionId" collection="array" open="(" separator="," close=")">
+			#{extensionId}
+		</foreach>
+	</delete>
+
+	<select id="getLastExtensionByTx" resultType="io.grx.modules.tx.entity.TxExtensionEntity">
+		select * from tx_extension where tx_id = #{txId} ORDER BY extension_id DESC LIMIT 1
+	</select>
+
+    <select id="getExtensionsByTx" resultType="io.grx.modules.tx.entity.TxExtensionEntity">
+        select * from tx_extension where tx_id = #{txId} ORDER BY extension_id DESC
+    </select>
+</mapper>

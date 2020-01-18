@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.AuthUserContactDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.auth.entity.AuthUserContactEntity" id="authUserContactMap">
+        <result property="userId" column="user_id"/>
+        <result property="contact" column="contact"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.auth.entity.AuthUserContactEntity">
+		select * from auth_user_contact where user_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.auth.entity.AuthUserContactEntity">
+		select * from auth_user_contact
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by user_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from auth_user_contact 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.auth.entity.AuthUserContactEntity">
+		insert into auth_user_contact
+		(
+			user_id, 
+			contact
+		)
+		values
+		(
+			#{userId}, 
+			#{contact}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.AuthUserContactEntity">
+		update auth_user_contact 
+		<set>
+			<if test="contact != null">contact = #{contact}</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="delete">
+		delete from auth_user_contact where user_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from auth_user_contact where user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+
+</mapper>

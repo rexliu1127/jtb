@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.TjReportDao">
+
+	<select id="queryObject" resultType="io.grx.modules.auth.entity.TjReportEntity">
+		select * from tj_report where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.auth.entity.TjReportEntity">
+		select * from tj_report
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tj_report 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.auth.entity.TjReportEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into tj_report
+		(
+			merchant_no, 
+			user_id, 
+			task_id,
+			search_id,
+			tianji_type, 
+			tianji_state, 
+			name, 
+			id_no, 
+			mobile, 
+			report_json_path, 
+			report_html_path, 
+			verify_status, 
+			create_time, 
+			update_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{userId}, 
+			#{taskId},
+			#{searchId},
+			#{tianjiType}, 
+			#{tianjiState}, 
+			#{name}, 
+			#{idNo}, 
+			#{mobile}, 
+			#{reportJsonPath}, 
+			#{reportHtmlPath}, 
+			#{verifyStatus}, 
+			#{createTime}, 
+			#{updateTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.TjReportEntity">
+		update tj_report 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			<if test="userId != null">user_id = #{userId}, </if>
+			<if test="taskId != null">task_id = #{taskId}, </if>
+			<if test="searchId != null">search_id = #{searchId}, </if>
+			<if test="tianjiType != null">tianji_type = #{tianjiType}, </if>
+			<if test="tianjiState != null">tianji_state = #{tianjiState}, </if>
+			<if test="name != null">name = #{name}, </if>
+			<if test="idNo != null">id_no = #{idNo}, </if>
+			<if test="mobile != null">mobile = #{mobile}, </if>
+			<if test="reportJsonPath != null">report_json_path = #{reportJsonPath}, </if>
+			<if test="reportHtmlPath != null">report_html_path = #{reportHtmlPath}, </if>
+			<if test="verifyStatus != null">verify_status = #{verifyStatus}, </if>
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+			is_expired = #{isExpired}
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from tj_report where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tj_report where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+    <select id="queryByUniqueId" resultType="io.grx.modules.auth.entity.TjReportEntity">
+        select * from tj_report where task_id = #{value} order by id desc limit 1
+    </select>
+
+    <select id="queryLatestByUserId" resultType="io.grx.modules.auth.entity.TjReportEntity">
+        select * from tj_report where user_id = #{userId} and tianji_type = #{tianjiType} and verify_status > -1 order by id desc limit 1
+    </select>
+    
+    <select id="querySuccessReportByTaskId" resultType="io.grx.modules.auth.entity.TjReportEntity">
+    	select * from tj_report where task_id = #{taskId} and tianji_type = #{tianjiType} and verify_status = 1 order by id desc limit 1
+    </select>
+
+	<update id="expireReports">
+		update tj_report set is_expired = 1 where tianji_type = #{type} and is_expired = 0
+		and create_time &lt; date_sub(current_date, INTERVAL #{expiredDay} DAY)
+	</update>
+</mapper>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="format-detection" content="date=no"/>
+
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="../../css/rcpt/reset.css"/>
+    <!-- Resource fontsIcon -->
+    <link rel="stylesheet" href="../../css/rcpt/fontsIcon.css"/>
+    <!-- Resource nav -->
+    <link rel="stylesheet" href="../../css/rcpt/nav.css"/>
+    <!-- Resource style -->
+    <link rel="stylesheet" href="../../css/rcpt/style.css"/>
+    <!-- Resource credit -->
+    <link rel="stylesheet" href="../../css/rcpt/account.css"/>
+    <!-- CSS FOOTER-NAV -->
+    <link rel="stylesheet" type="text/css" href="../../css/rcpt/footer-nav.css"/>
+    <link rel="stylesheet" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.min.css"/>
+    <title>我的邀请码</title>
+    <style type="text/css">
+
+		.userLetter .ul01 {
+			height: 150px;
+			vertical-align:middle;
+			text-align: center;
+		}
+		.userLetter .ul01 p {
+			color: white;
+			text-align: center;
+		}
+		.userLetter .ul02 {
+			padding: 20px 20px 20px 20px;
+		}
+
+        #mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 550;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #maskContent {
+            width: 38%;
+            margin-left: 30%;
+            margin-top: 20%;
+
+        }
+
+        #maskContent p {
+            color: white;
+            font-size: 16px;
+        }
+
+        #qrCode {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="mainAPP">
+    <!-- .cd-header -->
+    <header class="cd-header clear">
+        <div class="cd-3d-nav-trigger">Menu<span></span></div>
+        <h2>我的邀请码</h2>
+    </header>
+    <main>
+        <!-- all your content here -->
+
+        <div class="userLetter">
+            <div class="ul01 display g-blue gradient01">
+                <p>快来邀请好友有钱拿啦!</p>
+            </div>
+            <div class="ul02 radius3PX">
+                <p>专属邀请码: <span th:value="${TX_USER.mobile}">19900000000</span></p>
+                <div style="with: 100%; text-align: center; padding-top: 30px; padding-bottom: 30px;">
+                    <a id="share" type="button" class="btn radius3PX"
+                       style="width: 200px; display:inline-block; margin-right: 10px; border: 1px solid #d7d7d7;">一键分享</a>
+                </div>
+            </div>
+            <div class="ul03 radius3PX">
+                <p>邀请奖励规则：</p>
+
+                <p>1. 每分享成功一个用户并在平台使用凭证功能，即可获得相应奖励，无上限！</p>
+
+                <p>2. 可通过输入手机号码、分享链接或发送专属二维码让好友扫描认证。</p>
+
+                <p>3. 如果被推荐的好友也成功推荐新的好友加入，您也可以获得相应的奖励。</p>
+
+            </div>
+        </div>
+        <input id="mobile" type="hidden" th:value="${TX_USER.mobile}"/>
+    </main>
+</div>
+<div id="mask">
+    <div id="maskContent">
+        <p>点右上角发送给微信好友或朋友圈或者让对方扫一扫二维码</p>
+        <img id="qrCode"/>
+        <p>点击屏幕返回个人中心</p>
+    </div>
+</div>
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../libs/jquery-weui.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="../../js/wx_common.js"></script>
+<script type="text/javascript" src="../../js/rcpt/main.js"></script>
+<script type="text/javascript">
+    $('#share').on('click', function () {
+        $('#qrCode').attr('src', baseURL + 'rcpt/member/share/' + $('#mobile').val() + '.png');
+        $('#mask').show();
+        $('#navDiv').hide();
+    });
+
+    $('#mask').on('click', function () {
+        $('#mask').hide();
+        location.href = baseURL + 'rcpt/member.html';
+    });
+</script>
+<script th:inline="text">
+    var signature = '[[${signature}]]';
+    var appId = '[[${appId}]]';
+    var url = '[[${url}]]';
+    var jsapi_ticket = '[[${jsapi_ticket}]]';
+    var nonceStr = '[[${nonceStr}]]';
+    var timestamp = [[${timestamp}]];
+
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: appId, // 必填，公众号的唯一标识
+        timestamp: timestamp, // 必填，生成签名的时间戳
+        nonceStr: nonceStr, // 必填，生成签名的随机串
+        signature: signature,// 必填，签名，见附录1
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareAppMessage'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    wx.ready(function () {
+        wx.onMenuShareAppMessage({
+            title: '我在' + siteName + '打借条啦，方便安全， 您也来试试吧~', // 分享标题
+            desc: siteName + '，安全，方便，快捷的凭证平台。', // 分享描述
+            link: location.href.substr(0, location.href.indexOf(baseURL)) + baseURL + 'rcpt/index.html?inviter=' + $('#mobile').val(), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: location.href.substr(0, location.href.indexOf(baseURL)) + baseURL + 'images/cxb_logo_mini.jpg' // 分享图标
+        });
+    });
+
+</script>
+</body>
+</html>

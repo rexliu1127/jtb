@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>渠道</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css"/>
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css"/>
+    <link rel="stylesheet" href="../../css/main.css"/>
+    <style>
+    </style>
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp">
+    <div class="panel panel-default">
+        <div class="panel-heading">借条详情</div>
+        <table style="width: 100%; border: none; margin-left: 20px; line-height: 30px;">
+            <tr>
+                <td><label>借款人:</label>&nbsp;&nbsp;<span th:text="${tx.borrowerName}"></span></td>
+                <td><label>借款金额:</label>&nbsp;&nbsp;<span th:text="${tx.amount}"></span>元</td>
+            </tr>
+            <tr>
+                <td><label>出借人:</label>&nbsp;&nbsp;<span th:text="${tx.lenderName}"></span></td>
+                <td><label>出借方式:</label>&nbsp;&nbsp;<span>线下出借</span></td>
+            </tr>
+            <tr>
+                <td><label>还款方式:</label>&nbsp;&nbsp;<span>到期还本息</span></td>
+                <td><label>借款日期:</label>&nbsp;&nbsp;<span th:text="${#dates.format(tx.beginDate, 'yyyy-MM-dd')}"></span></td>
+            </tr>
+            <tr>
+                <td><label>借款利率:</label>&nbsp;&nbsp;<span th:text="${tx.rate}"></span>%</td>
+                <td><label>还款日期:</label>&nbsp;&nbsp;<span th:text="${#dates.format(tx.endDate, 'yyyy-MM-dd')}"></span></td>
+            </tr>
+            <tr>
+                <td><label>服务费:</label>&nbsp;&nbsp;<span th:text="${tx.feeAmount}"></span>元</td>
+                <td><label>借款用途:</label>&nbsp;&nbsp;<span th:text="${tx.usageType.displayName}"></span></td>
+            </tr>
+            <tr>
+                <td><label>补充说明:</label>&nbsp;&nbsp;<span th:text="${tx.remark}"></span></td>
+                <td><label>创建时间:</label>&nbsp;&nbsp;<span th:text="${#dates.format(tx.createTime, 'yyyy-MM-dd')}"></span></td>
+            </tr>
+            <tr>
+                <td><label>订单编号:</label>&nbsp;&nbsp;<span th:text="${tx.txUuid}"></span></td>
+                <!--td><label>借款协议:</label>&nbsp;&nbsp;<a th:href="${'javascript:openTxAgreement(' + tx.txId + ');'}">点击查看</a></td-->
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

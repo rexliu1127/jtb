@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <title>申请单</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/daterangepicker.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <table id="searchTable">
+            <tr>
+                <td style="width: 80px;"><label>状态:</label>
+                </td>
+                <td style="width: 100px;">
+                    <select id="statusSelect" class="form-control" v-model="q.status">
+                        <option v-for="option in requestStatusList" v-bind:value="option.value">
+                            {{ option.displayName }}
+                        </option>
+                    </select>
+                </td>
+                <td style="width: 60px;"><label v-if="channelList.length > 0">渠道:</label></td>
+                <td style="width: 100px;"><select id="channelSelect" class="form-control" v-model="q.channelId">
+                    <option v-for="option in channelList" v-bind:value="option.channelId">
+                        {{ option.name }}
+                    </option>
+                </select>
+                </td>
+                <!--<td style="width: 80px;"><label>审核时间:</label></td>
+                <td style="width: 200px;"><input type="text" class="form-control" id="auditTimeRange" placeholder="审核时间"></td>-->
+                <td style="width: 80px;"><label>申请时间:</label></td>
+                <td style="width: 200px;"><input type="text" class="form-control" id="applyTimeRange" placeholder="申请时间"></td>
+                <td style="width: 60px;"><label>姓名:</label></td>
+                <td style="width: 150px;"><input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="姓名"></td>
+            </tr>
+            <tr>
+                <td><label>分配状态:</label></td>
+                <td><select id="allocateStatus" class="form-control" v-model="q.allocateStatus">
+                    <option value="0">未分配</option>
+                    <option value="1">已分配</option>
+                </select>
+                </td>
+                <td><label>处理员:</label></td>
+                <td><input type="text" class="form-control" style="width:120px;" v-model="q.assignee" @keyup.enter="query" placeholder="处理员名称"></td>
+                <!--<td><label>申请时间:</label></td>
+                <td><input type="text" class="form-control" id="applyTimeRange" placeholder="申请时间"></td>-->
+                <td><label>手机号:</label></td>
+                <td><input type="text" class="form-control" style="width:200px;" v-model="q.mobile" @keyup.enter="query" placeholder="手机号"></td>
+                <td></td>
+                <td ><a class="btn btn-default" @click="query">查询</a>
+                    <a class="btn btn-default" @click="reset">重置</a></td>
+            </tr>
+        </table>
+        <div class="grid-btn">
+            <a v-if="hasPermission('auth:request:allocate')" class="btn btn-primary btn-xs" @click="allocate"><i class="fa fa-plus"></i>&nbsp;分配</a>
+            <a v-if="hasPermission('auth:request:recommend')" class="btn btn-primary btn-xs" @click="recommend"><i class="fa fa-plus"></i>&nbsp;推荐</a>
+            <a v-if="hasPermission('auth:request:export')" class="btn btn-default btn-xs" @click="exp"><i class="fa fa-trash-o"></i>&nbsp;导出</a>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+
+<div id="allocationLayer" style="display: none;" v-cloak>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="form-group">
+                <div class="col-sm-2 control-label">审核人</div>
+                <div class="col-sm-10">
+                    <select id="auditorId" v-model="auditorId" class="form-control">
+                        <option v-for="option in auditorList" v-bind:value="option.userId">
+                            {{ option.username + (option.name ? '(' + option.name + ')' : '') }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="targetMerchantLayer" style="display: none;" v-cloak>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="form-group">
+                <div class="col-sm-2 control-label">推荐到</div>
+                <div class="col-sm-10">
+                    <select id="merchantId" v-model="merchantId" class="form-control">
+                        <option v-for="option in merchantList" v-bind:value="option.merchantNo">
+                            {{ option.merchantNo + (option.name ? '(' + option.name + ')' : '') }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<iframe src="" name="downloadFrame" id="downloadFrame" style="display: none"></iframe>
+<script src="../../libs/moment.min.js"></script>
+<script src="../../libs/daterangepicker.js"></script>
+<script src="../../js/modules/auth/request.js"></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>风控系统</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="shortcut icon" href="//"/>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        a {
+            color: #333;
+            text-decoration: none
+        }
+
+        a img {
+            border: 0
+        }
+
+        li, ol, ul {
+            list-style: none
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 400
+        }
+
+        body {
+            font-size: 12px;
+            font-family: "Microsoft Yahei", "微软雅黑", Tahoma, Arial, Helvetica, STHeiti;
+            color: #333
+        }
+
+        em, i {
+            font-style: normal
+        }
+
+        input[type=password]::-ms-reveal, input[type=text]::-ms-clear {
+            display: none;
+            width: 0;
+            height: 0
+        }
+
+        .clear {
+            zoom: 1
+        }
+
+        .clear:after {
+            content: '';
+            display: block;
+            clear: both
+        }
+
+        .clearfix {
+            clear: both
+        }
+
+        .middle {
+            vertical-align: middle
+        }
+
+        .blue {
+            background: #36c !important
+        }
+
+        .indent-1 {
+            text-indent: 1em
+        }
+
+        .indent-2 {
+            text-indent: 2em
+        }
+
+        .wrap {
+            width: 990px;
+            margin: 0 auto;
+            overflow: hidden
+        }
+
+        .def_report_wrap {
+            width: 100%;
+            background: #fff;
+            padding: 25px 0 90px
+        }
+
+        .def_report_content {
+            width: 990px;
+            margin: 0 auto
+        }
+
+        .def_report_content .def_report_head {
+            background: #1ab9bb
+        }
+
+        .def_report_content .def_report_head h1 {
+            text-align: center;
+            font-size: 40px;
+            color: #fffefe;
+            padding-top: 34px
+        }
+
+        .def_report_content .def_report_head .def_report_desc {
+            color: #ffffff;
+            font-size: 16px;
+            padding: 19px 26px 37px
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul {
+            *zoom: 1
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul:after, .def_report_content .def_report_head .def_report_desc ul:before {
+            content: '';
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul li {
+            float: left;
+            width: 35%;
+            text-align: center;
+            white-space: nowrap
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul li em, .def_report_content .def_report_head .def_report_desc ul li i {
+            font-style: normal
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul li:first-child {
+            text-align: left
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul li:nth-child(2) {
+            width: 30%
+        }
+
+        .def_report_content .def_report_head .def_report_desc ul li:last-child {
+            text-align: right
+        }
+
+        .def_report_content .def_report_box {
+            border: 1px solid #dfdfdf;
+            border-top: none;
+            background-color: #f0f0f0;
+            padding-bottom: 38px
+        }
+
+        .def_report_content .def_report_member, .def_report_content .def_report_realname {
+            display: inline-block;
+            white-space: nowrap;
+            color: #666666 !important;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 0 12px;
+            height: 22px;
+            line-height: 22px
+        }
+
+        .def_report_content .def_report_realname {
+            background-color: #fde057
+        }
+
+        .def_report_content .def_report_member {
+            background-color: #ffc852;
+            margin-left: 10px
+        }
+
+        .def_report_content dl {
+            *zoom: 1;
+            background-color: #ffffff;
+            text-indent: 20px;
+            padding-bottom: 16px;
+            border-radius: 9px
+        }
+
+        .def_report_content dl:after, .def_report_content dl:before {
+            content: '';
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden
+        }
+
+        .def_report_content dl dd {
+            color: #999;
+            float: left;
+            font-size: 16px;
+            margin-top: 16px;
+            width: 33%;
+            *zoom: 1
+        }
+
+        .def_report_content dl dd:after, .def_report_content dl dd:before {
+            content: '';
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden
+        }
+
+        .def_report_content dl dd em {
+            font-style: normal;
+            float: left
+        }
+
+        .def_report_content dl dd span {
+            color: #333;
+            float: left;
+            display: inline-block;
+            margin-left: 10px;
+            text-indent: 0
+        }
+
+        .def_report_content dl dd span a {
+            color: #346bda !important
+        }
+
+        .def_report_content .def_report_items {
+            padding: 0 26px 38px
+        }
+
+        .def_report_content .def_report_items:first-child {
+            padding-top: 26px
+        }
+
+        .def_report_content .def_report_items h4 {
+            color: #12a1a3;
+            font-size: 24px;
+            padding-bottom: 15px;
+            padding-left: 21px
+        }
+
+        .def_report_content .def_report_items p {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #666;
+            line-height: 2
+        }
+
+        .def_report_content .def_report_td, .def_report_content .def_report_th {
+            padding-left: 21px;
+            line-height: 19px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            overflow: hidden;
+            font-size: 14px
+        }
+
+        .def_report_content .def_report_td li, .def_report_content .def_report_th li {
+            float: left;
+            min-height: 1px;
+            word-wrap: break-word;
+            word-break: break-all
+        }
+
+        .def_report_content .def_report_td li:not(:first-child), .def_report_content .def_report_th li:not(:first-child) {
+            padding-left: 10px
+        }
+
+        .def_report_content .def_report_td li:nth-child(1), .def_report_content .def_report_th li:nth-child(1) {
+            width: 20%
+        }
+
+        .def_report_content .def_report_td li:nth-child(2), .def_report_content .def_report_th li:nth-child(2) {
+            width: 40%
+        }
+
+        .def_report_content .def_report_td li:nth-child(3), .def_report_content .def_report_th li:nth-child(3) {
+            width: 37%
+        }
+
+        .def_report_content .def_report_th {
+            background: #ffffff;
+            margin-top: 5px;
+            border-bottom: 1px solid #dfdfdf;
+            color: #999;
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px
+        }
+
+        .def_report_content .def_report_td {
+            background: #ffffff;
+            border-bottom: 1px solid #f5f5f5;
+            color: #333
+        }
+
+        .def_report_content .def_report_td:last-child {
+            border-bottom-left-radius: 9px;
+            border-bottom-right-radius: 9px
+        }
+
+        .def_report_content .def_report_td span {
+            display: inline-block
+        }
+
+        .def_report_content .def_report_td i {
+            display: inline-block;
+            color: #fc0;
+            border: 1px solid #fc0;
+            border-radius: 5px;
+            padding: 1px 6px;
+            vertical-align: top
+        }
+
+        .def_report_content .def_report_td i:not(:first-child) {
+            margin-left: 5px
+        }
+
+        .def_report_content .def_report_4_columns .def_report_td li:not(:last-child), .def_report_content .def_report_4_columns .def_report_th li:not(:last-child) {
+            width: 23.5%
+        }
+
+        .def_report_content .def_report_4_columns .def_report_td li:last-child, .def_report_content .def_report_4_columns .def_report_th li:last-child {
+            width: 26%
+        }
+
+        .def_report_content .def_report_5_columns .def_report_td li:not(:last-child), .def_report_content .def_report_5_columns .def_report_th li:not(:last-child) {
+            width: 20%
+        }
+
+        .def_report_content .def_report_5_columns .def_report_td li:last-child, .def_report_content .def_report_5_columns .def_report_th li:last-child {
+            width: 15.5%
+        }
+
+        dl.jd_report_inputinfo dd {
+            width: 50%
+        }
+
+        dl.jd_report_inputinfo dd:nth-last-child(1), dl.jd_report_inputinfo dd:nth-last-child(2) {
+            width: 100%
+        }
+
+        .jd_report_5_columns .def_report_td li:nth-child(1), .jd_report_5_columns .def_report_th li:nth-child(1) {
+            width: 30%
+        }
+
+        .jd_report_5_columns .def_report_td li:nth-child(2), .jd_report_5_columns .def_report_th li:nth-child(2) {
+            width: 12%
+        }
+
+        .jd_report_5_columns .def_report_td li:nth-child(3), .jd_report_5_columns .def_report_th li:nth-child(3) {
+            width: 8%
+        }
+
+        .jd_report_5_columns .def_report_td li:nth-child(4), .jd_report_5_columns .def_report_th li:nth-child(4) {
+            width: 19%
+        }
+
+        .jd_report_5_columns .def_report_td li:nth-child(5), .jd_report_5_columns .def_report_th li:nth-child(5) {
+            width: 25.5%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(1), .jd_report_8_columns .def_report_th li:nth-child(1) {
+            width: 29%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(1) span, .jd_report_8_columns .def_report_th li:nth-child(1) span {
+            width: 185px
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(2), .jd_report_8_columns .def_report_th li:nth-child(2) {
+            width: 9%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(3), .jd_report_8_columns .def_report_th li:nth-child(3) {
+            width: 7%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(4), .jd_report_8_columns .def_report_th li:nth-child(4) {
+            width: 10%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(5), .jd_report_8_columns .def_report_th li:nth-child(5) {
+            width: 10%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(6), .jd_report_8_columns .def_report_th li:nth-child(6) {
+            width: 9%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(7), .jd_report_8_columns .def_report_th li:nth-child(7) {
+            width: 12.5%
+        }
+
+        .jd_report_8_columns .def_report_td li:nth-child(8), .jd_report_8_columns .def_report_th li:nth-child(8) {
+            width: 5%
+        }
+
+        .table-bordered, .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+            line-height: 40px;
+        }
+
+        table {
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .table-bordered table thead tr {
+            color: #999;
+            background-color: #f9f9f9;
+        }
+
+        .table-bordered td {
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="def_report_wrap">
+    <div th:each="entry : ${reportMap}">
+        <div class="def_report_content" th:with="type = ${entry.key}, rpt = ${entry.value}">
+            <div th:remove="tag" th:utext="${rpt}"></div>
+        </div>
+    </div>
+    <div th:if="${reportMap.isEmpty()}" style="padding-top: 20px; color: red;">
+        该用户还没有认证其他报告或报告尚在生成中
+    </div>
+</div>
+</body>
+</html>

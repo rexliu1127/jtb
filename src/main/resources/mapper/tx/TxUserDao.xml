@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.tx.dao.TxUserDao">
+	<cache />
+	<select id="queryObject" resultType="io.grx.modules.tx.entity.TxUserEntity">
+		select * from tx_user where user_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.tx.entity.TxUserEntity">
+		select * from tx_user
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (name like concat('%', #{keyword}, '%')
+				or mobile like concat('%', #{keyword},'%')
+				or id_no like concat('%',#{keyword},'%')
+				)
+			</if>
+			<if test="merchantNo!=null and merchantNo.trim() !=''">
+				and merchant_no = #{merchantNo}
+			</if>
+			<if test="idNo!=null and idNo.trim() !=''">
+				and id_no = #{idNo}
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by user_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tx_user
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (name like concat('%', #{keyword}, '%')
+				or mobile like concat('%', #{keyword},'%')
+				or id_no like concat('%',#{keyword},'%')
+				)
+			</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.tx.entity.TxUserEntity" useGeneratedKeys="true" keyProperty="userId">
+		insert into tx_user
+		(
+			merchant_no, 
+			wechat_id,
+			union_id,
+			nick_name, 
+			head_img_url, 
+			mobile, 
+			name,
+			name_pinyin,
+			id_no, 
+			bank_account, 
+			bank_name,
+			sign_img_path,
+			create_user_id, 
+			create_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{wechatId},
+			#{unionId},
+			#{nickName}, 
+			#{headImgUrl}, 
+			#{mobile}, 
+			#{name},
+			#{namePinyin},
+			#{idNo}, 
+			#{bankAccount}, 
+			#{bankName},
+            #{signImgPath},
+			#{createUserId}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.tx.entity.TxUserEntity">
+		update tx_user 
+		<set>
+			<if test="merchantNo != null">merchant_no = #{merchantNo}, </if>
+			wechat_id = #{wechatId},
+			union_id = #{unionId},
+			nick_name = #{nickName},
+			head_img_url = #{headImgUrl},
+			<if test="mobile != null">mobile = #{mobile}, </if>
+			<if test="name != null">name = #{name}, </if>
+			<if test="namePinyin != null">name_pinyin = #{namePinyin}, </if>
+			<if test="idNo != null">id_no = #{idNo}, </if>
+			<if test="bankAccount != null">bank_account = #{bankAccount}, </if>
+			<if test="bankName != null">bank_name = #{bankName}, </if>
+            <if test="signImgPath != null">sign_img_path = #{signImgPath}, </if>
+			<if test="createUserId != null">create_user_id = #{createUserId}, </if>
+			<if test="createTime != null">create_time = #{createTime}</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="delete">
+		delete from tx_user where user_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tx_user where user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+
+	<!-- custom query -->
+	<select id="queryByWechatId" resultType="io.grx.modules.tx.entity.TxUserEntity">
+		select * from tx_user where wechat_id = #{wechatId}
+	</select>
+	<select id="queryByUnionId" resultType="io.grx.modules.tx.entity.TxUserEntity">
+		select * from tx_user where union_id = #{unionId}
+	</select>
+	<select id="queryByMobile" resultType="io.grx.modules.tx.entity.TxUserEntity">
+		select * from tx_user where mobile = #{mobile} limit 1
+	</select>
+
+	<select id="queryByBankAccount" resultType="io.grx.modules.tx.entity.TxUserEntity">
+		select * from tx_user where bank_account = #{idNo} limit 1
+	</select>
+	<select id="queryByIdNo" resultType="io.grx.modules.tx.entity.TxUserEntity">
+		select * from tx_user where id_no = #{idNo}
+	</select>
+
+	<select id="getFriendList" resultType="io.grx.modules.tx.entity.TxUserEntity">
+		select * from tx_user where user_id in (select friend_user_id from tx_user_relation where user_id = #{userId})
+		<if test="userName != null and userName != ''">
+			and name like concat('%', #{userName}, '%')
+		</if>
+	</select>
+
+    <select id="queryNonEmptyNameList" resultType="io.grx.modules.tx.entity.TxUserEntity">
+        select * from tx_user where name is not null
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by user_id
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{limit} offset #{offset}
+        </if>
+    </select>
+
+	<select id="getUserListByMerchantNo" resultType="io.grx.modules.tx.entity.TxUserEntity">
+		 SELECT user_id,NAME FROM tx_user where merchant_no = #{merchantNo} and name like concat('%', #{userName}, '%')
+	</select>
+
+    <update id="updateNamePinyin" parameterType="io.grx.modules.tx.entity.TxUserEntity">
+        update tx_user
+        <set>
+            name_pinyin = #{namePinyin}
+        </set>
+        where user_id = #{userId}
+    </update>
+
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.grx.modules.auth.dao.YxReportDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.grx.modules.auth.entity.YxReportEntity" id="yxReportMap">
+        <result property="id" column="id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="userId" column="user_id"/>
+        <result property="taskId" column="task_id"/>
+        <result property="searchId" column="search_id"/>
+        <result property="yiXiangType" column="yi_xiang_type"/>
+        <result property="name" column="name"/>
+        <result property="idNo" column="id_no"/>
+        <result property="mobile" column="mobile"/>
+        <result property="reportJsonPath" column="report_json_path"/>
+        <result property="reportHtmlPath" column="report_html_path"/>
+        <result property="verifyStatus" column="verify_status"/>
+        <result property="isExpired" column="is_expired"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="io.grx.modules.auth.entity.YxReportEntity">
+		select * from yx_report where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.grx.modules.auth.entity.YxReportEntity">
+		select * from yx_report
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{limit} offset #{offset}
+		</if>
+	</select>
+
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from yx_report 
+	</select>
+	 
+	<insert id="save" parameterType="io.grx.modules.auth.entity.YxReportEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into yx_report
+		(
+			merchant_no, 
+			user_id, 
+			task_id, 
+			search_id, 
+			yi_xiang_type, 
+			name, 
+			id_no, 
+			mobile, 
+			report_json_path, 
+			report_html_path, 
+			verify_status, 
+			is_expired, 
+			create_time, 
+			update_time
+		)
+		values
+		(
+			#{merchantNo}, 
+			#{userId}, 
+			#{taskId}, 
+			#{searchId}, 
+			#{yiXiangType}, 
+			#{name}, 
+			#{idNo}, 
+			#{mobile}, 
+			#{reportJsonPath}, 
+			#{reportHtmlPath}, 
+			#{verifyStatus}, 
+			#{isExpired}, 
+			#{createTime}, 
+			#{updateTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.grx.modules.auth.entity.YxReportEntity">
+		update yx_report 
+		<set>
+			<if test="userId != null">user_id = #{userId}, </if>
+			<if test="taskId != null">task_id = #{taskId}, </if>
+			<if test="searchId != null">search_id = #{searchId}, </if>
+			<if test="yiXiangType != null">yi_xiang_type = #{yiXiangType}, </if>
+			<if test="name != null">name = #{name}, </if>
+			<if test="idNo != null">id_no = #{idNo}, </if>
+			<if test="mobile != null">mobile = #{mobile}, </if>
+			<if test="reportJsonPath != null">report_json_path = #{reportJsonPath}, </if>
+			<if test="reportHtmlPath != null">report_html_path = #{reportHtmlPath}, </if>
+			<if test="verifyStatus != null">verify_status = #{verifyStatus}, </if>
+			is_expired = #{isExpired},
+			<if test="createTime != null">create_time = #{createTime}, </if>
+			<if test="updateTime != null">update_time = #{updateTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from yx_report where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from yx_report where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="queryByTaskId" resultType="io.grx.modules.auth.entity.YxReportEntity">
+		select * from yx_report where task_id = #{value}
+	</select>
+
+	<select id="queryLatestByUserId" resultType="io.grx.modules.auth.entity.YxReportEntity">
+		select * from yx_report where user_id = #{userId} and yi_xiang_type = #{type} and verify_status > -1 order by id desc limit 1
+	</select>
+
+	<update id="expireReports">
+		update yx_report set is_expired = 1 where yi_xiang_type = #{type} and is_expired = 0
+		and create_time &lt; date_sub(current_date, INTERVAL #{expiredDay} DAY)
+	</update>
+</mapper>
