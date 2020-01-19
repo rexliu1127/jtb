@@ -10,7 +10,7 @@ spring:
         driverClassName: com.mysql.jdbc.Driver
         druid:
             first:  #数据源1
-                url: jdbc:mysql://gz-cdb-45farkqt.sql.tencentcdb.com:61818/md_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+                url: jdbc:mysql://gz-cdb-45farkqt.sql.tencentcdb.com:61818/md_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
                 username: dev
                 password: dev@grx888#
             second:  #数据源2
